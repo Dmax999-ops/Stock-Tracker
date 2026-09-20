@@ -1,0 +1,53 @@
+name: Daily signals
+
+# Cheap job: refresh only the holdings, classify their state, write signals.json.
+# signals.json is what the dashboard reads and what Claude reads back via
+# raw.githubusercontent.com.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1-5'       # weekdays 06:00 UTC (07:00 UK in summer)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  signals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Compute signals
+        run: |
+          python scripts/daily_signals.py \
+            --holdings config/holdings.yml \
+            --evidence data/state_evidence.json \
+            --out docs/signals.json
+
+      - name: Commit signals
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/signals.json data/signal_history.csv
+          git diff --staged --quiet || git commit -m "signals $(date -u +%Y-%m-%d)"
+          git push
+
+      # Optional: alert only when a holding CHANGES state. Silence by default —
+      # a daily "nothing happened" notification trains you to ignore the one
+      # that matters. Set NTFY_TOPIC in repo secrets to enable.
+      - name: Alert on state change
+        if: ${{ env.NTFY_TOPIC != '' }}
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python scripts/alert.py --signals docs/signals.json
