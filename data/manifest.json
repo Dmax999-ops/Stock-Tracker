@@ -1,0 +1,14 @@
+{
+  "generated": "2026-09-20T22:23:00.284357+00:00",
+  "tickers_requested": 507,
+  "tickers_with_data": 504,
+  "tickers_failed": 3,
+  "rows": 2972691,
+  "date_min": "2000-01-03",
+  "date_max": "2026-09-18",
+  "constituent_sources": {
+    "sp500_current": 503
+  },
+  "likely_delisted": 0,
+  "SURVIVORSHIP_WARNING": "0 of 504 tickers stopped updating and are probably delisted. If that number is near zero, this universe is survivor-only and any dip-buying result from it is optimistic."
+}
