@@ -14,10 +14,20 @@ permissions:
   pages: write
   id-token: write
 
+# Two runs of this job must never overlap — that is what caused the push
+# rejections. Same guard as fetch-universe.yml.
+concurrency:
+  group: daily-signals
+  cancel-in-progress: false
+
 jobs:
   signals:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # Job-level so the step `if` below can see it. The `secrets` context is not
+    # available in a step `if` — that is why the previous version never fired.
+    env:
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
     steps:
       - uses: actions/checkout@v4
 
@@ -35,21 +45,32 @@ jobs:
             --evidence data/state_evidence.json \
             --out docs/signals.json
 
-      - name: Commit
+      - name: Commit signals
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/
-          git diff --staged --quiet && echo "no changes" && exit 0
-          git commit -m "universe refresh $(date -u +%Y-%m-%d)"
-          git pull --rebase origin main
-          git push
+          git add docs/signals.json data/signal_history.csv
+          if git diff --staged --quiet; then
+            echo "no changes to commit"
+            exit 0
+          fi
+          git commit -m "signals $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main || git rebase --abort
+            if git push origin HEAD:main; then
+              echo "pushed on attempt $i"
+              exit 0
+            fi
+            echo "push rejected, retrying ($i/3)"
+            sleep 5
+          done
+          echo "could not push after 3 attempts"
+          exit 1
 
-      # Optional: alert only when a holding CHANGES state. Silence by default —
+      # Optional: alert only when a holding CHANGES state. Silent by default —
       # a daily "nothing happened" notification trains you to ignore the one
       # that matters. Set NTFY_TOPIC in repo secrets to enable.
       - name: Alert on state change
         if: ${{ env.NTFY_TOPIC != '' }}
-        env:
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: python scripts/alert.py --signals docs/signals.json
