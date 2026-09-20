@@ -1,0 +1,70 @@
+name: Fetch delisted
+
+# Builds the survivorship-free archive, 20 tickers at a time.
+#
+# 625 companies left the S&P 500 since 1996. Yahoo serves 115 of them. Alpha
+# Vantage serves most of the rest, but the free tier allows 25 calls a day — so
+# this job takes a bite each morning and remembers where it got to in
+# data/delisted/_worklist.json. The archive completes itself in ~3 weeks.
+#
+# Needs one repository secret: ALPHAVANTAGE_API_KEY.
+# Without it the script exits cleanly and does nothing.
+
+on:
+  schedule:
+    - cron: '30 7 * * *'        # 07:30 UTC daily — after daily-signals at 06:00
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-delisted
+  cancel-in-progress: false
+
+jobs:
+  delisted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch next batch of delisted tickers
+        env:
+          ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
+        run: |
+          python scripts/fetch_delisted.py \
+            --config config/universe.yml \
+            --out data/delisted \
+            --limit 20
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/delisted
+          if git diff --staged --quiet; then
+            echo "no changes to commit"
+            exit 0
+          fi
+          git commit -m "delisted archive $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main || git rebase --abort
+            if git push origin HEAD:main; then
+              echo "pushed on attempt $i"
+              exit 0
+            fi
+            echo "push rejected, retrying ($i/3)"
+            sleep 5
+          done
+          echo "could not push after 3 attempts"
+          exit 1
