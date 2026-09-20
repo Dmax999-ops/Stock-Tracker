@@ -1,36 +1,59 @@
 # Training universe — the stocks used to DISCOVER and VALIDATE signals.
 # Deliberately disjoint from config/holdings.yml.
 
-start: "2000-01-01"
+start: "1996-01-01"
 
 constituent_sources:
+  # ---------------------------------------------------------------------------
+  # HISTORICAL MEMBERSHIP — this is the important one.
+  #
+  # Every ticker that was ever in the S&P 500 since 1996, including the ones that
+  # went to zero. Measured against the current-members-only list:
+  #
+  #     ever in the index      1,128
+  #     still in it today        503
+  #     removed at some point    625   <- 55% of the universe, previously missing
+  #
+  # Among the missing: ENRNQ (Enron), EKDKQ (Kodak), AAMRQ (AMR), DPHIQ (Delphi),
+  # CPNLQ (Calpine), ABKFQ (Ambac), LEHMQ (Lehman). Twenty-eight carry the 'Q'
+  # bankruptcy suffix alone.
+  #
+  # Their absence does not bias results randomly — it biases them in one
+  # direction, and it is precisely the direction that makes buying weakness look
+  # good. Every dip in a survivor-only sample was, by construction, followed by a
+  # recovery.
+  # ---------------------------------------------------------------------------
+  - name: sp500_historical_union
+    url: https://raw.githubusercontent.com/hanshof/sp500_constituents/main/sp_500_historical_components.csv
+    format: historical_union
+
+  # Current members, as a cross-check that the historical file is complete.
   - name: sp500_current
     url: https://raw.githubusercontent.com/datasets/s-and-p-500-companies/main/data/constituents.csv
     column: Symbol
 
-  # ---------------------------------------------------------------------------
-  # ADD HISTORICAL CONSTITUENTS HERE. This is the single most important upgrade
-  # to this file.
-  #
-  # Using only the list above means the universe is every company that was in the
-  # index at the END of the period — i.e. the survivors. Backtests on survivors
-  # flatter every signal, and they flatter dip-buying signals most of all, because
-  # the dips that ended in bankruptcy have been removed from the data.
-  #
-  # Options, cheapest first:
-  #   - a repo tracking S&P 500 membership changes by date (several exist; verify
-  #     before trusting)
-  #   - Wikipedia's "Selected changes to the list" table, parsed into add/remove
-  #     events and replayed backwards
-  #   - Norgate Data (~$500/yr) — includes delisted securities properly
-  #   - CRSP — the academic standard, institutional pricing
-  #
-  # Until one of these is in place, treat every result as an optimistic ceiling.
-  # scripts/fetch_universe.py reports how exposed you are in manifest.json.
-  # ---------------------------------------------------------------------------
-
 extra_tickers:
   - SPY        # benchmark
   - QQQ
-  - IWM        # small caps — closer in character to the AIM holdings
+  - IWM        # small caps — closest in character to the AIM holdings
   - GDX        # gold miners — the FRES comparator
+
+# ---------------------------------------------------------------------------
+# WHAT TO WATCH IN manifest.json AFTER THE RUN
+#
+#   delisted_recovery_rate — what share of the 625 vanished tickers Yahoo actually
+#   served. This is the number that decides how much to trust the results.
+#
+#     > 0.7   usable; state the residual bias and move on
+#     0.3-0.7 partial; dip-buying results still flattered, treat as a ceiling
+#     < 0.3   Yahoo has purged the failures. The only honest fixes are a paid
+#             survivorship-free feed (Norgate ~$500/yr, CRSP) or accepting that
+#             absolute numbers are unusable and only RELATIVE signal rankings
+#             survive — the bias hits every signal roughly equally, so choosing
+#             between signals is still defensible even when the level is not.
+#
+#   recycled_symbols_dropped — tickers whose price history did not overlap the
+#   period they were in the index. 'AL' was Alcan until 2007 and is Air Lease now;
+#   fetching it today returns the wrong company's prices under the right label.
+#   Those are dropped rather than trusted.
+# ---------------------------------------------------------------------------
