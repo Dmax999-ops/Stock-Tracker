@@ -1,14 +1,213 @@
 {
-  "generated": "2026-09-20T22:23:00.284357+00:00",
-  "tickers_requested": 507,
-  "tickers_with_data": 504,
-  "tickers_failed": 3,
-  "rows": 2972691,
-  "date_min": "2000-01-03",
+  "generated": "2026-09-20T22:50:37.350909+00:00",
+  "tickers_requested": 1156,
+  "tickers_with_data": 622,
+  "tickers_failed": 437,
+  "recycled_symbols_dropped": 97,
+  "rows": 4136790,
+  "date_min": "1996-01-02",
   "date_max": "2026-09-18",
   "constituent_sources": {
+    "sp500_historical_union": 1128,
     "sp500_current": 503
   },
-  "likely_delisted": 0,
-  "SURVIVORSHIP_WARNING": "0 of 504 tickers stopped updating and are probably delisted. If that number is near zero, this universe is survivor-only and any dip-buying result from it is optimistic."
+  "universe_ever": 1128,
+  "delisted_sought": 625,
+  "delisted_recovered": 115,
+  "delisted_recovery_rate": 0.184,
+  "SURVIVORSHIP": "Recovered 115 of 625 tickers that left the index. Anything below ~0.7 still flatters dip-buying results, because the companies that fell and never recovered are the ones Yahoo is least likely to serve.",
+  "recycled_examples": [
+    {
+      "ticker": "ABI",
+      "index_window": "1996-01-02..2008-11-20",
+      "data_window": "2025-06-26..2026-09-18",
+      "overlap_days": -6062
+    },
+    {
+      "ticker": "ABX",
+      "index_window": "1996-01-02..2002-07-18",
+      "data_window": "2020-09-14..2026-09-18",
+      "overlap_days": -6633
+    },
+    {
+      "ticker": "ACV",
+      "index_window": "1996-01-02..2006-11-16",
+      "data_window": "2015-05-21..2026-09-18",
+      "overlap_days": -3108
+    },
+    {
+      "ticker": "AM",
+      "index_window": "1996-01-02..2004-04-30",
+      "data_window": "2017-05-04..2026-09-18",
+      "overlap_days": -4752
+    },
+    {
+      "ticker": "AMH",
+      "index_window": "1996-01-02..1997-09-08",
+      "data_window": "2013-08-01..2026-09-18",
+      "overlap_days": -5806
+    },
+    {
+      "ticker": "AR",
+      "index_window": "1996-01-02..1999-10-26",
+      "data_window": "2013-10-10..2026-09-18",
+      "overlap_days": -5098
+    },
+    {
+      "ticker": "AS",
+      "index_window": "1996-01-02..1998-11-23",
+      "data_window": "2024-02-01..2026-09-18",
+      "overlap_days": -9201
+    },
+    {
+      "ticker": "ASC",
+      "index_window": "1996-01-02..1999-06-23",
+      "data_window": "2013-08-01..2026-09-18",
+      "overlap_days": -5153
+    },
+    {
+      "ticker": "BCO",
+      "index_window": "1996-01-02..1996-01-12",
+      "data_window": "1996-01-03..2026-09-18",
+      "overlap_days": 9
+    },
+    {
+      "ticker": "BNL",
+      "index_window": "1996-01-02..1998-06-30",
+      "data_window": "2020-09-17..2026-09-18",
+      "overlap_days": -8115
+    },
+    {
+      "ticker": "BOAT",
+      "index_window": "1996-01-02..1997-01-03",
+      "data_window": "2021-08-04..2026-09-18",
+      "overlap_days": -8979
+    },
+    {
+      "ticker": "BUD",
+      "index_window": "1996-01-02..2008-11-17",
+      "data_window": "2009-07-01..2026-09-18",
+      "overlap_days": -226
+    },
+    {
+      "ticker": "CCB",
+      "index_window": "1996-01-02..1996-02-01",
+      "data_window": "2018-07-19..2026-09-18",
+      "overlap_days": -8204
+    },
+    {
+      "ticker": "CG",
+      "index_window": "1996-01-02..2000-10-30",
+      "data_window": "2012-05-03..2026-09-18",
+      "overlap_days": -4203
+    },
+    {
+      "ticker": "CHA",
+      "index_window": "1996-01-02..2000-06-16",
+      "data_window": "2025-04-17..2026-09-18",
+      "overlap_days": -9071
+    },
+    {
+      "ticker": "CHRS",
+      "index_window": "1996-01-02..1998-04-07",
+      "data_window": "2014-11-06..2026-09-18",
+      "overlap_days": -6057
+    },
+    {
+      "ticker": "COMS",
+      "index_window": "1996-01-02..2000-07-27",
+      "data_window": "2008-08-15..2026-09-18",
+      "overlap_days": -2941
+    },
+    {
+      "ticker": "CR",
+      "index_window": "1996-01-02..2004-12-16",
+      "data_window": "2023-03-29..2026-09-18",
+      "overlap_days": -6677
+    },
+    {
+      "ticker": "DEC",
+      "index_window": "1996-01-02..1998-06-08",
+      "data_window": "2021-01-04..2026-09-18",
+      "overlap_days": -8246
+    },
+    {
+      "ticker": "DIGI",
+      "index_window": "1996-01-02..1998-08-26",
+      "data_window": "2010-05-13..2026-09-18",
+      "overlap_days": -4278
+    },
+    {
+      "ticker": "EC",
+      "index_window": "1996-01-02..2006-06-05",
+      "data_window": "2008-09-18..2026-09-18",
+      "overlap_days": -836
+    },
+    {
+      "ticker": "ECH",
+      "index_window": "1996-01-02..1998-07-09",
+      "data_window": "2007-11-20..2026-09-18",
+      "overlap_days": -3421
+    },
+    {
+      "ticker": "ECO",
+      "index_window": "1996-01-02..1998-01-15",
+      "data_window": "2023-08-14..2026-09-18",
+      "overlap_days": -9342
+    },
+    {
+      "ticker": "EFU",
+      "index_window": "1996-01-02..2000-10-30",
+      "data_window": "2007-10-25..2026-09-18",
+      "overlap_days": -2551
+    },
+    {
+      "ticker": "ENS",
+      "index_window": "1996-01-02..1997-08-05",
+      "data_window": "2004-08-02..2026-09-18",
+      "overlap_days": -2554
+    }
+  ],
+  "failed_examples": [
+    "AAMRQ",
+    "ABC",
+    "ABKFQ",
+    "ABMD",
+    "ABS",
+    "ACAS",
+    "ACKH",
+    "ACS",
+    "ADS",
+    "AET",
+    "AFS.A",
+    "AGC",
+    "AHM",
+    "AL",
+    "ALXN",
+    "AMCC",
+    "ANDV",
+    "ANDW",
+    "ANSS",
+    "ANTM",
+    "ANV",
+    "APC",
+    "APCC",
+    "APOL",
+    "ARC",
+    "ARG",
+    "ASN",
+    "AT",
+    "ATGE",
+    "ATVI",
+    "AV",
+    "AVB",
+    "AVP",
+    "AW",
+    "AWE",
+    "AYE",
+    "AZA.A",
+    "BAY",
+    "BBBY",
+    "BBI"
+  ]
 }
