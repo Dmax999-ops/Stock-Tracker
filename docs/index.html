@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio Signals</title>
+<style>
+  :root{
+    --bg:#fbfaf8; --surface:#fff; --line:#e6e2dc; --ink:#1c1b19; --muted:#6b665e;
+    --buy:#1f6f43; --buy-bg:#e8f3ec; --reduce:#9c3328; --reduce-bg:#fbecea;
+    --watch:#8a6314; --watch-bg:#fbf2e0; --hold:#55514a; --hold-bg:#f1efec;
+  }
+  :root:not([data-theme="light"]){ @media (prefers-color-scheme:dark){
+    --bg:#161513; --surface:#1f1e1b; --line:#333029; --ink:#f0ece5; --muted:#a19a8e;
+    --buy:#6cc08b; --buy-bg:#16301f; --reduce:#e08a7e; --reduce-bg:#331a16;
+    --watch:#d9b164; --watch-bg:#322715; --hold:#a19a8e; --hold-bg:#26241f;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#161513; --surface:#1f1e1b; --line:#333029; --ink:#f0ece5; --muted:#a19a8e;
+    --buy:#6cc08b; --buy-bg:#16301f; --reduce:#e08a7e; --reduce-bg:#331a16;
+    --watch:#d9b164; --watch-bg:#322715; --hold:#a19a8e; --hold-bg:#26241f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .wrap{max-width:900px;margin:0 auto;padding:40px 16px 80px}
+  h1{font-size:1.5rem;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:.875rem;margin-bottom:28px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;margin-bottom:8px;display:grid;
+    grid-template-columns:1fr auto;gap:10px;align-items:center}
+  .tk{font-weight:600;font-variant-numeric:tabular-nums}
+  .nm{color:var(--muted);font-size:.8rem}
+  .meta{color:var(--muted);font-size:.78rem;margin-top:5px;
+    font-variant-numeric:tabular-nums}
+  .right{text-align:right}
+  .badge{display:inline-block;padding:3px 10px;border-radius:999px;
+    font-size:.72rem;font-weight:650;letter-spacing:.03em;text-transform:uppercase}
+  .BUY{color:var(--buy);background:var(--buy-bg)}
+  .REDUCE{color:var(--reduce);background:var(--reduce-bg)}
+  .WATCH{color:var(--watch);background:var(--watch-bg)}
+  .HOLD{color:var(--hold);background:var(--hold-bg)}
+  .price{font-size:1.05rem;font-weight:600;font-variant-numeric:tabular-nums;
+    margin-top:5px}
+  .state{font-size:.74rem;color:var(--muted);margin-top:3px}
+  .chg{border-left:3px solid var(--watch)}
+  .note{margin-top:28px;padding:14px 16px;border:1px solid var(--line);
+    border-radius:10px;background:var(--surface);color:var(--muted);font-size:.8rem}
+  .note b{color:var(--ink)}
+  @media(max-width:520px){.card{grid-template-columns:1fr}.right{text-align:left}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Portfolio Signals</h1>
+  <div class="sub" id="stamp">loading…</div>
+  <div id="list"></div>
+  <div class="note">
+    <b>Two states carry statistical weight</b> — CAPITULATION (buy, t=+4.35) and
+    TOPPING (reduce, t=−3.82). STRONG, STEADY, COOLING and FALLING tested as noise
+    and are shown for monitoring only.
+    <br><br>
+    CAPITULATION marks <b>territory, not timing</b>: median signal fires ~7 weeks
+    before the low with ~12% further downside. Ladder in over three tranches.
+    <br><br>
+    Trained on survivor-only data, so dip-buying results are an optimistic ceiling.
+    Signals, not advice.
+  </div>
+</div>
+<script>
+const ORDER = {BUY:0, REDUCE:1, WATCH:2, HOLD:3};
+fetch('signals.json?' + Date.now())
+  .then(r => r.json())
+  .then(d => {
+    const when = new Date(d.generated);
+    document.getElementById('stamp').textContent =
+      'Updated ' + when.toLocaleString(undefined,
+        {dateStyle:'medium', timeStyle:'short'}) +
+      (d.changes_today && d.changes_today.length
+        ? ' · ' + d.changes_today.length + ' state change(s)'
+        : ' · no state changes');
+
+    const rows = (d.holdings || []).slice().sort(
+      (a,b) => (ORDER[a.action] ?? 9) - (ORDER[b.action] ?? 9));
+
+    document.getElementById('list').innerHTML = rows.map(h => {
+      const cur = h.currency === 'GBX' ? 'p' : '$';
+      const px  = h.price != null
+        ? (h.currency === 'GBX' ? cur + h.price.toFixed(1)
+                                : cur + h.price.toFixed(2)) : '—';
+      const hi  = h.from_52w_high != null
+        ? (h.from_52w_high*100).toFixed(1) + '% from 52w high' : '';
+      const wt  = h.target_weight != null
+        ? ' · target ' + (h.target_weight*100).toFixed(0) + '%' : '';
+      return `<div class="card ${h.changed_today ? 'chg' : ''}">
+        <div>
+          <div class="tk">${h.ticker}</div>
+          <div class="nm">${h.name || ''}</div>
+          <div class="meta">${hi}${wt}</div>
+        </div>
+        <div class="right">
+          <span class="badge ${h.action}">${h.action}</span>
+          <div class="price">${px}</div>
+          <div class="state">${h.state || ''}</div>
+        </div>
+      </div>`;
+    }).join('');
+  })
+  .catch(e => {
+    document.getElementById('stamp').textContent =
+      'Could not load signals.json — has the workflow run yet?';
+    console.error(e);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+# Training universe — the stocks used to DISCOVER and VALIDATE signals.
+# Deliberately disjoint from config/holdings.yml.
+
+start: "2000-01-01"
+
+constituent_sources:
+  - name: sp500_current
+    url: https://raw.githubusercontent.com/datasets/s-and-p-500-companies/main/data/constituents.csv
+    column: Symbol
+
+  # ---------------------------------------------------------------------------
+  # ADD HISTORICAL CONSTITUENTS HERE. This is the single most important upgrade
+  # to this file.
+  #
+  # Using only the list above means the universe is every company that was in the
+  # index at the END of the period — i.e. the survivors. Backtests on survivors
+  # flatter every signal, and they flatter dip-buying signals most of all, because
+  # the dips that ended in bankruptcy have been removed from the data.
+  #
+  # Options, cheapest first:
+  #   - a repo tracking S&P 500 membership changes by date (several exist; verify
+  #     before trusting)
+  #   - Wikipedia's "Selected changes to the list" table, parsed into add/remove
+  #     events and replayed backwards
+  #   - Norgate Data (~$500/yr) — includes delisted securities properly
+  #   - CRSP — the academic standard, institutional pricing
+  #
+  # Until one of these is in place, treat every result as an optimistic ceiling.
+  # scripts/fetch_universe.py reports how exposed you are in manifest.json.
+  # ---------------------------------------------------------------------------
+
+extra_tickers:
+  - SPY        # benchmark
+  - QQQ
+  - IWM        # small caps — closer in character to the AIM holdings
+  - GDX        # gold miners — the FRES comparator
