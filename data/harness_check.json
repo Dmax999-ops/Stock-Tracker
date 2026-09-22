@@ -1,0 +1,63 @@
+{
+  "generated": "2026-09-22T22:28:39.398013+00:00",
+  "env": {
+    "pandas": "3.0.6",
+    "numpy": "2.4.6",
+    "python": "3.11.16"
+  },
+  "seed": 20260922,
+  "horizon_weeks": 12,
+  "events": 50423,
+  "momentum_ic": 0.01002686814531377,
+  "momentum_ic_t": 0.9316553808893517,
+  "momentum_ic_weeks": 1117,
+  "results": {
+    "ear_within": {
+      "label": "ear_within",
+      "events": 45699,
+      "weeks": 714,
+      "buy_minus_sell": -0.0010238665853424497,
+      "t": -0.29199706983596624,
+      "buy_hit_rate": 0.46147354754949693,
+      "buy_mean": -0.005985862547086851,
+      "sell_mean": -0.0035618350202768247,
+      "mid_mean": -0.003866195782814898
+    },
+    "mom_within": {
+      "label": "mom_within",
+      "events": 45190,
+      "weeks": 546,
+      "buy_minus_sell": 0.0065444830240958185,
+      "t": 1.2018559361643455,
+      "buy_hit_rate": 0.46577868852459015,
+      "buy_mean": -0.0006758347308955555,
+      "sell_mean": -0.006874347720903626,
+      "mid_mean": -0.0063882154820673
+    },
+    "mom_cross": {
+      "label": "mom_cross",
+      "events": 49906,
+      "weeks": 767,
+      "buy_minus_sell": -0.0020753911828826927,
+      "t": -0.41947646049710957,
+      "buy_hit_rate": 0.4632159264931087,
+      "buy_mean": -0.0031021654771866353,
+      "sell_mean": -0.002873289145427619,
+      "mid_mean": -0.0063167154175031055
+    },
+    "random": {
+      "label": "random",
+      "events": 45699,
+      "weeks": 712,
+      "buy_minus_sell": 0.007862515352329184,
+      "t": 1.5164500511090013,
+      "buy_hit_rate": 0.46447947916001786,
+      "buy_mean": -0.0025373341164878637,
+      "sell_mean": -0.005663023400193068,
+      "mid_mean": -0.00528157462711931
+    }
+  },
+  "momentum_detected": false,
+  "random_flat": true,
+  "verdict": "HARNESS INSENSITIVE \u2014 it cannot see a known effect. Every null it has produced, including the results-week signal, is unproven. Debug the pipeline before concluding anything."
+}
