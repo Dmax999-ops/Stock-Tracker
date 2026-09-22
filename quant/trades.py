@@ -44,9 +44,15 @@ def atr(df: pd.DataFrame, n: int = 14) -> pd.Series:
     return tr.ewm(alpha=1 / n, adjust=False, min_periods=n).mean()
 
 
+MIN_RISK_PCT = 0.005     # a stop closer than 0.5% of price is not a real stop
+MIN_PRICE = 1.00         # below this, spreads and tick size dominate everything
+R_CLIP = 10.0            # no single trade may dominate the average
+
+
 def simulate(df: pd.DataFrame, entries: pd.Series, *, k_stop: float,
              k_trail: float, max_hold: int, direction: int = 1,
-             cost_pct: float = 0.0) -> pd.DataFrame:
+             cost_pct: float = 0.0, min_risk_pct: float = MIN_RISK_PCT,
+             min_price: float = MIN_PRICE) -> pd.DataFrame:
     """
     Walk one instrument and turn entry flags into trades.
 
@@ -79,6 +85,19 @@ def simulate(df: pd.DataFrame, entries: pd.Series, *, k_stop: float,
             continue
 
         risk = k_stop * a[i]                      # one R, in price terms
+
+        # THE GUARD THAT THIS FILE ORIGINALLY LACKED.
+        # R is net return divided by risk-as-a-fraction-of-price. On a stock
+        # that has gone stale -- a delisted shell, a suspended line, a penny
+        # stock printing the same price for weeks -- ATR collapses toward zero
+        # and that division explodes: a 10bp cost against a 0.001% stop reads as
+        # a 100R loss. Real breakout signals need movement so they rarely land
+        # on such bars, but RANDOM entries land on them constantly, which is how
+        # the control column filled up with values in the millions.
+        if entry < min_price or risk / entry < min_risk_pct:
+            i += 1
+            continue
+
         stop = entry - direction * risk
         best = entry                              # best close seen so far
         exit_i, exit_px, reason = None, None, None
@@ -106,8 +125,10 @@ def simulate(df: pd.DataFrame, entries: pd.Series, *, k_stop: float,
 
         gross = direction * (exit_px - entry) / entry
         net = gross - cost_pct
-        r_mult = net * entry / risk               # net return expressed in R
+        r_raw = net * entry / risk                # net return expressed in R
+        r_mult = float(np.clip(r_raw, -R_CLIP, R_CLIP))
         trades.append({
+            "R_raw": r_raw, "clipped": bool(r_mult != r_raw),
             "entry_date": dates[entry_i], "exit_date": dates[exit_i],
             "bars": int(exit_i - entry_i), "entry": entry, "exit": exit_px,
             "gross_pct": gross, "net_pct": net, "R": r_mult, "reason": reason,
@@ -140,4 +161,5 @@ def stats(t: pd.DataFrame) -> dict:
         "pct_stopped": float((t.reason.isin(["stop", "gap"])).mean()),
         "pct_gapped_through": float((t.reason == "gap").mean()),
         "avg_net_pct": float(t.net_pct.mean()),
+        "pct_clipped": float(t["clipped"].mean()) if "clipped" in t else 0.0,
     }
