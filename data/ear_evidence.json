@@ -1,0 +1,43 @@
+{
+  "generated": "2026-09-22T21:13:01.138430+00:00",
+  "horizon_weeks": 12,
+  "pass_mark": {
+    "min_t": 2.5,
+    "min_hit": 0.55,
+    "both_halves_positive": true
+  },
+  "full": {
+    "label": "FULL SAMPLE",
+    "events": 45699,
+    "weeks": 717,
+    "buy_minus_sell": -0.0009622129720366127,
+    "t": -0.27395677473930413,
+    "buy_hit_rate": 0.46134873758681116,
+    "buy_mean": -0.00604295827690974,
+    "sell_mean": -0.0036598442040772553,
+    "mid_mean": -0.003801572946401927
+  },
+  "first_half": {
+    "label": "first half (to 2017-01-27)",
+    "events": 22850,
+    "weeks": 380,
+    "buy_minus_sell": -0.006010285387616874,
+    "t": -1.1676959262275712,
+    "buy_hit_rate": 0.46826441927837764,
+    "buy_mean": -0.0054119954750369344,
+    "sell_mean": -0.0022416257314301987,
+    "mid_mean": -0.004019348923251381
+  },
+  "second_half": {
+    "label": "second half",
+    "events": 22849,
+    "weeks": 337,
+    "buy_minus_sell": 0.0047299755084396445,
+    "t": 1.0072641708419294,
+    "buy_hit_rate": 0.4546269038781518,
+    "buy_mean": -0.006656235061425558,
+    "sell_mean": -0.005006430397587774,
+    "mid_mean": -0.0035623899417460943
+  },
+  "passed": false
+}

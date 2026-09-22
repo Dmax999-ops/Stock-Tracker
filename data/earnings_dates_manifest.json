@@ -1,0 +1,10 @@
+{
+  "generated": "2026-09-22T21:10:01.046049+00:00",
+  "tickers_with_announcements": 644,
+  "announcements": 53153,
+  "date_min": "2004-08-24",
+  "date_max": "2026-09-22",
+  "universe_size": 1132,
+  "no_cik_match": 459,
+  "SOURCE": "SEC EDGAR 8-K item 2.02 (Results of Operations). Filing date is the announcement date. Item numbering starts 2001, so earlier results are not covered."
+}
