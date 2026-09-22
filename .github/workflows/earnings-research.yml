@@ -1,0 +1,94 @@
+name: Earnings research
+
+# Two jobs in sequence:
+#   1. pull every US earnings announcement date from SEC EDGAR (free, no API key,
+#      no daily cap -- unlike Alpha Vantage, which would take six months)
+#   2. test whether the results-week reaction predicts the next three months,
+#      on ~600 stocks we do not own
+#
+# Needs one repository VARIABLE (not a secret -- it is not confidential):
+#   SEC_USER_AGENT = "Your Name your@email.com"
+# SEC requires a contact in the User-Agent. Without it the script refuses to run.
+#
+# The first run fetches the whole universe and takes 30-60 minutes. Later runs
+# only fetch tickers missing from data/earnings_dates.csv, so they finish fast.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Max tickers this run (0 = all remaining)'
+        required: false
+        default: '0'
+  schedule:
+    - cron: '0 8 * * 0'        # Sundays, to pick up the week's new announcements
+
+permissions:
+  contents: write
+
+concurrency:
+  group: earnings-research
+  cancel-in-progress: false
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch announcement dates from SEC EDGAR
+        env:
+          SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT }}
+        run: |
+          python scripts/fetch_earnings_dates.py \
+            --config config/universe.yml \
+            --out data \
+            --limit ${{ github.event.inputs.limit || 0 }}
+
+      # prices.parquet is ~80MB, so it is not committed to the repo -- it is
+      # rebuilt in the runner whenever a job needs it.
+      - name: Rebuild price panel if absent
+        run: |
+          if [ ! -f data/prices.parquet ]; then
+            python scripts/fetch_universe.py --config config/universe.yml --out data/
+          fi
+
+      - name: Test the results-week signal
+        run: |
+          python scripts/test_ear.py \
+            --prices data/prices.parquet \
+            --dates data/earnings_dates.csv \
+            --out data/ear_evidence.json
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/earnings_dates.csv data/earnings_dates_manifest.json \
+                  data/ear_evidence.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "no changes to commit"
+            exit 0
+          fi
+          git commit -m "earnings research $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main || git rebase --abort
+            if git push origin HEAD:main; then
+              echo "pushed on attempt $i"
+              exit 0
+            fi
+            echo "push rejected, retrying ($i/3)"
+            sleep 5
+          done
+          echo "could not push after 3 attempts"
+          exit 1
