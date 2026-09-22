@@ -69,7 +69,11 @@ jobs:
             --dates data/earnings_dates.csv \
             --out data/ear_evidence.json
 
+      # always(): the EDGAR fetch is the expensive part (~9 minutes). The first
+      # run lost all of it because a later step failed before the commit ran.
+      # Save what was gathered whatever happens downstream.
       - name: Commit
+        if: always()
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
