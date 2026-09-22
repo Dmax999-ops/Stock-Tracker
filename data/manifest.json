@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-22T23:03:07.387209+00:00",
+  "generated": "2026-09-22T23:13:14.648160+00:00",
   "tickers_requested": 1158,
-  "tickers_with_data": 623,
-  "tickers_failed": 438,
+  "tickers_with_data": 624,
+  "tickers_failed": 437,
   "recycled_symbols_dropped": 97,
-  "rows": 4137554,
+  "rows": 4142841,
   "date_min": "1996-01-02",
   "date_max": "2026-09-22",
   "constituent_sources": {
@@ -185,7 +185,6 @@
     "AL",
     "ALXN",
     "AMCC",
-    "AMP",
     "ANDV",
     "ANDW",
     "ANSS",
@@ -208,6 +207,7 @@
     "AYE",
     "AZA.A",
     "BAY",
-    "BBBY"
+    "BBBY",
+    "BBI"
   ]
 }
