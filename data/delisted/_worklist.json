@@ -39,24 +39,24 @@
     "symbol_used": "AAP"
   },
   "ABC": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "2001-08-30..2023-09-01",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "status": "empty"
   },
   "ABI": {
-    "attempts": 2,
-    "data_window": "2025-07-03..2026-09-18",
+    "attempts": 3,
+    "data_window": "2025-07-03..2026-09-21",
     "index_window": "1996-01-02..2008-11-20",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "overlap_days": -6069,
     "status": "recycled"
   },
   "ABKFQ": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2010-11-19..2013-10-17",
     "index_window": "2000-12-11..2008-06-10",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "overlap_days": -892,
     "status": "recycled"
   },
@@ -74,16 +74,16 @@
     "symbol_used": "ABMD"
   },
   "ABS": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "1996-01-02..2006-05-31",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "status": "empty"
   },
   "ABX": {
-    "attempts": 2,
-    "data_window": "2020-09-25..2026-09-18",
+    "attempts": 3,
+    "data_window": "2020-09-25..2026-09-21",
     "index_window": "1996-01-02..2002-07-18",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "overlap_days": -6644,
     "status": "recycled"
   },
@@ -101,39 +101,39 @@
     "symbol_used": "ACAS"
   },
   "ACKH": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "1996-01-02..2000-11-08",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "status": "empty"
   },
   "ACS": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2010-02-12..2011-02-14",
     "index_window": "2004-04-02..2010-02-02",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "overlap_days": -10,
     "status": "recycled"
   },
   "ACV": {
-    "attempts": 2,
-    "data_window": "2015-05-29..2026-09-18",
+    "attempts": 3,
+    "data_window": "2015-05-29..2026-09-21",
     "index_window": "1996-01-02..2006-11-16",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "overlap_days": -3116,
     "status": "recycled"
   },
   "ADCT": {
-    "attempts": 2,
-    "data_window": "2020-05-22..2026-09-18",
+    "attempts": 3,
+    "data_window": "2020-05-22..2026-09-21",
     "index_window": "1999-08-02..2007-06-26",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "overlap_days": -4714,
     "status": "recycled"
   },
   "ADS": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "2013-12-23..2020-05-22",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "status": "empty"
   },
   "AET": {
@@ -150,30 +150,30 @@
     "symbol_used": "AET"
   },
   "AFS.A": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "1998-04-08..2000-11-29",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "status": "empty"
   },
   "AGC": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2007-06-01..2018-08-24",
     "index_window": "1996-01-02..2001-08-20",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "overlap_days": -2111,
     "status": "recycled"
   },
   "AHM": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "1996-01-02..1998-09-30",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "status": "empty"
   },
   "AIT": {
-    "attempts": 2,
-    "data_window": "1999-11-12..2026-09-18",
+    "attempts": 3,
+    "data_window": "1999-11-12..2026-09-21",
     "index_window": "1996-01-02..1999-10-07",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "overlap_days": -36,
     "status": "recycled"
   },
@@ -191,10 +191,10 @@
     "symbol_used": "AIV"
   },
   "AL": {
-    "attempts": 1,
-    "data_window": "2011-04-29..2026-09-18",
+    "attempts": 2,
+    "data_window": "2011-04-29..2026-09-21",
     "index_window": "1996-01-02..2002-07-18",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "overlap_days": -3207,
     "status": "recycled"
   },
@@ -225,10 +225,10 @@
     "symbol_used": "ALXN"
   },
   "AM": {
-    "attempts": 1,
-    "data_window": "2014-11-14..2026-09-18",
+    "attempts": 2,
+    "data_window": "2014-11-14..2026-09-21",
     "index_window": "1996-01-02..2004-04-30",
-    "last_try": "2026-09-21",
+    "last_try": "2026-09-22",
     "overlap_days": -3850,
     "status": "recycled"
   },
@@ -244,5 +244,47 @@
     "rows": 839,
     "status": "done",
     "symbol_used": "AMCC"
+  },
+  "AMG": {
+    "attempts": 1,
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0259,
+    "first": "1999-11-12",
+    "index_window": "2014-07-01..2019-12-10",
+    "last": "2026-09-21",
+    "last_try": "2026-09-22",
+    "rows": 1403,
+    "status": "done",
+    "symbol_used": "AMG"
+  },
+  "AMH": {
+    "attempts": 1,
+    "data_window": "2013-08-09..2026-09-21",
+    "index_window": "1996-01-02..1997-09-08",
+    "last_try": "2026-09-22",
+    "overlap_days": -5814,
+    "status": "recycled"
+  },
+  "AMTM": {
+    "attempts": 1,
+    "data_window": "2024-10-04..2026-09-21",
+    "index_window": "2024-10-01..2024-12-25",
+    "last_try": "2026-09-22",
+    "overlap_days": 82,
+    "status": "recycled"
+  },
+  "AN": {
+    "attempts": 1,
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.256,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..2017-08-07",
+    "last": "2026-09-21",
+    "last_try": "2026-09-22",
+    "rows": 1403,
+    "status": "done",
+    "symbol_used": "AN"
   }
 }
