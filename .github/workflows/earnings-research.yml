@@ -83,6 +83,15 @@ jobs:
       # always(): the EDGAR fetch is the expensive part (~9 minutes). The first
       # run lost all of it because a later step failed before the commit ran.
       # Save what was gathered whatever happens downstream.
+      # Independent implementation, textbook construction, non-overlapping holds.
+      # Its job is to say how large an effect this dataset could detect at all.
+      - name: Momentum control and power check
+        if: always()
+        run: |
+          python scripts/momentum_control.py \
+            --prices data/prices.parquet \
+            --out data/momentum_control.json
+
       - name: Commit
         if: always()
         run: |
