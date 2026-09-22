@@ -77,8 +77,11 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/earnings_dates.csv data/earnings_dates_manifest.json \
-                  data/ear_evidence.json 2>/dev/null || true
+          # Stage ALL of data/. Staging only three named files left
+          # data/manifest.json modified-but-unstaged (the price rebuild rewrites
+          # it), and git refuses to rebase with unstaged changes. .gitignore
+          # keeps the 80MB parquet out.
+          git add -A data/
           if git diff --staged --quiet; then
             echo "no changes to commit"
             exit 0
@@ -86,7 +89,10 @@ jobs:
           git commit -m "earnings research $(date -u +%Y-%m-%d)"
           for i in 1 2 3; do
             git fetch origin main
-            git rebase origin/main || git rebase --abort
+            # --autostash handles a dirty tree; the trailing || true stops a
+            # failed --abort ("No rebase in progress", exit 128) from killing
+            # the step, which is exactly how run #2 died.
+            git rebase --autostash origin/main || git rebase --abort || true
             if git push origin HEAD:main; then
               echo "pushed on attempt $i"
               exit 0
