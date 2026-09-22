@@ -44,6 +44,15 @@ jobs:
             --prices data/prices.parquet \
             --out data/setup_evidence.json
 
+      # If the exits carry the strategy, are the exits tunable? Fit on 2004-2014,
+      # measure on 2015-2026, and report whether the ranking survived at all.
+      - name: Exit policy study
+        if: always()
+        run: |
+          python scripts/test_exits.py \
+            --prices data/prices.parquet \
+            --out data/exit_evidence.json
+
       - name: Commit
         if: always()
         run: |
