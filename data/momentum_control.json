@@ -1,0 +1,36 @@
+{
+  "generated": "2026-09-22T22:40:33.526360+00:00",
+  "env": {
+    "pandas": "3.0.6",
+    "numpy": "2.4.6",
+    "python": "3.11.16"
+  },
+  "spec": {
+    "lookback_weeks": 52,
+    "skip_weeks": 4,
+    "hold_weeks": 4,
+    "buckets": 5,
+    "overlapping": false
+  },
+  "result": {
+    "periods": 387,
+    "hold_weeks": 4,
+    "spread_per_period": 0.0018512247798352594,
+    "spread_annualised": 0.02406592213785837,
+    "t": 0.5790262682716651,
+    "periods_positive": 0.5710594315245479,
+    "top_quintile_rel": 0.0037506322207423123,
+    "bottom_quintile_rel": 0.0020261307851067926,
+    "top_beats_peer_mean": 0.4916136215117264,
+    "top_beats_peer_median": 0.5076360820001452,
+    "ic_mean": 0.016574584608341124,
+    "ic_t": 1.694343202631012,
+    "ic_periods": 387,
+    "spread_sd_per_period": 0.06289503613369103,
+    "min_detectable_per_period": 0.006394268727603596,
+    "min_detectable_annualised": 0.08312549345884675
+  },
+  "momentum_detected": false,
+  "underpowered": true,
+  "verdict": "UNDERPOWERED \u2014 momentum shows the right sign and roughly the published size, but this sample cannot prove anything smaller than +8.3%/yr. Every null found here means 'no LARGE effect', not 'no effect'. More history or a wider universe is the fix, not more signals."
+}
