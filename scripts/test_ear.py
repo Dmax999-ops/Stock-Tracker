@@ -35,7 +35,20 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from scipy import stats
+
+# No scipy. It is not in requirements.txt and the runner does not have it -- the
+# first run of this script died on the import after the 9-minute EDGAR fetch had
+# already succeeded. A one-sample t-statistic is three lines of arithmetic.
+
+
+def t_stat(x: np.ndarray) -> float:
+    """One-sample t against zero."""
+    x = np.asarray(x, dtype=float)
+    x = x[np.isfinite(x)]
+    if len(x) < 3:
+        return float("nan")
+    sd = x.std(ddof=1)
+    return float("nan") if sd == 0 else float(x.mean() / (sd / np.sqrt(len(x))))
 
 H = 12            # weeks held
 MIN_HISTORY = 8   # a stock needs 8 prior announcements before it can be ranked
@@ -113,6 +126,11 @@ def weekly_spread(e: pd.DataFrame) -> pd.Series:
     counting each event separately would treat one market move as many.
     """
     g = e.groupby(["week", "bucket"])["drift"].agg(["mean", "size"]).unstack()
+    # A slice of the data can contain no BUY or no SELL week at all, in which case
+    # that column simply is not there. Missing means "no usable weeks", not a crash.
+    for col in [("size", "BUY"), ("size", "SELL"), ("mean", "BUY"), ("mean", "SELL")]:
+        if col not in g.columns:
+            return pd.Series(dtype=float)
     ok = ((g[("size", "BUY")] >= MIN_PER_BUCKET)
           & (g[("size", "SELL")] >= MIN_PER_BUCKET))
     return (g[("mean", "BUY")] - g[("mean", "SELL")])[ok].dropna()
@@ -120,15 +138,16 @@ def weekly_spread(e: pd.DataFrame) -> pd.Series:
 
 def report(e: pd.DataFrame, label: str) -> dict:
     sp = weekly_spread(e)
-    t, p = stats.ttest_1samp(sp, 0.0) if len(sp) > 2 else (np.nan, np.nan)
     buy = e[e.bucket == "BUY"].drift
-    hit = float((buy > 0).mean()) if len(buy) else np.nan
+    sell = e[e.bucket == "SELL"].drift
+    mid = e[e.bucket == "MID"].drift
+    hit = float((buy > 0).mean()) if len(buy) else float("nan")
     r = {"label": label, "events": int(len(e)), "weeks": int(len(sp)),
-         "buy_minus_sell": float(sp.mean()), "t": float(t), "p": float(p),
-         "buy_hit_rate": hit,
-         "buy_mean": float(buy.mean()) if len(buy) else np.nan,
-         "sell_mean": float(e[e.bucket == "SELL"].drift.mean()),
-         "mid_mean": float(e[e.bucket == "MID"].drift.mean())}
+         "buy_minus_sell": float(sp.mean()) if len(sp) else float("nan"),
+         "t": t_stat(sp.values), "buy_hit_rate": hit,
+         "buy_mean": float(buy.mean()) if len(buy) else float("nan"),
+         "sell_mean": float(sell.mean()) if len(sell) else float("nan"),
+         "mid_mean": float(mid.mean()) if len(mid) else float("nan")}
     print(f"\n=== {label}")
     print(f"  events {r['events']:,}  calendar weeks {r['weeks']:,}")
     print(f"  BUY {r['buy_mean']:+.2%}   MID {r['mid_mean']:+.2%}   "
