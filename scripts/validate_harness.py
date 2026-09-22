@@ -110,6 +110,22 @@ def build_signals(px_w: pd.DataFrame, ann: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows).sort_values(["ticker", "week"])
 
 
+def spearman_by_week(e: pd.DataFrame, a: str, b: str) -> pd.Series:
+    """Per-week Spearman correlation, computed with group means only."""
+    d = e.dropna(subset=[a, b]).copy()
+    if d.empty:
+        return pd.Series(dtype=float)
+    g = d.groupby("week")
+    ra, rb = g[a].rank(), g[b].rank()
+    ca = ra - ra.groupby(d["week"]).transform("mean")
+    cb = rb - rb.groupby(d["week"]).transform("mean")
+    cov = (ca * cb).groupby(d["week"]).mean()
+    sa = (ca ** 2).groupby(d["week"]).mean() ** 0.5
+    sb = (cb ** 2).groupby(d["week"]).mean() ** 0.5
+    denom = (sa * sb).replace(0, np.nan)
+    return (cov / denom).dropna()
+
+
 def bucket_within(e: pd.DataFrame, col: str) -> pd.DataFrame:
     """Rank against the stock's own past — the treatment EAR received."""
     # Keep only the columns the ranker needs. Renaming onto "ear" while the real
@@ -134,6 +150,29 @@ def main() -> int:
     ap.add_argument("--out", default="data/harness_check.json")
     a = ap.parse_args()
 
+    # The runner's log is awkward to read from outside GitHub, so anything that
+    # goes wrong is written into the output file instead -- a crash that leaves
+    # no trace in the repo costs another round trip to diagnose.
+    out = Path(a.out)
+    env = {"pandas": pd.__version__, "numpy": np.__version__,
+           "python": sys.version.split()[0]}
+    print("versions:", env)
+
+    try:
+        return run(a, env, out)
+    except Exception as exc:                                     # noqa: BLE001
+        import traceback
+        tb = traceback.format_exc()
+        print(tb, file=sys.stderr)
+        out.write_text(json.dumps(
+            {"generated": pd.Timestamp.now("UTC").isoformat(), "env": env,
+             "verdict": "CRASHED — see error below. No conclusion.",
+             "error": f"{type(exc).__name__}: {exc}",
+             "traceback": tb.splitlines()[-25:]}, indent=2))
+        return 1
+
+
+def run(a, env: dict, out: Path) -> int:
     px = pd.read_parquet(a.prices)
     ann = pd.read_csv(a.dates)
     e = build_signals(T.weekly(px), ann)
@@ -141,30 +180,46 @@ def main() -> int:
           f"{e.week.min().date()} to {e.week.max().date()}")
 
     # Reference number, independent of the event structure: the rank correlation
-    # between momentum and the next 12 weeks, across the whole panel. Published
-    # values sit around 0.02-0.04.
-    ic = (e.dropna(subset=["mom"]).groupby("week")
-           .apply(lambda g: g["mom"].corr(g["drift"], method="spearman"),
-                  include_groups=False).dropna())
+    # between momentum and the next 12 weeks, week by week. Published values sit
+    # around 0.02-0.04.
+    #
+    # Built from transforms and group means rather than groupby.apply -- the
+    # apply/include_groups API has shifted across pandas versions and this script
+    # has to run on whatever the runner installs, not on my sandbox's build.
+    ic = spearman_by_week(e, "mom", "drift")
     print(f"momentum IC vs 12-week drift: mean {ic.mean():+.4f}  "
           f"(t {T.t_stat(ic.values):+.2f} across {len(ic)} weeks)")
 
     results = {}
-    for name, frame in [
-        ("ear_within", bucket_within(e, "ear")),
-        ("mom_within", bucket_within(e.dropna(subset=["mom"]), "mom")),
-        ("mom_cross", bucket_cross(e, "mom_pct")),
-        ("random", bucket_within(e, "rand")),
+    for name, fn in [
+        ("ear_within", lambda: bucket_within(e, "ear")),
+        ("mom_within", lambda: bucket_within(e, "mom")),
+        ("mom_cross", lambda: bucket_cross(e, "mom_pct")),
+        ("random", lambda: bucket_within(e, "rand")),
     ]:
-        results[name] = T.report(frame, name)
+        # One signal falling over should not cost us the other three.
+        try:
+            results[name] = T.report(fn(), name)
+        except Exception as exc:                                 # noqa: BLE001
+            print(f"\n=== {name}\n  FAILED: {type(exc).__name__}: {exc}")
+            results[name] = {"label": name, "error":
+                             f"{type(exc).__name__}: {exc}", "events": 0,
+                             "weeks": 0, "t": float("nan"),
+                             "buy_minus_sell": float("nan"),
+                             "buy_hit_rate": float("nan")}
 
     mc, rd = results["mom_cross"], results["random"]
     mom_works = bool(mc["buy_minus_sell"] > 0 and mc["t"] >= 1.5)
     random_flat = bool(np.isfinite(rd["t"]) and abs(rd["t"]) < 2.0)
 
+    errored = [k for k, v in results.items() if "error" in v]
     thin = [k for k, v in results.items()
-            if v["weeks"] < T.MIN_WEEKS or not np.isfinite(v["t"])]
-    if thin:
+            if k not in errored
+            and (v["weeks"] < T.MIN_WEEKS or not np.isfinite(v["t"]))]
+    if errored:
+        verdict = (f"INCOMPLETE — these signals errored: {', '.join(errored)}. "
+                   f"See the error field. No conclusion about the harness.")
+    elif thin:
         verdict = (f"INCONCLUSIVE — too few usable weeks for: {', '.join(thin)}. "
                    f"A week counts only when it holds at least "
                    f"{T.MIN_PER_BUCKET} BUY and {T.MIN_PER_BUCKET} SELL events, "
@@ -184,10 +239,12 @@ def main() -> int:
     print(f"\n  momentum detected: {mom_works}   random flat: {random_flat}")
     print(f"\n  {verdict}")
 
-    Path(a.out).write_text(json.dumps(
-        {"generated": pd.Timestamp.now("UTC").isoformat(),
-         "seed": SEED, "horizon_weeks": T.H,
-         "momentum_ic": float(ic.mean()), "momentum_ic_t": T.t_stat(ic.values),
+    out.write_text(json.dumps(
+        {"generated": pd.Timestamp.now("UTC").isoformat(), "env": env,
+         "seed": SEED, "horizon_weeks": T.H, "events": int(len(e)),
+         "momentum_ic": float(ic.mean()) if len(ic) else None,
+         "momentum_ic_t": T.t_stat(ic.values) if len(ic) else None,
+         "momentum_ic_weeks": int(len(ic)),
          "results": results, "momentum_detected": bool(mom_works),
          "random_flat": bool(random_flat), "verdict": verdict}, indent=2))
     return 0
