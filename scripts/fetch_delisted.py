@@ -57,6 +57,7 @@ AV = "https://www.alphavantage.co/query"
 # that stopped the parallel-call failures earlier in this project.
 SLEEP = 1.5
 MAX_ATTEMPTS = 3          # after three empty/error results, stop retrying a ticker
+REUSE_GAP_DAYS = 1095     # history starting >3y after the index exit = a new company
 LISTING_MAX_AGE_DAYS = 30  # refresh the delisting-date index monthly (1 call)
 
 
@@ -227,6 +228,17 @@ def main() -> int:
     wl_path = out / "_worklist.json"
     wl = json.loads(wl_path.read_text()) if wl_path.exists() else {}
 
+    # The first release rejected on overlap and wrongly discarded real companies
+    # whose history begins after their index exit. Re-queue anything the old rule
+    # threw out so the new gap test gets a look at it.
+    stale = [t for t, v in wl.items()
+             if v.get("status") == "recycled" and "gap_days" not in v]
+    for t in stale:
+        wl[t] = {"attempts": 0, "status": "requeued_after_rule_change"}
+    if stale:
+        print(f"re-queued {len(stale)} tickers rejected by the old overlap rule: "
+              f"{', '.join(stale[:8])}{'...' if len(stale) > 8 else ''}")
+
     print("Resolving index leavers...")
     leavers, windows = index_leavers(cfg)
     print(f"  {len(leavers)} tickers have left the index since "
@@ -288,17 +300,31 @@ def main() -> int:
 
         # Ticker-reuse defence, same test as fetch_universe.py: the price
         # history must overlap the period the ticker was actually in the index.
+        # Ticker-reuse defence. The first version of this rejected anything whose
+        # price history did not overlap the index window by 180 days, and it threw
+        # away the very companies we are hunting: Ambac really is ABKFQ, but Alpha
+        # Vantage's history for it starts in 2010, two years AFTER it crashed out
+        # of the index in 2008. A gap is normal for a company that kept trading as
+        # a penny stock; a gap of many years means a different company got the
+        # symbol. So the test is the size of the gap, not the size of the overlap.
         ws, we = windows.get(t, (None, None))
         if ws:
-            ov = (min(pd.Timestamp(we), df["date"].max())
-                  - max(pd.Timestamp(ws), df["date"].min())).days
-            if ov < 180:
+            ds, de = df["date"].min(), df["date"].max()
+            gap = (ds - pd.Timestamp(we)).days        # data starts after index exit
+            rec["data_window"] = f"{ds.date()}..{de.date()}"
+            if de < pd.Timestamp(ws):
                 rec["status"] = "recycled"
-                rec["data_window"] = f"{df['date'].min().date()}..{df['date'].max().date()}"
-                rec["overlap_days"] = int(ov)
-                print(f"  {t:8} RECYCLED — data {rec['data_window']} vs index "
-                      f"{rec['index_window']} (overlap {ov}d)")
+                rec["reason"] = "history ends before the ticker entered the index"
+                print(f"  {t:8} RECYCLED — data {rec['data_window']} ends before "
+                      f"index {rec['index_window']}")
                 continue
+            if gap > REUSE_GAP_DAYS:
+                rec["status"] = "recycled"
+                rec["gap_days"] = int(gap)
+                print(f"  {t:8} RECYCLED — data starts {gap} days after it left "
+                      f"the index ({rec['data_window']} vs {rec['index_window']})")
+                continue
+            rec["post_exit_only"] = bool(gap > 0)
 
         fate, dd = classify_fate(df)
         df.insert(1, "ticker", t)
