@@ -1,0 +1,27 @@
+{
+  "generated": "2026-09-22T23:28:59.799983+00:00",
+  "env": {
+    "pandas": "3.0.6",
+    "numpy": "2.4.6",
+    "python": "3.11.16"
+  },
+  "error": "ModuleNotFoundError: No module named 'scipy'",
+  "traceback": [
+    "Traceback (most recent call last):",
+    "  File \"/home/runner/work/Stock-Tracker/Stock-Tracker/scripts/test_exits.py\", line 136, in main",
+    "    rho = float(g.fit_expectancy_R.corr(g.test_expectancy_R, method=\"spearman\"))",
+    "                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/pandas/core/series.py\", line 2774, in corr",
+    "    result = nanops.nancorr(",
+    "             ^^^^^^^^^^^^^^^",
+    "  File \"/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/pandas/core/nanops.py\", line 87, in _f",
+    "    return f(*args, **kwargs)",
+    "           ^^^^^^^^^^^^^^^^^^",
+    "  File \"/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/pandas/core/nanops.py\", line 1655, in nancorr",
+    "    f = get_corr_func(method)",
+    "        ^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/pandas/core/nanops.py\", line 1670, in get_corr_func",
+    "    from scipy.stats import spearmanr",
+    "ModuleNotFoundError: No module named 'scipy'"
+  ]
+}
