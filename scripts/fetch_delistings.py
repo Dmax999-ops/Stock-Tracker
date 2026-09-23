@@ -176,7 +176,19 @@ def main() -> int:
     env = {"pandas": pd.__version__, "python": sys.version.split()[0]}
 
     try:
-        s = session()
+        # session() raises SystemExit when SEC_USER_AGENT is missing, and
+        # SystemExit is not an Exception -- so without this it escapes the
+        # handler below and the run leaves no trace at all to diagnose.
+        try:
+            s = session()
+        except SystemExit:
+            (out / "delistings_manifest.json").write_text(json.dumps(
+                {"generated": pd.Timestamp.now("UTC").isoformat(), "env": env,
+                 "error": "SEC_USER_AGENT is not set",
+                 "fix": "Repo Settings -> Secrets and variables -> Actions -> "
+                        "Variables -> SEC_USER_AGENT = 'Your Name you@email.com'"},
+                indent=2))
+            raise
         cik = ticker_to_cik(s)
         time.sleep(SLEEP)
         want = universe(a.config)
