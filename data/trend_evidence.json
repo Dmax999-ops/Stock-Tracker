@@ -1,0 +1,4005 @@
+{
+  "generated": "2026-09-23T20:55:37.636585+00:00",
+  "env": {
+    "pandas": "3.0.6",
+    "numpy": "2.4.6",
+    "python": "3.11.16",
+    "yfinance": "1.7.0"
+  },
+  "start_gbp": 10000.0,
+  "cost_per_switch": 0.001,
+  "tickers": [
+    "FRES.L",
+    "IQE.L",
+    "ZOO.L",
+    "LIT.L",
+    "DEBS.L",
+    "AAPL",
+    "AMZN",
+    "GOOG",
+    "MSFT",
+    "NVDA",
+    "TSLA",
+    "CELH",
+    "VST",
+    "TEM",
+    "SPY",
+    "QQQ"
+  ],
+  "windows": {
+    "full": "2014-01-01",
+    "your_window": "2019-01-01"
+  },
+  "aggregate": {
+    "full": {
+      "buy_and_hold": {
+        "mean_final_gbp": 617378.975625,
+        "median_final_gbp": 107717.125,
+        "mean_max_drawdown": -0.6522929271144036,
+        "stocks": 16,
+        "beat_buy_and_hold": 0
+      },
+      "above_200d": {
+        "mean_final_gbp": 301495.21375000005,
+        "median_final_gbp": 44645.625,
+        "mean_max_drawdown": -0.5442454484248345,
+        "stocks": 16,
+        "beat_buy_and_hold": 4
+      },
+      "above_50d": {
+        "mean_final_gbp": 59621.92625,
+        "median_final_gbp": 26758.02,
+        "mean_max_drawdown": -0.5897458092663452,
+        "stocks": 16,
+        "beat_buy_and_hold": 4
+      },
+      "cross_50_200": {
+        "mean_final_gbp": 355780.49437499995,
+        "median_final_gbp": 50764.770000000004,
+        "mean_max_drawdown": -0.5077335458266086,
+        "stocks": 16,
+        "beat_buy_and_hold": 5
+      },
+      "cross_20_50": {
+        "mean_final_gbp": 69174.864375,
+        "median_final_gbp": 29274.545,
+        "mean_max_drawdown": -0.6094920377248009,
+        "stocks": 16,
+        "beat_buy_and_hold": 3
+      },
+      "above_200d_rising": {
+        "mean_final_gbp": 242666.06125000003,
+        "median_final_gbp": 32950.345,
+        "mean_max_drawdown": -0.5111375683969868,
+        "stocks": 16,
+        "beat_buy_and_hold": 4
+      },
+      "donchian_55_20": {
+        "mean_final_gbp": 39877.211875,
+        "median_final_gbp": 20607.225,
+        "mean_max_drawdown": -0.46858807979905776,
+        "stocks": 16,
+        "beat_buy_and_hold": 4
+      },
+      "donchian_20_10": {
+        "mean_final_gbp": 78948.350625,
+        "median_final_gbp": 26736.010000000002,
+        "mean_max_drawdown": -0.4768121949203589,
+        "stocks": 16,
+        "beat_buy_and_hold": 4
+      },
+      "level_break": {
+        "mean_final_gbp": 190383.14375,
+        "median_final_gbp": 58148.72,
+        "mean_max_drawdown": -0.5435368178716594,
+        "stocks": 16,
+        "beat_buy_and_hold": 5
+      },
+      "trendline": {
+        "mean_final_gbp": 62347.540625,
+        "median_final_gbp": 25633.295,
+        "mean_max_drawdown": -0.620760724442651,
+        "stocks": 16,
+        "beat_buy_and_hold": 2
+      }
+    },
+    "your_window": {
+      "buy_and_hold": {
+        "mean_final_gbp": 97715.38125,
+        "median_final_gbp": 42197.875,
+        "mean_max_drawdown": -0.6411040011175404,
+        "stocks": 16,
+        "beat_buy_and_hold": 0
+      },
+      "above_200d": {
+        "mean_final_gbp": 48236.834375,
+        "median_final_gbp": 24404.11,
+        "mean_max_drawdown": -0.5025267142398298,
+        "stocks": 16,
+        "beat_buy_and_hold": 4
+      },
+      "above_50d": {
+        "mean_final_gbp": 31577.376250000005,
+        "median_final_gbp": 21672.345,
+        "mean_max_drawdown": -0.5288362669901816,
+        "stocks": 16,
+        "beat_buy_and_hold": 4
+      },
+      "cross_50_200": {
+        "mean_final_gbp": 60130.81937500001,
+        "median_final_gbp": 35181.285,
+        "mean_max_drawdown": -0.49214621405440345,
+        "stocks": 16,
+        "beat_buy_and_hold": 5
+      },
+      "cross_20_50": {
+        "mean_final_gbp": 31941.961249999997,
+        "median_final_gbp": 17587.574999999997,
+        "mean_max_drawdown": -0.576739396164911,
+        "stocks": 16,
+        "beat_buy_and_hold": 4
+      },
+      "above_200d_rising": {
+        "mean_final_gbp": 43214.91312499999,
+        "median_final_gbp": 26215.27,
+        "mean_max_drawdown": -0.46818618557298675,
+        "stocks": 16,
+        "beat_buy_and_hold": 4
+      },
+      "donchian_55_20": {
+        "mean_final_gbp": 24581.28125,
+        "median_final_gbp": 16444.364999999998,
+        "mean_max_drawdown": -0.43420122413537565,
+        "stocks": 16,
+        "beat_buy_and_hold": 4
+      },
+      "donchian_20_10": {
+        "mean_final_gbp": 42452.4725,
+        "median_final_gbp": 20808.455,
+        "mean_max_drawdown": -0.42987519134674823,
+        "stocks": 16,
+        "beat_buy_and_hold": 5
+      },
+      "level_break": {
+        "mean_final_gbp": 46850.253125,
+        "median_final_gbp": 35386.2,
+        "mean_max_drawdown": -0.5250444707730945,
+        "stocks": 16,
+        "beat_buy_and_hold": 6
+      },
+      "trendline": {
+        "mean_final_gbp": 34201.624375,
+        "median_final_gbp": 15847.41,
+        "mean_max_drawdown": -0.59651372923427,
+        "stocks": 16,
+        "beat_buy_and_hold": 2
+      }
+    }
+  },
+  "per_stock": {
+    "full": {
+      "FRES.L": {
+        "buy_and_hold": {
+          "final_gbp": 38780.52,
+          "cagr": 0.11240901947352233,
+          "max_drawdown": -0.7803958935666737,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 28438.18,
+          "cagr": 0.08561607722281517,
+          "max_drawdown": -0.754971780645755,
+          "pct_time_invested": 0.4026741293532338,
+          "switches": 107
+        },
+        "above_50d": {
+          "final_gbp": 16273.51,
+          "cagr": 0.039016011307484666,
+          "max_drawdown": -0.7959683200092328,
+          "pct_time_invested": 0.4748134328358209,
+          "switches": 226
+        },
+        "cross_50_200": {
+          "final_gbp": 39718.48,
+          "cagr": 0.11450052373202002,
+          "max_drawdown": -0.6689855423536815,
+          "pct_time_invested": 0.39800995024875624,
+          "switches": 17
+        },
+        "cross_20_50": {
+          "final_gbp": 9290.52,
+          "cagr": -0.005767452280881491,
+          "max_drawdown": -0.8652330236988666,
+          "pct_time_invested": 0.4810323383084577,
+          "switches": 74
+        },
+        "above_200d_rising": {
+          "final_gbp": 33056.11,
+          "cagr": 0.09853200913244331,
+          "max_drawdown": -0.6441573320897243,
+          "pct_time_invested": 0.2966417910447761,
+          "switches": 51
+        },
+        "donchian_55_20": {
+          "final_gbp": 16853.99,
+          "cagr": 0.04188220474546833,
+          "max_drawdown": -0.661001690586283,
+          "pct_time_invested": 0.28700248756218905,
+          "switches": 63
+        },
+        "donchian_20_10": {
+          "final_gbp": 10186.62,
+          "cagr": 0.0014543194783802615,
+          "max_drawdown": -0.7587215459794836,
+          "pct_time_invested": 0.38743781094527363,
+          "switches": 159
+        },
+        "level_break": {
+          "final_gbp": 42751.97,
+          "cagr": 0.12096637516685727,
+          "max_drawdown": -0.5105391332304803,
+          "pct_time_invested": 0.45304726368159204,
+          "switches": 26
+        },
+        "trendline": {
+          "final_gbp": 3828.84,
+          "cagr": -0.0726803881513366,
+          "max_drawdown": -0.8315281950817276,
+          "pct_time_invested": 0.5569029850746269,
+          "switches": 21
+        }
+      },
+      "IQE.L": {
+        "buy_and_hold": {
+          "final_gbp": 19917.76,
+          "cagr": 0.05565020541331189,
+          "max_drawdown": -0.9726993000590717,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 77863.99,
+          "cagr": 0.1750551593568428,
+          "max_drawdown": -0.8380654553325276,
+          "pct_time_invested": 0.42008706467661694,
+          "switches": 60
+        },
+        "above_50d": {
+          "final_gbp": 34464.68,
+          "cagr": 0.10214093464109664,
+          "max_drawdown": -0.83054566054685,
+          "pct_time_invested": 0.4741915422885572,
+          "switches": 208
+        },
+        "cross_50_200": {
+          "final_gbp": 42828.68,
+          "cagr": 0.12112432832878173,
+          "max_drawdown": -0.7107860700323676,
+          "pct_time_invested": 0.402363184079602,
+          "switches": 14
+        },
+        "cross_20_50": {
+          "final_gbp": 34297.81,
+          "cagr": 0.10172056017675768,
+          "max_drawdown": -0.8973874971528539,
+          "pct_time_invested": 0.4909825870646766,
+          "switches": 64
+        },
+        "above_200d_rising": {
+          "final_gbp": 121276.33,
+          "cagr": 0.21670086541697708,
+          "max_drawdown": -0.6028049521332737,
+          "pct_time_invested": 0.3292910447761194,
+          "switches": 28
+        },
+        "donchian_55_20": {
+          "final_gbp": 111837.75,
+          "cagr": 0.2089771762473327,
+          "max_drawdown": -0.7691987753027529,
+          "pct_time_invested": 0.31716417910447764,
+          "switches": 47
+        },
+        "donchian_20_10": {
+          "final_gbp": 83902.46,
+          "cagr": 0.18197381725532402,
+          "max_drawdown": -0.7231764531510058,
+          "pct_time_invested": 0.3491915422885572,
+          "switches": 113
+        },
+        "level_break": {
+          "final_gbp": 33417.53,
+          "cagr": 0.09947134173044625,
+          "max_drawdown": -0.8359674022726717,
+          "pct_time_invested": 0.33364427860696516,
+          "switches": 46
+        },
+        "trendline": {
+          "final_gbp": 1880.26,
+          "cagr": -0.1230915501546902,
+          "max_drawdown": -0.98785847310806,
+          "pct_time_invested": 0.6461442786069652,
+          "switches": 30
+        }
+      },
+      "ZOO.L": {
+        "buy_and_hold": {
+          "final_gbp": 13735.93,
+          "cagr": 0.02526354132886932,
+          "max_drawdown": -0.9585542150290616,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 55041.19,
+          "cagr": 0.14345056650311805,
+          "max_drawdown": -0.7145343785961886,
+          "pct_time_invested": 0.464863184079602,
+          "switches": 76
+        },
+        "above_50d": {
+          "final_gbp": 166961.63,
+          "cagr": 0.2476609038713531,
+          "max_drawdown": -0.6316932783608161,
+          "pct_time_invested": 0.5071517412935324,
+          "switches": 156
+        },
+        "cross_50_200": {
+          "final_gbp": 41782.62,
+          "cagr": 0.1189474656395968,
+          "max_drawdown": -0.8355179368628439,
+          "pct_time_invested": 0.4505597014925373,
+          "switches": 22
+        },
+        "cross_20_50": {
+          "final_gbp": 4643.06,
+          "cagr": -0.05851991546004787,
+          "max_drawdown": -0.8423756464582652,
+          "pct_time_invested": 0.49595771144278605,
+          "switches": 78
+        },
+        "above_200d_rising": {
+          "final_gbp": 45466.83,
+          "cagr": 0.1264040620755702,
+          "max_drawdown": -0.6644077617074402,
+          "pct_time_invested": 0.3622512437810945,
+          "switches": 56
+        },
+        "donchian_55_20": {
+          "final_gbp": 51060.61,
+          "cagr": 0.13672371629461133,
+          "max_drawdown": -0.5073518662446637,
+          "pct_time_invested": 0.29633084577114427,
+          "switches": 52
+        },
+        "donchian_20_10": {
+          "final_gbp": 150040.54,
+          "cagr": 0.23722570556091793,
+          "max_drawdown": -0.6183195786775032,
+          "pct_time_invested": 0.3361318407960199,
+          "switches": 119
+        },
+        "level_break": {
+          "final_gbp": 33701.29,
+          "cagr": 0.10020227435889373,
+          "max_drawdown": -0.7610878262844779,
+          "pct_time_invested": 0.5183457711442786,
+          "switches": 30
+        },
+        "trendline": {
+          "final_gbp": 125500.46,
+          "cagr": 0.2199794848677683,
+          "max_drawdown": -0.7006858054673522,
+          "pct_time_invested": 0.47574626865671643,
+          "switches": 33
+        }
+      },
+      "LIT.L": {
+        "buy_and_hold": {
+          "final_gbp": 394.34,
+          "cagr": -0.34067791713550244,
+          "max_drawdown": -0.9886156165027111,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 7021.25,
+          "cagr": -0.04453972612853463,
+          "max_drawdown": -0.6637971394957679,
+          "pct_time_invested": 0.35834609494640124,
+          "switches": 45
+        },
+        "above_50d": {
+          "final_gbp": 2314.11,
+          "cagr": -0.1718484732039255,
+          "max_drawdown": -0.8367587668442309,
+          "pct_time_invested": 0.3930576824910669,
+          "switches": 136
+        },
+        "cross_50_200": {
+          "final_gbp": 9276.17,
+          "cagr": -0.009633530899731513,
+          "max_drawdown": -0.4373203604223541,
+          "pct_time_invested": 0.36396120469627363,
+          "switches": 11
+        },
+        "cross_20_50": {
+          "final_gbp": 4572.25,
+          "cagr": -0.09590818883702279,
+          "max_drawdown": -0.7369487703998117,
+          "pct_time_invested": 0.3981623277182236,
+          "switches": 45
+        },
+        "above_200d_rising": {
+          "final_gbp": 10008.64,
+          "cagr": 0.00011126823086038407,
+          "max_drawdown": -0.5390785497135556,
+          "pct_time_invested": 0.2991322103113834,
+          "switches": 23
+        },
+        "donchian_55_20": {
+          "final_gbp": 9043.67,
+          "cagr": -0.012867107852347126,
+          "max_drawdown": -0.5064916277201886,
+          "pct_time_invested": 0.22664624808575803,
+          "switches": 27
+        },
+        "donchian_20_10": {
+          "final_gbp": 3417.33,
+          "cagr": -0.12919271255578213,
+          "max_drawdown": -0.7780305900121081,
+          "pct_time_invested": 0.31852986217457885,
+          "switches": 70
+        },
+        "level_break": {
+          "final_gbp": 8492.0,
+          "cagr": -0.020839390271537805,
+          "max_drawdown": -0.4482172404808378,
+          "pct_time_invested": 0.4711587544665646,
+          "switches": 15
+        },
+        "trendline": {
+          "final_gbp": 223.89,
+          "cagr": -0.3870512769639589,
+          "max_drawdown": -0.9884519788130346,
+          "pct_time_invested": 0.6365492598264421,
+          "switches": 6
+        }
+      },
+      "DEBS.L": {
+        "buy_and_hold": {
+          "final_gbp": 3385.9,
+          "cagr": -0.08281023055281189,
+          "max_drawdown": -0.9749397599553488,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 14113.68,
+          "cagr": 0.027883961389059353,
+          "max_drawdown": -0.8782475547906858,
+          "pct_time_invested": 0.4480252764612954,
+          "switches": 112
+        },
+        "above_50d": {
+          "final_gbp": 10983.82,
+          "cagr": 0.0075181322551056695,
+          "max_drawdown": -0.8687506075087496,
+          "pct_time_invested": 0.48309636650868876,
+          "switches": 226
+        },
+        "cross_50_200": {
+          "final_gbp": 12303.36,
+          "cagr": 0.01668299796362782,
+          "max_drawdown": -0.8677659930376326,
+          "pct_time_invested": 0.4717219589257504,
+          "switches": 26
+        },
+        "cross_20_50": {
+          "final_gbp": 9484.73,
+          "cagr": -0.0042136923316929975,
+          "max_drawdown": -0.913098322199746,
+          "pct_time_invested": 0.4890995260663507,
+          "switches": 72
+        },
+        "above_200d_rising": {
+          "final_gbp": 16560.05,
+          "cagr": 0.04108259962297711,
+          "max_drawdown": -0.8212162605068793,
+          "pct_time_invested": 0.3320695102685624,
+          "switches": 76
+        },
+        "donchian_55_20": {
+          "final_gbp": 13975.6,
+          "cagr": 0.02707764704889737,
+          "max_drawdown": -0.7145780698683689,
+          "pct_time_invested": 0.3131121642969984,
+          "switches": 46
+        },
+        "donchian_20_10": {
+          "final_gbp": 12642.79,
+          "cagr": 0.018893909732948133,
+          "max_drawdown": -0.6164687157427229,
+          "pct_time_invested": 0.3529225908372828,
+          "switches": 140
+        },
+        "level_break": {
+          "final_gbp": 36779.91,
+          "cagr": 0.10954842043847379,
+          "max_drawdown": -0.6537165101682356,
+          "pct_time_invested": 0.45402843601895737,
+          "switches": 17
+        },
+        "trendline": {
+          "final_gbp": 9608.14,
+          "cagr": -0.0031856197584276824,
+          "max_drawdown": -0.9401150726323819,
+          "pct_time_invested": 0.6928909952606636,
+          "switches": 23
+        }
+      },
+      "AAPL": {
+        "buy_and_hold": {
+          "final_gbp": 196572.88,
+          "cagr": 0.26377507649037013,
+          "max_drawdown": -0.3851589783918197,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 73029.96,
+          "cagr": 0.1691504595549631,
+          "max_drawdown": -0.3583198639020725,
+          "pct_time_invested": 0.720625,
+          "switches": 64
+        },
+        "above_50d": {
+          "final_gbp": 47959.88,
+          "cagr": 0.13114010554811117,
+          "max_drawdown": -0.3088498515375323,
+          "pct_time_invested": 0.649375,
+          "switches": 204
+        },
+        "cross_50_200": {
+          "final_gbp": 62074.17,
+          "cagr": 0.15430900149409887,
+          "max_drawdown": -0.4572299860887975,
+          "pct_time_invested": 0.7165625,
+          "switches": 14
+        },
+        "cross_20_50": {
+          "final_gbp": 46631.87,
+          "cagr": 0.12864630458994153,
+          "max_drawdown": -0.2980015502796808,
+          "pct_time_invested": 0.6434375,
+          "switches": 80
+        },
+        "above_200d_rising": {
+          "final_gbp": 51595.57,
+          "cagr": 0.13765529271378574,
+          "max_drawdown": -0.3583198639020724,
+          "pct_time_invested": 0.656875,
+          "switches": 52
+        },
+        "donchian_55_20": {
+          "final_gbp": 59322.94,
+          "cagr": 0.1502032842720793,
+          "max_drawdown": -0.21815186369919093,
+          "pct_time_invested": 0.478125,
+          "switches": 63
+        },
+        "donchian_20_10": {
+          "final_gbp": 58680.02,
+          "cagr": 0.14921857918528425,
+          "max_drawdown": -0.2279995363381011,
+          "pct_time_invested": 0.5003125,
+          "switches": 142
+        },
+        "level_break": {
+          "final_gbp": 122083.23,
+          "cagr": 0.2173351980849465,
+          "max_drawdown": -0.38715519762040884,
+          "pct_time_invested": 0.7375,
+          "switches": 30
+        },
+        "trendline": {
+          "final_gbp": 63755.07,
+          "cagr": 0.15673567132467925,
+          "max_drawdown": -0.3851589783918191,
+          "pct_time_invested": 0.730625,
+          "switches": 19
+        }
+      },
+      "AMZN": {
+        "buy_and_hold": {
+          "final_gbp": 125019.85,
+          "cagr": 0.21961162599203976,
+          "max_drawdown": -0.5614526325328254,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 44296.01,
+          "cagr": 0.12409670531022043,
+          "max_drawdown": -0.4902347346300351,
+          "pct_time_invested": 0.709375,
+          "switches": 98
+        },
+        "above_50d": {
+          "final_gbp": 46398.46,
+          "cagr": 0.1282012599965039,
+          "max_drawdown": -0.5320485027881959,
+          "pct_time_invested": 0.62875,
+          "switches": 209
+        },
+        "cross_50_200": {
+          "final_gbp": 60641.9,
+          "cagr": 0.15219300370553324,
+          "max_drawdown": -0.43064453284006143,
+          "pct_time_invested": 0.71625,
+          "switches": 16
+        },
+        "cross_20_50": {
+          "final_gbp": 27857.61,
+          "cagr": 0.08385750566010897,
+          "max_drawdown": -0.49414814112706906,
+          "pct_time_invested": 0.6465625,
+          "switches": 67
+        },
+        "above_200d_rising": {
+          "final_gbp": 31761.8,
+          "cagr": 0.09508868360316236,
+          "max_drawdown": -0.5530435396429254,
+          "pct_time_invested": 0.6734375,
+          "switches": 90
+        },
+        "donchian_55_20": {
+          "final_gbp": 15601.45,
+          "cagr": 0.035577455543277514,
+          "max_drawdown": -0.47229851542281587,
+          "pct_time_invested": 0.4403125,
+          "switches": 77
+        },
+        "donchian_20_10": {
+          "final_gbp": 35047.81,
+          "cagr": 0.1035953200430817,
+          "max_drawdown": -0.3001855679948453,
+          "pct_time_invested": 0.47125,
+          "switches": 155
+        },
+        "level_break": {
+          "final_gbp": 90062.74,
+          "cagr": 0.1885744396272142,
+          "max_drawdown": -0.5279507893855151,
+          "pct_time_invested": 0.826875,
+          "switches": 16
+        },
+        "trendline": {
+          "final_gbp": 27211.6,
+          "cagr": 0.08186053102462298,
+          "max_drawdown": -0.4306112950572826,
+          "pct_time_invested": 0.458125,
+          "switches": 32
+        }
+      },
+      "GOOG": {
+        "buy_and_hold": {
+          "final_gbp": 121726.08,
+          "cagr": 0.2170549080689146,
+          "max_drawdown": -0.44601859897708507,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 53915.25,
+          "cagr": 0.14159451706844872,
+          "max_drawdown": -0.3078731413405321,
+          "pct_time_invested": 0.7203125,
+          "switches": 93
+        },
+        "above_50d": {
+          "final_gbp": 27251.57,
+          "cagr": 0.08198534791105594,
+          "max_drawdown": -0.47452535780129224,
+          "pct_time_invested": 0.6296875,
+          "switches": 211
+        },
+        "cross_50_200": {
+          "final_gbp": 58700.86,
+          "cagr": 0.14925066167020207,
+          "max_drawdown": -0.3095476763284496,
+          "pct_time_invested": 0.720625,
+          "switches": 18
+        },
+        "cross_20_50": {
+          "final_gbp": 51009.92,
+          "cagr": 0.1366349704589933,
+          "max_drawdown": -0.34905676507108874,
+          "pct_time_invested": 0.6225,
+          "switches": 67
+        },
+        "above_200d_rising": {
+          "final_gbp": 50186.36,
+          "cagr": 0.13518175487435213,
+          "max_drawdown": -0.2717506845332288,
+          "pct_time_invested": 0.691875,
+          "switches": 73
+        },
+        "donchian_55_20": {
+          "final_gbp": 18604.74,
+          "cagr": 0.050006932290894035,
+          "max_drawdown": -0.3050887798085443,
+          "pct_time_invested": 0.41875,
+          "switches": 77
+        },
+        "donchian_20_10": {
+          "final_gbp": 16152.03,
+          "cagr": 0.03840424797941844,
+          "max_drawdown": -0.3701695733195921,
+          "pct_time_invested": 0.4815625,
+          "switches": 160
+        },
+        "level_break": {
+          "final_gbp": 85819.02,
+          "cagr": 0.18407394560547208,
+          "max_drawdown": -0.38233074891508545,
+          "pct_time_invested": 0.8090625,
+          "switches": 4
+        },
+        "trendline": {
+          "final_gbp": 21850.62,
+          "cagr": 0.06336300990900012,
+          "max_drawdown": -0.5121433116745988,
+          "pct_time_invested": 0.5671875,
+          "switches": 20
+        }
+      },
+      "MSFT": {
+        "buy_and_hold": {
+          "final_gbp": 163067.44,
+          "cagr": 0.24534869433318152,
+          "max_drawdown": -0.37148489238927507,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 44995.24,
+          "cagr": 0.12548135264983507,
+          "max_drawdown": -0.4053328793906189,
+          "pct_time_invested": 0.745625,
+          "switches": 92
+        },
+        "above_50d": {
+          "final_gbp": 26264.47,
+          "cagr": 0.07885231931837322,
+          "max_drawdown": -0.3707836349424033,
+          "pct_time_invested": 0.68375,
+          "switches": 226
+        },
+        "cross_50_200": {
+          "final_gbp": 77333.07,
+          "cagr": 0.1744234305931367,
+          "max_drawdown": -0.2803926268982575,
+          "pct_time_invested": 0.7559375,
+          "switches": 16
+        },
+        "cross_20_50": {
+          "final_gbp": 27910.78,
+          "cagr": 0.08401993708713351,
+          "max_drawdown": -0.44067393120158094,
+          "pct_time_invested": 0.67375,
+          "switches": 68
+        },
+        "above_200d_rising": {
+          "final_gbp": 32332.43,
+          "cagr": 0.09662238943709789,
+          "max_drawdown": -0.4053328793906189,
+          "pct_time_invested": 0.7065625,
+          "switches": 84
+        },
+        "donchian_55_20": {
+          "final_gbp": 22609.71,
+          "cagr": 0.06622107109308017,
+          "max_drawdown": -0.24976698088803484,
+          "pct_time_invested": 0.4975,
+          "switches": 76
+        },
+        "donchian_20_10": {
+          "final_gbp": 27086.81,
+          "cagr": 0.08146976388467975,
+          "max_drawdown": -0.23803526548007226,
+          "pct_time_invested": 0.4890625,
+          "switches": 161
+        },
+        "level_break": {
+          "final_gbp": 97423.95,
+          "cagr": 0.1959368084744919,
+          "max_drawdown": -0.3863100188700097,
+          "pct_time_invested": 0.695,
+          "switches": 18
+        },
+        "trendline": {
+          "final_gbp": 55020.84,
+          "cagr": 0.14341732545625163,
+          "max_drawdown": -0.3714848923892755,
+          "pct_time_invested": 0.6515625,
+          "switches": 21
+        }
+      },
+      "NVDA": {
+        "buy_and_hold": {
+          "final_gbp": 6033828.73,
+          "cagr": 0.6540631829406303,
+          "max_drawdown": -0.66335089743369,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 3948019.74,
+          "cagr": 0.5998271677427192,
+          "max_drawdown": -0.4182781177311762,
+          "pct_time_invested": 0.7784375,
+          "switches": 38
+        },
+        "above_50d": {
+          "final_gbp": 443737.01,
+          "cagr": 0.34729465626719347,
+          "max_drawdown": -0.3958070339892593,
+          "pct_time_invested": 0.6965625,
+          "switches": 216
+        },
+        "cross_50_200": {
+          "final_gbp": 4643765.47,
+          "cagr": 0.620367759766459,
+          "max_drawdown": -0.3755403086829615,
+          "pct_time_invested": 0.7878125,
+          "switches": 10
+        },
+        "cross_20_50": {
+          "final_gbp": 477130.64,
+          "cagr": 0.3550002483987127,
+          "max_drawdown": -0.6381284197016395,
+          "pct_time_invested": 0.675,
+          "switches": 72
+        },
+        "above_200d_rising": {
+          "final_gbp": 3217669.73,
+          "cagr": 0.5743108651733506,
+          "max_drawdown": -0.41827811773117607,
+          "pct_time_invested": 0.7528125,
+          "switches": 32
+        },
+        "donchian_55_20": {
+          "final_gbp": 91330.97,
+          "cagr": 0.1898815043614781,
+          "max_drawdown": -0.4146852716967697,
+          "pct_time_invested": 0.5109375,
+          "switches": 84
+        },
+        "donchian_20_10": {
+          "final_gbp": 429294.31,
+          "cagr": 0.34379517523994574,
+          "max_drawdown": -0.4180330934751858,
+          "pct_time_invested": 0.4978125,
+          "switches": 143
+        },
+        "level_break": {
+          "final_gbp": 1876381.9,
+          "cagr": 0.5089713510879623,
+          "max_drawdown": -0.6404054490783658,
+          "pct_time_invested": 0.835,
+          "switches": 20
+        },
+        "trendline": {
+          "final_gbp": 235773.6,
+          "cagr": 0.28196709969962996,
+          "max_drawdown": -0.6797679913679181,
+          "pct_time_invested": 0.6415625,
+          "switches": 32
+        }
+      },
+      "TSLA": {
+        "buy_and_hold": {
+          "final_gbp": 379106.01,
+          "cagr": 0.3307275912721348,
+          "max_drawdown": -0.7363221744219124,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 20347.42,
+          "cagr": 0.05742250143671623,
+          "max_drawdown": -0.6922094325372538,
+          "pct_time_invested": 0.5328125,
+          "switches": 143
+        },
+        "above_50d": {
+          "final_gbp": 53895.0,
+          "cagr": 0.14156079857861892,
+          "max_drawdown": -0.6681784856431112,
+          "pct_time_invested": 0.5325,
+          "switches": 220
+        },
+        "cross_50_200": {
+          "final_gbp": 40069.78,
+          "cagr": 0.11527217961773628,
+          "max_drawdown": -0.6515216078652459,
+          "pct_time_invested": 0.524375,
+          "switches": 27
+        },
+        "cross_20_50": {
+          "final_gbp": 40300.85,
+          "cagr": 0.11577633589081993,
+          "max_drawdown": -0.6062653853820685,
+          "pct_time_invested": 0.5228125,
+          "switches": 78
+        },
+        "above_200d_rising": {
+          "final_gbp": 9747.05,
+          "cagr": -0.002011700418907414,
+          "max_drawdown": -0.7601850219007503,
+          "pct_time_invested": 0.423125,
+          "switches": 119
+        },
+        "donchian_55_20": {
+          "final_gbp": 60692.28,
+          "cagr": 0.15226820642570793,
+          "max_drawdown": -0.6270073908373801,
+          "pct_time_invested": 0.3390625,
+          "switches": 59
+        },
+        "donchian_20_10": {
+          "final_gbp": 198375.78,
+          "cagr": 0.26468228374645886,
+          "max_drawdown": -0.5962968805070133,
+          "pct_time_invested": 0.396875,
+          "switches": 136
+        },
+        "level_break": {
+          "final_gbp": 77273.96,
+          "cagr": 0.17435284026061426,
+          "max_drawdown": -0.6062653853820685,
+          "pct_time_invested": 0.6053125,
+          "switches": 43
+        },
+        "trendline": {
+          "final_gbp": 144622.78,
+          "cagr": 0.23365452793861685,
+          "max_drawdown": -0.7363221744219122,
+          "pct_time_invested": 0.6846875,
+          "switches": 14
+        }
+      },
+      "CELH": {
+        "buy_and_hold": {
+          "final_gbp": 2496270.96,
+          "cagr": 0.5432097655274313,
+          "max_drawdown": -0.7785870299499973,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 326944.87,
+          "cagr": 0.3153348564114069,
+          "max_drawdown": -0.7139086607231246,
+          "pct_time_invested": 0.5946875,
+          "switches": 91
+        },
+        "above_50d": {
+          "final_gbp": 5430.67,
+          "cagr": -0.04685340787462744,
+          "max_drawdown": -0.9572724313418384,
+          "pct_time_invested": 0.5225,
+          "switches": 257
+        },
+        "cross_50_200": {
+          "final_gbp": 426675.18,
+          "cagr": 0.34314896193835476,
+          "max_drawdown": -0.5595877602297598,
+          "pct_time_invested": 0.6003125,
+          "switches": 19
+        },
+        "cross_20_50": {
+          "final_gbp": 250225.63,
+          "cagr": 0.2879755367653043,
+          "max_drawdown": -0.8052843177961737,
+          "pct_time_invested": 0.5284375,
+          "switches": 66
+        },
+        "above_200d_rising": {
+          "final_gbp": 146829.58,
+          "cagr": 0.23512380484664552,
+          "max_drawdown": -0.7152062221637847,
+          "pct_time_invested": 0.5234375,
+          "switches": 69
+        },
+        "donchian_55_20": {
+          "final_gbp": 101046.16,
+          "cagr": 0.1993732262549608,
+          "max_drawdown": -0.5767679310848202,
+          "pct_time_invested": 0.330625,
+          "switches": 61
+        },
+        "donchian_20_10": {
+          "final_gbp": 163201.33,
+          "cagr": 0.2454290371368586,
+          "max_drawdown": -0.6797836779244995,
+          "pct_time_invested": 0.3959375,
+          "switches": 137
+        },
+        "level_break": {
+          "final_gbp": 392744.16,
+          "cagr": 0.3344293481478011,
+          "max_drawdown": -0.8264825593334549,
+          "pct_time_invested": 0.65625,
+          "switches": 23
+        },
+        "trendline": {
+          "final_gbp": 196008.98,
+          "cagr": 0.2634897486768526,
+          "max_drawdown": -0.7785870299499971,
+          "pct_time_invested": 0.7459375,
+          "switches": 17
+        }
+      },
+      "VST": {
+        "buy_and_hold": {
+          "final_gbp": 121649.64,
+          "cagr": 0.2849425652287383,
+          "max_drawdown": -0.5331682032712358,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 32506.34,
+          "cagr": 0.1255702748929437,
+          "max_drawdown": -0.5128790893496763,
+          "pct_time_invested": 0.6259481037924152,
+          "switches": 85
+        },
+        "above_50d": {
+          "final_gbp": 20790.19,
+          "cagr": 0.07620499888421617,
+          "max_drawdown": -0.6109889495811529,
+          "pct_time_invested": 0.5968063872255489,
+          "switches": 189
+        },
+        "cross_50_200": {
+          "final_gbp": 72696.47,
+          "cagr": 0.2202454040651345,
+          "max_drawdown": -0.4880428505611698,
+          "pct_time_invested": 0.6510978043912176,
+          "switches": 15
+        },
+        "cross_20_50": {
+          "final_gbp": 65962.3,
+          "cagr": 0.2084005978374428,
+          "max_drawdown": -0.4440476309476793,
+          "pct_time_invested": 0.5860279441117765,
+          "switches": 53
+        },
+        "above_200d_rising": {
+          "final_gbp": 32844.58,
+          "cagr": 0.12674004180734766,
+          "max_drawdown": -0.5128790893496762,
+          "pct_time_invested": 0.5716566866267465,
+          "switches": 69
+        },
+        "donchian_55_20": {
+          "final_gbp": 16870.95,
+          "cagr": 0.05388193165835742,
+          "max_drawdown": -0.4633176694473252,
+          "pct_time_invested": 0.38922155688622756,
+          "switches": 55
+        },
+        "donchian_20_10": {
+          "final_gbp": 15242.64,
+          "cagr": 0.04320314250348911,
+          "max_drawdown": -0.5693051461330927,
+          "pct_time_invested": 0.4167664670658683,
+          "switches": 121
+        },
+        "level_break": {
+          "final_gbp": 39211.47,
+          "cagr": 0.14695160444620003,
+          "max_drawdown": -0.6033360597249423,
+          "pct_time_invested": 0.590818363273453,
+          "switches": 17
+        },
+        "trendline": {
+          "final_gbp": 64521.34,
+          "cagr": 0.2057253504358174,
+          "max_drawdown": -0.5319344600927447,
+          "pct_time_invested": 0.7229540918163673,
+          "switches": 8
+        }
+      },
+      "TEM": {
+        "buy_and_hold": {
+          "final_gbp": 18988.57,
+          "cagr": 0.3255797855962266,
+          "max_drawdown": -0.5975786998831912,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 11383.59,
+          "cagr": 0.058611267357315144,
+          "max_drawdown": -0.5091637271913376,
+          "pct_time_invested": 0.34210526315789475,
+          "switches": 16
+        },
+        "above_50d": {
+          "final_gbp": 4469.19,
+          "cagr": -0.29811693501208536,
+          "max_drawdown": -0.7126895219114039,
+          "pct_time_invested": 0.4543859649122807,
+          "switches": 42
+        },
+        "cross_50_200": {
+          "final_gbp": 11808.12,
+          "cagr": 0.07578546564851507,
+          "max_drawdown": -0.42808717445946265,
+          "pct_time_invested": 0.3385964912280702,
+          "switches": 6
+        },
+        "cross_20_50": {
+          "final_gbp": 2146.24,
+          "cagr": -0.4915452689974099,
+          "max_drawdown": -0.8542575971488123,
+          "pct_time_invested": 0.4473684210526316,
+          "switches": 16
+        },
+        "above_200d_rising": {
+          "final_gbp": 10181.69,
+          "cagr": 0.007945746569682388,
+          "max_drawdown": -0.4877191996383953,
+          "pct_time_invested": 0.28771929824561404,
+          "switches": 13
+        },
+        "donchian_55_20": {
+          "final_gbp": 4407.86,
+          "cagr": -0.3023667707323012,
+          "max_drawdown": -0.6780835420898427,
+          "pct_time_invested": 0.2614035087719298,
+          "switches": 12
+        },
+        "donchian_20_10": {
+          "final_gbp": 12896.86,
+          "cagr": 0.11830700786519288,
+          "max_drawdown": -0.38954227309752876,
+          "pct_time_invested": 0.3368421052631579,
+          "switches": 24
+        },
+        "level_break": {
+          "final_gbp": 7495.03,
+          "cagr": -0.11903402706948052,
+          "max_drawdown": -0.5207702781547936,
+          "pct_time_invested": 0.34912280701754383,
+          "switches": 3
+        },
+        "trendline": {
+          "final_gbp": 13113.1,
+          "cagr": 0.12651016458583286,
+          "max_drawdown": -0.5975786998831912,
+          "pct_time_invested": 0.5105263157894737,
+          "switches": 2
+        }
+      },
+      "SPY": {
+        "buy_and_hold": {
+          "final_gbp": 51834.39,
+          "cagr": 0.13806830745039855,
+          "max_drawdown": -0.3371727036119295,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 32069.1,
+          "cagr": 0.0959177505551545,
+          "max_drawdown": -0.21553465032188468,
+          "pct_time_invested": 0.78,
+          "switches": 64
+        },
+        "above_50d": {
+          "final_gbp": 17790.24,
+          "cagr": 0.04631887611955121,
+          "max_drawdown": -0.24266415543513797,
+          "pct_time_invested": 0.7203125,
+          "switches": 230
+        },
+        "cross_50_200": {
+          "final_gbp": 28541.47,
+          "cagr": 0.08592548893339091,
+          "max_drawdown": -0.3371727036119295,
+          "pct_time_invested": 0.7709375,
+          "switches": 14
+        },
+        "cross_20_50": {
+          "final_gbp": 24695.31,
+          "cagr": 0.0736411312006433,
+          "max_drawdown": -0.29596524797151214,
+          "pct_time_invested": 0.71875,
+          "switches": 60
+        },
+        "above_200d_rising": {
+          "final_gbp": 28281.7,
+          "cagr": 0.08514536935089034,
+          "max_drawdown": -0.18924505112957268,
+          "pct_time_invested": 0.74375,
+          "switches": 54
+        },
+        "donchian_55_20": {
+          "final_gbp": 15987.88,
+          "cagr": 0.0375708965418029,
+          "max_drawdown": -0.18798097046294882,
+          "pct_time_invested": 0.5471875,
+          "switches": 81
+        },
+        "donchian_20_10": {
+          "final_gbp": 20621.07,
+          "cagr": 0.058533408175377666,
+          "max_drawdown": -0.14190539941959612,
+          "pct_time_invested": 0.55125,
+          "switches": 156
+        },
+        "level_break": {
+          "final_gbp": 28946.67,
+          "cagr": 0.08712937584581404,
+          "max_drawdown": -0.3204608840944404,
+          "pct_time_invested": 0.6646875,
+          "switches": 18
+        },
+        "trendline": {
+          "final_gbp": 10586.14,
+          "cagr": 0.004487064372394434,
+          "max_drawdown": -0.24004375149142865,
+          "pct_time_invested": 0.26,
+          "switches": 17
+        }
+      },
+      "QQQ": {
+        "buy_and_hold": {
+          "final_gbp": 93784.61,
+          "cagr": 0.19236347240736196,
+          "max_drawdown": -0.3511872378546286,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 53937.61,
+          "cagr": 0.14163172528007784,
+          "max_drawdown": -0.23457656881871514,
+          "pct_time_invested": 0.7784375,
+          "switches": 60
+        },
+        "above_50d": {
+          "final_gbp": 28966.39,
+          "cagr": 0.08718757379248387,
+          "max_drawdown": -0.1984083900203173,
+          "pct_time_invested": 0.7078125,
+          "switches": 208
+        },
+        "cross_50_200": {
+          "final_gbp": 64272.11,
+          "cagr": 0.1574702680090696,
+          "max_drawdown": -0.2855936029507622,
+          "pct_time_invested": 0.786875,
+          "switches": 14
+        },
+        "cross_20_50": {
+          "final_gbp": 30638.31,
+          "cagr": 0.0919933131224151,
+          "max_drawdown": -0.2710003570599653,
+          "pct_time_invested": 0.7,
+          "switches": 64
+        },
+        "above_200d_rising": {
+          "final_gbp": 44858.53,
+          "cagr": 0.1252121951538776,
+          "max_drawdown": -0.23457656881871503,
+          "pct_time_invested": 0.7478125,
+          "switches": 54
+        },
+        "donchian_55_20": {
+          "final_gbp": 28788.83,
+          "cagr": 0.08666228729710901,
+          "max_drawdown": -0.14563833162499407,
+          "pct_time_invested": 0.524375,
+          "switches": 66
+        },
+        "donchian_20_10": {
+          "final_gbp": 26385.21,
+          "cagr": 0.07924131588390781,
+          "max_drawdown": -0.20302182147339287,
+          "pct_time_invested": 0.524375,
+          "switches": 164
+        },
+        "level_break": {
+          "final_gbp": 73545.47,
+          "cagr": 0.16979702323872647,
+          "max_drawdown": -0.28559360295076197,
+          "pct_time_invested": 0.80125,
+          "switches": 30
+        },
+        "trendline": {
+          "final_gbp": 24054.99,
+          "cagr": 0.07142649800480538,
+          "max_drawdown": -0.21989948125969216,
+          "pct_time_invested": 0.513125,
+          "switches": 38
+        }
+      }
+    },
+    "your_window": {
+      "FRES.L": {
+        "buy_and_hold": {
+          "final_gbp": 32536.81,
+          "cagr": 0.1650376000418179,
+          "max_drawdown": -0.675422098740009,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 23880.19,
+          "cagr": 0.11930017661892234,
+          "max_drawdown": -0.6141073348689761,
+          "pct_time_invested": 0.4707991803278688,
+          "switches": 71
+        },
+        "above_50d": {
+          "final_gbp": 16070.07,
+          "cagr": 0.06334509327670257,
+          "max_drawdown": -0.6291127810089254,
+          "pct_time_invested": 0.5030737704918032,
+          "switches": 137
+        },
+        "cross_50_200": {
+          "final_gbp": 35042.85,
+          "cagr": 0.17628404048680135,
+          "max_drawdown": -0.6276916773107267,
+          "pct_time_invested": 0.45901639344262296,
+          "switches": 9
+        },
+        "cross_20_50": {
+          "final_gbp": 10794.51,
+          "cagr": 0.009947841365458343,
+          "max_drawdown": -0.7225241292443805,
+          "pct_time_invested": 0.5199795081967213,
+          "switches": 46
+        },
+        "above_200d_rising": {
+          "final_gbp": 31689.83,
+          "cagr": 0.16106568100097207,
+          "max_drawdown": -0.5492232944791506,
+          "pct_time_invested": 0.36577868852459017,
+          "switches": 29
+        },
+        "donchian_55_20": {
+          "final_gbp": 15456.23,
+          "cagr": 0.05799653946184802,
+          "max_drawdown": -0.5571454274488319,
+          "pct_time_invested": 0.33709016393442626,
+          "switches": 39
+        },
+        "donchian_20_10": {
+          "final_gbp": 10183.62,
+          "cagr": 0.0023586585112791436,
+          "max_drawdown": -0.6095957189548333,
+          "pct_time_invested": 0.41547131147540983,
+          "switches": 92
+        },
+        "level_break": {
+          "final_gbp": 38306.02,
+          "cagr": 0.18992258144468255,
+          "max_drawdown": -0.5105391332304797,
+          "pct_time_invested": 0.5066598360655737,
+          "switches": 22
+        },
+        "trendline": {
+          "final_gbp": 4043.75,
+          "cagr": -0.11061820832101432,
+          "max_drawdown": -0.7350420742709929,
+          "pct_time_invested": 0.5927254098360656,
+          "switches": 14
+        }
+      },
+      "IQE.L": {
+        "buy_and_hold": {
+          "final_gbp": 7399.71,
+          "cagr": -0.03824039916959565,
+          "max_drawdown": -0.9502040804648885,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 15367.46,
+          "cagr": 0.05720786516276677,
+          "max_drawdown": -0.7509895713173269,
+          "pct_time_invested": 0.36834016393442626,
+          "switches": 44
+        },
+        "above_50d": {
+          "final_gbp": 42481.74,
+          "cagr": 0.20597058526602718,
+          "max_drawdown": -0.6050337450612006,
+          "pct_time_invested": 0.42776639344262296,
+          "switches": 102
+        },
+        "cross_50_200": {
+          "final_gbp": 9674.75,
+          "cagr": -0.0042720455858134,
+          "max_drawdown": -0.6885938079629293,
+          "pct_time_invested": 0.350922131147541,
+          "switches": 10
+        },
+        "cross_20_50": {
+          "final_gbp": 13116.87,
+          "cagr": 0.035752835705704866,
+          "max_drawdown": -0.7933478694565905,
+          "pct_time_invested": 0.44723360655737704,
+          "switches": 40
+        },
+        "above_200d_rising": {
+          "final_gbp": 30781.91,
+          "cagr": 0.15670400672017393,
+          "max_drawdown": -0.5792186249283604,
+          "pct_time_invested": 0.2612704918032787,
+          "switches": 16
+        },
+        "donchian_55_20": {
+          "final_gbp": 21159.83,
+          "cagr": 0.10190922457913643,
+          "max_drawdown": -0.7507864257311216,
+          "pct_time_invested": 0.26280737704918034,
+          "switches": 35
+        },
+        "donchian_20_10": {
+          "final_gbp": 68094.84,
+          "cagr": 0.2819402013083354,
+          "max_drawdown": -0.7231764531510059,
+          "pct_time_invested": 0.3237704918032787,
+          "switches": 63
+        },
+        "level_break": {
+          "final_gbp": 9431.02,
+          "cagr": -0.007556045431456049,
+          "max_drawdown": -0.7684202214756546,
+          "pct_time_invested": 0.3089139344262295,
+          "switches": 36
+        },
+        "trendline": {
+          "final_gbp": 2449.49,
+          "cagr": -0.1665101960505745,
+          "max_drawdown": -0.9763117282798521,
+          "pct_time_invested": 0.8452868852459017,
+          "switches": 16
+        }
+      },
+      "ZOO.L": {
+        "buy_and_hold": {
+          "final_gbp": 1588.89,
+          "cagr": -0.21193638766233236,
+          "max_drawdown": -0.9585542150290617,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 10849.88,
+          "cagr": 0.010617147591367893,
+          "max_drawdown": -0.509502918118939,
+          "pct_time_invested": 0.3862704918032787,
+          "switches": 48
+        },
+        "above_50d": {
+          "final_gbp": 41773.61,
+          "cagr": 0.2033487403445684,
+          "max_drawdown": -0.524269198078426,
+          "pct_time_invested": 0.47540983606557374,
+          "switches": 98
+        },
+        "cross_50_200": {
+          "final_gbp": 3412.21,
+          "cagr": -0.1299592470875066,
+          "max_drawdown": -0.8355179368628439,
+          "pct_time_invested": 0.3514344262295082,
+          "switches": 16
+        },
+        "cross_20_50": {
+          "final_gbp": 3850.0,
+          "cagr": -0.11625427017733425,
+          "max_drawdown": -0.8046698990515411,
+          "pct_time_invested": 0.45850409836065575,
+          "switches": 46
+        },
+        "above_200d_rising": {
+          "final_gbp": 8782.63,
+          "cagr": -0.01666661961750071,
+          "max_drawdown": -0.48276443579578454,
+          "pct_time_invested": 0.2894467213114754,
+          "switches": 34
+        },
+        "donchian_55_20": {
+          "final_gbp": 12411.13,
+          "cagr": 0.028362560100205103,
+          "max_drawdown": -0.4251612447565182,
+          "pct_time_invested": 0.2848360655737705,
+          "switches": 34
+        },
+        "donchian_20_10": {
+          "final_gbp": 50290.11,
+          "cagr": 0.23260722870560802,
+          "max_drawdown": -0.3916975134392444,
+          "pct_time_invested": 0.3114754098360656,
+          "switches": 71
+        },
+        "level_break": {
+          "final_gbp": 8546.71,
+          "cagr": -0.020127269388709457,
+          "max_drawdown": -0.6631730009912313,
+          "pct_time_invested": 0.4057377049180328,
+          "switches": 23
+        },
+        "trendline": {
+          "final_gbp": 15059.43,
+          "cagr": 0.05443990885969363,
+          "max_drawdown": -0.5780160536097098,
+          "pct_time_invested": 0.3037909836065574,
+          "switches": 24
+        }
+      },
+      "LIT.L": {
+        "buy_and_hold": {
+          "final_gbp": 346.12,
+          "cagr": -0.3530573468896372,
+          "max_drawdown": -0.9886156165027111,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 7021.25,
+          "cagr": -0.044755745225275256,
+          "max_drawdown": -0.6637971394957679,
+          "pct_time_invested": 0.35963114754098363,
+          "switches": 45
+        },
+        "above_50d": {
+          "final_gbp": 2314.11,
+          "cagr": -0.17262307616855066,
+          "max_drawdown": -0.8367587668442309,
+          "pct_time_invested": 0.3944672131147541,
+          "switches": 136
+        },
+        "cross_50_200": {
+          "final_gbp": 9276.17,
+          "cagr": -0.009681107815030954,
+          "max_drawdown": -0.4373203604223541,
+          "pct_time_invested": 0.36526639344262296,
+          "switches": 11
+        },
+        "cross_20_50": {
+          "final_gbp": 4572.25,
+          "cagr": -0.09636045523438863,
+          "max_drawdown": -0.7369487703998117,
+          "pct_time_invested": 0.39959016393442626,
+          "switches": 45
+        },
+        "above_200d_rising": {
+          "final_gbp": 10008.64,
+          "cagr": 0.00011182046138968893,
+          "max_drawdown": -0.5390785497135556,
+          "pct_time_invested": 0.30020491803278687,
+          "switches": 23
+        },
+        "donchian_55_20": {
+          "final_gbp": 9043.67,
+          "cagr": -0.012930549829796134,
+          "max_drawdown": -0.5064916277201886,
+          "pct_time_invested": 0.22745901639344263,
+          "switches": 27
+        },
+        "donchian_20_10": {
+          "final_gbp": 3417.33,
+          "cagr": -0.12979033747090185,
+          "max_drawdown": -0.7780305900121081,
+          "pct_time_invested": 0.319672131147541,
+          "switches": 70
+        },
+        "level_break": {
+          "final_gbp": 8492.0,
+          "cagr": -0.020941721032657012,
+          "max_drawdown": -0.4482172404808378,
+          "pct_time_invested": 0.4728483606557377,
+          "switches": 15
+        },
+        "trendline": {
+          "final_gbp": 223.89,
+          "cagr": -0.38853841520492927,
+          "max_drawdown": -0.9884519788130346,
+          "pct_time_invested": 0.6388319672131147,
+          "switches": 6
+        }
+      },
+      "DEBS.L": {
+        "buy_and_hold": {
+          "final_gbp": 1472.63,
+          "cagr": -0.21965112571127865,
+          "max_drawdown": -0.9749397599553488,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 2899.54,
+          "cagr": -0.14810755021784516,
+          "max_drawdown": -0.8782475547906858,
+          "pct_time_invested": 0.3826844262295082,
+          "switches": 88
+        },
+        "above_50d": {
+          "final_gbp": 3515.32,
+          "cagr": -0.12659919755869498,
+          "max_drawdown": -0.8687506075087497,
+          "pct_time_invested": 0.3980532786885246,
+          "switches": 146
+        },
+        "cross_50_200": {
+          "final_gbp": 2921.89,
+          "cagr": -0.14725984229416222,
+          "max_drawdown": -0.8264585812613443,
+          "pct_time_invested": 0.4088114754098361,
+          "switches": 23
+        },
+        "cross_20_50": {
+          "final_gbp": 2111.99,
+          "cagr": -0.18235594638462094,
+          "max_drawdown": -0.8690650791243906,
+          "pct_time_invested": 0.41854508196721313,
+          "switches": 52
+        },
+        "above_200d_rising": {
+          "final_gbp": 5244.76,
+          "cagr": -0.08016203557504953,
+          "max_drawdown": -0.731268347985713,
+          "pct_time_invested": 0.2525614754098361,
+          "switches": 52
+        },
+        "donchian_55_20": {
+          "final_gbp": 4941.96,
+          "cagr": -0.08721706700094356,
+          "max_drawdown": -0.6936899032135151,
+          "pct_time_invested": 0.23719262295081966,
+          "switches": 26
+        },
+        "donchian_20_10": {
+          "final_gbp": 7784.55,
+          "cagr": -0.03190619879943091,
+          "max_drawdown": -0.616468715742722,
+          "pct_time_invested": 0.3109631147540984,
+          "switches": 84
+        },
+        "level_break": {
+          "final_gbp": 5875.77,
+          "cagr": -0.06653169260861991,
+          "max_drawdown": -0.653716510168236,
+          "pct_time_invested": 0.35758196721311475,
+          "switches": 11
+        },
+        "trendline": {
+          "final_gbp": 3404.53,
+          "cagr": -0.13021298103876056,
+          "max_drawdown": -0.9401150726323818,
+          "pct_time_invested": 0.7612704918032787,
+          "switches": 10
+        }
+      },
+      "AAPL": {
+        "buy_and_hold": {
+          "final_gbp": 89833.54,
+          "cagr": 0.3287607722413437,
+          "max_drawdown": -0.3336051768628566,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 40419.95,
+          "cagr": 0.1982272753935721,
+          "max_drawdown": -0.35831986390207227,
+          "pct_time_invested": 0.7842430484037075,
+          "switches": 44
+        },
+        "above_50d": {
+          "final_gbp": 37161.36,
+          "cagr": 0.18525778477432087,
+          "max_drawdown": -0.3088498515375323,
+          "pct_time_invested": 0.6513903192584964,
+          "switches": 120
+        },
+        "cross_50_200": {
+          "final_gbp": 35319.72,
+          "cagr": 0.17748324967582274,
+          "max_drawdown": -0.31427243686541084,
+          "pct_time_invested": 0.7687950566426365,
+          "switches": 10
+        },
+        "cross_20_50": {
+          "final_gbp": 32749.39,
+          "cagr": 0.16602033389823068,
+          "max_drawdown": -0.29800155027968145,
+          "pct_time_invested": 0.6416065911431514,
+          "switches": 46
+        },
+        "above_200d_rising": {
+          "final_gbp": 34546.76,
+          "cagr": 0.17411456778182144,
+          "max_drawdown": -0.3583198639020724,
+          "pct_time_invested": 0.7183316168898043,
+          "switches": 38
+        },
+        "donchian_55_20": {
+          "final_gbp": 35919.82,
+          "cagr": 0.18005455120412828,
+          "max_drawdown": -0.21815186369919137,
+          "pct_time_invested": 0.45468589083419153,
+          "switches": 35
+        },
+        "donchian_20_10": {
+          "final_gbp": 39086.72,
+          "cagr": 0.1930350516277941,
+          "max_drawdown": -0.22799953633810088,
+          "pct_time_invested": 0.5303810504634398,
+          "switches": 82
+        },
+        "level_break": {
+          "final_gbp": 76600.8,
+          "cagr": 0.3016266466154536,
+          "max_drawdown": -0.3142724368654112,
+          "pct_time_invested": 0.9006179196704428,
+          "switches": 27
+        },
+        "trendline": {
+          "final_gbp": 43935.01,
+          "cagr": 0.21123429294344676,
+          "max_drawdown": -0.28673318752737653,
+          "pct_time_invested": 0.6658084449021627,
+          "switches": 12
+        }
+      },
+      "AMZN": {
+        "buy_and_hold": {
+          "final_gbp": 32325.44,
+          "cagr": 0.16405487124204665,
+          "max_drawdown": -0.5614526325328262,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 12828.0,
+          "cagr": 0.03277069226140905,
+          "max_drawdown": -0.4351702700686245,
+          "pct_time_invested": 0.685890834191555,
+          "switches": 84
+        },
+        "above_50d": {
+          "final_gbp": 11959.63,
+          "cagr": 0.023440349412610972,
+          "max_drawdown": -0.532048502788196,
+          "pct_time_invested": 0.6071060762100927,
+          "switches": 163
+        },
+        "cross_50_200": {
+          "final_gbp": 15094.46,
+          "cagr": 0.054757137565943026,
+          "max_drawdown": -0.4306445328400613,
+          "pct_time_invested": 0.6946446961894953,
+          "switches": 12
+        },
+        "cross_20_50": {
+          "final_gbp": 8690.15,
+          "cagr": -0.018013465031689324,
+          "max_drawdown": -0.49414814112706906,
+          "pct_time_invested": 0.6230690010298661,
+          "switches": 47
+        },
+        "above_200d_rising": {
+          "final_gbp": 9525.59,
+          "cagr": -0.0062731746737041405,
+          "max_drawdown": -0.38322844823990054,
+          "pct_time_invested": 0.6333676622039135,
+          "switches": 78
+        },
+        "donchian_55_20": {
+          "final_gbp": 7652.17,
+          "cagr": -0.03405366218089556,
+          "max_drawdown": -0.47229851542281565,
+          "pct_time_invested": 0.39237899073120497,
+          "switches": 47
+        },
+        "donchian_20_10": {
+          "final_gbp": 17088.3,
+          "cagr": 0.07183704973692717,
+          "max_drawdown": -0.24780947455783064,
+          "pct_time_invested": 0.44335736354273947,
+          "switches": 93
+        },
+        "level_break": {
+          "final_gbp": 20744.35,
+          "cagr": 0.09908355105823574,
+          "max_drawdown": -0.5279507893855149,
+          "pct_time_invested": 0.8542739443872297,
+          "switches": 15
+        },
+        "trendline": {
+          "final_gbp": 16635.39,
+          "cagr": 0.06811580695946495,
+          "max_drawdown": -0.430611295057283,
+          "pct_time_invested": 0.5715756951596292,
+          "switches": 24
+        }
+      },
+      "GOOG": {
+        "buy_and_hold": {
+          "final_gbp": 64534.48,
+          "cagr": 0.27305770846840804,
+          "max_drawdown": -0.4460185989770853,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 37388.65,
+          "cagr": 0.18619391682563702,
+          "max_drawdown": -0.30787314134053156,
+          "pct_time_invested": 0.7677651905252317,
+          "switches": 59
+        },
+        "above_50d": {
+          "final_gbp": 23917.97,
+          "cagr": 0.11952930340246559,
+          "max_drawdown": -0.47452535780129157,
+          "pct_time_invested": 0.6776519052523172,
+          "switches": 131
+        },
+        "cross_50_200": {
+          "final_gbp": 41512.62,
+          "cagr": 0.20237268957706456,
+          "max_drawdown": -0.30790145608523634,
+          "pct_time_invested": 0.7615859938208033,
+          "switches": 10
+        },
+        "cross_20_50": {
+          "final_gbp": 37962.23,
+          "cagr": 0.18853446876641033,
+          "max_drawdown": -0.3490567650710885,
+          "pct_time_invested": 0.680226570545829,
+          "switches": 39
+        },
+        "above_200d_rising": {
+          "final_gbp": 37794.14,
+          "cagr": 0.18785176043159368,
+          "max_drawdown": -0.27175068453322915,
+          "pct_time_invested": 0.729145211122554,
+          "switches": 43
+        },
+        "donchian_55_20": {
+          "final_gbp": 17421.12,
+          "cagr": 0.07451728174006167,
+          "max_drawdown": -0.3050887798085441,
+          "pct_time_invested": 0.470648815653965,
+          "switches": 49
+        },
+        "donchian_20_10": {
+          "final_gbp": 20837.6,
+          "cagr": 0.09972200176350365,
+          "max_drawdown": -0.37016957331959244,
+          "pct_time_invested": 0.5123583934088568,
+          "switches": 92
+        },
+        "level_break": {
+          "final_gbp": 50258.57,
+          "cagr": 0.23250712041226218,
+          "max_drawdown": -0.38233074891508534,
+          "pct_time_invested": 0.8975283213182287,
+          "switches": 3
+        },
+        "trendline": {
+          "final_gbp": 12306.67,
+          "cagr": 0.027237741919471148,
+          "max_drawdown": -0.5121433116745988,
+          "pct_time_invested": 0.4325437693099897,
+          "switches": 13
+        }
+      },
+      "MSFT": {
+        "buy_and_hold": {
+          "final_gbp": 53136.64,
+          "cagr": 0.24142550965749154,
+          "max_drawdown": -0.3714848923892753,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 24928.03,
+          "cagr": 0.12554102068055206,
+          "max_drawdown": -0.4053328793906187,
+          "pct_time_invested": 0.7481977342945417,
+          "switches": 68
+        },
+        "above_50d": {
+          "final_gbp": 15616.69,
+          "cagr": 0.05941231948823256,
+          "max_drawdown": -0.3707836349424046,
+          "pct_time_invested": 0.6570545829042225,
+          "switches": 158
+        },
+        "cross_50_200": {
+          "final_gbp": 37745.29,
+          "cagr": 0.1876528467310321,
+          "max_drawdown": -0.2803926268982575,
+          "pct_time_invested": 0.743048403707518,
+          "switches": 11
+        },
+        "cross_20_50": {
+          "final_gbp": 17027.3,
+          "cagr": 0.071340914250545,
+          "max_drawdown": -0.4406739312015805,
+          "pct_time_invested": 0.6483007209062822,
+          "switches": 44
+        },
+        "above_200d_rising": {
+          "final_gbp": 22753.21,
+          "cagr": 0.11231612194595386,
+          "max_drawdown": -0.4053328793906187,
+          "pct_time_invested": 0.708032955715757,
+          "switches": 60
+        },
+        "donchian_55_20": {
+          "final_gbp": 16972.12,
+          "cagr": 0.07089076925727555,
+          "max_drawdown": -0.2497669808880344,
+          "pct_time_invested": 0.45777548918640576,
+          "switches": 46
+        },
+        "donchian_20_10": {
+          "final_gbp": 20779.31,
+          "cagr": 0.09932321667454636,
+          "max_drawdown": -0.23803526548007248,
+          "pct_time_invested": 0.466529351184346,
+          "switches": 91
+        },
+        "level_break": {
+          "final_gbp": 48328.34,
+          "cagr": 0.22627332785912557,
+          "max_drawdown": -0.38631001887001015,
+          "pct_time_invested": 0.7703398558187435,
+          "switches": 15
+        },
+        "trendline": {
+          "final_gbp": 31191.03,
+          "cagr": 0.15868311940495028,
+          "max_drawdown": -0.37148489238927485,
+          "pct_time_invested": 0.7255406797116375,
+          "switches": 12
+        }
+      },
+      "NVDA": {
+        "buy_and_hold": {
+          "final_gbp": 667930.87,
+          "cagr": 0.7228908950596098,
+          "max_drawdown": -0.6633508974336899,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 369470.36,
+          "cagr": 0.5957429642519974,
+          "max_drawdown": -0.4182781177311764,
+          "pct_time_invested": 0.7832131822863028,
+          "switches": 28
+        },
+        "above_50d": {
+          "final_gbp": 98971.03,
+          "cagr": 0.345531202452942,
+          "max_drawdown": -0.3958070339892593,
+          "pct_time_invested": 0.6977342945417095,
+          "switches": 136
+        },
+        "cross_50_200": {
+          "final_gbp": 441454.84,
+          "cagr": 0.6329476035313548,
+          "max_drawdown": -0.3755403086829615,
+          "pct_time_invested": 0.7837281153450052,
+          "switches": 6
+        },
+        "cross_20_50": {
+          "final_gbp": 109923.17,
+          "cagr": 0.3639404504176642,
+          "max_drawdown": -0.6381284197016396,
+          "pct_time_invested": 0.674562306900103,
+          "switches": 46
+        },
+        "above_200d_rising": {
+          "final_gbp": 313674.73,
+          "cagr": 0.5622740951431364,
+          "max_drawdown": -0.41827811773117596,
+          "pct_time_invested": 0.7492276004119465,
+          "switches": 24
+        },
+        "donchian_55_20": {
+          "final_gbp": 47902.73,
+          "cagr": 0.22486969916473498,
+          "max_drawdown": -0.41468527169676994,
+          "pct_time_invested": 0.5190525231719877,
+          "switches": 48
+        },
+        "donchian_20_10": {
+          "final_gbp": 113187.32,
+          "cagr": 0.36911789994051913,
+          "max_drawdown": -0.3917640930334796,
+          "pct_time_invested": 0.5046343975283213,
+          "switches": 87
+        },
+        "level_break": {
+          "final_gbp": 170876.04,
+          "cagr": 0.4441152085979698,
+          "max_drawdown": -0.6404054490783657,
+          "pct_time_invested": 0.8120494335736355,
+          "switches": 14
+        },
+        "trendline": {
+          "final_gbp": 92666.04,
+          "cagr": 0.33411232364135834,
+          "max_drawdown": -0.669080222531063,
+          "pct_time_invested": 0.7466529351184346,
+          "switches": 29
+        }
+      },
+      "TSLA": {
+        "buy_and_hold": {
+          "final_gbp": 183484.35,
+          "cagr": 0.45748785344042964,
+          "max_drawdown": -0.736322174421912,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 48715.65,
+          "cagr": 0.2275413468674019,
+          "max_drawdown": -0.6470234119500938,
+          "pct_time_invested": 0.59783728115345,
+          "switches": 89
+        },
+        "above_50d": {
+          "final_gbp": 73036.96,
+          "cagr": 0.29362233173011587,
+          "max_drawdown": -0.5258700501996321,
+          "pct_time_invested": 0.5607621009268795,
+          "switches": 126
+        },
+        "cross_50_200": {
+          "final_gbp": 68607.35,
+          "cagr": 0.28318534981613275,
+          "max_drawdown": -0.6515216078652459,
+          "pct_time_invested": 0.5885684860968075,
+          "switches": 14
+        },
+        "cross_20_50": {
+          "final_gbp": 74819.76,
+          "cagr": 0.29766794250523554,
+          "max_drawdown": -0.6062653853820688,
+          "pct_time_invested": 0.5458290422245108,
+          "switches": 41
+        },
+        "above_200d_rising": {
+          "final_gbp": 24549.25,
+          "cagr": 0.12331186112675585,
+          "max_drawdown": -0.7601850219007509,
+          "pct_time_invested": 0.5185375901132853,
+          "switches": 81
+        },
+        "donchian_55_20": {
+          "final_gbp": 106068.3,
+          "cagr": 0.3576507628940362,
+          "max_drawdown": -0.42625058260395243,
+          "pct_time_invested": 0.3779608650875386,
+          "switches": 33
+        },
+        "donchian_20_10": {
+          "final_gbp": 203978.83,
+          "cagr": 0.4776072258811539,
+          "max_drawdown": -0.42114551335870065,
+          "pct_time_invested": 0.411946446961895,
+          "switches": 78
+        },
+        "level_break": {
+          "final_gbp": 115655.7,
+          "cagr": 0.37294752113387286,
+          "max_drawdown": -0.6062653853820688,
+          "pct_time_invested": 0.5993820803295572,
+          "switches": 14
+        },
+        "trendline": {
+          "final_gbp": 159647.59,
+          "cagr": 0.43146219655396734,
+          "max_drawdown": -0.7363221744219122,
+          "pct_time_invested": 0.9011328527291452,
+          "switches": 8
+        }
+      },
+      "CELH": {
+        "buy_and_hold": {
+          "final_gbp": 253228.19,
+          "cagr": 0.5195683236960493,
+          "max_drawdown": -0.7785870299499971,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 79144.93,
+          "cagr": 0.30714468297136666,
+          "max_drawdown": -0.5930745212331174,
+          "pct_time_invested": 0.6323377960865088,
+          "switches": 63
+        },
+        "above_50d": {
+          "final_gbp": 73665.6,
+          "cagr": 0.2950585829848713,
+          "max_drawdown": -0.6437523296031029,
+          "pct_time_invested": 0.5478887744593203,
+          "switches": 121
+        },
+        "cross_50_200": {
+          "final_gbp": 134195.58,
+          "cagr": 0.39963345891315005,
+          "max_drawdown": -0.5595877602297599,
+          "pct_time_invested": 0.6544799176107106,
+          "switches": 13
+        },
+        "cross_20_50": {
+          "final_gbp": 102182.91,
+          "cagr": 0.35110660830459195,
+          "max_drawdown": -0.6097295654707648,
+          "pct_time_invested": 0.5756951596292482,
+          "switches": 38
+        },
+        "above_200d_rising": {
+          "final_gbp": 64373.61,
+          "cagr": 0.2726463678244089,
+          "max_drawdown": -0.6013541236833841,
+          "pct_time_invested": 0.5463439752832132,
+          "switches": 43
+        },
+        "donchian_55_20": {
+          "final_gbp": 40182.38,
+          "cagr": 0.1973131067621985,
+          "max_drawdown": -0.49990691935572973,
+          "pct_time_invested": 0.38516992790937177,
+          "switches": 43
+        },
+        "donchian_20_10": {
+          "final_gbp": 56071.78,
+          "cagr": 0.25009766023635627,
+          "max_drawdown": -0.613217467781591,
+          "pct_time_invested": 0.4212152420185376,
+          "switches": 91
+        },
+        "level_break": {
+          "final_gbp": 74242.81,
+          "cagr": 0.2963679670107535,
+          "max_drawdown": -0.8264825593334548,
+          "pct_time_invested": 0.712152420185376,
+          "switches": 13
+        },
+        "trendline": {
+          "final_gbp": 53202.53,
+          "cagr": 0.2416247133521956,
+          "max_drawdown": -0.7785870299499973,
+          "pct_time_invested": 0.6580844490216272,
+          "switches": 12
+        }
+      },
+      "VST": {
+        "buy_and_hold": {
+          "final_gbp": 72244.11,
+          "cagr": 0.2917954642785312,
+          "max_drawdown": -0.5331682032712362,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 25784.81,
+          "cagr": 0.13047635778578304,
+          "max_drawdown": -0.5128790893496762,
+          "pct_time_invested": 0.6261585993820803,
+          "switches": 77
+        },
+        "above_50d": {
+          "final_gbp": 16940.05,
+          "cagr": 0.07062853146182158,
+          "max_drawdown": -0.6109889495811529,
+          "pct_time_invested": 0.5968074150360453,
+          "switches": 151
+        },
+        "cross_50_200": {
+          "final_gbp": 53238.1,
+          "cagr": 0.24173215268144865,
+          "max_drawdown": -0.4880428505611698,
+          "pct_time_invested": 0.6524201853759012,
+          "switches": 14
+        },
+        "cross_20_50": {
+          "final_gbp": 47851.47,
+          "cagr": 0.22469993471018745,
+          "max_drawdown": -0.44404763094767874,
+          "pct_time_invested": 0.5859938208032955,
+          "switches": 41
+        },
+        "above_200d_rising": {
+          "final_gbp": 27881.29,
+          "cagr": 0.14197617942714347,
+          "max_drawdown": -0.5128790893496761,
+          "pct_time_invested": 0.5664263645726055,
+          "switches": 61
+        },
+        "donchian_55_20": {
+          "final_gbp": 15492.54,
+          "cagr": 0.05831801264177705,
+          "max_drawdown": -0.42002250643384464,
+          "pct_time_invested": 0.384140061791967,
+          "switches": 41
+        },
+        "donchian_20_10": {
+          "final_gbp": 13448.88,
+          "cagr": 0.03911039532882277,
+          "max_drawdown": -0.5622771484512659,
+          "pct_time_invested": 0.4191555097837281,
+          "switches": 91
+        },
+        "level_break": {
+          "final_gbp": 32466.38,
+          "cagr": 0.1647107529517211,
+          "max_drawdown": -0.5458032729931646,
+          "pct_time_invested": 0.5859938208032955,
+          "switches": 15
+        },
+        "trendline": {
+          "final_gbp": 70495.26,
+          "cagr": 0.2877033031094023,
+          "max_drawdown": -0.5319344600927445,
+          "pct_time_invested": 0.9093717816683831,
+          "switches": 5
+        }
+      },
+      "TEM": {
+        "buy_and_hold": {
+          "final_gbp": 18988.57,
+          "cagr": 0.3255797855962266,
+          "max_drawdown": -0.5975786998831912,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 11383.59,
+          "cagr": 0.058611267357315144,
+          "max_drawdown": -0.5091637271913376,
+          "pct_time_invested": 0.34210526315789475,
+          "switches": 16
+        },
+        "above_50d": {
+          "final_gbp": 4469.19,
+          "cagr": -0.29811693501208536,
+          "max_drawdown": -0.7126895219114039,
+          "pct_time_invested": 0.4543859649122807,
+          "switches": 42
+        },
+        "cross_50_200": {
+          "final_gbp": 11808.12,
+          "cagr": 0.07578546564851507,
+          "max_drawdown": -0.42808717445946265,
+          "pct_time_invested": 0.3385964912280702,
+          "switches": 6
+        },
+        "cross_20_50": {
+          "final_gbp": 2146.24,
+          "cagr": -0.4915452689974099,
+          "max_drawdown": -0.8542575971488123,
+          "pct_time_invested": 0.4473684210526316,
+          "switches": 16
+        },
+        "above_200d_rising": {
+          "final_gbp": 10181.69,
+          "cagr": 0.007945746569682388,
+          "max_drawdown": -0.4877191996383953,
+          "pct_time_invested": 0.28771929824561404,
+          "switches": 13
+        },
+        "donchian_55_20": {
+          "final_gbp": 4407.86,
+          "cagr": -0.3023667707323012,
+          "max_drawdown": -0.6780835420898427,
+          "pct_time_invested": 0.2614035087719298,
+          "switches": 12
+        },
+        "donchian_20_10": {
+          "final_gbp": 12896.86,
+          "cagr": 0.11830700786519288,
+          "max_drawdown": -0.38954227309752876,
+          "pct_time_invested": 0.3368421052631579,
+          "switches": 24
+        },
+        "level_break": {
+          "final_gbp": 7495.03,
+          "cagr": -0.11903402706948052,
+          "max_drawdown": -0.5207702781547936,
+          "pct_time_invested": 0.34912280701754383,
+          "switches": 3
+        },
+        "trendline": {
+          "final_gbp": 13113.1,
+          "cagr": 0.12651016458583286,
+          "max_drawdown": -0.5975786998831912,
+          "pct_time_invested": 0.5105263157894737,
+          "switches": 2
+        }
+      },
+      "SPY": {
+        "buy_and_hold": {
+          "final_gbp": 34322.55,
+          "cagr": 0.17312518308020874,
+          "max_drawdown": -0.33717270361192986,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 23610.58,
+          "cagr": 0.1176559127109933,
+          "max_drawdown": -0.215534650321885,
+          "pct_time_invested": 0.8146240988671473,
+          "switches": 42
+        },
+        "above_50d": {
+          "final_gbp": 19477.27,
+          "cagr": 0.0901512551127368,
+          "max_drawdown": -0.22373155096708053,
+          "pct_time_invested": 0.7399588053553038,
+          "switches": 122
+        },
+        "cross_50_200": {
+          "final_gbp": 22087.09,
+          "cagr": 0.1080451625434824,
+          "max_drawdown": -0.3371727036119294,
+          "pct_time_invested": 0.7996910401647785,
+          "switches": 8
+        },
+        "cross_20_50": {
+          "final_gbp": 18147.85,
+          "cagr": 0.08021820155403292,
+          "max_drawdown": -0.2959652479715118,
+          "pct_time_invested": 0.7363542739443872,
+          "switches": 34
+        },
+        "above_200d_rising": {
+          "final_gbp": 23815.28,
+          "cagr": 0.11890582824282969,
+          "max_drawdown": -0.1892450511295728,
+          "pct_time_invested": 0.7857878475798146,
+          "switches": 34
+        },
+        "donchian_55_20": {
+          "final_gbp": 15916.61,
+          "cagr": 0.06202482788512209,
+          "max_drawdown": -0.18798097046294826,
+          "pct_time_invested": 0.553038105046344,
+          "switches": 47
+        },
+        "donchian_20_10": {
+          "final_gbp": 18782.52,
+          "cagr": 0.08503659305943922,
+          "max_drawdown": -0.09405190335650315,
+          "pct_time_invested": 0.5792996910401648,
+          "switches": 94
+        },
+        "level_break": {
+          "final_gbp": 23813.01,
+          "cagr": 0.11889198637675547,
+          "max_drawdown": -0.3204608840944405,
+          "pct_time_invested": 0.6488156539649845,
+          "switches": 10
+        },
+        "trendline": {
+          "final_gbp": 11150.88,
+          "cagr": 0.014204102129929508,
+          "max_drawdown": -0.19190800535521546,
+          "pct_time_invested": 0.194129763130793,
+          "switches": 10
+        }
+      },
+      "QQQ": {
+        "buy_and_hold": {
+          "final_gbp": 50073.2,
+          "cagr": 0.23191757661200563,
+          "max_drawdown": -0.35118723785462835,
+          "pct_time_invested": 1.0,
+          "switches": 0
+        },
+        "above_200d": {
+          "final_gbp": 38096.48,
+          "cagr": 0.18907780078977776,
+          "max_drawdown": -0.22113323676644814,
+          "pct_time_invested": 0.8135942327497425,
+          "switches": 32
+        },
+        "above_50d": {
+          "final_gbp": 23867.42,
+          "cagr": 0.11922267658886376,
+          "max_drawdown": -0.1984083900203174,
+          "pct_time_invested": 0.7090628218331617,
+          "switches": 128
+        },
+        "cross_50_200": {
+          "final_gbp": 40702.07,
+          "cagr": 0.19930685420503114,
+          "max_drawdown": -0.28559360295076175,
+          "pct_time_invested": 0.805870236869207,
+          "switches": 8
+        },
+        "cross_20_50": {
+          "final_gbp": 25125.29,
+          "cagr": 0.12669021777339684,
+          "max_drawdown": -0.2710003570599656,
+          "pct_time_invested": 0.6936148300720907,
+          "switches": 38
+        },
+        "above_200d_rising": {
+          "final_gbp": 35835.29,
+          "cagr": 0.1796946380101878,
+          "max_drawdown": -0.22113323676644803,
+          "pct_time_invested": 0.7893923789907312,
+          "switches": 30
+        },
+        "donchian_55_20": {
+          "final_gbp": 22352.03,
+          "cagr": 0.10975715117978546,
+          "max_drawdown": -0.1417090248341626,
+          "pct_time_invested": 0.4922760041194645,
+          "switches": 40
+        },
+        "donchian_20_10": {
+          "final_gbp": 23310.99,
+          "cagr": 0.11580950294609393,
+          "max_drawdown": -0.20302182147339254,
+          "pct_time_invested": 0.5478887744593203,
+          "switches": 98
+        },
+        "level_break": {
+          "final_gbp": 58471.5,
+          "cagr": 0.2568990129581914,
+          "max_drawdown": -0.2855936029507621,
+          "pct_time_invested": 0.8918640576725025,
+          "switches": 19
+        },
+        "trendline": {
+          "final_gbp": 17701.4,
+          "cagr": 0.07674008385350417,
+          "max_drawdown": -0.21989948125969316,
+          "pct_time_invested": 0.437178166838311,
+          "switches": 26
+        }
+      }
+    }
+  },
+  "episodes": {
+    "FRES.L": [
+      {
+        "from": "2014-02-27",
+        "to": "2014-08-06",
+        "trough": "2014-06-06",
+        "hold_drawdown": -0.22251971576414464,
+        "buy_and_hold_pct": 0.02876902754593158,
+        "cross_50_200_pct": -0.0010000000000000009,
+        "above_200d_pct": -0.0010000000000000009,
+        "donchian_55_20_pct": 0.05305318281331073
+      },
+      {
+        "from": "2014-08-07",
+        "to": "2016-03-14",
+        "trough": "2015-09-15",
+        "hold_drawdown": -0.42963654049747013,
+        "buy_and_hold_pct": -0.060842284821339465,
+        "cross_50_200_pct": 0.05569362642494213,
+        "above_200d_pct": 0.0964084859380423,
+        "donchian_55_20_pct": 0.11445324382676536
+      },
+      {
+        "from": "2016-08-01",
+        "to": "2024-09-19",
+        "trough": "2024-03-20",
+        "hold_drawdown": -0.7803958935666739,
+        "buy_and_hold_pct": -0.6947299746826999,
+        "cross_50_200_pct": -0.5976028855913196,
+        "above_200d_pct": -0.7330826677991695,
+        "donchian_55_20_pct": -0.6293783872016511
+      },
+      {
+        "from": "2025-09-23",
+        "to": "2025-11-26",
+        "trough": "2025-10-22",
+        "hold_drawdown": -0.20852352984908185,
+        "buy_and_hold_pct": 0.0941176796536507,
+        "cross_50_200_pct": 0.1086805291412527,
+        "above_200d_pct": 0.1086805291412527,
+        "donchian_55_20_pct": -0.10084224243054263
+      },
+      {
+        "from": "2026-01-02",
+        "to": "2026-09-23",
+        "trough": "2026-07-17",
+        "hold_drawdown": -0.450869549748357,
+        "buy_and_hold_pct": -0.1331923685641243,
+        "cross_50_200_pct": -0.21397237171211303,
+        "above_200d_pct": -0.18305928100811575,
+        "donchian_55_20_pct": 0.045825476999631576
+      }
+    ],
+    "IQE.L": [
+      {
+        "from": "2014-01-03",
+        "to": "2015-04-14",
+        "trough": "2014-10-13",
+        "hold_drawdown": -0.5454545454545454,
+        "buy_and_hold_pct": -0.03191489361702138,
+        "cross_50_200_pct": 0.179470863636364,
+        "above_200d_pct": 0.14973673544303834,
+        "donchian_55_20_pct": 0.26132630000000034
+      },
+      {
+        "from": "2017-03-17",
+        "to": "2017-05-10",
+        "trough": "2017-04-18",
+        "hold_drawdown": -0.1717557251908397,
+        "buy_and_hold_pct": 0.20930232558139616,
+        "cross_50_200_pct": 0.20131397260273975,
+        "above_200d_pct": 0.20131397260273975,
+        "donchian_55_20_pct": 0.20131397260273975
+      },
+      {
+        "from": "2017-08-16",
+        "to": "2017-11-10",
+        "trough": "2017-09-26",
+        "hold_drawdown": -0.24165341812400631,
+        "buy_and_hold_pct": 0.1050847457627122,
+        "cross_50_200_pct": 0.21393673913925437,
+        "above_200d_pct": 0.21393673913925437,
+        "donchian_55_20_pct": -0.0606978294293582
+      },
+      {
+        "from": "2017-11-17",
+        "to": "2026-06-17",
+        "trough": "2025-12-12",
+        "hold_drawdown": -0.9726993000590718,
+        "buy_and_hold_pct": -0.6872727187363413,
+        "cross_50_200_pct": -0.12886887931065882,
+        "above_200d_pct": 0.13339267957536616,
+        "donchian_55_20_pct": 0.8814987166341048
+      }
+    ],
+    "ZOO.L": [
+      {
+        "from": "2014-01-02",
+        "to": "2015-02-03",
+        "trough": "2014-08-05",
+        "hold_drawdown": -0.5567010309278351,
+        "buy_and_hold_pct": -0.3763440860215047,
+        "cross_50_200_pct": -0.0018277428571427112,
+        "above_200d_pct": -0.18513863099619654,
+        "donchian_55_20_pct": -0.3057025637822861
+      },
+      {
+        "from": "2015-04-01",
+        "to": "2016-02-10",
+        "trough": "2015-08-12",
+        "hold_drawdown": -0.5,
+        "buy_and_hold_pct": -0.1818181818181812,
+        "cross_50_200_pct": -0.3888145024539318,
+        "above_200d_pct": -0.23166366398803728,
+        "donchian_55_20_pct": 0.09513463768793673
+      },
+      {
+        "from": "2016-03-31",
+        "to": "2016-12-23",
+        "trough": "2016-06-29",
+        "hold_drawdown": -0.36633663366336633,
+        "buy_and_hold_pct": -0.1904761904761909,
+        "cross_50_200_pct": -0.1304638784694142,
+        "above_200d_pct": -0.4191060140585189,
+        "donchian_55_20_pct": -0.026119543885743557
+      },
+      {
+        "from": "2017-03-17",
+        "to": "2017-06-29",
+        "trough": "2017-06-12",
+        "hold_drawdown": -0.27450980392156865,
+        "buy_and_hold_pct": 0.23456790123456694,
+        "cross_50_200_pct": 0.2320999999999993,
+        "above_200d_pct": 0.13962026904093827,
+        "donchian_55_20_pct": -0.06454039600000017
+      },
+      {
+        "from": "2017-10-05",
+        "to": "2017-11-09",
+        "trough": "2017-11-02",
+        "hold_drawdown": -0.15139442231075695,
+        "buy_and_hold_pct": 0.72,
+        "cross_50_200_pct": 0.6094146885714291,
+        "above_200d_pct": 0.6094146885714291,
+        "donchian_55_20_pct": 0.6094146885714291
+      },
+      {
+        "from": "2017-10-17",
+        "to": "2018-01-08",
+        "trough": "2017-12-04",
+        "hold_drawdown": -0.36046511627906974,
+        "buy_and_hold_pct": 0.40425531914893553,
+        "cross_50_200_pct": 0.44760886720059534,
+        "above_200d_pct": 0.44760886720059534,
+        "donchian_55_20_pct": -0.0961492135416282
+      },
+      {
+        "from": "2018-01-09",
+        "to": "2018-02-19",
+        "trough": "2018-02-06",
+        "hold_drawdown": -0.15540540540540537,
+        "buy_and_hold_pct": 0.1287878787878789,
+        "cross_50_200_pct": 0.06215055806783121,
+        "above_200d_pct": 0.06215055806783121,
+        "donchian_55_20_pct": -0.09558236406885912
+      },
+      {
+        "from": "2018-04-17",
+        "to": "2018-06-04",
+        "trough": "2018-05-21",
+        "hold_drawdown": -0.18181818181818177,
+        "buy_and_hold_pct": 0.004629629629629317,
+        "cross_50_200_pct": 0.03124252195121957,
+        "above_200d_pct": 0.03124252195121957,
+        "donchian_55_20_pct": -0.12645679532264809
+      },
+      {
+        "from": "2018-05-31",
+        "to": "2018-07-03",
+        "trough": "2018-06-28",
+        "hold_drawdown": -0.15000000000000002,
+        "buy_and_hold_pct": 0.058823529411765385,
+        "cross_50_200_pct": 0.012047749549429554,
+        "above_200d_pct": 0.012047749549429554,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2018-07-06",
+        "to": "2018-09-26",
+        "trough": "2018-08-20",
+        "hold_drawdown": -0.23546511627906974,
+        "buy_and_hold_pct": 0.4529914529914525,
+        "cross_50_200_pct": 0.4439753347807207,
+        "above_200d_pct": 0.4439753347807207,
+        "donchian_55_20_pct": 0.12432591250933567
+      },
+      {
+        "from": "2018-08-30",
+        "to": "2020-09-17",
+        "trough": "2020-03-18",
+        "hold_drawdown": -0.813953488372093,
+        "buy_and_hold_pct": -0.6442953020134228,
+        "cross_50_200_pct": -0.35106604095577143,
+        "above_200d_pct": -0.6597459895125745,
+        "donchian_55_20_pct": -0.3083797883028182
+      },
+      {
+        "from": "2022-12-15",
+        "to": "2023-02-22",
+        "trough": "2023-01-17",
+        "hold_drawdown": -0.16315789473684206,
+        "buy_and_hold_pct": 0.04761904761904745,
+        "cross_50_200_pct": 0.07565835054158776,
+        "above_200d_pct": 0.07565835054158776,
+        "donchian_55_20_pct": -0.06045844827146507
+      },
+      {
+        "from": "2023-03-29",
+        "to": "2025-10-06",
+        "trough": "2025-04-04",
+        "hold_drawdown": -0.9585542150290616,
+        "buy_and_hold_pct": -0.9387500000000002,
+        "cross_50_200_pct": -0.7192816485989776,
+        "above_200d_pct": -0.24300670778881395,
+        "donchian_55_20_pct": 0.15888259295561968
+      }
+    ],
+    "LIT.L": [
+      {
+        "from": "2019-01-31",
+        "to": "2019-03-20",
+        "trough": "2019-03-01",
+        "hold_drawdown": -0.1946901515165843,
+        "buy_and_hold_pct": 0.10256409754594875,
+        "cross_50_200_pct": -0.0010000000000000009,
+        "above_200d_pct": -0.0010000000000000009,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2019-04-08",
+        "to": "2020-09-15",
+        "trough": "2020-03-16",
+        "hold_drawdown": -0.6535329466406878,
+        "buy_and_hold_pct": -0.30212782362998514,
+        "cross_50_200_pct": -0.05599081940820727,
+        "above_200d_pct": -0.0025580181056149565,
+        "donchian_55_20_pct": -0.022595254611892268
+      },
+      {
+        "from": "2021-06-21",
+        "to": "2026-09-23",
+        "trough": "2026-07-09",
+        "hold_drawdown": -0.9886156165027111,
+        "buy_and_hold_pct": -0.9787201934827032,
+        "cross_50_200_pct": -0.20388298599805732,
+        "above_200d_pct": -0.5347793964820551,
+        "donchian_55_20_pct": -0.4159634653291512
+      }
+    ],
+    "DEBS.L": [
+      {
+        "from": "2014-03-14",
+        "to": "2015-07-08",
+        "trough": "2015-01-07",
+        "hold_drawdown": -0.6857142857142857,
+        "buy_and_hold_pct": -0.6107142857142862,
+        "cross_50_200_pct": -0.0010000000000000009,
+        "above_200d_pct": -0.0010000000000000009,
+        "donchian_55_20_pct": -0.1854470162726739
+      },
+      {
+        "from": "2017-05-26",
+        "to": "2018-10-02",
+        "trough": "2018-04-04",
+        "hold_drawdown": -0.470112793427661,
+        "buy_and_hold_pct": 0.1394517282479144,
+        "cross_50_200_pct": 0.025274853852921497,
+        "above_200d_pct": -0.08709633034634989,
+        "donchian_55_20_pct": -0.16694918331658515
+      },
+      {
+        "from": "2019-11-12",
+        "to": "2020-01-09",
+        "trough": "2019-12-12",
+        "hold_drawdown": -0.16740643251343224,
+        "buy_and_hold_pct": 0.1965714518229178,
+        "cross_50_200_pct": 0.21313768037459702,
+        "above_200d_pct": 0.21313768037459702,
+        "donchian_55_20_pct": 0.08095704528517755
+      },
+      {
+        "from": "2020-02-07",
+        "to": "2020-04-27",
+        "trough": "2020-03-18",
+        "hold_drawdown": -0.5280191961686678,
+        "buy_and_hold_pct": 0.015058371199733633,
+        "cross_50_200_pct": -0.2484524997626315,
+        "above_200d_pct": 0.00917450807053899,
+        "donchian_55_20_pct": -0.08594742645607911
+      },
+      {
+        "from": "2020-06-08",
+        "to": "2026-05-28",
+        "trough": "2025-11-24",
+        "hold_drawdown": -0.9749397599553488,
+        "buy_and_hold_pct": -0.9536916238839348,
+        "cross_50_200_pct": -0.694898633158263,
+        "above_200d_pct": -0.8618662574142892,
+        "donchian_55_20_pct": -0.6321644877391019
+      }
+    ],
+    "AAPL": [
+      {
+        "from": "2015-07-24",
+        "to": "2016-11-09",
+        "trough": "2016-05-12",
+        "hold_drawdown": -0.3044377334730852,
+        "buy_and_hold_pct": -0.08639038544465427,
+        "cross_50_200_pct": -0.042781811001378234,
+        "above_200d_pct": -0.05111195994501827,
+        "donchian_55_20_pct": -0.06674936993017933
+      },
+      {
+        "from": "2018-10-15",
+        "to": "2019-07-05",
+        "trough": "2019-01-03",
+        "hold_drawdown": -0.38515897839181956,
+        "buy_and_hold_pct": -0.06976677233303075,
+        "cross_50_200_pct": -0.31842050300101665,
+        "above_200d_pct": -0.16910093719072716,
+        "donchian_55_20_pct": 0.12851901352957174
+      },
+      {
+        "from": "2020-01-29",
+        "to": "2020-06-01",
+        "trough": "2020-03-23",
+        "hold_drawdown": -0.31427243686541073,
+        "buy_and_hold_pct": 0.018247714045557695,
+        "cross_50_200_pct": -0.004624572291001772,
+        "above_200d_pct": -0.19443876425980622,
+        "donchian_55_20_pct": -0.062237083893251444
+      },
+      {
+        "from": "2020-08-10",
+        "to": "2020-12-22",
+        "trough": "2020-09-18",
+        "hold_drawdown": -0.2037559657221133,
+        "buy_and_hold_pct": 0.18895285174922716,
+        "cross_50_200_pct": 0.1695406107959634,
+        "above_200d_pct": 0.1695406107959634,
+        "donchian_55_20_pct": 0.049194080590835965
+      },
+      {
+        "from": "2021-01-27",
+        "to": "2021-07-02",
+        "trough": "2021-03-08",
+        "hold_drawdown": -0.18598827548386,
+        "buy_and_hold_pct": -0.019228360176169246,
+        "cross_50_200_pct": -0.0136458295208427,
+        "above_200d_pct": -0.03399311694245466,
+        "donchian_55_20_pct": -0.054242213014581875
+      },
+      {
+        "from": "2022-02-11",
+        "to": "2022-03-29",
+        "trough": "2022-03-14",
+        "hold_drawdown": -0.17140864005448953,
+        "buy_and_hold_pct": 0.039739815756155705,
+        "cross_50_200_pct": 0.05907535526603458,
+        "above_200d_pct": 0.026523775869170985,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2022-04-08",
+        "to": "2023-05-30",
+        "trough": "2023-01-05",
+        "hold_drawdown": -0.3091280899269856,
+        "buy_and_hold_pct": 0.0376482095312507,
+        "cross_50_200_pct": -0.11067082527678718,
+        "above_200d_pct": -0.10907311280224785,
+        "donchian_55_20_pct": 0.10050161042572947
+      },
+      {
+        "from": "2024-03-12",
+        "to": "2024-06-03",
+        "trough": "2024-04-19",
+        "hold_drawdown": -0.16606652427902613,
+        "buy_and_hold_pct": 0.12470733539102974,
+        "cross_50_200_pct": -0.0043329023928802,
+        "above_200d_pct": 0.05738365760811237,
+        "donchian_55_20_pct": 0.05056843917620535
+      },
+      {
+        "from": "2025-02-11",
+        "to": "2025-09-22",
+        "trough": "2025-04-08",
+        "hold_drawdown": -0.33360517686285607,
+        "buy_and_hold_pct": 0.12763808847357638,
+        "cross_50_200_pct": -0.15941105413952505,
+        "above_200d_pct": 0.05697882216398109,
+        "donchian_55_20_pct": 0.12803745459942095
+      }
+    ],
+    "AMZN": [
+      {
+        "from": "2014-02-26",
+        "to": "2015-04-24",
+        "trough": "2015-01-15",
+        "hold_drawdown": -0.2950497873965894,
+        "buy_and_hold_pct": 0.2421856835155527,
+        "cross_50_200_pct": 0.1720728530712463,
+        "above_200d_pct": 0.23331690450216325,
+        "donchian_55_20_pct": -0.0543414524306185
+      },
+      {
+        "from": "2015-12-14",
+        "to": "2016-05-02",
+        "trough": "2016-02-09",
+        "hold_drawdown": -0.3053446326540753,
+        "buy_and_hold_pct": 0.06826529388811742,
+        "cross_50_200_pct": -0.04862717633612279,
+        "above_200d_pct": -0.03398657027217722,
+        "donchian_55_20_pct": -0.052120796189636165
+      },
+      {
+        "from": "2018-09-13",
+        "to": "2019-06-26",
+        "trough": "2018-12-24",
+        "hold_drawdown": -0.34103783046300673,
+        "buy_and_hold_pct": -0.04631655899124654,
+        "cross_50_200_pct": -0.16925706035499366,
+        "above_200d_pct": -0.33652724979581106,
+        "donchian_55_20_pct": -0.01142522558326342
+      },
+      {
+        "from": "2019-08-29",
+        "to": "2020-01-31",
+        "trough": "2019-10-08",
+        "hold_drawdown": -0.1637648675200224,
+        "buy_and_hold_pct": 0.13856874334090352,
+        "cross_50_200_pct": -0.03991568343295726,
+        "above_200d_pct": 0.011921348373045815,
+        "donchian_55_20_pct": -0.024566171666926873
+      },
+      {
+        "from": "2020-02-07",
+        "to": "2020-04-13",
+        "trough": "2020-03-12",
+        "hold_drawdown": -0.22744701905130327,
+        "buy_and_hold_pct": 0.0578666720450971,
+        "cross_50_200_pct": 0.041028575998256045,
+        "above_200d_pct": -0.07501350261761741,
+        "donchian_55_20_pct": -0.13659551613537446
+      },
+      {
+        "from": "2020-08-20",
+        "to": "2021-04-29",
+        "trough": "2021-03-08",
+        "hold_drawdown": -0.16409685396161633,
+        "buy_and_hold_pct": 0.06466228145587949,
+        "cross_50_200_pct": 0.019567417459709358,
+        "above_200d_pct": -0.07854926125393791,
+        "donchian_55_20_pct": -0.08286382565987627
+      },
+      {
+        "from": "2021-12-20",
+        "to": "2023-06-30",
+        "trough": "2022-12-28",
+        "hold_drawdown": -0.5614526325328263,
+        "buy_and_hold_pct": -0.2332554048471469,
+        "cross_50_200_pct": -0.09425922751765159,
+        "above_200d_pct": -0.011125133623903771,
+        "donchian_55_20_pct": -0.07385662013067706
+      },
+      {
+        "from": "2024-07-05",
+        "to": "2024-11-01",
+        "trough": "2024-08-05",
+        "hold_drawdown": -0.19489997863769526,
+        "buy_and_hold_pct": 0.0017207163530150726,
+        "cross_50_200_pct": -0.012331869179406207,
+        "above_200d_pct": -0.1345463954818249,
+        "donchian_55_20_pct": -0.08709743527281466
+      },
+      {
+        "from": "2025-01-31",
+        "to": "2025-09-09",
+        "trough": "2025-04-21",
+        "hold_drawdown": -0.3087663843187606,
+        "buy_and_hold_pct": 0.015342678626322437,
+        "cross_50_200_pct": -0.21181161228590495,
+        "above_200d_pct": -0.11913061791484303,
+        "donchian_55_20_pct": -0.03660878008932522
+      },
+      {
+        "from": "2026-01-08",
+        "to": "2026-04-14",
+        "trough": "2026-02-13",
+        "hold_drawdown": -0.2173622311569574,
+        "buy_and_hold_pct": 0.030882624562279748,
+        "cross_50_200_pct": -0.13917080457186637,
+        "above_200d_pct": -0.04016869647968091,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2026-05-21",
+        "to": "2026-07-31",
+        "trough": "2026-07-29",
+        "hold_drawdown": -0.17578820340584134,
+        "buy_and_hold_pct": 0.02479142886886132,
+        "cross_50_200_pct": 0.009591472614698837,
+        "above_200d_pct": -0.06392283717911573,
+        "donchian_55_20_pct": -0.047347279394934216
+      }
+    ],
+    "GOOG": [
+      {
+        "from": "2014-03-27",
+        "to": "2015-07-14",
+        "trough": "2015-01-12",
+        "hold_drawdown": -0.1918461160566558,
+        "buy_and_hold_pct": -0.004915023095554805,
+        "cross_50_200_pct": 0.02629243906756562,
+        "above_200d_pct": -0.0857162036381558,
+        "donchian_55_20_pct": -0.07452841441957914
+      },
+      {
+        "from": "2018-09-26",
+        "to": "2019-04-22",
+        "trough": "2018-12-24",
+        "hold_drawdown": -0.23031065672091688,
+        "buy_and_hold_pct": 0.054184786350424785,
+        "cross_50_200_pct": -0.043608348641271055,
+        "above_200d_pct": -0.027647147769614855,
+        "donchian_55_20_pct": 0.11641957335654807
+      },
+      {
+        "from": "2019-05-03",
+        "to": "2019-10-25",
+        "trough": "2019-06-03",
+        "hold_drawdown": -0.19521106826164536,
+        "buy_and_hold_pct": 0.0881809716366655,
+        "cross_50_200_pct": -0.02547134901794257,
+        "above_200d_pct": 0.006669942729280676,
+        "donchian_55_20_pct": -0.07413521895734398
+      },
+      {
+        "from": "2020-02-07",
+        "to": "2020-07-09",
+        "trough": "2020-03-23",
+        "hold_drawdown": -0.30790145608523645,
+        "buy_and_hold_pct": 0.02354660368568151,
+        "cross_50_200_pct": -0.14453405150398413,
+        "above_200d_pct": -0.1417343219971492,
+        "donchian_55_20_pct": -0.06706334904608069
+      },
+      {
+        "from": "2020-08-20",
+        "to": "2020-11-04",
+        "trough": "2020-09-23",
+        "hold_drawdown": -0.18114542506611298,
+        "buy_and_hold_pct": 0.1302721989327278,
+        "cross_50_200_pct": 0.10360812234692451,
+        "above_200d_pct": 0.10360812234692451,
+        "donchian_55_20_pct": -0.05734381136618172
+      },
+      {
+        "from": "2021-12-27",
+        "to": "2022-02-02",
+        "trough": "2022-01-25",
+        "hold_drawdown": -0.1590716619069491,
+        "buy_and_hold_pct": 0.0060754849987749715,
+        "cross_50_200_pct": -0.0021952425789358854,
+        "above_200d_pct": -0.020260232708330328,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2022-01-25",
+        "to": "2023-05-08",
+        "trough": "2022-11-03",
+        "hold_drawdown": -0.44601859897708485,
+        "buy_and_hold_pct": -0.16976031830273874,
+        "cross_50_200_pct": 0.05909284025155803,
+        "above_200d_pct": -0.18764436875503754,
+        "donchian_55_20_pct": -0.20766054417183344
+      },
+      {
+        "from": "2024-07-08",
+        "to": "2024-12-11",
+        "trough": "2024-09-09",
+        "hold_drawdown": -0.2227922532708616,
+        "buy_and_hold_pct": 0.027257951050593254,
+        "cross_50_200_pct": 0.033169879085471754,
+        "above_200d_pct": -0.01775723579921651,
+        "donchian_55_20_pct": -0.0659437105650772
+      },
+      {
+        "from": "2025-01-28",
+        "to": "2025-08-12",
+        "trough": "2025-04-08",
+        "hold_drawdown": -0.29350053778807283,
+        "buy_and_hold_pct": 0.056088490095139054,
+        "cross_50_200_pct": -0.21625203617863653,
+        "above_200d_pct": -0.03228417111960569,
+        "donchian_55_20_pct": 0.01421207784857259
+      },
+      {
+        "from": "2026-02-24",
+        "to": "2026-04-17",
+        "trough": "2026-03-30",
+        "hold_drawdown": -0.20750243891367892,
+        "buy_and_hold_pct": 0.08966949660426127,
+        "cross_50_200_pct": 0.09019168215882667,
+        "above_200d_pct": 0.09019168215882667,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2026-05-28",
+        "to": "2026-09-23",
+        "trough": "2026-07-23",
+        "hold_drawdown": -0.20175528737920578,
+        "buy_and_hold_pct": -0.12844833253773869,
+        "cross_50_200_pct": -0.1331188828729697,
+        "above_200d_pct": -0.19479283793576374,
+        "donchian_55_20_pct": -0.02804265558092034
+      }
+    ],
+    "MSFT": [
+      {
+        "from": "2014-12-29",
+        "to": "2015-04-27",
+        "trough": "2015-01-30",
+        "hold_drawdown": -0.18051151205880567,
+        "buy_and_hold_pct": 0.010272048875263451,
+        "cross_50_200_pct": -0.11060344928358101,
+        "above_200d_pct": -0.10659828663705195,
+        "donchian_55_20_pct": 0.0013402397890425188
+      },
+      {
+        "from": "2015-07-28",
+        "to": "2015-10-19",
+        "trough": "2015-08-25",
+        "hold_drawdown": -0.16595592055107367,
+        "buy_and_hold_pct": 0.05697926792207264,
+        "cross_50_200_pct": 0.05512082517425654,
+        "above_200d_pct": 0.016681561938483913,
+        "donchian_55_20_pct": -0.08925868931540515
+      },
+      {
+        "from": "2018-11-23",
+        "to": "2019-02-26",
+        "trough": "2018-12-24",
+        "hold_drawdown": -0.18227988524740213,
+        "buy_and_hold_pct": 0.09436385361254995,
+        "cross_50_200_pct": 0.03398721104837166,
+        "above_200d_pct": -0.028369195537754077,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2020-01-29",
+        "to": "2020-05-08",
+        "trough": "2020-03-16",
+        "hold_drawdown": -0.2803926268982576,
+        "buy_and_hold_pct": 0.11920991719478247,
+        "cross_50_200_pct": 0.09985317842636077,
+        "above_200d_pct": -0.1778064927359948,
+        "donchian_55_20_pct": -0.058908602830653245
+      },
+      {
+        "from": "2021-12-27",
+        "to": "2023-05-08",
+        "trough": "2022-11-03",
+        "hold_drawdown": -0.37148489238927507,
+        "buy_and_hold_pct": -0.06683081228848464,
+        "cross_50_200_pct": -0.027216394367953423,
+        "above_200d_pct": -0.17356381355212436,
+        "donchian_55_20_pct": -0.06142814655920026
+      },
+      {
+        "from": "2024-07-08",
+        "to": "2025-05-19",
+        "trough": "2025-04-08",
+        "hold_drawdown": -0.23726635531865303,
+        "buy_and_hold_pct": -0.011061261096946606,
+        "cross_50_200_pct": -0.19076431318501774,
+        "above_200d_pct": -0.2192466942105037,
+        "donchian_55_20_pct": -0.026902320304362015
+      },
+      {
+        "from": "2025-12-15",
+        "to": "2026-09-23",
+        "trough": "2026-06-25",
+        "hold_drawdown": -0.3449839013222916,
+        "buy_and_hold_pct": 0.05273617925943186,
+        "cross_50_200_pct": -0.07752053661730718,
+        "above_200d_pct": 0.04515525420223643,
+        "donchian_55_20_pct": -0.10032055809120444
+      }
+    ],
+    "NVDA": [
+      {
+        "from": "2014-09-12",
+        "to": "2014-11-03",
+        "trough": "2014-10-13",
+        "hold_drawdown": -0.16175758205604251,
+        "buy_and_hold_pct": 0.02369886266946719,
+        "cross_50_200_pct": 0.13640383554417368,
+        "above_200d_pct": 0.056635329715169824,
+        "donchian_55_20_pct": -0.016567898908141032
+      },
+      {
+        "from": "2015-06-08",
+        "to": "2015-08-07",
+        "trough": "2015-07-27",
+        "hold_drawdown": -0.1734389050705103,
+        "buy_and_hold_pct": 0.032344945016088866,
+        "cross_50_200_pct": -0.06991735387939568,
+        "above_200d_pct": -0.07771045073650096,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2015-12-15",
+        "to": "2016-03-16",
+        "trough": "2016-02-08",
+        "hold_drawdown": -0.2527410283803053,
+        "buy_and_hold_pct": 0.01997561553918681,
+        "cross_50_200_pct": 0.005592798110612751,
+        "above_200d_pct": 0.005592798110612751,
+        "donchian_55_20_pct": -0.04653625859683175
+      },
+      {
+        "from": "2017-01-25",
+        "to": "2017-05-10",
+        "trough": "2017-04-13",
+        "hold_drawdown": -0.197427190243045,
+        "buy_and_hold_pct": 0.13149222180603148,
+        "cross_50_200_pct": 0.12443041084561046,
+        "above_200d_pct": 0.12443041084561046,
+        "donchian_55_20_pct": -0.06932961798607518
+      },
+      {
+        "from": "2018-09-12",
+        "to": "2019-06-26",
+        "trough": "2018-12-24",
+        "hold_drawdown": -0.5603843755522877,
+        "buy_and_hold_pct": -0.41434820073084044,
+        "cross_50_200_pct": -0.2590791310073466,
+        "above_200d_pct": -0.12979239624025662,
+        "donchian_55_20_pct": -0.1102457577163648
+      },
+      {
+        "from": "2020-01-27",
+        "to": "2020-05-08",
+        "trough": "2020-03-16",
+        "hold_drawdown": -0.3755403086829615,
+        "buy_and_hold_pct": 0.2483507613748921,
+        "cross_50_200_pct": 0.29921570171443546,
+        "above_200d_pct": 0.17198751548908264,
+        "donchian_55_20_pct": 0.019394142965916128
+      },
+      {
+        "from": "2020-08-10",
+        "to": "2020-10-12",
+        "trough": "2020-09-08",
+        "hold_drawdown": -0.16962331328445768,
+        "buy_and_hold_pct": 0.2706152190336111,
+        "cross_50_200_pct": 0.27195690108025317,
+        "above_200d_pct": 0.27195690108025317,
+        "donchian_55_20_pct": 0.27195690108025317
+      },
+      {
+        "from": "2021-02-02",
+        "to": "2021-04-12",
+        "trough": "2021-03-08",
+        "hold_drawdown": -0.24376644176235618,
+        "buy_and_hold_pct": 0.14937288019602102,
+        "cross_50_200_pct": 0.12001818296317612,
+        "above_200d_pct": 0.03465725215633286,
+        "donchian_55_20_pct": -0.11583650149328473
+      },
+      {
+        "from": "2021-04-15",
+        "to": "2021-05-28",
+        "trough": "2021-05-13",
+        "hold_drawdown": -0.1531855463514633,
+        "buy_and_hold_pct": 0.0633304278707627,
+        "cross_50_200_pct": 0.004620028970722778,
+        "above_200d_pct": 0.004620028970722778,
+        "donchian_55_20_pct": -0.11863546949904535
+      },
+      {
+        "from": "2021-11-12",
+        "to": "2023-04-18",
+        "trough": "2022-10-14",
+        "hold_drawdown": -0.6633508974336898,
+        "buy_and_hold_pct": -0.0884841250284224,
+        "cross_50_200_pct": 0.011569976765155365,
+        "above_200d_pct": 0.05708775741448391,
+        "donchian_55_20_pct": -0.07012565496015177
+      },
+      {
+        "from": "2023-08-23",
+        "to": "2023-11-13",
+        "trough": "2023-10-26",
+        "hold_drawdown": -0.18287255856850038,
+        "buy_and_hold_pct": 0.06472807074945552,
+        "cross_50_200_pct": 0.02994419587042585,
+        "above_200d_pct": 0.02994419587042585,
+        "donchian_55_20_pct": -0.11049592250189522
+      },
+      {
+        "from": "2024-03-21",
+        "to": "2024-05-15",
+        "trough": "2024-04-19",
+        "hold_drawdown": -0.19791177993442544,
+        "buy_and_hold_pct": 0.04711621496229146,
+        "cross_50_200_pct": 0.032905273416723224,
+        "above_200d_pct": 0.032905273416723224,
+        "donchian_55_20_pct": -0.06927569849829818
+      },
+      {
+        "from": "2024-06-25",
+        "to": "2024-10-08",
+        "trough": "2024-08-07",
+        "hold_drawdown": -0.27046770756167926,
+        "buy_and_hold_pct": 0.1252340628069497,
+        "cross_50_200_pct": 0.05191571497940628,
+        "above_200d_pct": 0.05191571497940628,
+        "donchian_55_20_pct": -0.06704192816439569
+      },
+      {
+        "from": "2024-12-24",
+        "to": "2025-06-24",
+        "trough": "2025-04-04",
+        "hold_drawdown": -0.3688103345877982,
+        "buy_and_hold_pct": 0.05909548414614485,
+        "cross_50_200_pct": -0.15714309976284935,
+        "above_200d_pct": -0.14548022643485725,
+        "donchian_55_20_pct": -0.13743695926159494
+      },
+      {
+        "from": "2025-11-13",
+        "to": "2026-04-24",
+        "trough": "2026-03-30",
+        "hold_drawdown": -0.20214390449746988,
+        "buy_and_hold_pct": 0.07478247541814009,
+        "cross_50_200_pct": 0.11249130398582485,
+        "above_200d_pct": 0.0530815688907087,
+        "donchian_55_20_pct": -0.08788934144730998
+      },
+      {
+        "from": "2026-05-22",
+        "to": "2026-09-23",
+        "trough": "2026-07-29",
+        "hold_drawdown": -0.1930455272999796,
+        "buy_and_hold_pct": 0.029681808681113253,
+        "cross_50_200_pct": 0.04756949356102225,
+        "above_200d_pct": 0.018542078074373025,
+        "donchian_55_20_pct": -0.04826069712206571
+      }
+    ],
+    "TSLA": [
+      {
+        "from": "2014-02-26",
+        "to": "2014-08-07",
+        "trough": "2014-05-08",
+        "hold_drawdown": -0.2992072909162291,
+        "buy_and_hold_pct": 0.01770165713223082,
+        "cross_50_200_pct": -0.0010000000000000009,
+        "above_200d_pct": -0.0010000000000000009,
+        "donchian_55_20_pct": -0.053405143447008196
+      },
+      {
+        "from": "2014-09-02",
+        "to": "2015-07-20",
+        "trough": "2015-03-27",
+        "hold_drawdown": -0.3532372850806905,
+        "buy_and_hold_pct": 0.04657028367727545,
+        "cross_50_200_pct": -0.018960692336471352,
+        "above_200d_pct": 0.10811355683298451,
+        "donchian_55_20_pct": 0.08480676885475558
+      },
+      {
+        "from": "2015-07-10",
+        "to": "2016-08-10",
+        "trough": "2016-02-10",
+        "hold_drawdown": -0.49772755506149235,
+        "buy_and_hold_pct": -0.1251163898933303,
+        "cross_50_200_pct": -0.24876059693760655,
+        "above_200d_pct": -0.4011146767239412,
+        "donchian_55_20_pct": -0.17399380262881203
+      },
+      {
+        "from": "2017-06-07",
+        "to": "2017-09-14",
+        "trough": "2017-07-06",
+        "hold_drawdown": -0.1946016388375077,
+        "buy_and_hold_pct": 0.0702565417776253,
+        "cross_50_200_pct": 0.04795119731164421,
+        "above_200d_pct": 0.04795119731164421,
+        "donchian_55_20_pct": -0.0932327856066526
+      },
+      {
+        "from": "2017-09-27",
+        "to": "2018-08-07",
+        "trough": "2018-04-02",
+        "hold_drawdown": -0.34420779616081953,
+        "buy_and_hold_pct": 0.09940623311043395,
+        "cross_50_200_pct": 0.08175740335779635,
+        "above_200d_pct": -0.3204956849691012,
+        "donchian_55_20_pct": -0.21557349000730908
+      },
+      {
+        "from": "2018-07-20",
+        "to": "2019-11-29",
+        "trough": "2019-06-03",
+        "hold_drawdown": -0.5351429092039178,
+        "buy_and_hold_pct": 0.030321946599837224,
+        "cross_50_200_pct": -0.2624673199783447,
+        "above_200d_pct": -0.20714850107575689,
+        "donchian_55_20_pct": -0.17824918982958848
+      },
+      {
+        "from": "2020-01-07",
+        "to": "2020-02-19",
+        "trough": "2020-02-05",
+        "hold_drawdown": -0.1717583947927872,
+        "buy_and_hold_pct": 1.0317578994462662,
+        "cross_50_200_pct": 0.952051000990876,
+        "above_200d_pct": 0.952051000990876,
+        "donchian_55_20_pct": 0.952051000990876
+      },
+      {
+        "from": "2020-01-28",
+        "to": "2020-06-08",
+        "trough": "2020-03-18",
+        "hold_drawdown": -0.606265385382069,
+        "buy_and_hold_pct": 0.7023046098965715,
+        "cross_50_200_pct": 0.6723305092922678,
+        "above_200d_pct": 0.4097641168518029,
+        "donchian_55_20_pct": 0.22611296579336715
+      },
+      {
+        "from": "2020-07-14",
+        "to": "2020-08-13",
+        "trough": "2020-08-11",
+        "hold_drawdown": -0.16348752395475497,
+        "buy_and_hold_pct": 0.08278891351227746,
+        "cross_50_200_pct": 0.06658106404601294,
+        "above_200d_pct": 0.06658106404601294,
+        "donchian_55_20_pct": -0.096587010937073
+      },
+      {
+        "from": "2020-08-06",
+        "to": "2020-11-19",
+        "trough": "2020-09-08",
+        "hold_drawdown": -0.33735353965339043,
+        "buy_and_hold_pct": 0.6810211660439802,
+        "cross_50_200_pct": 0.672482533706992,
+        "above_200d_pct": 0.672482533706992,
+        "donchian_55_20_pct": 0.15732984158757546
+      },
+      {
+        "from": "2021-01-22",
+        "to": "2021-09-03",
+        "trough": "2021-03-08",
+        "hold_drawdown": -0.36246588893826037,
+        "buy_and_hold_pct": -0.13185954799067034,
+        "cross_50_200_pct": -0.22430165825099857,
+        "above_200d_pct": -0.281971706770631,
+        "donchian_55_20_pct": -0.042476229911311725
+      },
+      {
+        "from": "2021-10-12",
+        "to": "2023-07-06",
+        "trough": "2023-01-03",
+        "hold_drawdown": -0.736322174421912,
+        "buy_and_hold_pct": 0.04757935084427234,
+        "cross_50_200_pct": -0.05719569346387776,
+        "above_200d_pct": 0.042501151900094625,
+        "donchian_55_20_pct": 0.19204497341126103
+      },
+      {
+        "from": "2024-12-02",
+        "to": "2025-10-08",
+        "trough": "2025-04-08",
+        "hold_drawdown": -0.537656801185852,
+        "buy_and_hold_pct": 0.2709757729370552,
+        "cross_50_200_pct": -0.24960505114196785,
+        "above_200d_pct": -0.33004646260509973,
+        "donchian_55_20_pct": 0.3851653259335621
+      },
+      {
+        "from": "2026-01-06",
+        "to": "2026-09-23",
+        "trough": "2026-07-29",
+        "hold_drawdown": -0.39103453018952694,
+        "buy_and_hold_pct": -0.15841215086995009,
+        "cross_50_200_pct": -0.20412292320006842,
+        "above_200d_pct": -0.28505127821544174,
+        "donchian_55_20_pct": -0.08989665611087161
+      }
+    ],
+    "CELH": [
+      {
+        "from": "2014-01-02",
+        "to": "2014-01-31",
+        "trough": "2014-01-13",
+        "hold_drawdown": -0.19047856249775819,
+        "buy_and_hold_pct": 0.19999655145547734,
+        "cross_50_200_pct": -0.0010000000000000009,
+        "above_200d_pct": -0.0010000000000000009,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2014-01-06",
+        "to": "2014-02-06",
+        "trough": "2014-02-04",
+        "hold_drawdown": -0.19047856249775819,
+        "buy_and_hold_pct": 0.13513821116109992,
+        "cross_50_200_pct": -0.0010000000000000009,
+        "above_200d_pct": -0.0010000000000000009,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2014-01-09",
+        "to": "2014-02-19",
+        "trough": "2014-02-07",
+        "hold_drawdown": -0.16666427183719923,
+        "buy_and_hold_pct": 0.15789441487878686,
+        "cross_50_200_pct": -0.0010000000000000009,
+        "above_200d_pct": -0.0010000000000000009,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2014-02-19",
+        "to": "2015-02-25",
+        "trough": "2014-10-20",
+        "hold_drawdown": -0.6181821662036608,
+        "buy_and_hold_pct": 1.8420980561328437,
+        "cross_50_200_pct": 0.06720906167685392,
+        "above_200d_pct": 0.6843956009921204,
+        "donchian_55_20_pct": 0.6843956009921204
+      },
+      {
+        "from": "2015-02-04",
+        "to": "2015-03-26",
+        "trough": "2015-03-11",
+        "hold_drawdown": -0.27433776198097815,
+        "buy_and_hold_pct": 0.6666680574417121,
+        "cross_50_200_pct": 0.2351966548823845,
+        "above_200d_pct": 0.6636586463386416,
+        "donchian_55_20_pct": 0.09026652462530782
+      },
+      {
+        "from": "2015-04-01",
+        "to": "2016-06-07",
+        "trough": "2015-12-04",
+        "hold_drawdown": -0.5370370554335315,
+        "buy_and_hold_pct": 0.9039975967427298,
+        "cross_50_200_pct": 0.4753010612573141,
+        "above_200d_pct": 0.5088523175422293,
+        "donchian_55_20_pct": 0.4733926171071112
+      },
+      {
+        "from": "2017-03-01",
+        "to": "2017-06-19",
+        "trough": "2017-04-19",
+        "hold_drawdown": -0.23863631653146578,
+        "buy_and_hold_pct": 0.21212149573959804,
+        "cross_50_200_pct": 0.2063721499659612,
+        "above_200d_pct": 0.2063721499659612,
+        "donchian_55_20_pct": -0.0024165078950841856
+      },
+      {
+        "from": "2017-06-20",
+        "to": "2017-08-23",
+        "trough": "2017-07-27",
+        "hold_drawdown": -0.26569025260353885,
+        "buy_and_hold_pct": 0.06818173505552827,
+        "cross_50_200_pct": 0.01973556139236954,
+        "above_200d_pct": 0.01973556139236954,
+        "donchian_55_20_pct": -0.11566812063900633
+      },
+      {
+        "from": "2017-08-21",
+        "to": "2019-06-25",
+        "trough": "2018-12-21",
+        "hold_drawdown": -0.5279878218218617,
+        "buy_and_hold_pct": -0.1293298275333059,
+        "cross_50_200_pct": 0.13531356241862147,
+        "above_200d_pct": -0.23140474711399528,
+        "donchian_55_20_pct": -0.34305013344948077
+      },
+      {
+        "from": "2020-02-07",
+        "to": "2020-05-18",
+        "trough": "2020-03-16",
+        "hold_drawdown": -0.5157896718159696,
+        "buy_and_hold_pct": 0.2052171615572118,
+        "cross_50_200_pct": 0.2155245830933299,
+        "above_200d_pct": -0.18887579909388685,
+        "donchian_55_20_pct": -0.039766978076397175
+      },
+      {
+        "from": "2020-07-24",
+        "to": "2020-11-12",
+        "trough": "2020-09-03",
+        "hold_drawdown": -0.26556346313637325,
+        "buy_and_hold_pct": 1.196563488607576,
+        "cross_50_200_pct": 1.283314013688332,
+        "above_200d_pct": 1.283314013688332,
+        "donchian_55_20_pct": 0.7617423190981971
+      },
+      {
+        "from": "2020-12-28",
+        "to": "2021-06-02",
+        "trough": "2021-03-29",
+        "hold_drawdown": -0.38818626106970844,
+        "buy_and_hold_pct": 0.7320497547102243,
+        "cross_50_200_pct": 0.8222365532895037,
+        "above_200d_pct": 0.8222365532895037,
+        "donchian_55_20_pct": 0.4692773915428552
+      },
+      {
+        "from": "2021-05-12",
+        "to": "2021-08-31",
+        "trough": "2021-07-16",
+        "hold_drawdown": -0.24920675922079338,
+        "buy_and_hold_pct": 0.6754097887791144,
+        "cross_50_200_pct": 0.7690300467112068,
+        "above_200d_pct": 0.7690300467112068,
+        "donchian_55_20_pct": -0.02303569479287193
+      },
+      {
+        "from": "2021-10-15",
+        "to": "2022-07-29",
+        "trough": "2022-01-27",
+        "hold_drawdown": -0.6253354361996932,
+        "buy_and_hold_pct": -0.038270219886170076,
+        "cross_50_200_pct": -0.37433986487213444,
+        "above_200d_pct": -0.28931245710856934,
+        "donchian_55_20_pct": -0.14313835960274734
+      },
+      {
+        "from": "2022-08-05",
+        "to": "2022-12-02",
+        "trough": "2022-11-09",
+        "hold_drawdown": -0.32256675301156545,
+        "buy_and_hold_pct": 0.08458631417046925,
+        "cross_50_200_pct": 0.1899015112913618,
+        "above_200d_pct": 0.1899015112913618,
+        "donchian_55_20_pct": -0.02273067295365727
+      },
+      {
+        "from": "2022-12-02",
+        "to": "2023-05-10",
+        "trough": "2023-03-13",
+        "hold_drawdown": -0.30948152156184794,
+        "buy_and_hold_pct": 0.13150471445535783,
+        "cross_50_200_pct": -0.23162870358684484,
+        "above_200d_pct": -0.18447117100735388,
+        "donchian_55_20_pct": 0.08706777197406068
+      },
+      {
+        "from": "2023-08-23",
+        "to": "2024-02-27",
+        "trough": "2023-12-20",
+        "hold_drawdown": -0.28251970964142736,
+        "buy_and_hold_pct": 0.13791355451463017,
+        "cross_50_200_pct": 0.12082476440324408,
+        "above_200d_pct": 0.06805119005993143,
+        "donchian_55_20_pct": -0.13706917499964544
+      },
+      {
+        "from": "2024-03-04",
+        "to": "2024-05-20",
+        "trough": "2024-04-19",
+        "hold_drawdown": -0.2837374268991921,
+        "buy_and_hold_pct": 0.2121862042023379,
+        "cross_50_200_pct": 0.10430440738852331,
+        "above_200d_pct": 0.10430440738852331,
+        "donchian_55_20_pct": -0.09427142504195085
+      },
+      {
+        "from": "2024-04-30",
+        "to": "2025-08-14",
+        "trough": "2025-02-12",
+        "hold_drawdown": -0.7785870299499973,
+        "buy_and_hold_pct": -0.23138484214356025,
+        "cross_50_200_pct": 0.04910052063308057,
+        "above_200d_pct": 0.18980576629481383,
+        "donchian_55_20_pct": 0.47554575652252407
+      }
+    ],
+    "VST": [
+      {
+        "from": "2016-10-05",
+        "to": "2016-12-09",
+        "trough": "2016-11-02",
+        "hold_drawdown": -0.16819592310106946,
+        "buy_and_hold_pct": 0.05806436501616097,
+        "cross_50_200_pct": -0.0010000000000000009,
+        "above_200d_pct": -0.0010000000000000009,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2017-03-23",
+        "to": "2017-08-16",
+        "trough": "2017-05-02",
+        "hold_drawdown": -0.18718655358592773,
+        "buy_and_hold_pct": 0.11419525605823,
+        "cross_50_200_pct": 0.0753457668699331,
+        "above_200d_pct": 0.0753457668699331,
+        "donchian_55_20_pct": 0.001449865923421445
+      },
+      {
+        "from": "2017-11-15",
+        "to": "2018-03-06",
+        "trough": "2017-12-14",
+        "hold_drawdown": -0.15861381853000367,
+        "buy_and_hold_pct": 0.06725784372602917,
+        "cross_50_200_pct": 0.0667836925443388,
+        "above_200d_pct": 0.03964722704584123,
+        "donchian_55_20_pct": -0.08262425136375673
+      },
+      {
+        "from": "2018-11-21",
+        "to": "2019-01-31",
+        "trough": "2018-12-24",
+        "hold_drawdown": -0.17291199853417138,
+        "buy_and_hold_pct": 0.12248538192319436,
+        "cross_50_200_pct": 0.09911693851994596,
+        "above_200d_pct": 0.040343917793917106,
+        "donchian_55_20_pct": 0.005617999792930872
+      },
+      {
+        "from": "2019-05-29",
+        "to": "2019-09-16",
+        "trough": "2019-07-23",
+        "hold_drawdown": -0.20949802327637668,
+        "buy_and_hold_pct": 0.09090801968135342,
+        "cross_50_200_pct": -0.06460485368042523,
+        "above_200d_pct": 0.04475321044033187,
+        "donchian_55_20_pct": 0.09156651930493664
+      },
+      {
+        "from": "2019-11-26",
+        "to": "2020-09-16",
+        "trough": "2020-03-18",
+        "hold_drawdown": -0.5331682032712362,
+        "buy_and_hold_pct": -0.27158062731405375,
+        "cross_50_200_pct": -0.11151714837626514,
+        "above_200d_pct": -0.06851300554249606,
+        "donchian_55_20_pct": -0.05761765358986981
+      },
+      {
+        "from": "2022-05-16",
+        "to": "2023-03-07",
+        "trough": "2022-09-30",
+        "hold_drawdown": -0.221605510424001,
+        "buy_and_hold_pct": 0.1038160105460928,
+        "cross_50_200_pct": -0.07402440393742504,
+        "above_200d_pct": -0.12576639598459882,
+        "donchian_55_20_pct": -0.07073458858459492
+      },
+      {
+        "from": "2024-05-06",
+        "to": "2024-09-20",
+        "trough": "2024-07-30",
+        "hold_drawdown": -0.3485927859479505,
+        "buy_and_hold_pct": 0.330442495243775,
+        "cross_50_200_pct": 0.29984434432042084,
+        "above_200d_pct": 0.29984434432042084,
+        "donchian_55_20_pct": 0.033155929263068984
+      },
+      {
+        "from": "2024-10-07",
+        "to": "2024-11-07",
+        "trough": "2024-11-04",
+        "hold_drawdown": -0.1637887072026546,
+        "buy_and_hold_pct": -0.01936270385337102,
+        "cross_50_200_pct": 0.03188201921177969,
+        "above_200d_pct": 0.03188201921177969,
+        "donchian_55_20_pct": -0.09233834506566985
+      },
+      {
+        "from": "2024-11-11",
+        "to": "2025-01-06",
+        "trough": "2024-12-18",
+        "hold_drawdown": -0.20238885116325178,
+        "buy_and_hold_pct": 0.15726365495602268,
+        "cross_50_200_pct": 0.1240275977479548,
+        "above_200d_pct": 0.1240275977479548,
+        "donchian_55_20_pct": -0.04425567352848625
+      },
+      {
+        "from": "2024-12-24",
+        "to": "2025-06-26",
+        "trough": "2025-04-04",
+        "hold_drawdown": -0.4880428505611695,
+        "buy_and_hold_pct": 0.35642269766545764,
+        "cross_50_200_pct": 0.07677348022363617,
+        "above_200d_pct": -0.0023948923133004785,
+        "donchian_55_20_pct": 0.007150974227483564
+      },
+      {
+        "from": "2025-10-09",
+        "to": "2026-09-23",
+        "trough": "2026-05-19",
+        "hold_drawdown": -0.3801309517772933,
+        "buy_and_hold_pct": -0.3281458456692943,
+        "cross_50_200_pct": -0.265041551440536,
+        "above_200d_pct": -0.3844391464615987,
+        "donchian_55_20_pct": -0.18219755169751095
+      }
+    ],
+    "TEM": [
+      {
+        "from": "2024-07-05",
+        "to": "2024-08-15",
+        "trough": "2024-08-05",
+        "hold_drawdown": -0.16858820522523066,
+        "buy_and_hold_pct": 0.3724920500332114,
+        "cross_50_200_pct": -0.0010000000000000009,
+        "above_200d_pct": -0.0010000000000000009,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2024-07-29",
+        "to": "2024-11-08",
+        "trough": "2024-10-28",
+        "hold_drawdown": -0.3935917250266767,
+        "buy_and_hold_pct": 0.7597805311383792,
+        "cross_50_200_pct": -0.0010000000000000009,
+        "above_200d_pct": -0.0010000000000000009,
+        "donchian_55_20_pct": -0.0010000000000000009
+      },
+      {
+        "from": "2024-10-17",
+        "to": "2025-02-13",
+        "trough": "2025-01-14",
+        "hold_drawdown": -0.5899252924838672,
+        "buy_and_hold_pct": 0.7074414128985602,
+        "cross_50_200_pct": -0.0010000000000000009,
+        "above_200d_pct": -0.0010000000000000009,
+        "donchian_55_20_pct": -0.1755676112486244
+      },
+      {
+        "from": "2025-01-23",
+        "to": "2025-09-11",
+        "trough": "2025-04-08",
+        "hold_drawdown": -0.5837433080726225,
+        "buy_and_hold_pct": 0.7597620899247772,
+        "cross_50_200_pct": 0.46893440820904453,
+        "above_200d_pct": 0.5294303538968601,
+        "donchian_55_20_pct": -0.26372922503788354
+      },
+      {
+        "from": "2025-09-24",
+        "to": "2026-09-23",
+        "trough": "2026-07-29",
+        "hold_drawdown": -0.5975786998831909,
+        "buy_and_hold_pct": -0.08962321599530465,
+        "cross_50_200_pct": -0.10107358513450748,
+        "above_200d_pct": -0.16767023685218407,
+        "donchian_55_20_pct": -0.01895697249452899
+      }
+    ],
+    "SPY": [
+      {
+        "from": "2018-11-20",
+        "to": "2019-03-21",
+        "trough": "2018-12-24",
+        "hold_drawdown": -0.19348908020171218,
+        "buy_and_hold_pct": 0.0689489437897981,
+        "cross_50_200_pct": 0.0020650519501976827,
+        "above_200d_pct": 0.0057886030315092984,
+        "donchian_55_20_pct": 0.027219749234045798
+      },
+      {
+        "from": "2020-02-07",
+        "to": "2020-08-03",
+        "trough": "2020-03-23",
+        "hold_drawdown": -0.33717270361192986,
+        "buy_and_hold_pct": -0.005393219539117089,
+        "cross_50_200_pct": -0.19388526484603164,
+        "above_200d_pct": -0.07881357963710112,
+        "donchian_55_20_pct": 0.03506721648543887
+      },
+      {
+        "from": "2022-04-08",
+        "to": "2023-04-14",
+        "trough": "2022-10-12",
+        "hold_drawdown": -0.24496390521094502,
+        "buy_and_hold_pct": -0.06533822045450433,
+        "cross_50_200_pct": 0.020895665890558357,
+        "above_200d_pct": -0.06258439066082733,
+        "donchian_55_20_pct": -0.10075956891085136
+      },
+      {
+        "from": "2025-03-07",
+        "to": "2025-06-06",
+        "trough": "2025-04-08",
+        "hold_drawdown": -0.1875522908467665,
+        "buy_and_hold_pct": 0.04929620701694648,
+        "cross_50_200_pct": -0.08729203597771851,
+        "above_200d_pct": -0.015185267446003126,
+        "donchian_55_20_pct": 0.00629935459225317
+      }
+    ],
+    "QQQ": [
+      {
+        "from": "2016-01-08",
+        "to": "2016-07-14",
+        "trough": "2016-02-09",
+        "hold_drawdown": -0.16104389930212915,
+        "buy_and_hold_pct": 0.07381841598930605,
+        "cross_50_200_pct": -0.017460964375081822,
+        "above_200d_pct": -0.047400225737290747,
+        "donchian_55_20_pct": 0.001933121907444768
+      },
+      {
+        "from": "2018-11-15",
+        "to": "2019-03-21",
+        "trough": "2018-12-24",
+        "hold_drawdown": -0.22796662824828084,
+        "buy_and_hold_pct": 0.11032406671838513,
+        "cross_50_200_pct": -0.017057824428506674,
+        "above_200d_pct": -0.003194286558086956,
+        "donchian_55_20_pct": 0.06163196884219202
+      },
+      {
+        "from": "2020-02-07",
+        "to": "2020-05-29",
+        "trough": "2020-03-16",
+        "hold_drawdown": -0.28559360295076197,
+        "buy_and_hold_pct": 0.015931876097677433,
+        "cross_50_200_pct": -0.04697726998033536,
+        "above_200d_pct": -0.06583625649682978,
+        "donchian_55_20_pct": -0.03968149532382015
+      },
+      {
+        "from": "2021-12-29",
+        "to": "2023-05-08",
+        "trough": "2022-11-03",
+        "hold_drawdown": -0.35118723785462835,
+        "buy_and_hold_pct": -0.1868221782252535,
+        "cross_50_200_pct": -0.03237073453789596,
+        "above_200d_pct": -0.12408016273269407,
+        "donchian_55_20_pct": -0.06022382858281039
+      },
+      {
+        "from": "2025-03-06",
+        "to": "2025-06-04",
+        "trough": "2025-04-08",
+        "hold_drawdown": -0.2276832215977973,
+        "buy_and_hold_pct": 0.054876602454555945,
+        "cross_50_200_pct": -0.0643334112075381,
+        "above_200d_pct": 0.017948913604749928,
+        "donchian_55_20_pct": 0.01741663059165499
+      }
+    ]
+  },
+  "relative_strength": {
+    "momentum_63d_top3": {
+      "final_gbp": 2980539.26,
+      "cagr": 0.5648666627524146,
+      "max_drawdown": -0.5567693352719232,
+      "pct_time_invested": 1.0,
+      "switches": 0
+    },
+    "momentum_63d_top5": {
+      "final_gbp": 830579.34,
+      "cagr": 0.4153427401312304,
+      "max_drawdown": -0.41896549845998377,
+      "pct_time_invested": 1.0,
+      "switches": 0
+    },
+    "momentum_126d_top3": {
+      "final_gbp": 3094211.04,
+      "cagr": 0.5694770648234244,
+      "max_drawdown": -0.481825502944634,
+      "pct_time_invested": 1.0,
+      "switches": 0
+    },
+    "momentum_126d_top5": {
+      "final_gbp": 1268517.07,
+      "cagr": 0.4632454735863012,
+      "max_drawdown": -0.4160983223562671,
+      "pct_time_invested": 1.0,
+      "switches": 0
+    },
+    "momentum_252d_top3": {
+      "final_gbp": 1782208.6,
+      "cagr": 0.5028765442902479,
+      "max_drawdown": -0.5066314935078017,
+      "pct_time_invested": 1.0,
+      "switches": 0
+    },
+    "momentum_252d_top5": {
+      "final_gbp": 1299205.29,
+      "cagr": 0.4659972753148707,
+      "max_drawdown": -0.4160983223562673,
+      "pct_time_invested": 1.0,
+      "switches": 0
+    },
+    "equal_weight_hold_all": {
+      "final_gbp": 237984.66,
+      "cagr": 0.28290797197777584,
+      "max_drawdown": -0.3326065078416024,
+      "pct_time_invested": 1.0,
+      "switches": 0
+    }
+  },
+  "verdict": "In your window, no trend rule beat buy-and-hold on the basket average. Note what the episode table shows though: the filters do cut drawdowns in slow bear markets and do nothing in fast crashes. The cost is not bad signals, it is the price of being out of a rising market."
+}
