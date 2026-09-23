@@ -1,0 +1,84 @@
+{
+  "generated": "2026-09-23T21:20:32.734048+00:00",
+  "env": {
+    "pandas": "3.0.6",
+    "numpy": "2.4.6",
+    "python": "3.11.16"
+  },
+  "mode": "calibration",
+  "panels": 10,
+  "false_positives": 0,
+  "false_positive_rate": 0.0,
+  "detail": [
+    {
+      "panel": 0,
+      "best_arm": "donchian20+slope",
+      "best_mean": 15742.593064282286,
+      "hold_mean": 20543.796795087008,
+      "declared": false
+    },
+    {
+      "panel": 1,
+      "best_arm": "donchian20+slope",
+      "best_mean": 18187.926618232872,
+      "hold_mean": 21950.416920394513,
+      "declared": false
+    },
+    {
+      "panel": 2,
+      "best_arm": "below200+slope",
+      "best_mean": 36588.141307530976,
+      "hold_mean": 50897.02315057034,
+      "declared": false
+    },
+    {
+      "panel": 3,
+      "best_arm": "below200+slope",
+      "best_mean": 20888.850541721888,
+      "hold_mean": 30171.906362142152,
+      "declared": false
+    },
+    {
+      "panel": 4,
+      "best_arm": "below200+slope",
+      "best_mean": 35114.41741785391,
+      "hold_mean": 49692.522791696196,
+      "declared": false
+    },
+    {
+      "panel": 5,
+      "best_arm": "below200+slope",
+      "best_mean": 15324.82878321886,
+      "hold_mean": 18112.766568687483,
+      "declared": false
+    },
+    {
+      "panel": 6,
+      "best_arm": "below200+slope",
+      "best_mean": 24633.58672727349,
+      "hold_mean": 28711.539295255803,
+      "declared": false
+    },
+    {
+      "panel": 7,
+      "best_arm": "below200+slope",
+      "best_mean": 27687.03218271626,
+      "hold_mean": 36635.30869324194,
+      "declared": false
+    },
+    {
+      "panel": 8,
+      "best_arm": "below200+slope",
+      "best_mean": 27116.151526963306,
+      "hold_mean": 36151.31043512897,
+      "declared": false
+    },
+    {
+      "panel": 9,
+      "best_arm": "below200+slope",
+      "best_mean": 46271.101807517276,
+      "hold_mean": 62385.45829670182,
+      "declared": false
+    }
+  ]
+}
