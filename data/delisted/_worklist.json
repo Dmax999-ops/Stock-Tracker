@@ -410,7 +410,7 @@
     "symbol_used": "APOL"
   },
   "AR": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2013-10-18..2026-09-22",
     "gap_days": 5106,
     "index_window": "1996-01-02..1999-10-26",
@@ -418,7 +418,7 @@
     "status": "recycled"
   },
   "ARC": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2005-02-11..2024-11-22",
     "gap_days": 1768,
     "index_window": "1996-01-02..2000-04-10",
@@ -441,7 +441,7 @@
     "symbol_used": "ARG"
   },
   "AS": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2024-02-09..2026-09-22",
     "gap_days": 9209,
     "index_window": "1996-01-02..1998-11-23",
@@ -449,7 +449,7 @@
     "status": "recycled"
   },
   "ASC": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2013-08-09..2026-09-22",
     "gap_days": 5161,
     "index_window": "1996-01-02..1999-06-23",
@@ -472,13 +472,13 @@
     "symbol_used": "ASH"
   },
   "ASN": {
-    "attempts": 1,
+    "attempts": 2,
     "index_window": "2004-12-20..2007-10-04",
     "last_try": "2026-09-23",
     "status": "empty"
   },
   "ASND": {
-    "attempts": 1,
+    "attempts": 2,
     "data_window": "2015-02-06..2026-09-22",
     "gap_days": 5706,
     "index_window": "1998-06-12..1999-06-24",
@@ -486,11 +486,134 @@
     "status": "recycled"
   },
   "ASO": {
-    "attempts": 1,
+    "attempts": 2,
     "data_window": "2020-10-09..2026-09-22",
     "gap_days": 5092,
     "index_window": "1999-03-10..2006-10-31",
     "last_try": "2026-09-23",
     "status": "recycled"
+  },
+  "AT": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2007-11-16",
+    "last_try": "2026-09-23",
+    "status": "empty"
+  },
+  "ATGE": {
+    "attempts": 1,
+    "index_window": "2009-06-09..2012-09-25",
+    "last_try": "2026-09-23",
+    "status": "empty"
+  },
+  "ATI": {
+    "attempts": 1,
+    "data_window": "1999-12-10..2026-09-22",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.1835,
+    "first": "1999-12-10",
+    "index_window": "1996-01-02..2015-07-01",
+    "last": "2026-09-22",
+    "last_try": "2026-09-23",
+    "post_exit_only": false,
+    "rows": 1399,
+    "status": "done",
+    "symbol_used": "ATI"
+  },
+  "ATVI": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2023-10-13",
+    "delisting_date": "2023-10-13",
+    "fate_heuristic": "takeout",
+    "final_drawdown": 0.0,
+    "first": "1999-11-12",
+    "index_window": "2015-08-31..2023-10-12",
+    "last": "2023-10-13",
+    "last_try": "2026-09-23",
+    "post_exit_only": false,
+    "rows": 1249,
+    "status": "done",
+    "symbol_used": "ATVI"
+  },
+  "AV": {
+    "attempts": 1,
+    "index_window": "2000-10-02..2007-10-25",
+    "last_try": "2026-09-23",
+    "status": "empty"
+  },
+  "AVP": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2020-01-03",
+    "delisting_date": "2020-01-03",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0141,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..2015-03-19",
+    "last": "2020-01-03",
+    "last_try": "2026-09-23",
+    "post_exit_only": false,
+    "rows": 1052,
+    "status": "done",
+    "symbol_used": "AVP"
+  },
+  "AW": {
+    "attempts": 1,
+    "index_window": "1999-08-02..2008-12-04",
+    "last_try": "2026-09-23",
+    "status": "empty"
+  },
+  "AWE": {
+    "attempts": 1,
+    "index_window": "2001-07-09..2004-10-26",
+    "last_try": "2026-09-23",
+    "status": "empty"
+  },
+  "AYE": {
+    "attempts": 1,
+    "data_window": "2007-01-05..2011-11-30",
+    "delisting_date": "2011-11-30",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0416,
+    "first": "2007-01-05",
+    "index_window": "2000-12-11..2011-02-23",
+    "last": "2011-11-30",
+    "last_try": "2026-09-23",
+    "post_exit_only": false,
+    "rows": 257,
+    "status": "done",
+    "symbol_used": "AYE"
+  },
+  "AYI": {
+    "attempts": 1,
+    "data_window": "2001-12-14..2026-09-22",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.166,
+    "first": "2001-12-14",
+    "index_window": "2016-05-03..2018-06-15",
+    "last": "2026-09-22",
+    "last_try": "2026-09-23",
+    "post_exit_only": false,
+    "rows": 1294,
+    "status": "done",
+    "symbol_used": "AYI"
+  },
+  "AZA.A": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2001-06-20",
+    "last_try": "2026-09-23",
+    "status": "empty"
+  },
+  "BAY": {
+    "attempts": 1,
+    "index_window": "1996-02-12..1998-08-28",
+    "last_try": "2026-09-23",
+    "status": "empty"
+  },
+  "BBBY": {
+    "attempts": 1,
+    "index_window": "1999-10-01..2017-07-25",
+    "last_try": "2026-09-23",
+    "status": "empty"
   }
 }
