@@ -130,6 +130,48 @@ def main() -> int:
                   f"fit {rows[-1]['fit_expectancy_R']:+.3f}R  "
                   f"test {rows[-1]['test_expectancy_R']:+.3f}R", flush=True)
 
+        # ------------------------------------------------------------------
+        # THE CONTROL THAT DECIDES WHETHER ANY OF THIS MATTERS
+        #
+        # Expectancy rises with holding length. That is not automatically an
+        # edge: holding longer simply means being exposed to a rising market
+        # for longer. So for each holding period, run the SAME entries with no
+        # stop and no trail at all -- buy, wait N bars, sell. If the stop and
+        # trail cannot beat that, the exit policy is costing money and the
+        # whole apparatus is an expensive way to be long.
+        #
+        # A stop of 1,000 ATRs is never reached, which turns the simulator into
+        # a plain timed hold without changing a line of its logic.
+        # ------------------------------------------------------------------
+        holds = {}
+        for mh in sorted({m for _, _, m in GRID}):
+            got = []
+            for t in keys:
+                tr = TR.simulate(frames[t], entries[t], k_stop=1000.0,
+                                 k_trail=1000.0, max_hold=mh, cost_pct=COST_US)
+                if not tr.empty:
+                    got.append(tr)
+            if not got:
+                continue
+            H = pd.concat(got, ignore_index=True)
+            ed = pd.to_datetime(H.entry_date)
+            holds[mh] = {
+                "trades": int(len(H)),
+                "avg_net_pct": float(H.net_pct.mean()),
+                "median_net_pct": float(H.net_pct.median()),
+                "fit_net_pct": float(H[ed < SPLIT].net_pct.mean()),
+                "test_net_pct": float(H[ed >= SPLIT].net_pct.mean()),
+                "win_rate": float((H.net_pct > 0).mean()),
+            }
+            print(f"  [hold-only {mh:3} bars] avg {holds[mh]['avg_net_pct']:+.2%} "
+                  f"win {holds[mh]['win_rate']:.1%}", flush=True)
+
+        for r in rows:
+            h = holds.get(r["max_hold"])
+            if h:
+                r["hold_only_net_pct"] = h["avg_net_pct"]
+                r["beats_hold_only_by_pct"] = r["avg_net_pct"] - h["avg_net_pct"]
+
         g = pd.DataFrame(rows)
 
         # Save the grid BEFORE computing anything else. The first run of this
@@ -165,6 +207,12 @@ def main() -> int:
                    "EXITS ARE NOT TUNABLE — fit-window ranking does not carry "
                    "over. Pick a sensible default, never optimise it, and spend "
                    "the effort on costs and position sizing instead.")
+        beat = g[g.beats_hold_only_by_pct > 0] if "beats_hold_only_by_pct" in g else g.iloc[0:0]
+        print(f"\n  configurations beating a plain timed hold: {len(beat)} of {len(g)}")
+        if "beats_hold_only_by_pct" in g:
+            bb = g.loc[g.beats_hold_only_by_pct.idxmax()]
+            print(f"  best margin over holding: {bb.beats_hold_only_by_pct:+.2%} per trade "
+                  f"(stop {bb.k_stop} trail {bb.k_trail} hold {int(bb.max_hold)})")
         print(f"\n  {verdict}")
 
         out.write_text(json.dumps(
@@ -174,6 +222,8 @@ def main() -> int:
              "best_by_fit": {k: (float(v) if isinstance(v, (int, float, np.floating))
                                  else v) for k, v in best.to_dict().items()},
              "fit_test_rank_correlation": rho, "tunable": tunable,
+             "hold_only_control": holds,
+             "configs_beating_hold_only": int(len(beat)),
              "verdict": verdict, "grid": rows}, indent=2, default=str))
         return 0
     except Exception as exc:                                     # noqa: BLE001
