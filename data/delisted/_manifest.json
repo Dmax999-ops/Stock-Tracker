@@ -1,15 +1,15 @@
 {
-  "generated": "2026-09-23T07:42:08.359992",
+  "generated": "2026-09-23T10:19:28.130965",
   "leavers_total": 625,
-  "archived": 19,
+  "archived": 22,
   "empty": 9,
-  "recycled": 10,
+  "recycled": 14,
   "errors": 0,
-  "remaining": 587,
-  "fetched_this_run": 7,
-  "rows": 19225,
+  "remaining": 580,
+  "fetched_this_run": 3,
+  "rows": 21548,
   "fate_wipeout": 1,
-  "fate_takeout": 18,
-  "coverage": 0.03,
+  "fate_takeout": 21,
+  "coverage": 0.035,
   "NOTE": "Weekly bars, not daily \u2014 Alpha Vantage's free daily endpoint is truncated. Compare against a weekly resample of the survivor universe, never against daily results."
 }
