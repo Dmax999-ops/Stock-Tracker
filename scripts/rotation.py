@@ -101,6 +101,103 @@ def healthy_state(C, Hh, Ll, V):
     return st & np.isfinite(S["ma200"])
 
 
+# ---------------------------------------------------------------------------
+# MARKET AND INDUSTRY -- the flaw in blind reinvestment
+# ---------------------------------------------------------------------------
+# The first rotation run sold failing stocks and put the money into stocks that
+# had NOT FAILED YET. In 2008 those were about to. The portfolio stayed fully
+# invested all the way down a market-wide crash: worst drawdown -50.6% against
+# the index's -55.3%, barely any protection, and it lost the 1996-2012 half by
+# 3.2% a year because of it. A stock-level rule cannot see that everything is
+# falling together. These can.
+
+def market_regime(C, state, confirm=3):
+    """
+    Two views of the whole market, both point-in-time.
+
+    trend    the equal-weight index of every live stock, against its own
+             200-day average -- confirmed by `confirm` consecutive closes either
+             side, the confirmation that did best in the battery. Off = cash.
+    breadth  the share of stocks the rules call healthy. Exposure scales with
+             it: at 50% healthy or more, fully invested; at 25%, half invested;
+             at 0%, all cash. Selling INTO strength of evidence rather than on
+             a single line.
+    """
+    R = pd.DataFrame(C).pct_change().to_numpy()
+    live = np.isfinite(R)
+    mr = np.where(live.sum(axis=1) > 0,
+                  np.nansum(np.where(live, R, 0), axis=1) / np.maximum(live.sum(axis=1), 1),
+                  0.0)
+    lvl = np.cumprod(1 + np.nan_to_num(mr))
+    ma = pd.Series(lvl).rolling(200, min_periods=200).mean().to_numpy()
+    above = np.nan_to_num(lvl > ma).astype(bool)
+    below = np.nan_to_num(lvl < ma).astype(bool)
+    run_a = pd.Series(above.astype(float)).rolling(confirm).sum().to_numpy() >= confirm
+    run_b = pd.Series(below.astype(float)).rolling(confirm).sum().to_numpy() >= confirm
+    on = np.ones(len(lvl), bool); cur = True
+    for t in range(len(lvl)):
+        if cur and run_b[t]:
+            cur = False
+        elif not cur and run_a[t]:
+            cur = True
+        on[t] = cur
+    alive = np.isfinite(C)
+    br = np.where(alive.sum(axis=1) > 0,
+                  (state & alive).sum(axis=1) / np.maximum(alive.sum(axis=1), 1), 0.0)
+    exposure = np.clip(br / 0.5, 0.0, 1.0)
+    return on.astype(float), exposure
+
+
+def industry_health(C, state, every=21, lookback=252, peers=20):
+    """
+    Is this stock's INDUSTRY healthy?
+
+    Industry here is measured, not labelled: each month, each stock's peer group
+    is the 20 stocks whose daily returns moved most closely with its own over the
+    previous year. Three reasons for that over a sector label:
+      - it exists for every company, including the ones that were delisted,
+        which no free sector list covers
+      - it is point-in-time: the groups are built only from past returns
+      - it captures what actually moves together. A chip-maker and a cloud
+        company may sit in different official sectors and trade as one.
+    The industry is healthy when more than half its peers are healthy by the
+    same rules. A stock can look fine while its whole group is rolling over;
+    this sees that.
+    """
+    nd, nt = C.shape
+    R = pd.DataFrame(C).pct_change().to_numpy()
+    out = np.zeros((nd, nt))
+    stf = state.astype(float)
+    for t0 in range(0, nd, every):
+        t1 = min(t0 + every, nd)
+        if t0 < lookback:
+            out[t0:t1] = 1.0          # not enough history: do not block
+            continue
+        W = R[t0 - lookback:t0]
+        ok = np.isfinite(W)
+        cnt = ok.sum(axis=0)
+        use = cnt >= 150
+        X = np.where(ok, W, 0.0)
+        mu = X.sum(axis=0) / np.maximum(cnt, 1)
+        X = np.where(ok, W - mu, 0.0)
+        sd = np.sqrt((X ** 2).sum(axis=0) / np.maximum(cnt, 1))
+        X = np.where(sd > 0, X / np.where(sd > 0, sd, 1), 0.0)
+        corr = (X.T @ X) / lookback
+        np.fill_diagonal(corr, -np.inf)
+        corr[:, ~use] = -np.inf
+        P = np.zeros((nt, nt))
+        k = min(peers, int(use.sum()) - 1)
+        if k < 5:
+            out[t0:t1] = 1.0
+            continue
+        top = np.argpartition(-corr, k - 1, axis=1)[:, :k]
+        rows = np.repeat(np.arange(nt), k)
+        P[rows, top.ravel()] = 1.0 / k
+        out[t0:t1] = stf[t0:t1] @ P.T
+        out[t0:t1, ~use] = 1.0        # a stock with no measurable group: do not block
+    return out
+
+
 def run_portfolio(C, target_fn, rebal_every, cash_rate):
     """
     Daily portfolio walk. Holdings drift with prices between rebalances.
@@ -150,15 +247,18 @@ def metrics(eq, idx, mask=None):
     return {"final_gbp": float(eq[-1]), **cf.risk(eq, idx)}
 
 
-def build_targets(C, state, mode, mom=None, vol=None, top=None):
+def build_targets(C, state, mode, mom=None, vol=None, top=None,
+                  regime=None, industry=None):
     nd, nt = C.shape
     alive = np.isfinite(C)
 
     def fn(t):
         if mode == "index":
-            m = alive[t]
+            m = alive[t].copy()
         else:
             m = alive[t] & state[t]
+        if industry is not None:
+            m &= industry[t] > 0.5
         if top is not None and mom is not None:
             sc = np.where(m & np.isfinite(mom[t]), mom[t], -np.inf)
             k = int(min(top, np.isfinite(sc).sum()))
@@ -169,14 +269,31 @@ def build_targets(C, state, mode, mom=None, vol=None, top=None):
         n = int(m.sum())
         w = np.zeros(nt)
         if mode != "index" and n < MIN_NAMES:
-            return w                       # too few healthy stocks: cash
+            return w
         if n == 0:
             return w
         if vol is not None:
-            iv = np.where(m & np.isfinite(vol[t]) & (vol[t] > 0), 1 / vol[t], 0.0)
+            # THE BUG THE FIRST RUN HIT: a delisted stock with a stale, flat
+            # price has volatility near zero, so inverse-vol handed it nearly
+            # all the money. Floor the volatility at 10% a year and cap any
+            # single position at 5%.
+            v = np.where(np.isfinite(vol[t]), np.maximum(vol[t], 0.10), np.nan)
+            iv = np.where(m & np.isfinite(v), 1 / v, 0.0)
             if iv.sum() > 0:
-                return iv / iv.sum()
-        w[m] = 1.0 / n
+                w = iv / iv.sum()
+                for _ in range(5):
+                    over = w > 0.05
+                    if not over.any():
+                        break
+                    excess = (w[over] - 0.05).sum()
+                    w[over] = 0.05
+                    rest = (w > 0) & ~over
+                    if rest.any():
+                        w[rest] += excess * w[rest] / w[rest].sum()
+        else:
+            w[m] = 1.0 / n
+        if regime is not None:
+            w = w * float(regime[t])       # the remainder is cash
         return w
     return fn
 
@@ -188,14 +305,21 @@ def run_all(C, Hh, Ll, V, idx, rebal, cash_rate):
     mom = (df.shift(21) / df.shift(252) - 1).to_numpy()
     vol = (df.pct_change().rolling(63, min_periods=40).std()
            * np.sqrt(252)).to_numpy()
+    mkt_on, breadth = market_regime(C, state)
+    ind = industry_health(C, state)
+    T, I = "trend", "index"
     arms = {
-        "index":         build_targets(C, state, "index"),
-        "trend":         build_targets(C, state, "trend"),
-        "trend_top100":  build_targets(C, state, "trend", mom=mom, top=100),
-        "trend_top50":   build_targets(C, state, "trend", mom=mom, top=50),
-        "trend_invvol":  build_targets(C, state, "trend", vol=vol),
-        "top100_invvol": build_targets(C, state, "trend", mom=mom, vol=vol, top=100),
-        "index_top100":  build_targets(C, state, "index", mom=mom, top=100),
+        "index":            build_targets(C, state, I),
+        "index+mkt":        build_targets(C, state, I, regime=mkt_on),
+        "trend_top50":      build_targets(C, state, T, mom=mom, top=50),
+        "top50+mkt":        build_targets(C, state, T, mom=mom, top=50, regime=mkt_on),
+        "top50+breadth":    build_targets(C, state, T, mom=mom, top=50, regime=breadth),
+        "top50+ind":        build_targets(C, state, T, mom=mom, top=50, industry=ind),
+        "top50+mkt+ind":    build_targets(C, state, T, mom=mom, top=50, regime=mkt_on, industry=ind),
+        "top50+brd+ind":    build_targets(C, state, T, mom=mom, top=50, regime=breadth, industry=ind),
+        "top100+mkt+ind":   build_targets(C, state, T, mom=mom, top=100, regime=mkt_on, industry=ind),
+        "trend+mkt+ind":    build_targets(C, state, T, regime=mkt_on, industry=ind),
+        "top50_iv+mkt+ind": build_targets(C, state, T, mom=mom, vol=vol, top=50, regime=mkt_on, industry=ind),
     }
     res = {}
     fit = np.asarray(idx < SPLIT)
