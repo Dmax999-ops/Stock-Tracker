@@ -1,0 +1,113 @@
+{
+  "generated": "2026-09-23T20:19:33.838116+00:00",
+  "env": {
+    "pandas": "3.0.6",
+    "numpy": "2.4.6",
+    "python": "3.11.16"
+  },
+  "mode": "calibration",
+  "calibration": {
+    "panels": 12,
+    "false_positives": 0,
+    "false_positive_rate": 0.0,
+    "pass_win": 0.95,
+    "detail": [
+      {
+        "panel": 0,
+        "buy_hold": 8880.0,
+        "signal_median": 8779.0,
+        "matched_null_median": 8953.0,
+        "win_pct": 0.45,
+        "declared_discovery": false
+      },
+      {
+        "panel": 1,
+        "buy_hold": 16345.0,
+        "signal_median": 14939.0,
+        "matched_null_median": 15961.0,
+        "win_pct": 0.4275,
+        "declared_discovery": false
+      },
+      {
+        "panel": 2,
+        "buy_hold": 10952.0,
+        "signal_median": 10886.0,
+        "matched_null_median": 10779.0,
+        "win_pct": 0.4725,
+        "declared_discovery": false
+      },
+      {
+        "panel": 3,
+        "buy_hold": 14172.0,
+        "signal_median": 15298.0,
+        "matched_null_median": 13672.0,
+        "win_pct": 0.7175,
+        "declared_discovery": false
+      },
+      {
+        "panel": 4,
+        "buy_hold": 20366.0,
+        "signal_median": 21800.0,
+        "matched_null_median": 19838.0,
+        "win_pct": 0.655,
+        "declared_discovery": false
+      },
+      {
+        "panel": 5,
+        "buy_hold": 24097.0,
+        "signal_median": 28450.0,
+        "matched_null_median": 25916.0,
+        "win_pct": 0.645,
+        "declared_discovery": false
+      },
+      {
+        "panel": 6,
+        "buy_hold": 33191.0,
+        "signal_median": 32189.0,
+        "matched_null_median": 28465.0,
+        "win_pct": 0.8075,
+        "declared_discovery": false
+      },
+      {
+        "panel": 7,
+        "buy_hold": 23383.0,
+        "signal_median": 23215.0,
+        "matched_null_median": 21009.0,
+        "win_pct": 0.8225,
+        "declared_discovery": false
+      },
+      {
+        "panel": 8,
+        "buy_hold": 10408.0,
+        "signal_median": 8496.0,
+        "matched_null_median": 8164.0,
+        "win_pct": 0.53,
+        "declared_discovery": false
+      },
+      {
+        "panel": 9,
+        "buy_hold": 9261.0,
+        "signal_median": 10762.0,
+        "matched_null_median": 9704.0,
+        "win_pct": 0.7225,
+        "declared_discovery": false
+      },
+      {
+        "panel": 10,
+        "buy_hold": 18265.0,
+        "signal_median": 23573.0,
+        "matched_null_median": 18088.0,
+        "win_pct": 0.9225,
+        "declared_discovery": false
+      },
+      {
+        "panel": 11,
+        "buy_hold": 23958.0,
+        "signal_median": 19119.0,
+        "matched_null_median": 21718.0,
+        "win_pct": 0.26,
+        "declared_discovery": false
+      }
+    ]
+  }
+}
