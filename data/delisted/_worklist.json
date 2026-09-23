@@ -45,7 +45,7 @@
     "status": "empty"
   },
   "ABI": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2025-07-03..2026-09-22",
     "gap_days": 6069,
     "index_window": "1996-01-02..2008-11-20",
@@ -87,7 +87,7 @@
     "status": "empty"
   },
   "ABX": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2020-09-25..2026-09-22",
     "gap_days": 6644,
     "index_window": "1996-01-02..2002-07-18",
@@ -129,7 +129,7 @@
     "symbol_used": "ACS"
   },
   "ACV": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2015-05-29..2026-09-22",
     "gap_days": 3116,
     "index_window": "1996-01-02..2006-11-16",
@@ -137,7 +137,7 @@
     "status": "recycled"
   },
   "ADCT": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2020-05-22..2026-09-22",
     "gap_days": 4714,
     "index_window": "1999-08-02..2007-06-26",
@@ -170,7 +170,7 @@
     "status": "empty"
   },
   "AGC": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2007-06-01..2018-08-24",
     "gap_days": 2111,
     "index_window": "1996-01-02..2001-08-20",
@@ -212,7 +212,7 @@
     "symbol_used": "AIV"
   },
   "AL": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2011-04-29..2026-09-22",
     "gap_days": 3207,
     "index_window": "1996-01-02..2002-07-18",
@@ -246,7 +246,7 @@
     "symbol_used": "ALXN"
   },
   "AM": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2014-11-14..2026-09-22",
     "gap_days": 3850,
     "index_window": "1996-01-02..2004-04-30",
@@ -280,7 +280,7 @@
     "symbol_used": "AMG"
   },
   "AMH": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2013-08-09..2026-09-22",
     "gap_days": 5814,
     "index_window": "1996-01-02..1997-09-08",
@@ -331,7 +331,7 @@
     "symbol_used": "ANDV"
   },
   "ANDW": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "1996-01-02..2006-09-28",
     "last_try": "2026-09-23",
     "status": "empty"
@@ -367,13 +367,13 @@
     "symbol_used": "ANSS"
   },
   "ANTM": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "2002-07-25..2022-06-21",
     "last_try": "2026-09-23",
     "status": "empty"
   },
   "ANV": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2026-02-13..2026-09-22",
     "gap_days": 9808,
     "index_window": "1996-01-02..1999-04-08",
@@ -381,7 +381,7 @@
     "status": "recycled"
   },
   "APC": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2026-02-20..2026-09-22",
     "gap_days": 2388,
     "index_window": "1997-07-28..2019-08-08",
@@ -389,7 +389,7 @@
     "status": "recycled"
   },
   "APCC": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "2000-06-01..2007-02-14",
     "last_try": "2026-09-23",
     "status": "empty"
@@ -410,7 +410,7 @@
     "symbol_used": "APOL"
   },
   "AR": {
-    "attempts": 1,
+    "attempts": 2,
     "data_window": "2013-10-18..2026-09-22",
     "gap_days": 5106,
     "index_window": "1996-01-02..1999-10-26",
@@ -418,7 +418,7 @@
     "status": "recycled"
   },
   "ARC": {
-    "attempts": 1,
+    "attempts": 2,
     "data_window": "2005-02-11..2024-11-22",
     "gap_days": 1768,
     "index_window": "1996-01-02..2000-04-10",
@@ -441,7 +441,7 @@
     "symbol_used": "ARG"
   },
   "AS": {
-    "attempts": 1,
+    "attempts": 2,
     "data_window": "2024-02-09..2026-09-22",
     "gap_days": 9209,
     "index_window": "1996-01-02..1998-11-23",
@@ -449,7 +449,7 @@
     "status": "recycled"
   },
   "ASC": {
-    "attempts": 1,
+    "attempts": 2,
     "data_window": "2013-08-09..2026-09-22",
     "gap_days": 5161,
     "index_window": "1996-01-02..1999-06-23",
@@ -470,5 +470,27 @@
     "rows": 1403,
     "status": "done",
     "symbol_used": "ASH"
+  },
+  "ASN": {
+    "attempts": 1,
+    "index_window": "2004-12-20..2007-10-04",
+    "last_try": "2026-09-23",
+    "status": "empty"
+  },
+  "ASND": {
+    "attempts": 1,
+    "data_window": "2015-02-06..2026-09-22",
+    "gap_days": 5706,
+    "index_window": "1998-06-12..1999-06-24",
+    "last_try": "2026-09-23",
+    "status": "recycled"
+  },
+  "ASO": {
+    "attempts": 1,
+    "data_window": "2020-10-09..2026-09-22",
+    "gap_days": 5092,
+    "index_window": "1999-03-10..2006-10-31",
+    "last_try": "2026-09-23",
+    "status": "recycled"
   }
 }
