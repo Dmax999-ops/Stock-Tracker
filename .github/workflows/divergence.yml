@@ -1,0 +1,70 @@
+name: Divergence decomposition
+
+# Three of 84 setups cleared the bar and all three were bullish divergence.
+# This takes that result apart to find out whether the oscillator is doing the
+# work, or whether divergence is just a slow way of noticing a stock has fallen.
+#
+# Separate workflow so it can be re-run on its own without repeating the
+# 84-test catalogue, which takes far longer and has already answered.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: divergence
+  cancel-in-progress: false
+
+jobs:
+  divergence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Rebuild price panel if absent
+        run: |
+          if [ ! -f data/prices.parquet ]; then
+            python scripts/fetch_universe.py --config config/universe.yml --out data/
+          fi
+
+      - name: Decompose the divergence result
+        if: always()
+        run: |
+          python scripts/test_divergence.py \
+            --prices data/prices.parquet \
+            --out data/divergence_evidence.json
+
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A data/
+          if git diff --staged --quiet; then
+            echo "no changes to commit"
+            exit 0
+          fi
+          git commit -m "divergence decomposition $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git fetch origin main
+            git rebase --autostash origin/main || git rebase --abort || true
+            if git push origin HEAD:main; then
+              echo "pushed on attempt $i"
+              exit 0
+            fi
+            echo "push rejected, retrying ($i/3)"
+            sleep 5
+          done
+          echo "could not push after 3 attempts"
+          exit 1
