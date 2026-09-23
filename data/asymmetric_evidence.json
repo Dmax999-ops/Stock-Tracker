@@ -1,0 +1,636 @@
+{
+  "generated": "2026-09-23T21:50:11.314667+00:00",
+  "env": {
+    "pandas": "3.0.6",
+    "numpy": "2.4.6",
+    "python": "3.11.16"
+  },
+  "start_gbp": 10000.0,
+  "cost_per_switch": 0.001,
+  "split": "2013-01-01",
+  "stocks": 623,
+  "from": "1996-01-02",
+  "to": "2026-09-23",
+  "buy_and_hold_mean_gbp": 757160.6952695939,
+  "buy_and_hold_median_gbp": 165711.80071946426,
+  "pass_margin": 0.1,
+  "best_by_fit_window": "death_cross|c5|fast|cd250",
+  "best_in_hindsight": "below200|c3|slow|cd250",
+  "fit_to_full_rank_correlation": 0.5156988052236734,
+  "chosen_by_outcome_decile": {
+    "d1": -0.040376872463165014,
+    "d2": 0.042504774991300565,
+    "d3": -0.046066126828508414,
+    "d4": -0.08822941533187567,
+    "d5": -0.020904579876125706,
+    "d6": -0.06903598602551342,
+    "d7": -0.04741504404667107,
+    "d8": -0.018007925682471115,
+    "d9": -0.19157792358093995,
+    "d10": -0.1979274945896573
+  },
+  "grid": {
+    "below200|c1|fast|cd0": {
+      "mean_gbp": 62329.36984698343,
+      "median_gbp": 21286.149776717713,
+      "fit_mean_gbp": 30887.06041964589,
+      "beat_hold": 42,
+      "mean_switches": 581.2744783306581,
+      "roundtrip_bought_cheaper": 0.4914235313232598,
+      "roundtrips": 172332,
+      "pct_time_invested": 0.6006560881006494
+    },
+    "below200|c1|fast|cd20": {
+      "mean_gbp": 310189.301091411,
+      "median_gbp": 73910.54811342128,
+      "fit_mean_gbp": 62815.452298750395,
+      "beat_hold": 122,
+      "mean_switches": 186.04494382022472,
+      "roundtrip_bought_cheaper": 0.4957923882946957,
+      "roundtrips": 55257,
+      "pct_time_invested": 0.8381012722346273
+    },
+    "below200|c1|fast|cd60": {
+      "mean_gbp": 443797.8033365436,
+      "median_gbp": 118743.24108487068,
+      "fit_mean_gbp": 63076.18704139073,
+      "beat_hold": 175,
+      "mean_switches": 94.7271268057785,
+      "roundtrip_bought_cheaper": 0.48787253716480544,
+      "roundtrips": 28118,
+      "pct_time_invested": 0.9318165776631107
+    },
+    "below200|c1|fast|cd120": {
+      "mean_gbp": 512129.44190758956,
+      "median_gbp": 132872.02296507076,
+      "fit_mean_gbp": 72796.5425498949,
+      "beat_hold": 205,
+      "mean_switches": 59.19903691813804,
+      "roundtrip_bought_cheaper": 0.4834376778599886,
+      "roundtrips": 17570,
+      "pct_time_invested": 0.9633990694692753
+    },
+    "below200|c1|fast|cd250": {
+      "mean_gbp": 625476.8901889725,
+      "median_gbp": 136557.66982698615,
+      "fit_mean_gbp": 75362.24411482911,
+      "beat_hold": 211,
+      "mean_switches": 34.91813804173355,
+      "roundtrip_bought_cheaper": 0.48078408651989185,
+      "roundtrips": 10356,
+      "pct_time_invested": 0.9806895775742593
+    },
+    "below200|c1|slow|cd0": {
+      "mean_gbp": 323290.5323633002,
+      "median_gbp": 39268.50363140741,
+      "fit_mean_gbp": 38593.927350319274,
+      "beat_hold": 90,
+      "mean_switches": 213.12359550561797,
+      "roundtrip_bought_cheaper": 0.3191452314998021,
+      "roundtrips": 63175,
+      "pct_time_invested": 0.7062326293596312
+    },
+    "below200|c1|slow|cd20": {
+      "mean_gbp": 407179.5719854901,
+      "median_gbp": 53371.326507210906,
+      "fit_mean_gbp": 42090.03052592014,
+      "beat_hold": 96,
+      "mean_switches": 112.78491171749599,
+      "roundtrip_bought_cheaper": 0.2935875943000838,
+      "roundtrips": 33404,
+      "pct_time_invested": 0.7565934736630575
+    },
+    "below200|c1|slow|cd60": {
+      "mean_gbp": 457481.4099858427,
+      "median_gbp": 64707.976021217226,
+      "fit_mean_gbp": 47722.80761797476,
+      "beat_hold": 100,
+      "mean_switches": 74.64847512038523,
+      "roundtrip_bought_cheaper": 0.2904276985743381,
+      "roundtrips": 22095,
+      "pct_time_invested": 0.8139100475894305
+    },
+    "below200|c1|slow|cd120": {
+      "mean_gbp": 502924.79020213394,
+      "median_gbp": 81873.47015048462,
+      "fit_mean_gbp": 52896.752551969155,
+      "beat_hold": 108,
+      "mean_switches": 54.40449438202247,
+      "roundtrip_bought_cheaper": 0.29507891139555115,
+      "roundtrips": 16094,
+      "pct_time_invested": 0.8623288262740822
+    },
+    "below200|c1|slow|cd250": {
+      "mean_gbp": 852510.3353752549,
+      "median_gbp": 100997.52976909591,
+      "fit_mean_gbp": 59011.00109746917,
+      "beat_hold": 120,
+      "mean_switches": 35.74317817014446,
+      "roundtrip_bought_cheaper": 0.2963698241633579,
+      "roundtrips": 10578,
+      "pct_time_invested": 0.9110866101062978
+    },
+    "below200|c3|fast|cd0": {
+      "mean_gbp": 78403.09171104668,
+      "median_gbp": 23456.68172511198,
+      "fit_mean_gbp": 33193.50852140065,
+      "beat_hold": 42,
+      "mean_switches": 515.5746388443017,
+      "roundtrip_bought_cheaper": 0.4935089578998338,
+      "roundtrips": 152826,
+      "pct_time_invested": 0.6254163348581991
+    },
+    "below200|c3|fast|cd20": {
+      "mean_gbp": 408471.92367321334,
+      "median_gbp": 82564.70527898593,
+      "fit_mean_gbp": 65998.38177477373,
+      "beat_hold": 129,
+      "mean_switches": 151.84911717495987,
+      "roundtrip_bought_cheaper": 0.5002440214738897,
+      "roundtrips": 45078,
+      "pct_time_invested": 0.8527856133937965
+    },
+    "below200|c3|fast|cd60": {
+      "mean_gbp": 592207.9839484575,
+      "median_gbp": 125012.81914654656,
+      "fit_mean_gbp": 75220.04508727409,
+      "beat_hold": 188,
+      "mean_switches": 72.51043338683787,
+      "roundtrip_bought_cheaper": 0.4930717009206733,
+      "roundtrips": 21506,
+      "pct_time_invested": 0.9391013477997673
+    },
+    "below200|c3|fast|cd120": {
+      "mean_gbp": 544069.4270896454,
+      "median_gbp": 135199.7192503675,
+      "fit_mean_gbp": 73309.49604768999,
+      "beat_hold": 215,
+      "mean_switches": 43.3884430176565,
+      "roundtrip_bought_cheaper": 0.4824581874756904,
+      "roundtrips": 12855,
+      "pct_time_invested": 0.9675331469393212
+    },
+    "below200|c3|fast|cd250": {
+      "mean_gbp": 721510.3715784014,
+      "median_gbp": 138304.38053078257,
+      "fit_mean_gbp": 75965.3670612974,
+      "beat_hold": 243,
+      "mean_switches": 25.01605136436597,
+      "roundtrip_bought_cheaper": 0.4896058315334773,
+      "roundtrips": 7408,
+      "pct_time_invested": 0.982892799638616
+    },
+    "below200|c3|slow|cd0": {
+      "mean_gbp": 492550.42227510695,
+      "median_gbp": 45042.96298494664,
+      "fit_mean_gbp": 42482.273983388855,
+      "beat_hold": 85,
+      "mean_switches": 123.07062600321028,
+      "roundtrip_bought_cheaper": 0.2736697750959956,
+      "roundtrips": 36460,
+      "pct_time_invested": 0.7298187100947554
+    },
+    "below200|c3|slow|cd20": {
+      "mean_gbp": 513983.1031496113,
+      "median_gbp": 51713.307638727296,
+      "fit_mean_gbp": 44372.188676560385,
+      "beat_hold": 94,
+      "mean_switches": 89.80577849117175,
+      "roundtrip_bought_cheaper": 0.26254709871891485,
+      "roundtrips": 26540,
+      "pct_time_invested": 0.757740444538924
+    },
+    "below200|c3|slow|cd60": {
+      "mean_gbp": 624942.1414055408,
+      "median_gbp": 63756.872069017474,
+      "fit_mean_gbp": 49700.99943607176,
+      "beat_hold": 99,
+      "mean_switches": 64.0064205457464,
+      "roundtrip_bought_cheaper": 0.2608028772412334,
+      "roundtrips": 18907,
+      "pct_time_invested": 0.8057813975232903
+    },
+    "below200|c3|slow|cd120": {
+      "mean_gbp": 611026.6536815678,
+      "median_gbp": 80027.39977111678,
+      "fit_mean_gbp": 52071.728063440816,
+      "beat_hold": 100,
+      "mean_switches": 48.3900481540931,
+      "roundtrip_bought_cheaper": 0.25801259622113365,
+      "roundtrips": 14290,
+      "pct_time_invested": 0.8496525664329683
+    },
+    "below200|c3|slow|cd250": {
+      "mean_gbp": 1094273.7020767985,
+      "median_gbp": 92410.57864648718,
+      "fit_mean_gbp": 57086.76209446052,
+      "beat_hold": 97,
+      "mean_switches": 33.26003210272873,
+      "roundtrip_bought_cheaper": 0.2555985342019544,
+      "roundtrips": 9824,
+      "pct_time_invested": 0.8985704071964585
+    },
+    "below200|c5|fast|cd0": {
+      "mean_gbp": 87092.91341234234,
+      "median_gbp": 26749.97736079118,
+      "fit_mean_gbp": 34253.181023879486,
+      "beat_hold": 48,
+      "mean_switches": 480.08667736757627,
+      "roundtrip_bought_cheaper": 0.49488949499493873,
+      "roundtrips": 142256,
+      "pct_time_invested": 0.6418172917952035
+    },
+    "below200|c5|fast|cd20": {
+      "mean_gbp": 339347.4668792391,
+      "median_gbp": 78349.2918931818,
+      "fit_mean_gbp": 66081.75262969201,
+      "beat_hold": 127,
+      "mean_switches": 148.80577849117174,
+      "roundtrip_bought_cheaper": 0.5026614419352646,
+      "roundtrips": 44149,
+      "pct_time_invested": 0.8522558270272425
+    },
+    "below200|c5|fast|cd60": {
+      "mean_gbp": 581089.5999552277,
+      "median_gbp": 119227.98417699977,
+      "fit_mean_gbp": 77926.28725009908,
+      "beat_hold": 196,
+      "mean_switches": 73.65168539325843,
+      "roundtrip_bought_cheaper": 0.5021752072171086,
+      "roundtrips": 21837,
+      "pct_time_invested": 0.93619354308334
+    },
+    "below200|c5|fast|cd120": {
+      "mean_gbp": 563588.2252257023,
+      "median_gbp": 133287.46656862667,
+      "fit_mean_gbp": 73973.46067624449,
+      "beat_hold": 212,
+      "mean_switches": 45.58266452648475,
+      "roundtrip_bought_cheaper": 0.495487498150614,
+      "roundtrips": 13518,
+      "pct_time_invested": 0.9639981930797279
+    },
+    "below200|c5|fast|cd250": {
+      "mean_gbp": 676184.0314735528,
+      "median_gbp": 138511.17310389254,
+      "fit_mean_gbp": 76050.08600279254,
+      "beat_hold": 243,
+      "mean_switches": 27.725521669341894,
+      "roundtrip_bought_cheaper": 0.4948252769998782,
+      "roundtrips": 8213,
+      "pct_time_invested": 0.9793916840148175
+    },
+    "below200|c5|slow|cd0": {
+      "mean_gbp": 521736.2591898676,
+      "median_gbp": 51265.351462082486,
+      "fit_mean_gbp": 43354.79785777779,
+      "beat_hold": 99,
+      "mean_switches": 94.9390048154093,
+      "roundtrip_bought_cheaper": 0.2629330295154342,
+      "roundtrips": 28087,
+      "pct_time_invested": 0.7447249719537077
+    },
+    "below200|c5|slow|cd20": {
+      "mean_gbp": 569901.3940054352,
+      "median_gbp": 58762.586644921685,
+      "fit_mean_gbp": 46064.8422041118,
+      "beat_hold": 103,
+      "mean_switches": 78.19582664526484,
+      "roundtrip_bought_cheaper": 0.2558552318282177,
+      "roundtrips": 23099,
+      "pct_time_invested": 0.762693075160742
+    },
+    "below200|c5|slow|cd60": {
+      "mean_gbp": 568424.1683940226,
+      "median_gbp": 63541.72522700337,
+      "fit_mean_gbp": 51591.933434596685,
+      "beat_hold": 106,
+      "mean_switches": 58.231139646869984,
+      "roundtrip_bought_cheaper": 0.2539691770863623,
+      "roundtrips": 17195,
+      "pct_time_invested": 0.8043275989633459
+    },
+    "below200|c5|slow|cd120": {
+      "mean_gbp": 559025.3156069295,
+      "median_gbp": 79495.84715608157,
+      "fit_mean_gbp": 52503.87709686894,
+      "beat_hold": 107,
+      "mean_switches": 45.06581059390048,
+      "roundtrip_bought_cheaper": 0.2521797955502105,
+      "roundtrips": 13304,
+      "pct_time_invested": 0.8448467065639534
+    },
+    "below200|c5|slow|cd250": {
+      "mean_gbp": 1058012.8281617581,
+      "median_gbp": 89090.06784249328,
+      "fit_mean_gbp": 59567.7944979862,
+      "beat_hold": 96,
+      "mean_switches": 31.767255216693417,
+      "roundtrip_bought_cheaper": 0.2493068884623587,
+      "roundtrips": 9378,
+      "pct_time_invested": 0.8920147161034295
+    },
+    "death_cross|c1|fast|cd0": {
+      "mean_gbp": 132857.47912884137,
+      "median_gbp": 36656.81389459814,
+      "fit_mean_gbp": 42848.34876977521,
+      "beat_hold": 51,
+      "mean_switches": 395.08025682182983,
+      "roundtrip_bought_cheaper": 0.4984154102421732,
+      "roundtrips": 117065,
+      "pct_time_invested": 0.6832056061030061
+    },
+    "death_cross|c1|fast|cd20": {
+      "mean_gbp": 371394.2517977087,
+      "median_gbp": 79494.84634829854,
+      "fit_mean_gbp": 66042.28137470967,
+      "beat_hold": 133,
+      "mean_switches": 139.1187800963082,
+      "roundtrip_bought_cheaper": 0.507222491517208,
+      "roundtrips": 41260,
+      "pct_time_invested": 0.8351237150812242
+    },
+    "death_cross|c1|fast|cd60": {
+      "mean_gbp": 520273.2245790868,
+      "median_gbp": 124339.95779434724,
+      "fit_mean_gbp": 74495.55382379971,
+      "beat_hold": 198,
+      "mean_switches": 73.82664526484751,
+      "roundtrip_bought_cheaper": 0.5106003838069999,
+      "roundtrips": 21886,
+      "pct_time_invested": 0.915928176579955
+    },
+    "death_cross|c1|fast|cd120": {
+      "mean_gbp": 508867.2843349506,
+      "median_gbp": 132918.95744613587,
+      "fit_mean_gbp": 72870.18986825673,
+      "beat_hold": 198,
+      "mean_switches": 45.924558587479936,
+      "roundtrip_bought_cheaper": 0.5012135029785982,
+      "roundtrips": 13597,
+      "pct_time_invested": 0.9483090846736458
+    },
+    "death_cross|c1|fast|cd250": {
+      "mean_gbp": 625206.7053114274,
+      "median_gbp": 140285.3251924109,
+      "fit_mean_gbp": 75748.42036306062,
+      "beat_hold": 235,
+      "mean_switches": 28.88282504012841,
+      "roundtrip_bought_cheaper": 0.5072548560730166,
+      "roundtrips": 8546,
+      "pct_time_invested": 0.9674847769458231
+    },
+    "death_cross|c1|slow|cd0": {
+      "mean_gbp": 328855.59921879665,
+      "median_gbp": 53222.60519028709,
+      "fit_mean_gbp": 46364.42029132364,
+      "beat_hold": 94,
+      "mean_switches": 111.59390048154093,
+      "roundtrip_bought_cheaper": 0.3123108582496066,
+      "roundtrips": 33044,
+      "pct_time_invested": 0.7660142045855585
+    },
+    "death_cross|c1|slow|cd20": {
+      "mean_gbp": 412461.36119192553,
+      "median_gbp": 61907.21972637708,
+      "fit_mean_gbp": 48785.7650340522,
+      "beat_hold": 100,
+      "mean_switches": 53.91492776886035,
+      "roundtrip_bought_cheaper": 0.26182549155097684,
+      "roundtrips": 15919,
+      "pct_time_invested": 0.7947750442388224
+    },
+    "death_cross|c1|slow|cd60": {
+      "mean_gbp": 480997.09661499533,
+      "median_gbp": 67191.67924292189,
+      "fit_mean_gbp": 59051.32604108165,
+      "beat_hold": 102,
+      "mean_switches": 41.165329052969504,
+      "roundtrip_bought_cheaper": 0.25728155339805825,
+      "roundtrips": 12154,
+      "pct_time_invested": 0.8223027604526933
+    },
+    "death_cross|c1|slow|cd120": {
+      "mean_gbp": 535734.0705206267,
+      "median_gbp": 77521.55065316761,
+      "fit_mean_gbp": 58184.35885206331,
+      "beat_hold": 113,
+      "mean_switches": 33.5553772070626,
+      "roundtrip_bought_cheaper": 0.2537886441705395,
+      "roundtrips": 9898,
+      "pct_time_invested": 0.8519882350889634
+    },
+    "death_cross|c1|slow|cd250": {
+      "mean_gbp": 684250.1938873195,
+      "median_gbp": 89723.8928121112,
+      "fit_mean_gbp": 65025.59937192262,
+      "beat_hold": 105,
+      "mean_switches": 24.725521669341894,
+      "roundtrip_bought_cheaper": 0.24770767756945394,
+      "roundtrips": 7307,
+      "pct_time_invested": 0.8935785408288416
+    },
+    "death_cross|c3|fast|cd0": {
+      "mean_gbp": 129636.70735089447,
+      "median_gbp": 37009.44263650364,
+      "fit_mean_gbp": 42263.920940487566,
+      "beat_hold": 53,
+      "mean_switches": 385.5939004815409,
+      "roundtrip_bought_cheaper": 0.4988753424297855,
+      "roundtrips": 114257,
+      "pct_time_invested": 0.687749271543746
+    },
+    "death_cross|c3|fast|cd20": {
+      "mean_gbp": 321049.05530151015,
+      "median_gbp": 79118.2140166007,
+      "fit_mean_gbp": 65056.72781510173,
+      "beat_hold": 137,
+      "mean_switches": 136.41894060995185,
+      "roundtrip_bought_cheaper": 0.50743503606363,
+      "roundtrips": 40484,
+      "pct_time_invested": 0.8359675950107078
+    },
+    "death_cross|c3|fast|cd60": {
+      "mean_gbp": 472321.36063463136,
+      "median_gbp": 118344.16801238425,
+      "fit_mean_gbp": 72197.90910548679,
+      "beat_hold": 199,
+      "mean_switches": 72.73354735152488,
+      "roundtrip_bought_cheaper": 0.5118876581545164,
+      "roundtrips": 21577,
+      "pct_time_invested": 0.9147276457971251
+    },
+    "death_cross|c3|fast|cd120": {
+      "mean_gbp": 484750.57397561625,
+      "median_gbp": 128696.10525832888,
+      "fit_mean_gbp": 71445.03573154025,
+      "beat_hold": 190,
+      "mean_switches": 45.43178170144462,
+      "roundtrip_bought_cheaper": 0.5017080053467994,
+      "roundtrips": 13466,
+      "pct_time_invested": 0.9467494118790061
+    },
+    "death_cross|c3|fast|cd250": {
+      "mean_gbp": 580668.0728941025,
+      "median_gbp": 137695.5549546151,
+      "fit_mean_gbp": 74344.28194235006,
+      "beat_hold": 233,
+      "mean_switches": 28.85553772070626,
+      "roundtrip_bought_cheaper": 0.5054906542056075,
+      "roundtrips": 8560,
+      "pct_time_invested": 0.9659475245773542
+    },
+    "death_cross|c3|slow|cd0": {
+      "mean_gbp": 290733.0632149512,
+      "median_gbp": 54058.60590702138,
+      "fit_mean_gbp": 45988.078340971624,
+      "beat_hold": 95,
+      "mean_switches": 109.34991974317818,
+      "roundtrip_bought_cheaper": 0.3132470580967971,
+      "roundtrips": 32377,
+      "pct_time_invested": 0.7701285603844356
+    },
+    "death_cross|c3|slow|cd20": {
+      "mean_gbp": 354375.4918812874,
+      "median_gbp": 62535.29387541282,
+      "fit_mean_gbp": 48506.27889677428,
+      "beat_hold": 97,
+      "mean_switches": 52.71268057784912,
+      "roundtrip_bought_cheaper": 0.26392547381946674,
+      "roundtrips": 15565,
+      "pct_time_invested": 0.7983328337176637
+    },
+    "death_cross|c3|slow|cd60": {
+      "mean_gbp": 417363.825474573,
+      "median_gbp": 66586.5220856411,
+      "fit_mean_gbp": 57972.660620757335,
+      "beat_hold": 98,
+      "mean_switches": 40.2215088282504,
+      "roundtrip_bought_cheaper": 0.25782828282828285,
+      "roundtrips": 11880,
+      "pct_time_invested": 0.8250463563070735
+    },
+    "death_cross|c3|slow|cd120": {
+      "mean_gbp": 458251.9114384948,
+      "median_gbp": 74579.59142239203,
+      "fit_mean_gbp": 56783.75195709476,
+      "beat_hold": 105,
+      "mean_switches": 32.88603531300161,
+      "roundtrip_bought_cheaper": 0.2567219532296281,
+      "roundtrips": 9707,
+      "pct_time_invested": 0.8538921029446324
+    },
+    "death_cross|c3|slow|cd250": {
+      "mean_gbp": 583599.5767146769,
+      "median_gbp": 90515.78167616196,
+      "fit_mean_gbp": 63946.98641903117,
+      "beat_hold": 104,
+      "mean_switches": 24.28892455858748,
+      "roundtrip_bought_cheaper": 0.2529583739384658,
+      "roundtrips": 7183,
+      "pct_time_invested": 0.8947066204196937
+    },
+    "death_cross|c5|fast|cd0": {
+      "mean_gbp": 139745.43353819058,
+      "median_gbp": 39904.02877146452,
+      "fit_mean_gbp": 45993.87618375015,
+      "beat_hold": 55,
+      "mean_switches": 377.338683788122,
+      "roundtrip_bought_cheaper": 0.4985241238662588,
+      "roundtrips": 111798,
+      "pct_time_invested": 0.6924125125907301
+    },
+    "death_cross|c5|fast|cd20": {
+      "mean_gbp": 351044.7707306762,
+      "median_gbp": 82825.3582086473,
+      "fit_mean_gbp": 74394.73771298445,
+      "beat_hold": 131,
+      "mean_switches": 134.1733547351525,
+      "roundtrip_bought_cheaper": 0.5065437463890076,
+      "roundtrips": 39809,
+      "pct_time_invested": 0.8369592836756877
+    },
+    "death_cross|c5|fast|cd60": {
+      "mean_gbp": 514266.18580211455,
+      "median_gbp": 112534.65907315604,
+      "fit_mean_gbp": 78417.48563458436,
+      "beat_hold": 194,
+      "mean_switches": 72.17495987158908,
+      "roundtrip_bought_cheaper": 0.5069395766157297,
+      "roundtrips": 21399,
+      "pct_time_invested": 0.9132103226963635
+    },
+    "death_cross|c5|fast|cd120": {
+      "mean_gbp": 480861.06144428643,
+      "median_gbp": 124525.33184996636,
+      "fit_mean_gbp": 76823.96083586215,
+      "beat_hold": 193,
+      "mean_switches": 45.38041733547352,
+      "roundtrip_bought_cheaper": 0.4978055493565424,
+      "roundtrips": 13443,
+      "pct_time_invested": 0.9450944522731406
+    },
+    "death_cross|c5|fast|cd250": {
+      "mean_gbp": 626580.886754562,
+      "median_gbp": 138426.0170709144,
+      "fit_mean_gbp": 80286.1654853549,
+      "beat_hold": 223,
+      "mean_switches": 28.942215088282506,
+      "roundtrip_bought_cheaper": 0.5009326183259502,
+      "roundtrips": 8578,
+      "pct_time_invested": 0.9643089650980395
+    },
+    "death_cross|c5|slow|cd0": {
+      "mean_gbp": 269764.4825644893,
+      "median_gbp": 56020.282479563735,
+      "fit_mean_gbp": 49156.76821568163,
+      "beat_hold": 102,
+      "mean_switches": 107.16051364365971,
+      "roundtrip_bought_cheaper": 0.3135203277655216,
+      "roundtrips": 31730,
+      "pct_time_invested": 0.7741337204039995
+    },
+    "death_cross|c5|slow|cd20": {
+      "mean_gbp": 325323.4332448401,
+      "median_gbp": 63838.889129168,
+      "fit_mean_gbp": 52509.09846553378,
+      "beat_hold": 97,
+      "mean_switches": 51.624398073836275,
+      "roundtrip_bought_cheaper": 0.2650396903496687,
+      "roundtrips": 15243,
+      "pct_time_invested": 0.8018173416183728
+    },
+    "death_cross|c5|slow|cd60": {
+      "mean_gbp": 408182.0626488845,
+      "median_gbp": 68480.41410203048,
+      "fit_mean_gbp": 65377.466546197444,
+      "beat_hold": 105,
+      "mean_switches": 39.48956661316212,
+      "roundtrip_bought_cheaper": 0.26091057189402383,
+      "roundtrips": 11663,
+      "pct_time_invested": 0.8277797799310613
+    },
+    "death_cross|c5|slow|cd120": {
+      "mean_gbp": 438489.3094090782,
+      "median_gbp": 77276.37457370793,
+      "fit_mean_gbp": 63227.642043009066,
+      "beat_hold": 99,
+      "mean_switches": 32.43659711075441,
+      "roundtrip_bought_cheaper": 0.25699958211450064,
+      "roundtrips": 9572,
+      "pct_time_invested": 0.8555742576970569
+    },
+    "death_cross|c5|slow|cd250": {
+      "mean_gbp": 540959.0345921599,
+      "median_gbp": 92833.79220552268,
+      "fit_mean_gbp": 66022.00203650042,
+      "beat_hold": 111,
+      "mean_switches": 23.9438202247191,
+      "roundtrip_bought_cheaper": 0.2530018364175731,
+      "roundtrips": 7079,
+      "pct_time_invested": 0.8957690995043425
+    }
+  },
+  "verdict": "DOES NOT BEAT BUY AND HOLD. The setting chosen on the fit window returned GBP 626,581 against GBP 757,161. The best setting in hindsight does beat it (GBP 1,094,274), but it could not have been chosen in advance; rank correlation fit-to-full is +0.516.",
+  "CAVEAT": "Survivor-tilted until the delisting register completes; the missing companies are where an exit rule pays most, so these numbers understate every non-hold arm."
+}
