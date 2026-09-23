@@ -186,30 +186,55 @@ def confirmations(C, Hh, Ll, V, S) -> dict[str, np.ndarray]:
 
 
 def hard_exit(C, Ll, S):
-    """Fires through any cooldown. A stock that is actually failing gets out."""
+    """
+    Fires through any cooldown. A stock that is actually failing gets out.
+
+    The first version used 2 ATR below the 200-day and fired 68 times per
+    stock per year -- because it is a STATE that stays true all through a
+    downtrend, not an event. 3 ATR is decisive rather than routine. The real
+    fix, though, is in the re-entry rule after a hard exit (see machine()).
+    """
     return (np.nan_to_num(C < S["lo250"])
-            | np.nan_to_num(C < S["ma200"] - 2.0 * S["atr"]))
+            | np.nan_to_num(C < S["ma200"] - 3.0 * S["atr"]))
 
 
-def machine(exit_sig, hard, re_sig, C, cooldown, use_hard):
+def machine(exit_sig, hard, re_sig, C, cooldown, use_hard, repair=None):
     """
     Long unless thrown out. The cooldown suppresses ORDINARY exits only; a hard
     exit, or the catastrophic stop measured from the entry price, always fires.
+
+    AND THE PART THE FIRST VERSION GOT WRONG. After an ordinary exit -- a
+    routine trend break in a stock that is still basically healthy -- re-entry
+    is fast: buy the oversold reclaim. After a HARD exit it is not. A stock that
+    has just been stopped out for failing must REPAIR ITS TREND before it can be
+    bought again. Without that, 52% of fast re-entries were hard-stopped again
+    within ten days: the rule bought the falling knife, sold it, and bought it
+    again, 440 times per stock.
+
+    You buy the dip on a strong stock. You do not buy the dip on a stock you
+    have just sold for failing.
     """
     nd, nt = C.shape
     st = np.ones(nt, bool)
+    hard_out = np.zeros(nt, bool)
     last_in = np.full(nt, -10 ** 9)
     entry = np.where(np.isfinite(C[0]), C[0], np.nan)
     out = np.empty((nd, nt), bool)
+    if repair is None:
+        repair = np.zeros((nd, nt), bool)
     for t in range(nd):
         ok = np.isfinite(C[t])
         crash = use_hard & ok & (C[t] < entry * (1 - HARD_DD))
-        forced = (hard[t] & use_hard) | crash
-        ordinary = exit_sig[t] & ((t - last_in) >= cooldown)
-        st = st & ~((ordinary | forced) & st)
-        back = (~st) & re_sig[t] & ok
+        forced = st & ((hard[t] & use_hard) | crash)
+        ordinary = st & exit_sig[t] & ((t - last_in) >= cooldown) & ~forced
+        hard_out = np.where(forced, True, np.where(ordinary, False, hard_out))
+        st = st & ~(forced | ordinary)
+        # fast re-entry after an ordinary exit; trend repair after a hard one
+        allowed = np.where(hard_out, repair[t], re_sig[t])
+        back = (~st) & allowed & ok
         last_in = np.where(back, t, last_in)
         entry = np.where(back, C[t], entry)
+        hard_out = np.where(back, False, hard_out)
         st = st | back
         out[t] = st
     return out
@@ -249,14 +274,19 @@ def run_grid(C, Hh, Ll, V, idx, valid):
          & (S["kf"] < 40))
         | ((S["rsi"] > 30) & np.r_[z, S["rsi"][:-1] <= 30])).astype(bool)
 
+    # trend repaired: back above the 200-day with the 50-day rising
+    ma50s = np.r_[np.full((20, C.shape[1]), np.nan), S["ma50"][:-20]]
+    repair = np.nan_to_num((C > S["ma200"]) & (S["ma50"] > ma50s)).astype(bool)
+
     hold_eq = START * np.cumprod(1 + ret, axis=0)
     hf = hold_eq[-1]
     fit_m = np.asarray(idx < SPLIT)
     rows = {}
+    port_hold = hold_eq[:, valid].mean(axis=1)
     for cname, cs in conf.items():
         for cd in COOLDOWN:
             for uh in (False, True):
-                st = machine(cs, hard, fast, C, cd, uh)
+                st = machine(cs, hard, fast, C, cd, uh, repair)
                 eq, sw, pos = equity(ret, st)
                 win, ntrip = roundtrip_win(C, pos[:, valid])
                 f = eq[-1][valid]
@@ -264,9 +294,12 @@ def run_grid(C, Hh, Ll, V, idx, valid):
                 # stock at the start, each sleeve following the rule. Skew
                 # cannot flatter this the way a hit rate can.
                 port = float(np.mean(f))
+                curve = eq[:, valid].mean(axis=1)
+                rk = risk(curve, idx)
                 fitf = eq[fit_m][-1][valid] if fit_m.sum() > 300 else f
                 rows[f"{cname}|cd{cd}|{'hard' if uh else 'nohard'}"] = {
                     "portfolio_gbp": port,
+                    **{f"port_{k}": v for k, v in rk.items()},
                     "beat_hold": int((f > hf[valid]).sum()),
                     "beat_pct": float((f > hf[valid]).mean()),
                     "mean_gbp": float(np.mean(f)),
@@ -277,7 +310,27 @@ def run_grid(C, Hh, Ll, V, idx, valid):
                     "roundtrips": ntrip,
                     "pct_time_invested": float(np.mean(pos[:, valid])),
                 }
+    rows["_hold"] = {f"port_{k}": v for k, v in risk(port_hold, idx).items()}
     return rows, hf
+
+
+def risk(curve, idx):
+    """
+    How professionals actually judge a strategy: return PER UNIT OF RISK.
+    A rule that makes 5% less than holding while halving the worst drawdown
+    has not lost -- scale it up by a fifth and it makes more with less pain.
+    """
+    curve = np.asarray(curve, float)
+    yrs = max((idx[-1] - idx[0]).days / 365.25, 1e-9)
+    r = np.diff(curve) / curve[:-1]
+    r = r[np.isfinite(r)]
+    pk = np.maximum.accumulate(curve)
+    dd = float((curve / pk - 1).min())
+    cagr = float((curve[-1] / curve[0]) ** (1 / yrs) - 1)
+    vol = float(np.std(r) * np.sqrt(252)) if len(r) else float("nan")
+    return {"cagr": cagr, "max_drawdown": dd, "vol": vol,
+            "sharpe": cagr / vol if vol > 0 else None,
+            "calmar": cagr / abs(dd) if dd < 0 else None}
 
 
 def synthetic(seed, n_tick=120, n=2400):
@@ -315,6 +368,7 @@ def main() -> int:
                 idx = pd.bdate_range("2004-01-01", periods=C.shape[0])
                 valid = np.isfinite(C[-1])
                 g, hf = run_grid(C, Hh, Ll, V, idx, valid)
+                g.pop("_hold", None)
                 best = max(g, key=lambda k: g[k]["fit_beat_pct"])
                 hm = float(np.mean(hf[valid]))
                 # the only bar that survived: the PORTFOLIO must beat holding
@@ -354,6 +408,7 @@ def main() -> int:
         print(f"{C.shape[1]} tickers, {len(idx):,} days; {n} usable")
 
         g, hf = run_grid(C, Hh, Ll, V, idx, valid)
+        hrisk = g.pop("_hold")
         hold_mean = float(np.mean(hf[valid])); hold_med = float(np.median(hf[valid]))
         print(f"\n  buy and hold: mean GBP {hold_mean:,.0f}  "
               f"median GBP {hold_med:,.0f}")
@@ -369,6 +424,20 @@ def main() -> int:
                   f"{v['portfolio_gbp']/hold_mean-1:>+9.0%}"
                   f"{v['beat_pct']:>7.0%}{v['median_gbp']:>11,.0f}"
                   f"{v['mean_switches']:>8.0f}{ch:>9}")
+
+        # ---- RISK-ADJUSTED: how professionals actually judge it --------
+        print(f"\n  RISK-ADJUSTED, portfolio equity curve")
+        print(f"  {'setting':34}{'CAGR':>8}{'maxDD':>8}{'Sharpe':>8}{'Calmar':>8}")
+        print(f"  {'BUY AND HOLD':34}{hrisk['port_cagr']:>+8.1%}"
+              f"{hrisk['port_max_drawdown']:>8.1%}{hrisk['port_sharpe']:>8.2f}"
+              f"{hrisk['port_calmar']:>8.2f}")
+        for k in sorted(g, key=lambda x: -(g[x].get("port_calmar") or -9))[:12]:
+            v = g[k]
+            print(f"  {k:34}{v['port_cagr']:>+8.1%}{v['port_max_drawdown']:>8.1%}"
+                  f"{(v['port_sharpe'] or 0):>8.2f}{(v['port_calmar'] or 0):>8.2f}")
+        risk_beat = [k for k in g
+                     if (g[k].get("port_calmar") or 0) > hrisk["port_calmar"] * 1.10
+                     and (g[k].get("port_sharpe") or 0) >= hrisk["port_sharpe"]]
 
         best_fit = max(g, key=lambda k: g[k]["fit_beat_pct"])  # chosen on 1996-2012
         best_all = max(g, key=lambda k: g[k]["beat_pct"])
@@ -410,6 +479,13 @@ def main() -> int:
             f"beat holding on about 58% of stocks, because in a skewed market "
             f"most stocks underperform the average and anything that cuts "
             f"exposure wins on the majority while losing on the few that matter.")
+        if risk_beat:
+            verdict += (f" ON A RISK-ADJUSTED BASIS, {len(risk_beat)} setting(s) "
+                        f"beat buy-and-hold on BOTH Calmar (return per unit of "
+                        f"worst drawdown, by 10%+) and Sharpe: "
+                        f"{', '.join(sorted(risk_beat)[:6])}.")
+        else:
+            verdict += " No setting beat buy-and-hold on a risk-adjusted basis either."
         print(f"\n  {verdict}")
 
         out_path.write_text(json.dumps(
@@ -421,6 +497,7 @@ def main() -> int:
              "best_by_fit_window": best_fit, "best_in_hindsight": best_all,
              "fit_to_full_rank_correlation": rho,
              "escape_hatch_mean_effect": (mh if pairs else None),
+             "buy_and_hold_risk": hrisk, "beats_hold_risk_adjusted": risk_beat,
              "grid": g, "verdict": verdict,
              "CAVEAT": "Survivor-tilted until the delisting register completes; "
                        "the missing companies are where an exit rule pays most."},
