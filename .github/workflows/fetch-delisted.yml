@@ -46,11 +46,25 @@ jobs:
             --out data/delisted \
             --limit 20
 
+      # The register of WHO failed and WHEN, from the filings themselves.
+      # Free, complete, and the thing that lets a backtest close dead positions
+      # honestly instead of silently deleting them.
+      - name: Build the delisting register from EDGAR
+        if: always()
+        env:
+          SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT }}
+        run: |
+          python scripts/fetch_delistings.py \
+            --config config/universe.yml \
+            --out data \
+            --limit 250
+
       - name: Commit
+        if: always()
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/delisted
+          git add -A data/
           if git diff --staged --quiet; then
             echo "no changes to commit"
             exit 0
@@ -58,7 +72,7 @@ jobs:
           git commit -m "delisted archive $(date -u +%Y-%m-%d)"
           for i in 1 2 3; do
             git fetch origin main
-            git rebase origin/main || git rebase --abort
+            git rebase --autostash origin/main || git rebase --abort || true
             if git push origin HEAD:main; then
               echo "pushed on attempt $i"
               exit 0
