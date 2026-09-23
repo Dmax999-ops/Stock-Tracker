@@ -1,0 +1,139 @@
+{
+  "generated": "2026-09-23T19:46:04.386985+00:00",
+  "env": {
+    "pandas": "3.0.6",
+    "numpy": "2.4.6",
+    "python": "3.11.16"
+  },
+  "instruments": 624,
+  "signals": 52618,
+  "lookahead": 10,
+  "cost_pct": 0.001,
+  "permutations": 50,
+  "min_universe": 50,
+  "exits_vs_hold": {
+    "swing": {
+      "trades": 50922,
+      "with_exits_net_pct": 0.007574989260898207,
+      "with_exits_median_pct": -0.01692498864065528,
+      "with_exits_win_rate": 0.4087231452024665,
+      "with_exits_median_bars": 10.0,
+      "hold_only_net_pct": 0.01499437412007221,
+      "hold_only_median_pct": 0.013854846592426522,
+      "hold_only_win_rate": 0.5729521811347146,
+      "exits_add_pct": -0.007419384859174003,
+      "worst_1pct_with_exits": -0.13800034959598398,
+      "worst_1pct_hold_only": -0.28560733218173767
+    },
+    "position": {
+      "trades": 44165,
+      "with_exits_net_pct": 0.027324837060116382,
+      "with_exits_median_pct": -0.03135354405946509,
+      "with_exits_win_rate": 0.4069059209781501,
+      "with_exits_median_bars": 31.0,
+      "hold_only_net_pct": 0.08685304529852242,
+      "hold_only_median_pct": 0.06884085118058623,
+      "hold_only_win_rate": 0.6463747973129488,
+      "exits_add_pct": -0.05952820823840604,
+      "worst_1pct_with_exits": -0.23902949450497235,
+      "worst_1pct_hold_only": -0.518527916256406
+    }
+  },
+  "cross_section": {
+    "swing": {
+      "horizon_bars": 20,
+      "signal_dates": 6209,
+      "signals_used": 52571,
+      "mean_same_day_excess": 0.0017235385245975626,
+      "signal_weighted_excess": 0.0010208060146842121,
+      "naive_t": 1.0301497924882903,
+      "newey_west_t": 1.012908290828892,
+      "newey_west_se": 0.001701574111104512,
+      "min_detectable_excess_at_t3": 0.005104722333313536,
+      "permutation_mean": -0.000153323288674197,
+      "permutation_sd": 0.000704658339208567,
+      "z_vs_permutation": 2.6635061402661413,
+      "median_breadth": 0.006666666666666667,
+      "pct_signals_on_crowded_days": 0.41945178900914953,
+      "by_breadth": {
+        "lone": {
+          "dates": 3926,
+          "signals": 9314,
+          "mean_excess": 0.0017331494073236629,
+          "naive_t": 0.6686094916915735,
+          "newey_west_t": 0.6738521872708402
+        },
+        "normal": {
+          "dates": 1931,
+          "signals": 21206,
+          "mean_excess": 0.0018485365254389734,
+          "naive_t": 1.7658939407266028,
+          "newey_west_t": 1.5717715904840204
+        },
+        "crowded": {
+          "dates": 352,
+          "signals": 22051,
+          "mean_excess": 0.0009306309529855415,
+          "naive_t": 0.6411688046957725,
+          "newey_west_t": 0.5977095658136835
+        }
+      }
+    },
+    "position": {
+      "horizon_bars": 120,
+      "signal_dates": 6115,
+      "signals_used": 51622,
+      "mean_same_day_excess": -0.0010089837497338945,
+      "signal_weighted_excess": -0.0008512898648465551,
+      "naive_t": -0.25465842214949597,
+      "newey_west_t": -0.19702462102986742,
+      "newey_west_se": 0.005121104887601536,
+      "min_detectable_excess_at_t3": 0.01536331466280461,
+      "permutation_mean": 0.0015874058363031219,
+      "permutation_sd": 0.015973085431078327,
+      "z_vs_permutation": -0.16254778059255248,
+      "median_breadth": 0.006666666666666667,
+      "pct_signals_on_crowded_days": 0.4211963891364147,
+      "by_breadth": {
+        "lone": {
+          "dates": 3880,
+          "signals": 9171,
+          "mean_excess": -0.000652405384093385,
+          "naive_t": -0.10670443995505169,
+          "newey_west_t": -0.08338502446555399
+        },
+        "normal": {
+          "dates": 1891,
+          "signals": 20708,
+          "mean_excess": -0.002239336117901598,
+          "naive_t": -0.8898304580421091,
+          "newey_west_t": -0.7177089247616002
+        },
+        "crowded": {
+          "dates": 344,
+          "signals": 21743,
+          "mean_excess": 0.0017325054058473866,
+          "naive_t": 0.4736229375917613,
+          "newey_west_t": 0.44647738195306425
+        }
+      }
+    }
+  },
+  "checks": {
+    "swing": {
+      "exits_beat_hold": false,
+      "same_day_excess_positive": true,
+      "newey_west_t_over_3": false,
+      "beats_permutation_3sd": false,
+      "picks_stocks": false
+    },
+    "position": {
+      "exits_beat_hold": false,
+      "same_day_excess_positive": false,
+      "newey_west_t_over_3": false,
+      "beats_permutation_3sd": false,
+      "picks_stocks": false
+    }
+  },
+  "verdict": "A LOWER LOW PICKS THE DAY, NOT THE STOCK. Against the same-day cross-section the edge does not survive, which means the rule fires when the whole market is about to bounce and says nothing about WHICH stock to own. That is a market-timing claim, not the stock-selection tool we set out to build, and the +0.063R against random entry was the pooled benchmark flattering it -- exactly as it flattered CAPITULATION at t +6.3."
+}
