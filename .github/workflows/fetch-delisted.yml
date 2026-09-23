@@ -12,7 +12,14 @@ name: Fetch delisted
 
 on:
   schedule:
-    - cron: '30 7 * * *'        # 07:30 UTC daily — after daily-signals at 06:00
+    # The Alpha Vantage price archive is capped at 25 calls a day, so it takes
+    # its bite each morning and no more.
+    - cron: '30 7 * * *'
+    # The EDGAR register has NO daily cap — only a 10 requests/second courtesy
+    # limit — so throttling it to one run a day was my mistake, not the API's.
+    # Every four hours it finishes the whole register inside a day and then
+    # becomes a no-op, because the script skips tickers already done.
+    - cron: '0 */4 * * *'
   workflow_dispatch:
 
 permissions:
@@ -25,7 +32,7 @@ concurrency:
 jobs:
   delisted:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
@@ -37,7 +44,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      # Only on the daily firing: the free tier allows 25 calls a day, so
+      # running this every four hours would just collect rate-limit errors.
       - name: Fetch next batch of delisted tickers
+        if: github.event.schedule != '0 */4 * * *'
         env:
           ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
         run: |
@@ -57,7 +67,7 @@ jobs:
           python scripts/fetch_delistings.py \
             --config config/universe.yml \
             --out data \
-            --limit 250
+            --limit 400
 
       - name: Commit
         if: always()
