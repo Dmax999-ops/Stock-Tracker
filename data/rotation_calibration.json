@@ -1,0 +1,36 @@
+{
+  "generated": "2026-09-23T22:21:31.639496+00:00",
+  "env": {
+    "pandas": "3.0.6",
+    "numpy": "2.4.6",
+    "python": "3.11.16"
+  },
+  "mode": "calibration",
+  "false_positive_rate": 0.0,
+  "detail": [
+    {
+      "panel": 0,
+      "winners": []
+    },
+    {
+      "panel": 1,
+      "winners": []
+    },
+    {
+      "panel": 2,
+      "winners": []
+    },
+    {
+      "panel": 3,
+      "winners": []
+    },
+    {
+      "panel": 4,
+      "winners": []
+    },
+    {
+      "panel": 5,
+      "winners": []
+    }
+  ]
+}
