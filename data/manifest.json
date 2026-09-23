@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-23T22:04:03.619038+00:00",
+  "generated": "2026-09-23T22:12:20.230387+00:00",
   "tickers_requested": 1158,
-  "tickers_with_data": 624,
-  "tickers_failed": 437,
-  "recycled_symbols_dropped": 97,
-  "rows": 4142913,
+  "tickers_with_data": 625,
+  "tickers_failed": 432,
+  "recycled_symbols_dropped": 101,
+  "rows": 4147111,
   "date_min": "1996-01-02",
   "date_max": "2026-09-23",
   "constituent_sources": {
@@ -13,9 +13,9 @@
   },
   "universe_ever": 1128,
   "delisted_sought": 625,
-  "delisted_recovered": 115,
-  "delisted_recovery_rate": 0.184,
-  "SURVIVORSHIP": "Recovered 115 of 625 tickers that left the index. Anything below ~0.7 still flatters dip-buying results, because the companies that fell and never recovered are the ones Yahoo is least likely to serve.",
+  "delisted_recovered": 116,
+  "delisted_recovery_rate": 0.186,
+  "SURVIVORSHIP": "Recovered 116 of 625 tickers that left the index. Anything below ~0.7 still flatters dip-buying results, because the companies that fell and never recovered are the ones Yahoo is least likely to serve.",
   "recycled_examples": [
     {
       "ticker": "ABI",
@@ -138,6 +138,12 @@
       "overlap_days": -4278
     },
     {
+      "ticker": "DWD",
+      "index_window": "1996-01-02..1997-05-30",
+      "data_window": "2013-12-16..2017-03-20",
+      "overlap_days": -6044
+    },
+    {
       "ticker": "EC",
       "index_window": "1996-01-02..2006-06-05",
       "data_window": "2008-09-18..2026-09-23",
@@ -160,12 +166,6 @@
       "index_window": "1996-01-02..2000-10-30",
       "data_window": "2007-10-25..2026-09-23",
       "overlap_days": -2551
-    },
-    {
-      "ticker": "ENS",
-      "index_window": "1996-01-02..1997-08-05",
-      "data_window": "2004-08-02..2026-09-23",
-      "overlap_days": -2554
     }
   ],
   "failed_examples": [

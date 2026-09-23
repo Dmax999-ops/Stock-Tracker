@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-23T22:04:23.454998+00:00",
+  "generated": "2026-09-23T22:12:49.167483+00:00",
   "env": {
     "pandas": "3.0.6",
     "numpy": "2.4.6",
@@ -14,15 +14,15 @@
       "panel": 0,
       "best_by_fit": "swing|cd250|nohard",
       "beat_pct": 0.55,
-      "portfolio_gbp": 30893.83133262406,
-      "hold_gbp": 31619.76917091764,
+      "portfolio_gbp": 30893.831332624064,
+      "hold_gbp": 31619.769170917647,
       "declared": false
     },
     {
       "panel": 1,
       "best_by_fit": "retest|cd250|nohard",
       "beat_pct": 0.5166666666666667,
-      "portfolio_gbp": 61328.73881411784,
+      "portfolio_gbp": 61328.73881411783,
       "hold_gbp": 62035.316518327956,
       "declared": false
     },
@@ -31,47 +31,47 @@
       "best_by_fit": "swing|cd250|nohard",
       "beat_pct": 0.6166666666666667,
       "portfolio_gbp": 30885.716725300703,
-      "hold_gbp": 31201.747813142472,
+      "hold_gbp": 31201.74781314245,
       "declared": false
     },
     {
       "panel": 3,
       "best_by_fit": "swing|cd250|nohard",
       "beat_pct": 0.5583333333333333,
-      "portfolio_gbp": 21934.67063995486,
-      "hold_gbp": 22330.551683887716,
+      "portfolio_gbp": 21934.670639954846,
+      "hold_gbp": 22330.551683887705,
       "declared": false
     },
     {
       "panel": 4,
       "best_by_fit": "multi_tf|cd250|nohard",
       "beat_pct": 0.65,
-      "portfolio_gbp": 16975.178312674725,
-      "hold_gbp": 16439.842446387967,
+      "portfolio_gbp": 16975.17831267473,
+      "hold_gbp": 16439.84244638797,
       "declared": false
     },
     {
       "panel": 5,
       "best_by_fit": "multi_tf|cd250|nohard",
       "beat_pct": 0.5666666666666667,
-      "portfolio_gbp": 26519.242699506707,
-      "hold_gbp": 26312.119475147116,
+      "portfolio_gbp": 26519.24269950671,
+      "hold_gbp": 26312.119475147112,
       "declared": false
     },
     {
       "panel": 6,
       "best_by_fit": "swing|cd250|nohard",
       "beat_pct": 0.5,
-      "portfolio_gbp": 31983.431889556927,
-      "hold_gbp": 32730.407521684094,
+      "portfolio_gbp": 31983.43188955693,
+      "hold_gbp": 32730.407521684105,
       "declared": false
     },
     {
       "panel": 7,
       "best_by_fit": "swing|cd250|nohard",
       "beat_pct": 0.55,
-      "portfolio_gbp": 47252.667865855285,
-      "hold_gbp": 48001.20310696345,
+      "portfolio_gbp": 47252.6678658553,
+      "hold_gbp": 48001.20310696344,
       "declared": false
     }
   ]
