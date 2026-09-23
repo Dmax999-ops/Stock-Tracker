@@ -131,9 +131,22 @@ def main() -> int:
                   f"test {rows[-1]['test_expectancy_R']:+.3f}R", flush=True)
 
         g = pd.DataFrame(rows)
+
+        # Save the grid BEFORE computing anything else. The first run of this
+        # script produced every number below and then threw all of them away
+        # when one line failed, costing a full rebuild of the price panel to
+        # get back. Partial results are worth more than none.
+        out.write_text(json.dumps(
+            {"generated": pd.Timestamp.now("UTC").isoformat(), "env": env,
+             "status": "grid complete, verdict pending", "grid": rows},
+            indent=2, default=str))
+
         best = g.loc[g.fit_expectancy_R.idxmax()]
         # Does fitting-window performance predict test-window performance at all?
-        rho = float(g.fit_expectancy_R.corr(g.test_expectancy_R, method="spearman"))
+        # Spearman via ranks and a plain Pearson: pandas' own method="spearman"
+        # imports scipy behind the scenes, which the runner does not have. That
+        # is exactly how this script died the first time.
+        rho = float(g.fit_expectancy_R.rank().corr(g.test_expectancy_R.rank()))
 
         print(f"\n  best in fit window:  stop {best.k_stop} trail {best.k_trail} "
               f"hold {int(best.max_hold)}  ->  fit {best.fit_expectancy_R:+.3f}R")
