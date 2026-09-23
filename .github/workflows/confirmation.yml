@@ -1,0 +1,78 @@
+name: Confirmation battery
+
+# The six confirmation mechanisms the technical canon actually specifies --
+# persistence, filter %, volume, retest/throwback, multi-timeframe and swing
+# structure -- plus an escape hatch so a genuinely failing stock is never
+# locked in by the cooldown.
+#
+# Calibration runs FIRST and is not optional theatre: the obvious metric
+# ("beats buy-and-hold on most stocks") fired on 5 random-walk panels out of 5,
+# because in a skewed market ~58% is free. The portfolio number is the test.
+
+on:
+  workflow_dispatch:
+    inputs:
+      calibrate:
+        description: 'Random-walk panels for the false-positive check (0 to skip)'
+        required: false
+        default: '8'
+  schedule:
+    - cron: '0 8 * * 1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: confirmation
+  cancel-in-progress: false
+
+jobs:
+  confirm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Rebuild price panel if absent
+        run: |
+          if [ ! -f data/prices.parquet ]; then
+            python scripts/fetch_universe.py --config config/universe.yml --out data/
+          fi
+
+      - name: Calibrate against random walks
+        if: ${{ github.event.inputs.calibrate != '0' }}
+        run: |
+          python scripts/confirmation.py \
+            --calibrate ${{ github.event.inputs.calibrate || 8 }} \
+            --out data/confirmation_calibration.json
+
+      - name: Run the battery on the full universe
+        if: always()
+        run: |
+          python scripts/confirmation.py \
+            --prices data/prices.parquet \
+            --out data/confirmation_evidence.json
+
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A data/
+          if git diff --staged --quiet; then
+            echo "no changes to commit"; exit 0
+          fi
+          git commit -m "confirmation battery $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git fetch origin main
+            git rebase --autostash origin/main || git rebase --abort || true
+            if git push origin HEAD:main; then echo "pushed on attempt $i"; exit 0; fi
+            echo "push rejected, retrying ($i/3)"; sleep 5
+          done
+          echo "could not push after 3 attempts"; exit 1
