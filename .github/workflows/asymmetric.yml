@@ -1,0 +1,86 @@
+name: Asymmetric rules
+
+# Slow to sell, quick to buy back, forbidden to churn.
+#
+# Every exit the 50/200 cross ever gave on MSFT: 22 round trips, only 6 bought
+# back cheaper. The signal spotted the downturns; the re-entry gave the
+# winnings back. This tests the three fixes together -- confirmation on the
+# exit, a fast oversold re-entry, and a cooldown that stops the rule throwing
+# itself straight back out.
+#
+# The setting is chosen on 1996-2012 and reported on everything, so a
+# hindsight-best cell cannot pass itself off as a discovery.
+
+on:
+  workflow_dispatch:
+    inputs:
+      calibrate:
+        description: 'Random-walk panels for the false-positive check (0 to skip)'
+        required: false
+        default: '10'
+  schedule:
+    - cron: '0 7 * * 1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: asymmetric
+  cancel-in-progress: false
+
+jobs:
+  asym:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Rebuild price panel if absent
+        run: |
+          if [ ! -f data/prices.parquet ]; then
+            python scripts/fetch_universe.py --config config/universe.yml --out data/
+          fi
+
+      - name: Calibrate against random walks
+        if: ${{ github.event.inputs.calibrate != '0' }}
+        run: |
+          python scripts/asymmetric.py \
+            --calibrate ${{ github.event.inputs.calibrate || 10 }} \
+            --out data/asymmetric_calibration.json
+
+      - name: Run the grid on the full universe
+        if: always()
+        run: |
+          python scripts/asymmetric.py \
+            --prices data/prices.parquet \
+            --out data/asymmetric_evidence.json
+
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A data/
+          if git diff --staged --quiet; then
+            echo "no changes to commit"
+            exit 0
+          fi
+          git commit -m "asymmetric rules $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git fetch origin main
+            git rebase --autostash origin/main || git rebase --abort || true
+            if git push origin HEAD:main; then
+              echo "pushed on attempt $i"
+              exit 0
+            fi
+            echo "push rejected, retrying ($i/3)"
+            sleep 5
+          done
+          echo "could not push after 3 attempts"
+          exit 1
