@@ -111,7 +111,7 @@ def healthy_state(C, Hh, Ll, V):
 # 3.2% a year because of it. A stock-level rule cannot see that everything is
 # falling together. These can.
 
-def market_regime(C, state, confirm=3):
+def market_regime(C, state, confirm=3, member=None):
     """
     Two views of the whole market, both point-in-time.
 
@@ -124,7 +124,7 @@ def market_regime(C, state, confirm=3):
              a single line.
     """
     R = pd.DataFrame(C).pct_change().to_numpy()
-    live = np.isfinite(R)
+    live = np.isfinite(R) if member is None else (np.isfinite(R) & member)
     mr = np.where(live.sum(axis=1) > 0,
                   np.nansum(np.where(live, R, 0), axis=1) / np.maximum(live.sum(axis=1), 1),
                   0.0)
@@ -141,7 +141,7 @@ def market_regime(C, state, confirm=3):
         elif not cur and run_a[t]:
             cur = True
         on[t] = cur
-    alive = np.isfinite(C)
+    alive = np.isfinite(C) if member is None else (np.isfinite(C) & member)
     br = np.where(alive.sum(axis=1) > 0,
                   (state & alive).sum(axis=1) / np.maximum(alive.sum(axis=1), 1), 0.0)
     exposure = np.clip(br / 0.5, 0.0, 1.0)
@@ -198,6 +198,44 @@ def industry_health(C, state, every=21, lookback=252, peers=20):
     return out
 
 
+MEMBERSHIP_URL = ("https://raw.githubusercontent.com/hanshof/sp500_constituents/"
+                  "main/sp_500_historical_components.csv")
+
+
+def membership_mask(idx, cols, url=MEMBERSHIP_URL):
+    """
+    THE LOOK-AHEAD THIS REMOVES -- the largest flaw in the whole project.
+
+    The universe is every stock that was EVER in the S&P 500 between 1996 and
+    2026, and until now every portfolio could hold those stocks from the day
+    they listed. Amazon from 1997, though it joined the index in 2005. Nvidia
+    from 1999, joined 2001. Netflix from 2002, joined 2010. Tesla from 2010,
+    joined 2020. 660 of the stocks were not in the index at the end of 1996.
+
+    Choosing from a list of FUTURE index members is choosing from a list of
+    companies already known to have succeeded. It is why the "index" showed
+    +20.4% a year for 1996-2012, a period containing two 50% crashes.
+
+    The fix is standard: a stock is eligible on a date only if it was IN the
+    index on that date. The membership file is dated snapshots; each snapshot
+    holds until the next one.
+    """
+    h = pd.read_csv(url)
+    h["date"] = pd.to_datetime(h["date"])
+    h = h.sort_values("date")
+    norm = lambda x: x.strip().upper().replace(".", "-")          # noqa: E731
+    col_pos = {norm(c): i for i, c in enumerate(cols)}
+    M = np.zeros((len(idx), len(cols)), bool)
+    snap_dates = h["date"].to_numpy()
+    snaps = [[col_pos[norm(t)] for t in str(r).split(",")
+              if t.strip() and norm(t) in col_pos] for r in h["tickers"]]
+    pos = np.searchsorted(snap_dates, idx.to_numpy(), side="right") - 1
+    for t in range(len(idx)):
+        if pos[t] >= 0:
+            M[t, snaps[pos[t]]] = True
+    return M
+
+
 def run_portfolio(C, target_fn, rebal_every, cash_rate):
     """
     Daily portfolio walk. Holdings drift with prices between rebalances.
@@ -248,9 +286,9 @@ def metrics(eq, idx, mask=None):
 
 
 def build_targets(C, state, mode, mom=None, vol=None, top=None,
-                  regime=None, industry=None):
+                  regime=None, industry=None, member=None):
     nd, nt = C.shape
-    alive = np.isfinite(C)
+    alive = np.isfinite(C) if member is None else (np.isfinite(C) & member)
 
     def fn(t):
         if mode == "index":
@@ -298,28 +336,30 @@ def build_targets(C, state, mode, mom=None, vol=None, top=None,
     return fn
 
 
-def run_all(C, Hh, Ll, V, idx, rebal, cash_rate):
+def run_all(C, Hh, Ll, V, idx, rebal, cash_rate, member=None):
     state = healthy_state(C, Hh, Ll, V)
     df = pd.DataFrame(C)
     # 12-1 momentum, the standard academic definition: skip the latest month
     mom = (df.shift(21) / df.shift(252) - 1).to_numpy()
     vol = (df.pct_change().rolling(63, min_periods=40).std()
            * np.sqrt(252)).to_numpy()
-    mkt_on, breadth = market_regime(C, state)
+    mkt_on, breadth = market_regime(C, state, member=member)
     ind = industry_health(C, state)
     T, I = "trend", "index"
     arms = {
-        "index":            build_targets(C, state, I),
-        "index+mkt":        build_targets(C, state, I, regime=mkt_on),
-        "trend_top50":      build_targets(C, state, T, mom=mom, top=50),
-        "top50+mkt":        build_targets(C, state, T, mom=mom, top=50, regime=mkt_on),
-        "top50+breadth":    build_targets(C, state, T, mom=mom, top=50, regime=breadth),
-        "top50+ind":        build_targets(C, state, T, mom=mom, top=50, industry=ind),
-        "top50+mkt+ind":    build_targets(C, state, T, mom=mom, top=50, regime=mkt_on, industry=ind),
-        "top50+brd+ind":    build_targets(C, state, T, mom=mom, top=50, regime=breadth, industry=ind),
-        "top100+mkt+ind":   build_targets(C, state, T, mom=mom, top=100, regime=mkt_on, industry=ind),
-        "trend+mkt+ind":    build_targets(C, state, T, regime=mkt_on, industry=ind),
-        "top50_iv+mkt+ind": build_targets(C, state, T, mom=mom, vol=vol, top=50, regime=mkt_on, industry=ind),
+        "index":            build_targets(C, state, I, member=member),
+        # the OLD benchmark, kept only to show how big the look-ahead was
+        "index_lookahead":  build_targets(C, state, I),
+        "index+mkt":        build_targets(C, state, I, regime=mkt_on, member=member),
+        "trend_top50":      build_targets(C, state, T, mom=mom, top=50, member=member),
+        "top50+mkt":        build_targets(C, state, T, mom=mom, top=50, regime=mkt_on, member=member),
+        "top50+breadth":    build_targets(C, state, T, mom=mom, top=50, regime=breadth, member=member),
+        "top50+ind":        build_targets(C, state, T, mom=mom, top=50, industry=ind, member=member),
+        "top50+mkt+ind":    build_targets(C, state, T, mom=mom, top=50, regime=mkt_on, industry=ind, member=member),
+        "top50+brd+ind":    build_targets(C, state, T, mom=mom, top=50, regime=breadth, industry=ind, member=member),
+        "top100+mkt+ind":   build_targets(C, state, T, mom=mom, top=100, regime=mkt_on, industry=ind, member=member),
+        "trend+mkt+ind":    build_targets(C, state, T, regime=mkt_on, industry=ind, member=member),
+        "top50_iv+mkt+ind": build_targets(C, state, T, mom=mom, vol=vol, top=50, regime=mkt_on, industry=ind, member=member),
     }
     res = {}
     fit = np.asarray(idx < SPLIT)
@@ -341,7 +381,7 @@ def verdict_for(res, key="full"):
     b = res["index"][key]
     wins = []
     for k, v in res.items():
-        if k == "index":
+        if k in ("index", "index_lookahead"):
             continue
         m = v[key]
         if (m["cagr"] > b["cagr"] + CAGR_MARGIN
@@ -392,12 +432,21 @@ def main() -> int:
         C, Hh, Ll, V = (w[f].to_numpy(float) for f in ("close", "high", "low", "volume"))
         keep = np.isfinite(C).sum(axis=0) > 500
         C, Hh, Ll, V = C[:, keep], Hh[:, keep], Ll[:, keep], V[:, keep]
+        cols = [c for c, k in zip(w["close"].columns, keep) if k]
+        try:
+            member = membership_mask(idx, cols)
+            print(f"membership: {member.any(axis=0).sum()} of {len(cols)} stocks "
+                  f"matched to the index history; avg {member.sum(axis=1).mean():.0f} "
+                  f"eligible per day")
+        except Exception as e:                                # noqa: BLE001
+            member = None
+            print(f"membership file unavailable ({e}); running WITHOUT it")
         print(f"{C.shape[1]} stocks (delisted ones INCLUDED, sold at last price), "
               f"{len(idx):,} days, {idx[0].date()} -> {idx[-1].date()}")
 
         out = {}
         for cr in (a.cash_rate, 0.0):
-            res = run_all(C, Hh, Ll, V, idx, a.rebal, cr)
+            res = run_all(C, Hh, Ll, V, idx, a.rebal, cr, member)
             out[f"cash_{cr:.0%}"] = res
             print(f"\n  === cash earns {cr:.0%}, rebalance every {a.rebal} days ===")
             for win in ("full", "fit_1996_2012", "test_2013_on"):
