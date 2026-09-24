@@ -1,0 +1,11 @@
+{
+  "generated": "2026-09-24T18:59:15.281942+00:00",
+  "tickers": 624,
+  "with_accounts": 614,
+  "rows": 79418,
+  "no_cik_or_facts": 7,
+  "failed": [],
+  "first_filed": "2009-10-27",
+  "last_filed": "2026-09-24",
+  "note": "Tickers no longer listed usually have no CIK mapping, so failed or acquired companies are under-represented -- the usual survivorship bias."
+}
