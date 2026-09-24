@@ -4,15 +4,15 @@
     "SNDK",
     "MU",
     "LITE",
+    "STT",
     "VLO",
     "MRK",
+    "TRGP",
     "JNJ",
     "ILMN",
-    "MPC",
-    "NUE",
-    "PFG"
+    "MPC"
   ],
-  "method": "risk_adjusted_12_1_v2",
+  "method": "risk_adjusted_12_1_themes_v3",
   "market_on": true,
   "holdings": [
     {
