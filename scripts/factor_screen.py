@@ -262,7 +262,7 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True) -> tuple[pd.Ser
         "net_trading_gain_gbp": round(total_gain),
         "share_of_gain_from_best_3": round(top3 / total_gain, 2) if total_gain > 0 else None,
         "suspect_price_jumps": [f"{b['ticker']} {b['in']}" for b in book
-                                if b["biggest_day_move"] > 1.0],
+                                if b["biggest_day_move"] > 0.5],
         "trades_per_year": round(trades / yrs, 1),
         "median_hold_days": int(np.median(holds) * 365.25 / 252) if holds else None,
         "still_held": len(pos)}
@@ -328,6 +328,22 @@ def write_md(out: dict, path: Path):
                  f"{m['worst']:.0%} | {m['spy_worst']:.0%} | {r['turnover']['trades_per_year']} | "
                  f"{r['turnover']['median_hold_days'] or '—'} days | {d[0]} | {d[1]} | "
                  f"{'**PASSES**' if r['passes'] else 'no'} |")
+    L.append("\n## 3a. Sanity check of the 'no costs' column\n")
+    L.append("Several scores that predict nothing show millions of pounds with no costs. That "
+             "is not believable, so here is where each no-cost result came from. A one-day price "
+             "move of more than 50% on a large company is usually bad data from Yahoo.\n")
+    L.append("| Score | £ no costs | Best 3 trades | Share of profit from them | "
+             "Holdings with a >50% one-day move |")
+    L.append("|---|---|---|---|---|")
+    for name, r in sorted(out["scores"].items(),
+                          key=lambda kv: -kv[1]["money_free"]["all"]["gbp_from_10k"]):
+        t = r.get("turnover_free", {})
+        best = ", ".join(f"{b['ticker']} {b['ret']:+.0%} ({b['in'][:7]})" for b in t.get("best_trades", [])[:3])
+        sh = t.get("share_of_gain_from_best_3")
+        sus = t.get("suspect_price_jumps", [])
+        L.append(f"| {name} | £{r['money_free']['all']['gbp_from_10k']:,} | {best} | "
+                 f"{'' if sh is None else format(sh, '.0%')} | "
+                 f"{len(sus)}{': ' + ', '.join(sus[:6]) if sus else ''} |")
     L.append("\n## 3. Where the money came from — was it a rule, or a few lucky stocks?\n")
     L.append("For every score whose commit portfolio ended ahead of the S&P 500 (after costs): "
              "its five best trades, and how much of all its trading profit came from just "
@@ -393,7 +409,7 @@ def main() -> int:
             P = prediction(sig, Cff, member, dates)
             pr = summarise(P)
             eq_c, turn = commit_portfolio(sig, Cff, spy, member, dates[0], True)
-            eq_f, _ = commit_portfolio(sig, Cff, spy, member, dates[0], False)
+            eq_f, turn_f = commit_portfolio(sig, Cff, spy, member, dates[0], False)
             mc, mf = money(eq_c, spy), money(eq_f, spy)
             predicts = (pr["all"]["t_1m"] >= T_ALL
                         and all(pr.get(h, {}).get("t_1m", 0) >= T_HALF
@@ -402,7 +418,7 @@ def main() -> int:
                 mc.get(h) and mc[h]["cagr"] >= mc[h]["spy_cagr"] + MARGIN
                 for h in ("1997-2012", "2013-now"))
             out["scores"][name] = {"prediction": pr, "money_costs": mc, "money_free": mf,
-                                   "turnover": turn,
+                                   "turnover": turn, "turnover_free": turn_f,
                                    "predicts": bool(predicts), "passes": bool(passes)}
             print(f"  {name:18} trades/yr={turn['trades_per_year']:5} hold={turn['median_hold_days'] or '-'}d t={pr['all']['t_1m']:+5.1f}  top10={pr['all']['top10_12m']:+.1%} "
                   f"bot10={pr['all']['bot10_12m']:+.1%}  GBP {mc['all']['gbp_from_10k']:>9,} "
