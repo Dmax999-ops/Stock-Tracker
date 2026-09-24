@@ -1,0 +1,913 @@
+{
+  "generated": "2026-09-24T18:22:37.000713+00:00",
+  "from": "1997-02-03",
+  "to": "2026-09-24",
+  "data": "642 stocks ever in the S&P 500 (19 from the delisted archive)",
+  "info": {
+    "yahoo_stocks": 625,
+    "delisted_added": 19
+  },
+  "scores": {
+    "mom_12_1_riskadj": {
+      "prediction": {
+        "all": {
+          "ic_1m": 0.0064,
+          "t_1m": 0.59,
+          "ic_12m": 0.002,
+          "t_12m": -0.08,
+          "top10_12m": 0.1204,
+          "bot10_12m": 0.1303,
+          "all_12m": 0.1319
+        },
+        "1997-2012": {
+          "ic_1m": 0.0127,
+          "t_1m": 0.87,
+          "ic_12m": 0.0032,
+          "t_12m": 0.0,
+          "top10_12m": 0.1057,
+          "bot10_12m": 0.128,
+          "all_12m": 0.1278
+        },
+        "2013-now": {
+          "ic_1m": -0.001,
+          "t_1m": -0.06,
+          "ic_12m": 0.0004,
+          "t_12m": -0.02,
+          "top10_12m": 0.1388,
+          "bot10_12m": 0.1333,
+          "all_12m": 0.1371
+        }
+      },
+      "money_costs": {
+        "all": {
+          "gbp_from_10k": 81757,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.0735,
+          "spy_cagr": 0.0986,
+          "worst": -0.606,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 22626,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0527,
+          "spy_cagr": 0.0559,
+          "worst": -0.606,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 35107,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.0959,
+          "spy_cagr": 0.1481,
+          "worst": -0.451,
+          "spy_worst": -0.317
+        }
+      },
+      "money_free": {
+        "all": {
+          "gbp_from_10k": 185136,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.1035,
+          "spy_cagr": 0.0986,
+          "worst": -0.569,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 30999,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0738,
+          "spy_cagr": 0.0559,
+          "worst": -0.569,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 57503,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.136,
+          "spy_cagr": 0.1481,
+          "worst": -0.405,
+          "spy_worst": -0.317
+        }
+      },
+      "turnover": {
+        "trades_per_year": 14.4,
+        "median_hold_days": 326,
+        "still_held": 8
+      },
+      "predicts": false,
+      "passes": false
+    },
+    "mom_12_1": {
+      "prediction": {
+        "all": {
+          "ic_1m": 0.0044,
+          "t_1m": 0.39,
+          "ic_12m": -0.0094,
+          "t_12m": -0.33,
+          "top10_12m": 0.1323,
+          "bot10_12m": 0.1735,
+          "all_12m": 0.1319
+        },
+        "1997-2012": {
+          "ic_1m": 0.0111,
+          "t_1m": 0.7,
+          "ic_12m": -0.0148,
+          "t_12m": -0.31,
+          "top10_12m": 0.1151,
+          "bot10_12m": 0.1884,
+          "all_12m": 0.1278
+        },
+        "2013-now": {
+          "ic_1m": -0.0033,
+          "t_1m": -0.2,
+          "ic_12m": -0.0025,
+          "t_12m": -0.08,
+          "top10_12m": 0.1538,
+          "bot10_12m": 0.155,
+          "all_12m": 0.1371
+        }
+      },
+      "money_costs": {
+        "all": {
+          "gbp_from_10k": 56195,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.06,
+          "spy_cagr": 0.0986,
+          "worst": -0.805,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 5481,
+          "spy_gbp_from_10k": 23751,
+          "cagr": -0.0371,
+          "spy_cagr": 0.0559,
+          "worst": -0.805,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 98497,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.1814,
+          "spy_cagr": 0.1481,
+          "worst": -0.456,
+          "spy_worst": -0.317
+        }
+      },
+      "money_free": {
+        "all": {
+          "gbp_from_10k": 204859,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.1073,
+          "spy_cagr": 0.0986,
+          "worst": -0.739,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 12443,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0138,
+          "spy_cagr": 0.0559,
+          "worst": -0.739,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 158406,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.2231,
+          "spy_cagr": 0.1481,
+          "worst": -0.396,
+          "spy_worst": -0.317
+        }
+      },
+      "turnover": {
+        "trades_per_year": 14.0,
+        "median_hold_days": 307,
+        "still_held": 7
+      },
+      "predicts": false,
+      "passes": false
+    },
+    "mom_6_1": {
+      "prediction": {
+        "all": {
+          "ic_1m": -0.0061,
+          "t_1m": -0.6,
+          "ic_12m": 0.002,
+          "t_12m": 0.04,
+          "top10_12m": 0.1379,
+          "bot10_12m": 0.1606,
+          "all_12m": 0.1319
+        },
+        "1997-2012": {
+          "ic_1m": -0.0128,
+          "t_1m": -0.89,
+          "ic_12m": -0.0054,
+          "t_12m": -0.15,
+          "top10_12m": 0.1209,
+          "bot10_12m": 0.179,
+          "all_12m": 0.1278
+        },
+        "2013-now": {
+          "ic_1m": 0.0016,
+          "t_1m": 0.11,
+          "ic_12m": 0.0113,
+          "t_12m": 0.61,
+          "top10_12m": 0.159,
+          "bot10_12m": 0.1375,
+          "all_12m": 0.137
+        }
+      },
+      "money_costs": {
+        "all": {
+          "gbp_from_10k": 180,
+          "spy_gbp_from_10k": 162403,
+          "cagr": -0.1268,
+          "spy_cagr": 0.0986,
+          "worst": -0.991,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 1610,
+          "spy_gbp_from_10k": 23751,
+          "cagr": -0.1086,
+          "spy_cagr": 0.0559,
+          "worst": -0.918,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 1111,
+          "spy_gbp_from_10k": 66509,
+          "cagr": -0.148,
+          "spy_cagr": 0.1481,
+          "worst": -0.929,
+          "spy_worst": -0.317
+        }
+      },
+      "money_free": {
+        "all": {
+          "gbp_from_10k": 1277812,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.1778,
+          "spy_cagr": 0.0986,
+          "worst": -0.746,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 20228,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0453,
+          "spy_cagr": 0.0559,
+          "worst": -0.746,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 610634,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.3495,
+          "spy_cagr": 0.1481,
+          "worst": -0.315,
+          "spy_worst": -0.317
+        }
+      },
+      "turnover": {
+        "trades_per_year": 22.0,
+        "median_hold_days": 166,
+        "still_held": 1
+      },
+      "predicts": false,
+      "passes": false
+    },
+    "mom_3": {
+      "prediction": {
+        "all": {
+          "ic_1m": -0.0185,
+          "t_1m": -1.86,
+          "ic_12m": 0.0031,
+          "t_12m": 0.04,
+          "top10_12m": 0.15,
+          "bot10_12m": 0.1586,
+          "all_12m": 0.132
+        },
+        "1997-2012": {
+          "ic_1m": -0.0217,
+          "t_1m": -1.6,
+          "ic_12m": -0.0054,
+          "t_12m": -0.04,
+          "top10_12m": 0.1431,
+          "bot10_12m": 0.1764,
+          "all_12m": 0.1279
+        },
+        "2013-now": {
+          "ic_1m": -0.0148,
+          "t_1m": -1.02,
+          "ic_12m": 0.0138,
+          "t_12m": 0.5,
+          "top10_12m": 0.1586,
+          "bot10_12m": 0.1364,
+          "all_12m": 0.1371
+        }
+      },
+      "money_costs": {
+        "all": {
+          "gbp_from_10k": 143944,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.0942,
+          "spy_cagr": 0.0986,
+          "worst": -0.707,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 17207,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0347,
+          "spy_cagr": 0.0559,
+          "worst": -0.707,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 81304,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.165,
+          "spy_cagr": 0.1481,
+          "worst": -0.454,
+          "spy_worst": -0.317
+        }
+      },
+      "money_free": {
+        "all": {
+          "gbp_from_10k": 1891508,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.1935,
+          "spy_cagr": 0.0986,
+          "worst": -0.627,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 104170,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.1589,
+          "spy_cagr": 0.0559,
+          "worst": -0.627,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 175548,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.2323,
+          "spy_cagr": 0.1481,
+          "worst": -0.407,
+          "spy_worst": -0.317
+        }
+      },
+      "turnover": {
+        "trades_per_year": 38.3,
+        "median_hold_days": 123,
+        "still_held": 9
+      },
+      "predicts": false,
+      "passes": false
+    },
+    "reversal_1m": {
+      "prediction": {
+        "all": {
+          "ic_1m": 0.0197,
+          "t_1m": 2.22,
+          "ic_12m": -0.0017,
+          "t_12m": 0.03,
+          "top10_12m": 0.149,
+          "bot10_12m": 0.1498,
+          "all_12m": 0.132
+        },
+        "1997-2012": {
+          "ic_1m": 0.0264,
+          "t_1m": 2.27,
+          "ic_12m": 0.0009,
+          "t_12m": -0.16,
+          "top10_12m": 0.1535,
+          "bot10_12m": 0.1415,
+          "all_12m": 0.1279
+        },
+        "2013-now": {
+          "ic_1m": 0.0118,
+          "t_1m": 0.87,
+          "ic_12m": -0.0049,
+          "t_12m": -0.08,
+          "top10_12m": 0.1433,
+          "bot10_12m": 0.1602,
+          "all_12m": 0.1372
+        }
+      },
+      "money_costs": {
+        "all": {
+          "gbp_from_10k": 46,
+          "spy_gbp_from_10k": 162403,
+          "cagr": -0.166,
+          "spy_cagr": 0.0986,
+          "worst": -0.996,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 231,
+          "spy_gbp_from_10k": 23751,
+          "cagr": -0.2111,
+          "spy_cagr": 0.0559,
+          "worst": -0.991,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 1940,
+          "spy_gbp_from_10k": 66509,
+          "cagr": -0.1127,
+          "spy_cagr": 0.1481,
+          "worst": -0.81,
+          "spy_worst": -0.317
+        }
+      },
+      "money_free": {
+        "all": {
+          "gbp_from_10k": 778405,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.1583,
+          "spy_cagr": 0.0986,
+          "worst": -0.76,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 109088,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.1622,
+          "spy_cagr": 0.0559,
+          "worst": -0.76,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 69165,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.1514,
+          "spy_cagr": 0.1481,
+          "worst": -0.55,
+          "spy_worst": -0.317
+        }
+      },
+      "turnover": {
+        "trades_per_year": 18.4,
+        "median_hold_days": 57,
+        "still_held": 2
+      },
+      "predicts": false,
+      "passes": false
+    },
+    "near_52w_high": {
+      "prediction": {
+        "all": {
+          "ic_1m": -0.0112,
+          "t_1m": -0.93,
+          "ic_12m": -0.003,
+          "t_12m": -0.11,
+          "top10_12m": 0.1114,
+          "bot10_12m": 0.1706,
+          "all_12m": 0.1319
+        },
+        "1997-2012": {
+          "ic_1m": -0.0112,
+          "t_1m": -0.66,
+          "ic_12m": -0.0075,
+          "t_12m": -0.11,
+          "top10_12m": 0.0997,
+          "bot10_12m": 0.1862,
+          "all_12m": 0.1277
+        },
+        "2013-now": {
+          "ic_1m": -0.0112,
+          "t_1m": -0.66,
+          "ic_12m": 0.0026,
+          "t_12m": 0.13,
+          "top10_12m": 0.1262,
+          "bot10_12m": 0.1512,
+          "all_12m": 0.1371
+        }
+      },
+      "money_costs": {
+        "all": {
+          "gbp_from_10k": 70968,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.0684,
+          "spy_cagr": 0.0986,
+          "worst": -0.425,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 18617,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0399,
+          "spy_cagr": 0.0559,
+          "worst": -0.425,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 37450,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.101,
+          "spy_cagr": 0.1481,
+          "worst": -0.26,
+          "spy_worst": -0.317
+        }
+      },
+      "money_free": {
+        "all": {
+          "gbp_from_10k": 156931,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.0974,
+          "spy_cagr": 0.0986,
+          "worst": -0.388,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 31741,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0754,
+          "spy_cagr": 0.0559,
+          "worst": -0.388,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 48566,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.1221,
+          "spy_cagr": 0.1481,
+          "worst": -0.257,
+          "spy_worst": -0.317
+        }
+      },
+      "turnover": {
+        "trades_per_year": 13.3,
+        "median_hold_days": 221,
+        "still_held": 10
+      },
+      "predicts": false,
+      "passes": false
+    },
+    "low_vol": {
+      "prediction": {
+        "all": {
+          "ic_1m": -0.0074,
+          "t_1m": -0.56,
+          "ic_12m": 0.0047,
+          "t_12m": 0.17,
+          "top10_12m": 0.1075,
+          "bot10_12m": 0.2045,
+          "all_12m": 0.1319
+        },
+        "1997-2012": {
+          "ic_1m": -0.0046,
+          "t_1m": -0.25,
+          "ic_12m": 0.0179,
+          "t_12m": 0.3,
+          "top10_12m": 0.1107,
+          "bot10_12m": 0.1986,
+          "all_12m": 0.1277
+        },
+        "2013-now": {
+          "ic_1m": -0.0107,
+          "t_1m": -0.56,
+          "ic_12m": -0.0118,
+          "t_12m": -0.17,
+          "top10_12m": 0.1035,
+          "bot10_12m": 0.2118,
+          "all_12m": 0.1371
+        }
+      },
+      "money_costs": {
+        "all": {
+          "gbp_from_10k": 114201,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.0857,
+          "spy_cagr": 0.0986,
+          "worst": -0.375,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 35917,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0838,
+          "spy_cagr": 0.0559,
+          "worst": -0.375,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 31096,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.0862,
+          "spy_cagr": 0.1481,
+          "worst": -0.301,
+          "spy_worst": -0.317
+        }
+      },
+      "money_free": {
+        "all": {
+          "gbp_from_10k": 153502,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.0965,
+          "spy_cagr": 0.0986,
+          "worst": -0.37,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 43518,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0969,
+          "spy_cagr": 0.0559,
+          "worst": -0.37,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 34483,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.0944,
+          "spy_cagr": 0.1481,
+          "worst": -0.3,
+          "spy_worst": -0.317
+        }
+      },
+      "turnover": {
+        "trades_per_year": 1.2,
+        "median_hold_days": 2061,
+        "still_held": 9
+      },
+      "predicts": false,
+      "passes": false
+    },
+    "trend_200": {
+      "prediction": {
+        "all": {
+          "ic_1m": -0.0125,
+          "t_1m": -1.13,
+          "ic_12m": -0.0,
+          "t_12m": 0.06,
+          "top10_12m": 0.1361,
+          "bot10_12m": 0.1637,
+          "all_12m": 0.1319
+        },
+        "1997-2012": {
+          "ic_1m": -0.0205,
+          "t_1m": -1.36,
+          "ic_12m": -0.0088,
+          "t_12m": -0.07,
+          "top10_12m": 0.1186,
+          "bot10_12m": 0.1813,
+          "all_12m": 0.1277
+        },
+        "2013-now": {
+          "ic_1m": -0.0031,
+          "t_1m": -0.19,
+          "ic_12m": 0.011,
+          "t_12m": 0.17,
+          "top10_12m": 0.158,
+          "bot10_12m": 0.1417,
+          "all_12m": 0.1371
+        }
+      },
+      "money_costs": {
+        "all": {
+          "gbp_from_10k": 378191,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.1304,
+          "spy_cagr": 0.0986,
+          "worst": -0.697,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 16810,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0332,
+          "spy_cagr": 0.0559,
+          "worst": -0.697,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 214280,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.2503,
+          "spy_cagr": 0.1481,
+          "worst": -0.353,
+          "spy_worst": -0.317
+        }
+      },
+      "money_free": {
+        "all": {
+          "gbp_from_10k": 1175807,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.1745,
+          "spy_cagr": 0.0986,
+          "worst": -0.665,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 39146,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0897,
+          "spy_cagr": 0.0559,
+          "worst": -0.665,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 288122,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.2776,
+          "spy_cagr": 0.1481,
+          "worst": -0.359,
+          "spy_worst": -0.317
+        }
+      },
+      "turnover": {
+        "trades_per_year": 19.1,
+        "median_hold_days": 239,
+        "still_held": 7
+      },
+      "predicts": false,
+      "passes": false
+    },
+    "smooth_mom": {
+      "prediction": {
+        "all": {
+          "ic_1m": -0.0057,
+          "t_1m": -0.63,
+          "ic_12m": -0.0012,
+          "t_12m": -0.04,
+          "top10_12m": 0.1177,
+          "bot10_12m": 0.1617,
+          "all_12m": 0.1319
+        },
+        "1997-2012": {
+          "ic_1m": -0.0056,
+          "t_1m": -0.45,
+          "ic_12m": -0.0039,
+          "t_12m": 0.0,
+          "top10_12m": 0.106,
+          "bot10_12m": 0.1789,
+          "all_12m": 0.1278
+        },
+        "2013-now": {
+          "ic_1m": -0.0058,
+          "t_1m": -0.44,
+          "ic_12m": 0.0021,
+          "t_12m": -0.03,
+          "top10_12m": 0.1323,
+          "bot10_12m": 0.1404,
+          "all_12m": 0.1371
+        }
+      },
+      "money_costs": {
+        "all": {
+          "gbp_from_10k": 49970,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.0558,
+          "spy_cagr": 0.0986,
+          "worst": -0.672,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 11838,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0107,
+          "spy_cagr": 0.0559,
+          "worst": -0.672,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 40593,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.1075,
+          "spy_cagr": 0.1481,
+          "worst": -0.327,
+          "spy_worst": -0.317
+        }
+      },
+      "money_free": {
+        "all": {
+          "gbp_from_10k": 142186,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.0937,
+          "spy_cagr": 0.0986,
+          "worst": -0.608,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 21509,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0494,
+          "spy_cagr": 0.0559,
+          "worst": -0.608,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 63576,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.1443,
+          "spy_cagr": 0.1481,
+          "worst": -0.309,
+          "spy_worst": -0.317
+        }
+      },
+      "turnover": {
+        "trades_per_year": 14.3,
+        "median_hold_days": 297,
+        "still_held": 9
+      },
+      "predicts": false,
+      "passes": false
+    },
+    "random": {
+      "prediction": {
+        "all": {
+          "ic_1m": 0.001,
+          "t_1m": 0.33,
+          "ic_12m": 0.0006,
+          "t_12m": 0.14,
+          "top10_12m": 0.129,
+          "bot10_12m": 0.1314,
+          "all_12m": 0.132
+        },
+        "1997-2012": {
+          "ic_1m": -0.0024,
+          "t_1m": -0.53,
+          "ic_12m": -0.0058,
+          "t_12m": -0.39,
+          "top10_12m": 0.1238,
+          "bot10_12m": 0.129,
+          "all_12m": 0.1279
+        },
+        "2013-now": {
+          "ic_1m": 0.005,
+          "t_1m": 1.31,
+          "ic_12m": 0.0085,
+          "t_12m": 0.74,
+          "top10_12m": 0.1355,
+          "bot10_12m": 0.1345,
+          "all_12m": 0.1372
+        }
+      },
+      "money_costs": {
+        "all": {
+          "gbp_from_10k": 129378,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.0902,
+          "spy_cagr": 0.0986,
+          "worst": -0.533,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 20397,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0459,
+          "spy_cagr": 0.0559,
+          "worst": -0.533,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 61527,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.1416,
+          "spy_cagr": 0.1481,
+          "worst": -0.317,
+          "spy_worst": -0.317
+        }
+      },
+      "money_free": {
+        "all": {
+          "gbp_from_10k": 167091,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.0997,
+          "spy_cagr": 0.0986,
+          "worst": -0.523,
+          "spy_worst": -0.547
+        },
+        "1997-2012": {
+          "gbp_from_10k": 23677,
+          "spy_gbp_from_10k": 23751,
+          "cagr": 0.0557,
+          "spy_cagr": 0.0559,
+          "worst": -0.523,
+          "spy_worst": -0.547
+        },
+        "2013-now": {
+          "gbp_from_10k": 68452,
+          "spy_gbp_from_10k": 66509,
+          "cagr": 0.1505,
+          "spy_cagr": 0.1481,
+          "worst": -0.317,
+          "spy_worst": -0.317
+        }
+      },
+      "turnover": {
+        "trades_per_year": 4.4,
+        "median_hold_days": 79,
+        "still_held": 1
+      },
+      "predicts": false,
+      "passes": false
+    }
+  },
+  "verdict": "No score cleared the bar. None told you reliably, in advance, which S&P 500 stocks would do best."
+}
