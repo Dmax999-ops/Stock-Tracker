@@ -1,0 +1,412 @@
+{
+  "generated": "2026-09-24T13:28:04.290911+00:00",
+  "as_of": "2026-09-24",
+  "market": {
+    "on": true,
+    "spy": 767.8099975585938,
+    "ma200": 713.9185919189454,
+    "vs200": 0.07548676592774162,
+    "ret_12m": 0.16383786942844192
+  },
+  "rebalance_day": true,
+  "holdings": [
+    {
+      "ticker": "FRES.L",
+      "name": "Fresnillo",
+      "action": "SELL",
+      "why": "confirmed downtrend: below its 200-day, 50-day below 200-day",
+      "industry": "Gold",
+      "industry_rank_pct": 0.833,
+      "industry_rank": 15,
+      "industries_total": 84,
+      "trend": "down",
+      "vs_200d": -0.1113,
+      "price": 2903.0,
+      "momentum": 0.0608
+    },
+    {
+      "ticker": "IQE.L",
+      "name": "IQE",
+      "action": "BUY",
+      "why": "strong industry (top fifth) and a confirmed uptrend -- qualifies to add",
+      "industry": "Semiconductors",
+      "industry_rank_pct": 0.964,
+      "industry_rank": 4,
+      "industries_total": 84,
+      "trend": "up",
+      "vs_200d": 0.3614,
+      "price": 44.4,
+      "momentum": 1.7202
+    },
+    {
+      "ticker": "ZOO.L",
+      "name": "ZOO Digital",
+      "action": "HOLD",
+      "why": "uptrend, industry not in the top fifth",
+      "industry": "Movies & Entertainment",
+      "industry_rank_pct": 0.179,
+      "industry_rank": 70,
+      "industries_total": 84,
+      "trend": "up",
+      "vs_200d": 0.3705,
+      "price": 16.88,
+      "momentum": 0.3861
+    },
+    {
+      "ticker": "LIT.L",
+      "name": "Litigation Capital Management",
+      "action": "SELL",
+      "why": "confirmed downtrend: below its 200-day, 50-day below 200-day",
+      "industry": "Asset Management & Custody Banks",
+      "industry_rank_pct": 0.631,
+      "industry_rank": 32,
+      "industries_total": 84,
+      "trend": "down",
+      "vs_200d": -0.6773,
+      "price": 1.66,
+      "momentum": -0.5958
+    },
+    {
+      "ticker": "DEBS.L",
+      "name": "Debenhams Group",
+      "action": "HOLD",
+      "why": "uptrend, industry not in the top fifth",
+      "industry": "Broadline Retail",
+      "industry_rank_pct": 0.31,
+      "industry_rank": 59,
+      "industries_total": 84,
+      "trend": "up",
+      "vs_200d": 0.1267,
+      "price": 23.9,
+      "momentum": 0.4001
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple",
+      "action": "BUY",
+      "why": "strong industry (top fifth) and a confirmed uptrend -- qualifies to add",
+      "industry": "Technology Hardware, Storage & Peripherals",
+      "industry_rank_pct": 1.0,
+      "industry_rank": 1,
+      "industries_total": 84,
+      "trend": "up",
+      "vs_200d": 0.1752,
+      "price": 337.02,
+      "momentum": 0.2712
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon",
+      "action": "HOLD",
+      "why": "uptrend, industry not in the top fifth",
+      "industry": "Broadline Retail",
+      "industry_rank_pct": 0.31,
+      "industry_rank": 59,
+      "industries_total": 84,
+      "trend": "up",
+      "vs_200d": 0.0359,
+      "price": 249.27,
+      "momentum": 0.1206
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Alphabet",
+      "action": "HOLD",
+      "why": "no confirmed trend either way",
+      "industry": "Interactive Media & Services",
+      "industry_rank_pct": 0.56,
+      "industry_rank": 38,
+      "industries_total": 84,
+      "trend": "mixed",
+      "vs_200d": -0.0035,
+      "price": 334.98,
+      "momentum": 0.1531
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft",
+      "action": "BUY",
+      "why": "strong industry (top fifth) and a confirmed uptrend -- qualifies to add",
+      "industry": "Systems Software",
+      "industry_rank_pct": 0.952,
+      "industry_rank": 5,
+      "industries_total": 84,
+      "trend": "up",
+      "vs_200d": 0.1631,
+      "price": 500.59,
+      "momentum": 0.2339
+    },
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA",
+      "action": "BUY",
+      "why": "strong industry (top fifth) and a confirmed uptrend -- qualifies to add",
+      "industry": "Semiconductors",
+      "industry_rank_pct": 0.964,
+      "industry_rank": 4,
+      "industries_total": 84,
+      "trend": "up",
+      "vs_200d": 0.1348,
+      "price": 225.51,
+      "momentum": 0.2186
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla",
+      "action": "SELL",
+      "why": "confirmed downtrend: below its 200-day, 50-day below 200-day",
+      "industry": "Automobile Manufacturers",
+      "industry_rank_pct": 0.512,
+      "industry_rank": 42,
+      "industries_total": 84,
+      "trend": "down",
+      "vs_200d": -0.0409,
+      "price": 380.12,
+      "momentum": -0.04
+    },
+    {
+      "ticker": "CELH",
+      "name": "Celsius Holdings",
+      "action": "SELL",
+      "why": "confirmed downtrend: below its 200-day, 50-day below 200-day",
+      "industry": "Soft Drinks & Non-alcoholic Beverages",
+      "industry_rank_pct": 0.619,
+      "industry_rank": 33,
+      "industries_total": 84,
+      "trend": "down",
+      "vs_200d": -0.2111,
+      "price": 29.18,
+      "momentum": -0.207
+    },
+    {
+      "ticker": "VST",
+      "name": "Vistra",
+      "action": "SELL",
+      "why": "confirmed downtrend: below its 200-day, 50-day below 200-day",
+      "industry": "Electric Utilities",
+      "industry_rank_pct": 0.131,
+      "industry_rank": 74,
+      "industries_total": 84,
+      "trend": "down",
+      "vs_200d": -0.1124,
+      "price": 137.97,
+      "momentum": -0.2028
+    },
+    {
+      "ticker": "TEM",
+      "name": "Tempus AI",
+      "action": "HOLD",
+      "why": "uptrend, industry not in the top fifth",
+      "industry": "Health Care Services",
+      "industry_rank_pct": 0.643,
+      "industry_rank": 31,
+      "industries_total": 84,
+      "trend": "up",
+      "vs_200d": 0.3631,
+      "price": 76.59,
+      "momentum": 0.3117
+    },
+    {
+      "ticker": "SPCX",
+      "name": "SpaceX",
+      "action": "HOLD",
+      "why": "too little price history to judge -- no signal",
+      "industry": "Aerospace & Defense",
+      "industry_rank_pct": 0.19,
+      "industry_rank": 69,
+      "industries_total": 84,
+      "trend": "insufficient",
+      "vs_200d": null,
+      "price": 148.36,
+      "momentum": null
+    }
+  ],
+  "model": [
+    {
+      "ticker": "SNDK",
+      "yf": "SNDK",
+      "name": "Sandisk",
+      "sector": "Information Technology",
+      "industry": "Technology Hardware, Storage & Peripherals",
+      "industry_rank_pct": 1.0,
+      "momentum": 6.0617,
+      "gbp": 1000.0,
+      "price": 1816.57
+    },
+    {
+      "ticker": "MRNA",
+      "yf": "MRNA",
+      "name": "Moderna",
+      "sector": "Health Care",
+      "industry": "Biotechnology",
+      "industry_rank_pct": 0.976,
+      "momentum": 3.4726,
+      "gbp": 1000.0,
+      "price": 182.11
+    },
+    {
+      "ticker": "MU",
+      "yf": "MU",
+      "name": "Micron Technology",
+      "sector": "Information Technology",
+      "industry": "Semiconductors",
+      "industry_rank_pct": 0.964,
+      "momentum": 2.4186,
+      "gbp": 1000.0,
+      "price": 1071.88
+    },
+    {
+      "ticker": "DELL",
+      "yf": "DELL",
+      "name": "Dell Technologies",
+      "sector": "Information Technology",
+      "industry": "Technology Hardware, Storage & Peripherals",
+      "industry_rank_pct": 1.0,
+      "momentum": 1.8318,
+      "gbp": 1000.0,
+      "price": 549.83
+    },
+    {
+      "ticker": "ILMN",
+      "yf": "ILMN",
+      "name": "Illumina, Inc.",
+      "sector": "Health Care",
+      "industry": "Life Sciences Tools & Services",
+      "industry_rank_pct": 0.917,
+      "momentum": 1.0323,
+      "gbp": 1000.0,
+      "price": 255.38
+    },
+    {
+      "ticker": "BE",
+      "yf": "BE",
+      "name": "Bloom Energy",
+      "sector": "Industrials",
+      "industry": "Electrical Components & Equipment",
+      "industry_rank_pct": 0.881,
+      "momentum": 0.9733,
+      "gbp": 1000.0,
+      "price": 275.19
+    },
+    {
+      "ticker": "VLO",
+      "yf": "VLO",
+      "name": "Valero Energy",
+      "sector": "Energy",
+      "industry": "Oil & Gas Refining & Marketing",
+      "industry_rank_pct": 0.988,
+      "momentum": 0.8351,
+      "gbp": 1000.0,
+      "price": 375.84
+    },
+    {
+      "ticker": "MPC",
+      "yf": "MPC",
+      "name": "Marathon Petroleum",
+      "sector": "Energy",
+      "industry": "Oil & Gas Refining & Marketing",
+      "industry_rank_pct": 0.988,
+      "momentum": 0.7925,
+      "gbp": 1000.0,
+      "price": 388.38
+    },
+    {
+      "ticker": "CRL",
+      "yf": "CRL",
+      "name": "Charles River Laboratories",
+      "sector": "Health Care",
+      "industry": "Life Sciences Tools & Services",
+      "industry_rank_pct": 0.917,
+      "momentum": 0.6754,
+      "gbp": 1000.0,
+      "price": 277.33
+    },
+    {
+      "ticker": "NUE",
+      "yf": "NUE",
+      "name": "Nucor",
+      "sector": "Materials",
+      "industry": "Steel",
+      "industry_rank_pct": 0.833,
+      "momentum": 0.4858,
+      "gbp": 1000.0,
+      "price": 246.98
+    }
+  ],
+  "model_notes": [],
+  "prev_model": [],
+  "changes": [
+    "Model: **BUY** VLO",
+    "Model: **BUY** MRNA",
+    "Model: **BUY** BE",
+    "Model: **BUY** ILMN",
+    "Model: **BUY** NUE",
+    "Model: **BUY** MPC",
+    "Model: **BUY** MU",
+    "Model: **BUY** SNDK",
+    "Model: **BUY** CRL",
+    "Model: **BUY** DELL"
+  ],
+  "top_industries": [
+    [
+      "Technology Hardware, Storage & Peripherals",
+      1.382612627496002
+    ],
+    [
+      "Oil & Gas Refining & Marketing",
+      0.7668271957980922
+    ],
+    [
+      "Biotechnology",
+      0.6647276885429229
+    ],
+    [
+      "Semiconductors",
+      0.5959096671195111
+    ],
+    [
+      "Systems Software",
+      0.5503356336956142
+    ],
+    [
+      "Communications Equipment",
+      0.5240487391546457
+    ],
+    [
+      "Semiconductor Materials & Equipment",
+      0.515818444793775
+    ],
+    [
+      "Life Sciences Tools & Services",
+      0.45576886961856605
+    ],
+    [
+      "Managed Health Care",
+      0.3947209193118998
+    ],
+    [
+      "Electronic Components",
+      0.32660593211763417
+    ],
+    [
+      "Electrical Components & Equipment",
+      0.2966410752149413
+    ],
+    [
+      "Electronic Equipment & Instruments",
+      0.22767992480894758
+    ],
+    [
+      "Pharmaceuticals",
+      0.21467719664754795
+    ],
+    [
+      "Electronic Manufacturing Services",
+      0.20948648196302203
+    ],
+    [
+      "SECTOR:Materials",
+      0.20541047923861588
+    ]
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "as_of": "2026-09-24",
+  "model": [
+    "SNDK",
+    "MRNA",
+    "MU",
+    "DELL",
+    "ILMN",
+    "BE",
+    "VLO",
+    "MPC",
+    "CRL",
+    "NUE"
+  ],
+  "market_on": true,
+  "holdings": [
+    {
+      "ticker": "FRES.L",
+      "action": "SELL"
+    },
+    {
+      "ticker": "IQE.L",
+      "action": "BUY"
+    },
+    {
+      "ticker": "ZOO.L",
+      "action": "HOLD"
+    },
+    {
+      "ticker": "LIT.L",
+      "action": "SELL"
+    },
+    {
+      "ticker": "DEBS.L",
+      "action": "HOLD"
+    },
+    {
+      "ticker": "AAPL",
+      "action": "BUY"
+    },
+    {
+      "ticker": "AMZN",
+      "action": "HOLD"
+    },
+    {
+      "ticker": "GOOG",
+      "action": "HOLD"
+    },
+    {
+      "ticker": "MSFT",
+      "action": "BUY"
+    },
+    {
+      "ticker": "NVDA",
+      "action": "BUY"
+    },
+    {
+      "ticker": "TSLA",
+      "action": "SELL"
+    },
+    {
+      "ticker": "CELH",
+      "action": "SELL"
+    },
+    {
+      "ticker": "VST",
+      "action": "SELL"
+    },
+    {
+      "ticker": "TEM",
+      "action": "HOLD"
+    },
+    {
+      "ticker": "SPCX",
+      "action": "HOLD"
+    }
+  ]
+}
