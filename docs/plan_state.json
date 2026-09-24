@@ -9,8 +9,8 @@
     "MRK",
     "TRGP",
     "JNJ",
-    "ILMN",
-    "MPC"
+    "MPC",
+    "ILMN"
   ],
   "method": "risk_adjusted_12_1_themes_v3",
   "market_on": true,
@@ -33,7 +33,7 @@
     },
     {
       "ticker": "DEBS.L",
-      "action": "HOLD"
+      "action": "BUY"
     },
     {
       "ticker": "AAPL",
@@ -69,7 +69,7 @@
     },
     {
       "ticker": "TEM",
-      "action": "HOLD"
+      "action": "BUY"
     },
     {
       "ticker": "SPCX",

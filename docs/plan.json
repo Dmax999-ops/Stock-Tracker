@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-24T14:46:46.414210+00:00",
+  "generated": "2026-09-24T22:23:45.778564+00:00",
   "as_of": "2026-09-24",
   "holding_ranks": [
     {
@@ -7,7 +7,7 @@
       "rank": 5,
       "why": "qualifies, but its theme/industry places went to higher scores (limit 3 per theme, 2 per industry)",
       "of": 507,
-      "score": 3.55,
+      "score": 3.54,
       "in_model": false
     },
     {
@@ -20,8 +20,8 @@
     },
     {
       "ticker": "DEBS.L",
-      "rank": 143,
-      "why": "neither its industry nor its theme is in the top fifth",
+      "rank": 142,
+      "why": "qualifies, but scores below the tenth place",
       "of": 507,
       "score": 0.99,
       "in_model": false
@@ -39,12 +39,12 @@
       "rank": 193,
       "why": "neither its industry nor its theme is in the top fifth",
       "of": 507,
-      "score": 0.76,
+      "score": 0.77,
       "in_model": false
     },
     {
       "ticker": "FRES.L",
-      "rank": 201,
+      "rank": 202,
       "why": "not in a confirmed uptrend",
       "of": 507,
       "score": 0.74,
@@ -77,9 +77,9 @@
     {
       "ticker": "TEM",
       "rank": 404,
-      "why": "neither its industry nor its theme is in the top fifth",
+      "why": "qualifies, but scores below the tenth place",
       "of": 507,
-      "score": -0.22,
+      "score": -0.21,
       "in_model": false
     },
     {
@@ -95,15 +95,15 @@
       "rank": 451,
       "why": "not in a confirmed uptrend",
       "of": 507,
-      "score": -0.49,
+      "score": -0.48,
       "in_model": false
     },
     {
       "ticker": "LIT.L",
-      "rank": 469,
+      "rank": 470,
       "why": "not in a confirmed uptrend",
       "of": 507,
-      "score": -0.59,
+      "score": -0.6,
       "in_model": false
     },
     {
@@ -125,12 +125,12 @@
   ],
   "market": {
     "on": true,
-    "spy": 765.1494750976562,
-    "ma200": 714.3524832153321,
-    "vs200": 0.07110914160147486,
-    "ret_12m": 0.16615311885875172
+    "spy": 767.1799926757812,
+    "ma200": 714.3626339721679,
+    "vs200": 0.07393634016091477,
+    "ret_12m": 0.16924780098779046
   },
-  "rebalance_day": true,
+  "rebalance_day": false,
   "holdings": [
     {
       "ticker": "FRES.L",
@@ -138,16 +138,16 @@
       "action": "SELL",
       "why": "confirmed downtrend: below its 200-day, 50-day below 200-day",
       "industry": "Gold",
-      "theme_rank_pct": 0.906,
-      "theme": "Nucor, Steel Dynamics, Albemarle Corporation, Freeport-McMoRan",
-      "theme_rank": 4,
+      "theme_rank_pct": 0.633,
+      "theme": "Moderna, Albemarle Corporation, Newmont, Fresnillo",
+      "theme_rank": 12,
       "industry_rank_pct": 0.833,
       "industry_rank": 15,
       "industries_total": 84,
       "trend": "down",
-      "vs_200d": -0.1232,
-      "price": 2864.0,
-      "momentum": 0.0465
+      "vs_200d": -0.1357,
+      "price": 2823.0,
+      "momentum": 0.0315
     },
     {
       "ticker": "IQE.L",
@@ -155,16 +155,16 @@
       "action": "BUY",
       "why": "strong industry (top fifth) and a confirmed uptrend -- qualifies to add",
       "industry": "Semiconductors",
-      "theme_rank_pct": 1.0,
-      "theme": "Sandisk, Micron Technology, Lumentum, Western Digital",
-      "theme_rank": 1,
-      "industry_rank_pct": 0.952,
-      "industry_rank": 5,
+      "theme_rank_pct": 0.533,
+      "theme": "IQE, Dell Technologies, Hewlett Packard Enterprise, Cisco",
+      "theme_rank": 15,
+      "industry_rank_pct": 0.964,
+      "industry_rank": 4,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.3644,
-      "price": 44.5,
-      "momentum": 1.7264
+      "vs_200d": 0.3507,
+      "price": 44.05,
+      "momentum": 1.6988
     },
     {
       "ticker": "ZOO.L",
@@ -172,16 +172,16 @@
       "action": "HOLD",
       "why": "uptrend, but neither its industry nor its theme is in the top fifth",
       "industry": "Movies & Entertainment",
-      "theme_rank_pct": 0.469,
-      "theme": "Equinix, ZOO Digital, Iron Mountain, Digital Realty",
-      "theme_rank": 18,
-      "industry_rank_pct": 0.179,
-      "industry_rank": 70,
+      "theme_rank_pct": 0.333,
+      "theme": "Starbucks, ZOO Digital, Visa Inc., Yum! Brands",
+      "theme_rank": 21,
+      "industry_rank_pct": 0.214,
+      "industry_rank": 67,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.362,
-      "price": 16.78,
-      "momentum": 0.3775
+      "vs_200d": 0.3396,
+      "price": 16.5,
+      "momentum": 0.3546
     },
     {
       "ticker": "LIT.L",
@@ -189,33 +189,33 @@
       "action": "SELL",
       "why": "confirmed downtrend: below its 200-day, 50-day below 200-day",
       "industry": "Asset Management & Custody Banks",
-      "theme_rank_pct": 0.406,
-      "theme": "Coca-Cola Company (The), Monster Beverage, Starbucks, Keurig Dr Pepper",
-      "theme_rank": 20,
-      "industry_rank_pct": 0.595,
-      "industry_rank": 35,
+      "theme_rank_pct": 0.567,
+      "theme": "Target Corporation, Ross Stores, General Motors, Dollar Tree",
+      "theme_rank": 14,
+      "industry_rank_pct": 0.667,
+      "industry_rank": 29,
       "industries_total": 84,
       "trend": "down",
-      "vs_200d": -0.6608,
-      "price": 1.75,
-      "momentum": -0.5751
+      "vs_200d": -0.6113,
+      "price": 2.0,
+      "momentum": -0.513
     },
     {
       "ticker": "DEBS.L",
       "name": "Debenhams Group",
-      "action": "HOLD",
-      "why": "uptrend, but neither its industry nor its theme is in the top fifth",
+      "action": "BUY",
+      "why": "strong theme (top fifth) and a confirmed uptrend -- qualifies to add",
       "industry": "Broadline Retail",
-      "theme_rank_pct": 0.75,
-      "theme": "CSX Corporation, Union Pacific Corporation, West Pharmaceutical Services, Norfolk Southern",
-      "theme_rank": 9,
-      "industry_rank_pct": 0.298,
-      "industry_rank": 60,
+      "theme_rank_pct": 0.867,
+      "theme": "Nucor, Steel Dynamics, Equinix, DuPont",
+      "theme_rank": 5,
+      "industry_rank_pct": 0.31,
+      "industry_rank": 59,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.1312,
-      "price": 23.99,
-      "momentum": 0.4057
+      "vs_200d": 0.1197,
+      "price": 23.75,
+      "momentum": 0.3913
     },
     {
       "ticker": "AAPL",
@@ -223,16 +223,16 @@
       "action": "BUY",
       "why": "strong industry (top fifth) and a confirmed uptrend -- qualifies to add",
       "industry": "Technology Hardware, Storage & Peripherals",
-      "theme_rank_pct": 0.938,
-      "theme": "Merck & Co., Johnson & Johnson, Bristol Myers Squibb, Amgen",
-      "theme_rank": 3,
+      "theme_rank_pct": 0.967,
+      "theme": "Merck & Co., Johnson & Johnson, Viatris, Bristol Myers Squibb",
+      "theme_rank": 2,
       "industry_rank_pct": 1.0,
       "industry_rank": 1,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.1714,
-      "price": 336.27,
-      "momentum": 0.2944
+      "vs_200d": 0.1702,
+      "price": 335.92,
+      "momentum": 0.2931
     },
     {
       "ticker": "AMZN",
@@ -240,16 +240,16 @@
       "action": "HOLD",
       "why": "uptrend, but neither its industry nor its theme is in the top fifth",
       "industry": "Broadline Retail",
-      "theme_rank_pct": 0.156,
-      "theme": "Edwards Lifesciences, Garmin, Amazon, Live Nation Entertainment",
-      "theme_rank": 28,
-      "industry_rank_pct": 0.298,
-      "industry_rank": 60,
+      "theme_rank_pct": 0.267,
+      "theme": "Alphabet Inc. (Class A), Alphabet Inc. (Class C), Amazon, Live Nation Entertainment",
+      "theme_rank": 23,
+      "industry_rank_pct": 0.31,
+      "industry_rank": 59,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.0223,
-      "price": 246.07,
-      "momentum": 0.1204
+      "vs_200d": 0.0359,
+      "price": 249.38,
+      "momentum": 0.1355
     },
     {
       "ticker": "GOOG",
@@ -257,16 +257,16 @@
       "action": "HOLD",
       "why": "no confirmed trend either way",
       "industry": "Interactive Media & Services",
-      "theme_rank_pct": 0.125,
-      "theme": "Alphabet Inc. (Class A), Alphabet Inc. (Class C), Verizon, Fox Corporation (Class A)",
-      "theme_rank": 29,
-      "industry_rank_pct": 0.607,
-      "industry_rank": 34,
+      "theme_rank_pct": 0.267,
+      "theme": "Alphabet Inc. (Class A), Alphabet Inc. (Class C), Amazon, Live Nation Entertainment",
+      "theme_rank": 23,
+      "industry_rank_pct": 0.679,
+      "industry_rank": 28,
       "industries_total": 84,
       "trend": "mixed",
-      "vs_200d": -0.0046,
-      "price": 334.7,
-      "momentum": 0.1553
+      "vs_200d": 0.0082,
+      "price": 339.01,
+      "momentum": 0.1701
     },
     {
       "ticker": "MSFT",
@@ -274,16 +274,16 @@
       "action": "BUY",
       "why": "strong industry (top fifth) and a confirmed uptrend -- qualifies to add",
       "industry": "Systems Software",
-      "theme_rank_pct": 0.156,
-      "theme": "Edwards Lifesciences, Garmin, Amazon, Live Nation Entertainment",
-      "theme_rank": 28,
-      "industry_rank_pct": 0.964,
-      "industry_rank": 4,
+      "theme_rank_pct": 0.067,
+      "theme": "Fortinet, Palo Alto Networks, CrowdStrike, Datadog",
+      "theme_rank": 29,
+      "industry_rank_pct": 0.952,
+      "industry_rank": 5,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.1479,
-      "price": 494.1,
-      "momentum": 0.2394
+      "vs_200d": 0.1567,
+      "price": 497.93,
+      "momentum": 0.2491
     },
     {
       "ticker": "NVDA",
@@ -291,16 +291,16 @@
       "action": "BUY",
       "why": "strong industry (top fifth) and a confirmed uptrend -- qualifies to add",
       "industry": "Semiconductors",
-      "theme_rank_pct": 0.625,
-      "theme": "Dell Technologies, Advanced Micro Devices, Flex Ltd., ARM",
-      "theme_rank": 13,
-      "industry_rank_pct": 0.952,
-      "industry_rank": 5,
+      "theme_rank_pct": 1.0,
+      "theme": "Sandisk, Micron Technology, Lumentum, Western Digital",
+      "theme_rank": 1,
+      "industry_rank_pct": 0.964,
+      "industry_rank": 4,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.1171,
-      "price": 222.21,
-      "momentum": 0.2104
+      "vs_200d": 0.129,
+      "price": 224.58,
+      "momentum": 0.2233
     },
     {
       "ticker": "TSLA",
@@ -308,16 +308,16 @@
       "action": "SELL",
       "why": "confirmed downtrend: below its 200-day, 50-day below 200-day",
       "industry": "Automobile Manufacturers",
-      "theme_rank_pct": 0.094,
-      "theme": "Fortinet, Palo Alto Networks, NetApp, CrowdStrike",
+      "theme_rank_pct": 0.033,
+      "theme": "Block, Inc., Carvana, Robinhood Markets, Take-Two Interactive",
       "theme_rank": 30,
-      "industry_rank_pct": 0.5,
-      "industry_rank": 43,
+      "industry_rank_pct": 0.476,
+      "industry_rank": 45,
       "industries_total": 84,
       "trend": "down",
-      "vs_200d": -0.0471,
-      "price": 377.3,
-      "momentum": -0.0435
+      "vs_200d": -0.0455,
+      "price": 377.94,
+      "momentum": -0.0419
     },
     {
       "ticker": "CELH",
@@ -325,16 +325,16 @@
       "action": "SELL",
       "why": "confirmed downtrend: below its 200-day, 50-day below 200-day",
       "industry": "Soft Drinks & Non-alcoholic Beverages",
-      "theme_rank_pct": 0.25,
-      "theme": "Target Corporation, Henry Schein, Dollar Tree, Dollar General",
-      "theme_rank": 25,
-      "industry_rank_pct": 0.655,
-      "industry_rank": 30,
+      "theme_rank_pct": 0.033,
+      "theme": "Block, Inc., Carvana, Robinhood Markets, Take-Two Interactive",
+      "theme_rank": 30,
+      "industry_rank_pct": 0.595,
+      "industry_rank": 35,
       "industries_total": 84,
       "trend": "down",
-      "vs_200d": -0.2235,
-      "price": 28.67,
-      "momentum": -0.208
+      "vs_200d": -0.2299,
+      "price": 28.43,
+      "momentum": -0.2147
     },
     {
       "ticker": "VST",
@@ -342,33 +342,33 @@
       "action": "SELL",
       "why": "confirmed downtrend: below its 200-day, 50-day below 200-day",
       "industry": "Electric Utilities",
-      "theme_rank_pct": 0.469,
-      "theme": "Equinix, ZOO Digital, Iron Mountain, Digital Realty",
-      "theme_rank": 18,
-      "industry_rank_pct": 0.107,
-      "industry_rank": 76,
+      "theme_rank_pct": 0.6,
+      "theme": "Caterpillar Inc., Comfort Systems USA, Ametek, Quanta Services",
+      "theme_rank": 13,
+      "industry_rank_pct": 0.119,
+      "industry_rank": 75,
       "industries_total": 84,
       "trend": "down",
-      "vs_200d": -0.1201,
-      "price": 136.64,
-      "momentum": -0.2022
+      "vs_200d": -0.1117,
+      "price": 137.94,
+      "momentum": -0.1946
     },
     {
       "ticker": "TEM",
       "name": "Tempus AI",
-      "action": "HOLD",
-      "why": "uptrend, but neither its industry nor its theme is in the top fifth",
+      "action": "BUY",
+      "why": "strong theme (top fifth) and a confirmed uptrend -- qualifies to add",
       "industry": "Health Care Services",
-      "theme_rank_pct": 0.781,
-      "theme": "Illumina, Inc., Warner Bros. Discovery, Charles River Laboratories, Moderna",
-      "theme_rank": 8,
-      "industry_rank_pct": 0.583,
-      "industry_rank": 36,
+      "theme_rank_pct": 0.8,
+      "theme": "Illumina, Inc., Warner Bros. Discovery, Charles River Laboratories, Quest Diagnostics",
+      "theme_rank": 7,
+      "industry_rank_pct": 0.607,
+      "industry_rank": 34,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.3674,
-      "price": 76.83,
-      "momentum": 0.3188
+      "vs_200d": 0.463,
+      "price": 82.24,
+      "momentum": 0.4117
     },
     {
       "ticker": "SPCX",
@@ -379,12 +379,12 @@
       "theme_rank_pct": null,
       "theme": "",
       "theme_rank": null,
-      "industry_rank_pct": 0.202,
-      "industry_rank": 68,
+      "industry_rank_pct": 0.179,
+      "industry_rank": 70,
       "industries_total": 84,
       "trend": "insufficient",
       "vs_200d": null,
-      "price": 147.52,
+      "price": 148.03,
       "momentum": null
     }
   ],
@@ -399,10 +399,10 @@
       "theme_rank_pct": 1.0,
       "theme_rank": 1,
       "industry_rank_pct": 1.0,
-      "momentum": 5.7413,
-      "score": 10.957,
+      "momentum": 5.6065,
+      "score": 10.946,
       "gbp": 1000.0,
-      "price": 1789.42,
+      "price": 1753.62,
       "owned": false
     },
     {
@@ -414,11 +414,11 @@
       "theme": "Sandisk, Micron Technology, Lumentum, Western Digital",
       "theme_rank_pct": 1.0,
       "theme_rank": 1,
-      "industry_rank_pct": 0.952,
-      "momentum": 2.3315,
-      "score": 4.924,
+      "industry_rank_pct": 0.964,
+      "momentum": 2.4079,
+      "score": 4.928,
       "gbp": 1000.0,
-      "price": 1056.31,
+      "price": 1080.53,
       "owned": false
     },
     {
@@ -431,10 +431,10 @@
       "theme_rank_pct": 1.0,
       "theme_rank": 1,
       "industry_rank_pct": 0.94,
-      "momentum": 1.6081,
-      "score": 4.556,
+      "momentum": 1.6461,
+      "score": 4.558,
       "gbp": 1000.0,
-      "price": 915.67,
+      "price": 929.04,
       "owned": false
     },
     {
@@ -443,14 +443,14 @@
       "name": "State Street Corporation",
       "sector": "Financials",
       "industry": "Asset Management & Custody Banks",
-      "theme": "State Street Corporation, BNY Mellon, Northern Trust, Citizens Financial Group",
-      "theme_rank_pct": 0.844,
+      "theme": "State Street Corporation, BNY Mellon, Northern Trust, Franklin Resources",
+      "theme_rank_pct": 0.833,
       "theme_rank": 6,
-      "industry_rank_pct": 0.595,
-      "momentum": 0.3813,
-      "score": 3.054,
+      "industry_rank_pct": 0.667,
+      "momentum": 0.3892,
+      "score": 3.053,
       "gbp": 1000.0,
-      "price": 180.06,
+      "price": 181.09,
       "owned": false
     },
     {
@@ -460,13 +460,13 @@
       "sector": "Energy",
       "industry": "Oil & Gas Refining & Marketing",
       "theme": "Valero Energy, Phillips 66, Targa Resources, Marathon Petroleum",
-      "theme_rank_pct": 0.875,
-      "theme_rank": 5,
+      "theme_rank_pct": 0.9,
+      "theme_rank": 4,
       "industry_rank_pct": 0.988,
-      "momentum": 0.8627,
-      "score": 2.893,
+      "momentum": 0.8439,
+      "score": 2.901,
       "gbp": 1000.0,
-      "price": 386.76,
+      "price": 382.86,
       "owned": false
     },
     {
@@ -475,14 +475,14 @@
       "name": "Merck & Co.",
       "sector": "Health Care",
       "industry": "Pharmaceuticals",
-      "theme": "Merck & Co., Johnson & Johnson, Bristol Myers Squibb, Amgen",
-      "theme_rank_pct": 0.938,
-      "theme_rank": 3,
+      "theme": "Merck & Co., Johnson & Johnson, Viatris, Bristol Myers Squibb",
+      "theme_rank_pct": 0.967,
+      "theme_rank": 2,
       "industry_rank_pct": 0.869,
-      "momentum": 0.4942,
-      "score": 2.824,
+      "momentum": 0.4724,
+      "score": 2.828,
       "gbp": 1000.0,
-      "price": 150.17,
+      "price": 147.98,
       "owned": false
     },
     {
@@ -492,13 +492,13 @@
       "sector": "Energy",
       "industry": "Oil & Gas Storage & Transportation",
       "theme": "Valero Energy, Phillips 66, Targa Resources, Marathon Petroleum",
-      "theme_rank_pct": 0.875,
-      "theme_rank": 5,
-      "industry_rank_pct": 0.702,
-      "momentum": 0.3388,
-      "score": 2.737,
+      "theme_rank_pct": 0.9,
+      "theme_rank": 4,
+      "industry_rank_pct": 0.726,
+      "momentum": 0.3268,
+      "score": 2.739,
       "gbp": 1000.0,
-      "price": 285.71,
+      "price": 283.15,
       "owned": false
     },
     {
@@ -507,30 +507,14 @@
       "name": "Johnson & Johnson",
       "sector": "Health Care",
       "industry": "Pharmaceuticals",
-      "theme": "Merck & Co., Johnson & Johnson, Bristol Myers Squibb, Amgen",
-      "theme_rank_pct": 0.938,
-      "theme_rank": 3,
+      "theme": "Merck & Co., Johnson & Johnson, Viatris, Bristol Myers Squibb",
+      "theme_rank_pct": 0.967,
+      "theme_rank": 2,
       "industry_rank_pct": 0.869,
-      "momentum": 0.3051,
-      "score": 2.723,
+      "momentum": 0.2934,
+      "score": 2.732,
       "gbp": 1000.0,
-      "price": 273.12,
-      "owned": false
-    },
-    {
-      "ticker": "ILMN",
-      "yf": "ILMN",
-      "name": "Illumina, Inc.",
-      "sector": "Health Care",
-      "industry": "Life Sciences Tools & Services",
-      "theme": "Illumina, Inc., Warner Bros. Discovery, Charles River Laboratories, Moderna",
-      "theme_rank_pct": 0.781,
-      "theme_rank": 8,
-      "industry_rank_pct": 0.929,
-      "momentum": 1.1012,
-      "score": 2.663,
-      "gbp": 1000.0,
-      "price": 268.21,
+      "price": 270.68,
       "owned": false
     },
     {
@@ -540,13 +524,29 @@
       "sector": "Energy",
       "industry": "Oil & Gas Refining & Marketing",
       "theme": "Valero Energy, Phillips 66, Targa Resources, Marathon Petroleum",
-      "theme_rank_pct": 0.875,
-      "theme_rank": 5,
+      "theme_rank_pct": 0.9,
+      "theme_rank": 4,
       "industry_rank_pct": 0.988,
-      "momentum": 0.8046,
-      "score": 2.653,
+      "momentum": 0.7755,
+      "score": 2.661,
       "gbp": 1000.0,
-      "price": 397.36,
+      "price": 390.95,
+      "owned": false
+    },
+    {
+      "ticker": "ILMN",
+      "yf": "ILMN",
+      "name": "Illumina, Inc.",
+      "sector": "Health Care",
+      "industry": "Life Sciences Tools & Services",
+      "theme": "Illumina, Inc., Warner Bros. Discovery, Charles River Laboratories, Quest Diagnostics",
+      "theme_rank_pct": 0.8,
+      "theme_rank": 7,
+      "industry_rank_pct": 0.929,
+      "momentum": 1.1458,
+      "score": 2.632,
+      "gbp": 1000.0,
+      "price": 273.9,
       "owned": false
     }
   ],
@@ -555,80 +555,78 @@
     "SNDK",
     "MU",
     "LITE",
+    "STT",
     "VLO",
     "MRK",
+    "TRGP",
     "JNJ",
     "ILMN",
-    "MPC",
-    "NUE",
-    "PFG"
+    "MPC"
   ],
   "changes": [
-    "Model: **SELL** PFG",
-    "Model: **SELL** NUE",
-    "Model: **BUY** TRGP",
-    "Model: **BUY** STT"
+    "DEBS.L: HOLD \u2192 **BUY**",
+    "TEM: HOLD \u2192 **BUY**"
   ],
   "top_industries": [
     [
       "Technology Hardware, Storage & Peripherals",
-      1.3473525095253938
+      1.319402989973251
     ],
     [
       "Oil & Gas Refining & Marketing",
-      0.7861361426292707
+      0.758214505047765
     ],
     [
       "Biotechnology",
-      0.6882979316788996
-    ],
-    [
-      "Systems Software",
-      0.5739966868017986
+      0.703494418468658
     ],
     [
       "Semiconductors",
-      0.5461826279600582
+      0.5640597393096765
+    ],
+    [
+      "Systems Software",
+      0.5522113400272851
     ],
     [
       "Communications Equipment",
-      0.514069820089831
+      0.5219589815423872
     ],
     [
       "Life Sciences Tools & Services",
-      0.472877758619115
+      0.47807100656116636
     ],
     [
       "Semiconductor Materials & Equipment",
-      0.4295588395208261
+      0.46038798629884947
     ],
     [
       "Managed Health Care",
-      0.39169492660782873
+      0.39029046851080507
     ],
     [
       "Electronic Components",
-      0.3003409474511382
+      0.30804865420144084
     ],
     [
       "Electrical Components & Equipment",
-      0.27216480967550877
+      0.2933824370674427
     ],
     [
       "Pharmaceuticals",
-      0.2337854434562067
-    ],
-    [
-      "SECTOR:Energy",
-      0.22685594056237018
+      0.2257946809822436
     ],
     [
       "Electronic Equipment & Instruments",
-      0.21344872074126525
+      0.21251947501386304
+    ],
+    [
+      "SECTOR:Energy",
+      0.21115592541029748
     ],
     [
       "SECTOR:Materials",
-      0.19927280151856533
+      0.1922128583760079
     ]
   ],
   "universe": "S&P 500 only",
@@ -636,162 +634,594 @@
     "AES",
     "TECH"
   ],
-  "themes_total": 32,
+  "themes_total": 30,
   "themes": [
     {
-      "score": 2.1966103180086316,
-      "n": 16,
-      "mom": 2.3742154399826934,
+      "score": 1.885645539375944,
+      "n": 24,
+      "mom": 1.5728949749283117,
       "leaders": "Sandisk, Micron Technology, Lumentum, Western Digital",
-      "labels": "Semiconductors (5), Technology Hardware, Storage & Peripherals (5), Communications Equipment (4)",
+      "labels": "Semiconductors (5), Semiconductor Materials & Equipment (5), Technology Hardware, Storage & Peripherals (4)",
       "pct": 1.0,
       "rank": 1,
-      "of": 32
+      "of": 30
     },
     {
-      "score": 1.7716553193169582,
-      "n": 6,
-      "mom": 0.4199206189724761,
-      "leaders": "J.B. Hunt, FedEx, Expeditors International, Old Dominion",
-      "labels": "Air Freight & Logistics (4), Cargo Ground Transportation (2)",
-      "pct": 0.96875,
+      "score": 1.5475654141794,
+      "n": 15,
+      "mom": 0.4329016606680447,
+      "leaders": "Merck & Co., Johnson & Johnson, Viatris, Bristol Myers Squibb",
+      "labels": "Biotechnology (7), Pharmaceuticals (6), Technology Hardware, Storage & Peripherals (1)",
+      "pct": 0.9666666666666667,
       "rank": 2,
-      "of": 32
+      "of": 30
     },
     {
-      "score": 1.5258955818062194,
-      "n": 14,
-      "mom": 0.40851628802308493,
-      "leaders": "Merck & Co., Johnson & Johnson, Bristol Myers Squibb, Amgen",
-      "labels": "Biotechnology (7), Pharmaceuticals (5), Technology Hardware, Storage & Peripherals (1)",
-      "pct": 0.9375,
+      "score": 1.2966784585284998,
+      "n": 11,
+      "mom": 0.266948689416433,
+      "leaders": "J.B. Hunt, FedEx, CSX Corporation, Expeditors International",
+      "labels": "Air Freight & Logistics (4), Rail Transportation (3), Cargo Ground Transportation (2)",
+      "pct": 0.9333333333333333,
       "rank": 3,
-      "of": 32
+      "of": 30
     },
     {
-      "score": 1.3029491265404463,
-      "n": 10,
-      "mom": 0.35330219583276,
-      "leaders": "Nucor, Steel Dynamics, Albemarle Corporation, Freeport-McMoRan",
-      "labels": "Fertilizers & Agricultural Chemicals (2), Gold (2), Steel (2)",
-      "pct": 0.90625,
-      "rank": 4,
-      "of": 32
-    },
-    {
-      "score": 1.2983477922562427,
-      "n": 26,
-      "mom": 0.4226303987666261,
+      "score": 1.2775304729159305,
+      "n": 27,
+      "mom": 0.3942424697769622,
       "leaders": "Valero Energy, Phillips 66, Targa Resources, Marathon Petroleum",
-      "labels": "Oil & Gas Exploration & Production (9), Oil & Gas Equipment & Services (3), Oil & Gas Refining & Marketing (3)",
-      "pct": 0.875,
+      "labels": "Oil & Gas Exploration & Production (9), Oil & Gas Storage & Transportation (4), Oil & Gas Equipment & Services (3)",
+      "pct": 0.9,
+      "rank": 4,
+      "of": 30
+    },
+    {
+      "score": 1.1849858413849401,
+      "n": 8,
+      "mom": 0.33662484948328886,
+      "leaders": "Nucor, Steel Dynamics, Equinix, DuPont",
+      "labels": "Data Center REITs (2), Steel (2), Industrial Conglomerates (1)",
+      "pct": 0.8666666666666667,
       "rank": 5,
-      "of": 32
+      "of": 30
     },
     {
-      "score": 1.046754817871506,
-      "n": 21,
-      "mom": 0.1292706969618529,
-      "leaders": "State Street Corporation, BNY Mellon, Northern Trust, Citizens Financial Group",
-      "labels": "Diversified Banks (7), Regional Banks (6), Consumer Finance (3)",
-      "pct": 0.84375,
+      "score": 1.0848178506133723,
+      "n": 14,
+      "mom": 0.27636330869900483,
+      "leaders": "State Street Corporation, BNY Mellon, Northern Trust, Franklin Resources",
+      "labels": "Asset Management & Custody Banks (7), Investment Banking & Brokerage (5), Diversified Banks (2)",
+      "pct": 0.8333333333333334,
       "rank": 6,
-      "of": 32
+      "of": 30
     },
     {
-      "score": 1.0000326630892844,
-      "n": 19,
-      "mom": 0.6044836551424315,
-      "leaders": "Applied Materials, Teradyne, Lam Research, Keysight Technologies",
-      "labels": "Semiconductor Materials & Equipment (5), Construction & Engineering (3), Electronic Components (2)",
-      "pct": 0.8125,
+      "score": 0.9408933979529933,
+      "n": 15,
+      "mom": 0.3791414756827256,
+      "leaders": "Illumina, Inc., Warner Bros. Discovery, Charles River Laboratories, Quest Diagnostics",
+      "labels": "Life Sciences Tools & Services (9), Health Care Services (3), Health Care Equipment (1)",
+      "pct": 0.8,
       "rank": 7,
-      "of": 32
+      "of": 30
     },
     {
-      "score": 0.9737517889324913,
-      "n": 15,
-      "mom": 0.4277306587742826,
-      "leaders": "Illumina, Inc., Warner Bros. Discovery, Charles River Laboratories, Moderna",
-      "labels": "Life Sciences Tools & Services (9), Health Care Services (3), Biotechnology (1)",
-      "pct": 0.78125,
+      "score": 0.8758911828209874,
+      "n": 14,
+      "mom": 0.09540832996863013,
+      "leaders": "Citizens Financial Group, U.S. Bancorp, M&T Bank, PNC Financial Services",
+      "labels": "Regional Banks (6), Diversified Banks (5), Consumer Finance (3)",
+      "pct": 0.7666666666666667,
       "rank": 8,
-      "of": 32
+      "of": 30
     },
     {
-      "score": 0.9659149193714088,
-      "n": 10,
-      "mom": 0.14216312476301585,
-      "leaders": "CSX Corporation, Union Pacific Corporation, West Pharmaceutical Services, Norfolk Southern",
-      "labels": "Rail Transportation (3), Industrial Gases (2), Trading Companies & Distributors (1)",
-      "pct": 0.75,
+      "score": 0.7676866946795338,
+      "n": 20,
+      "mom": 0.09071857031392982,
+      "leaders": "Principal Financial Group, Assurant, Travelers Companies (The), Chubb Limited",
+      "labels": "Property & Casualty Insurance (8), Life & Health Insurance (5), Multi-line Insurance (3)",
+      "pct": 0.7333333333333333,
       "rank": 9,
-      "of": 32
+      "of": 30
     },
     {
-      "score": 0.7798783294275834,
-      "n": 15,
-      "mom": 0.1828388429973835,
-      "leaders": "IDEX Corporation, Nordson Corporation, Wabtec, Paccar",
-      "labels": "Industrial Machinery & Supplies & Components (5), Electrical Components & Equipment (3), Construction Machinery & Heavy Transportation Equipment (2)",
-      "pct": 0.71875,
+      "score": 0.7374584933076105,
+      "n": 20,
+      "mom": 0.05999754642004429,
+      "leaders": "Host Hotels & Resorts, Welltower, Ventas, Federal Realty Investment Trust",
+      "labels": "Multi-Family Residential REITs (5), Retail REITs (5), Health Care REITs (3)",
+      "pct": 0.7,
       "rank": 10,
-      "of": 32
+      "of": 30
     },
     {
-      "score": 0.7685090827489408,
-      "n": 22,
-      "mom": 0.09872357476072524,
-      "leaders": "Cardinal Health, Assurant, Travelers Companies (The), Chubb Limited",
-      "labels": "Property & Casualty Insurance (8), Life & Health Insurance (4), Multi-line Insurance (3)",
-      "pct": 0.6875,
-      "rank": 11,
-      "of": 32
-    },
-    {
-      "score": 0.7306164352213715,
-      "n": 13,
-      "mom": 0.06342954928226963,
-      "leaders": "Federal Realty Investment Trust, Simon Property Group, Prologis, Kimco Realty",
-      "labels": "Retail REITs (5), Office REITs (2), Self-Storage REITs (2)",
-      "pct": 0.65625,
-      "rank": 12,
-      "of": 32
-    },
-    {
-      "score": 0.7282340081182755,
-      "n": 7,
-      "mom": 0.8695983746195726,
-      "leaders": "Dell Technologies, Advanced Micro Devices, Flex Ltd., ARM",
-      "labels": "Semiconductors (2), Technology Hardware, Storage & Peripherals (2), Wireless Telecommunication Services (1)",
-      "pct": 0.625,
-      "rank": 13,
-      "of": 32
-    },
-    {
-      "score": 0.7166058544741696,
+      "score": 0.7165328653220817,
       "n": 9,
-      "mom": 0.20927832870878804,
+      "mom": 0.23571230527258558,
       "leaders": "Centene Corporation, Humana, CVS Health, Elevance Health",
       "labels": "Managed Health Care (4), Health Care Services (3), Financial Exchanges & Data (1)",
-      "pct": 0.59375,
-      "rank": 14,
-      "of": 32
+      "pct": 0.6666666666666666,
+      "rank": 11,
+      "of": 30
     },
     {
-      "score": 0.5017054173891136,
-      "n": 28,
-      "mom": -0.002303066461868397,
-      "leaders": "Pinnacle West Capital, Evergy, Edison International, Entergy",
-      "labels": "Electric Utilities (13), Multi-Utilities (12), Oil & Gas Storage & Transportation (2)",
-      "pct": 0.5625,
+      "score": 0.6858218454324407,
+      "n": 9,
+      "mom": 0.14977033675183904,
+      "leaders": "Moderna, Albemarle Corporation, Newmont, Fresnillo",
+      "labels": "Industrial Gases (2), Fertilizers & Agricultural Chemicals (2), Gold (2)",
+      "pct": 0.6333333333333333,
+      "rank": 12,
+      "of": 30
+    },
+    {
+      "score": 0.6815752329410507,
+      "n": 18,
+      "mom": 0.2573717457352829,
+      "leaders": "Caterpillar Inc., Comfort Systems USA, Ametek, Quanta Services",
+      "labels": "Electrical Components & Equipment (4), Construction & Engineering (3), Construction Machinery & Heavy Transportation Equipment (2)",
+      "pct": 0.6,
+      "rank": 13,
+      "of": 30
+    },
+    {
+      "score": 0.5495245942738386,
+      "n": 16,
+      "mom": 0.11718321281438981,
+      "leaders": "Target Corporation, Ross Stores, General Motors, Dollar Tree",
+      "labels": "Consumer Staples Merchandise Retail (3), Automobile Manufacturers (2), Health Care Supplies (1)",
+      "pct": 0.5666666666666667,
+      "rank": 14,
+      "of": 30
+    },
+    {
+      "score": 0.5249690370418515,
+      "n": 11,
+      "mom": 0.43988006289375137,
+      "leaders": "IQE, Dell Technologies, Hewlett Packard Enterprise, Cisco",
+      "labels": "Technology Hardware, Storage & Peripherals (4), Communications Equipment (3), Semiconductors (2)",
+      "pct": 0.5333333333333333,
       "rank": 15,
-      "of": 32
+      "of": 30
     }
   ],
   "universe_detail": {
     "russell_error": "StopIteration: ",
     "nasdaq_error": "StopIteration: ",
     "universe": "S&P 500 only"
+  },
+  "backtest": {
+    "to": "2026-09-24",
+    "from": "1997-04-08",
+    "themes": {
+      "passes": false,
+      "full": {
+        "plan": {
+          "start_gbp": 10001,
+          "end_gbp": 123,
+          "gbp_from_10k": 123,
+          "cagr": -0.139,
+          "max_drawdown": -0.9946,
+          "calmar": -0.14
+        },
+        "spy": {
+          "start_gbp": 48,
+          "end_gbp": 767,
+          "gbp_from_10k": 158813,
+          "cagr": 0.0986,
+          "max_drawdown": -0.5519,
+          "calmar": 0.179
+        }
+      },
+      "halves": {
+        "1998-2012": {
+          "plan": {
+            "start_gbp": 10001,
+            "end_gbp": 3995,
+            "gbp_from_10k": 3994,
+            "cagr": -0.0569,
+            "max_drawdown": -0.7955,
+            "calmar": -0.072
+          },
+          "spy": {
+            "start_gbp": 48,
+            "end_gbp": 113,
+            "gbp_from_10k": 23367,
+            "cagr": 0.0557,
+            "max_drawdown": -0.5519,
+            "calmar": 0.101
+          }
+        },
+        "2013-now": {
+          "plan": {
+            "start_gbp": 4116,
+            "end_gbp": 123,
+            "gbp_from_10k": 298,
+            "cagr": -0.2258,
+            "max_drawdown": -0.9759,
+            "calmar": -0.231
+          },
+          "spy": {
+            "start_gbp": 116,
+            "end_gbp": 767,
+            "gbp_from_10k": 66267,
+            "cagr": 0.1477,
+            "max_drawdown": -0.3372,
+            "calmar": 0.438
+          }
+        }
+      },
+      "yearly": [
+        {
+          "year": 1997,
+          "plan": -0.0366,
+          "spy": 0.2273,
+          "beat": false
+        },
+        {
+          "year": 1998,
+          "plan": -0.0773,
+          "spy": 0.2869,
+          "beat": false
+        },
+        {
+          "year": 1999,
+          "plan": 0.577,
+          "spy": 0.2039,
+          "beat": true
+        },
+        {
+          "year": 2000,
+          "plan": 0.031,
+          "spy": -0.0974,
+          "beat": true
+        },
+        {
+          "year": 2001,
+          "plan": 0.0197,
+          "spy": -0.1176,
+          "beat": true
+        },
+        {
+          "year": 2002,
+          "plan": -0.0074,
+          "spy": -0.2158,
+          "beat": true
+        },
+        {
+          "year": 2003,
+          "plan": 0.2149,
+          "spy": 0.2818,
+          "beat": false
+        },
+        {
+          "year": 2004,
+          "plan": -0.1538,
+          "spy": 0.107,
+          "beat": false
+        },
+        {
+          "year": 2005,
+          "plan": 0.0922,
+          "spy": 0.0483,
+          "beat": true
+        },
+        {
+          "year": 2006,
+          "plan": -0.3724,
+          "spy": 0.1585,
+          "beat": false
+        },
+        {
+          "year": 2007,
+          "plan": -0.2442,
+          "spy": 0.0515,
+          "beat": false
+        },
+        {
+          "year": 2008,
+          "plan": 0.0201,
+          "spy": -0.3679,
+          "beat": true
+        },
+        {
+          "year": 2009,
+          "plan": 0.0725,
+          "spy": 0.2635,
+          "beat": false
+        },
+        {
+          "year": 2010,
+          "plan": -0.2543,
+          "spy": 0.1506,
+          "beat": false
+        },
+        {
+          "year": 2011,
+          "plan": -0.1828,
+          "spy": 0.0189,
+          "beat": false
+        },
+        {
+          "year": 2012,
+          "plan": -0.231,
+          "spy": 0.1599,
+          "beat": false
+        },
+        {
+          "year": 2013,
+          "plan": -0.1046,
+          "spy": 0.3231,
+          "beat": false
+        },
+        {
+          "year": 2014,
+          "plan": -0.203,
+          "spy": 0.1346,
+          "beat": false
+        },
+        {
+          "year": 2015,
+          "plan": -0.4189,
+          "spy": 0.0123,
+          "beat": false
+        },
+        {
+          "year": 2016,
+          "plan": -0.6846,
+          "spy": 0.12,
+          "beat": false
+        },
+        {
+          "year": 2017,
+          "plan": -0.8023,
+          "spy": 0.2171,
+          "beat": false
+        },
+        {
+          "year": 2018,
+          "plan": 0.0199,
+          "spy": -0.0457,
+          "beat": true
+        },
+        {
+          "year": 2019,
+          "plan": 0.02,
+          "spy": 0.3122,
+          "beat": false
+        },
+        {
+          "year": 2020,
+          "plan": 0.0201,
+          "spy": 0.1833,
+          "beat": false
+        },
+        {
+          "year": 2021,
+          "plan": 0.02,
+          "spy": 0.2873,
+          "beat": false
+        },
+        {
+          "year": 2022,
+          "plan": 0.0199,
+          "spy": -0.1818,
+          "beat": true
+        },
+        {
+          "year": 2023,
+          "plan": 0.0198,
+          "spy": 0.2618,
+          "beat": false
+        },
+        {
+          "year": 2024,
+          "plan": 0.02,
+          "spy": 0.2489,
+          "beat": false
+        },
+        {
+          "year": 2025,
+          "plan": 0.0198,
+          "spy": 0.1772,
+          "beat": false
+        },
+        {
+          "year": 2026,
+          "plan": 0.0145,
+          "spy": 0.1332,
+          "beat": false
+        }
+      ],
+      "prediction": {
+        "months": 344,
+        "ic_12m_mean": 0.0015,
+        "ic_1m_mean": 0.0054,
+        "ic_1m_t": 0.48,
+        "top10_12m": 0.1191,
+        "bottom10_12m": 0.1283,
+        "all_12m": 0.1296,
+        "picks_beat_spy_pct": 0.476
+      },
+      "prediction_by_year": [
+        {
+          "year": 1997,
+          "top": 0.08837265709175497,
+          "bottom": 0.18160967002618175,
+          "ic": 0.025943961280798573
+        },
+        {
+          "year": 1998,
+          "top": 0.21444402664831294,
+          "bottom": 0.196004249320494,
+          "ic": 0.09413030189449138
+        },
+        {
+          "year": 1999,
+          "top": 0.3537987768142083,
+          "bottom": 0.005571646116271534,
+          "ic": 0.09261985028131102
+        },
+        {
+          "year": 2000,
+          "top": -0.2838916668518254,
+          "bottom": 0.31129491787159663,
+          "ic": -0.4626720437496903
+        },
+        {
+          "year": 2001,
+          "top": 0.04834753588193897,
+          "bottom": -0.10524991110330222,
+          "ic": 0.18611215762579106
+        },
+        {
+          "year": 2002,
+          "top": 0.032923606168315626,
+          "bottom": 0.09449517261220282,
+          "ic": 0.02029848114712285
+        },
+        {
+          "year": 2003,
+          "top": 0.2933349065959079,
+          "bottom": 0.39042729957352185,
+          "ic": -0.10922952620957183
+        },
+        {
+          "year": 2004,
+          "top": 0.24043825582469927,
+          "bottom": 0.08099989404886652,
+          "ic": 0.09316939534907755
+        },
+        {
+          "year": 2005,
+          "top": 0.18831026135622023,
+          "bottom": 0.10858534033117534,
+          "ic": 0.042080469871842385
+        },
+        {
+          "year": 2006,
+          "top": 0.1168574039462093,
+          "bottom": 0.1205583609173883,
+          "ic": -0.01764369790264646
+        },
+        {
+          "year": 2007,
+          "top": -0.1562066775706731,
+          "bottom": -0.2571063663057771,
+          "ic": 0.10406642886127326
+        },
+        {
+          "year": 2008,
+          "top": -0.2651029438456191,
+          "bottom": -0.15444014137132392,
+          "ic": -0.019100123553809762
+        },
+        {
+          "year": 2009,
+          "top": 0.259458534575808,
+          "bottom": 0.4690974205988152,
+          "ic": -0.11741891407469061
+        },
+        {
+          "year": 2010,
+          "top": 0.21897595101803716,
+          "bottom": 0.15988913708699537,
+          "ic": 0.11844788844095361
+        },
+        {
+          "year": 2011,
+          "top": 0.09477696936905129,
+          "bottom": 0.052693693333308894,
+          "ic": 0.09249884022180303
+        },
+        {
+          "year": 2012,
+          "top": 0.1784362236260605,
+          "bottom": 0.3653178720061964,
+          "ic": -0.11687534873795608
+        },
+        {
+          "year": 2013,
+          "top": 0.22820706605301042,
+          "bottom": 0.21352378660427682,
+          "ic": -0.011345298881566143
+        },
+        {
+          "year": 2014,
+          "top": 0.10384768511110619,
+          "bottom": 0.08599293166948187,
+          "ic": 0.005009638304173725
+        },
+        {
+          "year": 2015,
+          "top": 0.06223932258595847,
+          "bottom": -0.03471705293159152,
+          "ic": 0.11711220640497522
+        },
+        {
+          "year": 2016,
+          "top": 0.19115193134990469,
+          "bottom": 0.2637283910344092,
+          "ic": -0.1717822179328382
+        },
+        {
+          "year": 2017,
+          "top": 0.2052120817181601,
+          "bottom": 0.1314666797498731,
+          "ic": 0.09595891576990322
+        },
+        {
+          "year": 2018,
+          "top": 0.025325639358413782,
+          "bottom": 0.02982959645831124,
+          "ic": -0.014494066834838205
+        },
+        {
+          "year": 2019,
+          "top": 0.10299182934891339,
+          "bottom": -0.09024974680348467,
+          "ic": 0.2062862626463691
+        },
+        {
+          "year": 2020,
+          "top": 0.29159248088623246,
+          "bottom": 0.6653126618888275,
+          "ic": -0.2662281187609497
+        },
+        {
+          "year": 2021,
+          "top": -0.0226322110888572,
+          "bottom": 0.08756936847013892,
+          "ic": -0.14394427878056895
+        },
+        {
+          "year": 2022,
+          "top": -0.004599746003985034,
+          "bottom": 0.030919712225885233,
+          "ic": -0.05030059000478834
+        },
+        {
+          "year": 2023,
+          "top": 0.2656832196563469,
+          "bottom": 0.11856364662527992,
+          "ic": 0.08259357354459086
+        },
+        {
+          "year": 2024,
+          "top": 0.19380859503425707,
+          "bottom": -0.00646573455243242,
+          "ic": 0.18859912353365169
+        },
+        {
+          "year": 2025,
+          "top": 0.17771666929512198,
+          "bottom": 0.22445628342430182,
+          "ic": -0.01272895890899404
+        }
+      ],
+      "costs_gbp": 32160
+    }
   }
 }
