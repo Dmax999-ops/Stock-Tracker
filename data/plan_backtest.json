@@ -1,11 +1,2924 @@
 {
-  "generated": "2026-09-24T14:56:19.889041+00:00",
-  "error": "AttributeError: module 'rot' has no attribute 'membership_mask'",
-  "traceback": [
-    "Traceback (most recent call last):",
-    "  File \"/home/runner/work/Stock-Tracker/Stock-Tracker/scripts/backtest_plan.py\", line 438, in main",
-    "    member = rot.membership_mask(C.index, list(C.columns))",
-    "             ^^^^^^^^^^^^^^^^^^^",
-    "AttributeError: module 'rot' has no attribute 'membership_mask'"
-  ]
+  "generated": "2026-09-24T17:51:01.879279+00:00",
+  "to": "2026-09-24",
+  "info": {
+    "yahoo_stocks": 624,
+    "delisted_added": 19,
+    "membership_matched": 612
+  },
+  "from": "1997-04-08",
+  "data": "641 stocks ever in the index (19 from the delisted archive)",
+  "themes": {
+    "passes": false,
+    "full": {
+      "plan": {
+        "start_gbp": 10001,
+        "end_gbp": 123,
+        "gbp_from_10k": 123,
+        "cagr": -0.139,
+        "max_drawdown": -0.9946,
+        "calmar": -0.14
+      },
+      "spy": {
+        "start_gbp": 48,
+        "end_gbp": 767,
+        "gbp_from_10k": 158813,
+        "cagr": 0.0986,
+        "max_drawdown": -0.5519,
+        "calmar": 0.179
+      }
+    },
+    "halves": {
+      "1998-2012": {
+        "plan": {
+          "start_gbp": 10001,
+          "end_gbp": 3995,
+          "gbp_from_10k": 3994,
+          "cagr": -0.0569,
+          "max_drawdown": -0.7955,
+          "calmar": -0.072
+        },
+        "spy": {
+          "start_gbp": 48,
+          "end_gbp": 113,
+          "gbp_from_10k": 23367,
+          "cagr": 0.0557,
+          "max_drawdown": -0.5519,
+          "calmar": 0.101
+        }
+      },
+      "2013-now": {
+        "plan": {
+          "start_gbp": 4116,
+          "end_gbp": 123,
+          "gbp_from_10k": 298,
+          "cagr": -0.2258,
+          "max_drawdown": -0.9759,
+          "calmar": -0.231
+        },
+        "spy": {
+          "start_gbp": 116,
+          "end_gbp": 767,
+          "gbp_from_10k": 66267,
+          "cagr": 0.1477,
+          "max_drawdown": -0.3372,
+          "calmar": 0.438
+        }
+      }
+    },
+    "yearly": [
+      {
+        "year": 1997,
+        "plan": -0.0366,
+        "spy": 0.2273,
+        "beat": false
+      },
+      {
+        "year": 1998,
+        "plan": -0.0773,
+        "spy": 0.2869,
+        "beat": false
+      },
+      {
+        "year": 1999,
+        "plan": 0.577,
+        "spy": 0.2039,
+        "beat": true
+      },
+      {
+        "year": 2000,
+        "plan": 0.031,
+        "spy": -0.0974,
+        "beat": true
+      },
+      {
+        "year": 2001,
+        "plan": 0.0197,
+        "spy": -0.1176,
+        "beat": true
+      },
+      {
+        "year": 2002,
+        "plan": -0.0074,
+        "spy": -0.2158,
+        "beat": true
+      },
+      {
+        "year": 2003,
+        "plan": 0.2149,
+        "spy": 0.2818,
+        "beat": false
+      },
+      {
+        "year": 2004,
+        "plan": -0.1538,
+        "spy": 0.107,
+        "beat": false
+      },
+      {
+        "year": 2005,
+        "plan": 0.0922,
+        "spy": 0.0483,
+        "beat": true
+      },
+      {
+        "year": 2006,
+        "plan": -0.3724,
+        "spy": 0.1585,
+        "beat": false
+      },
+      {
+        "year": 2007,
+        "plan": -0.2442,
+        "spy": 0.0515,
+        "beat": false
+      },
+      {
+        "year": 2008,
+        "plan": 0.0201,
+        "spy": -0.3679,
+        "beat": true
+      },
+      {
+        "year": 2009,
+        "plan": 0.0725,
+        "spy": 0.2635,
+        "beat": false
+      },
+      {
+        "year": 2010,
+        "plan": -0.2543,
+        "spy": 0.1506,
+        "beat": false
+      },
+      {
+        "year": 2011,
+        "plan": -0.1828,
+        "spy": 0.0189,
+        "beat": false
+      },
+      {
+        "year": 2012,
+        "plan": -0.231,
+        "spy": 0.1599,
+        "beat": false
+      },
+      {
+        "year": 2013,
+        "plan": -0.1046,
+        "spy": 0.3231,
+        "beat": false
+      },
+      {
+        "year": 2014,
+        "plan": -0.203,
+        "spy": 0.1346,
+        "beat": false
+      },
+      {
+        "year": 2015,
+        "plan": -0.4189,
+        "spy": 0.0123,
+        "beat": false
+      },
+      {
+        "year": 2016,
+        "plan": -0.6846,
+        "spy": 0.12,
+        "beat": false
+      },
+      {
+        "year": 2017,
+        "plan": -0.8023,
+        "spy": 0.2171,
+        "beat": false
+      },
+      {
+        "year": 2018,
+        "plan": 0.0199,
+        "spy": -0.0457,
+        "beat": true
+      },
+      {
+        "year": 2019,
+        "plan": 0.02,
+        "spy": 0.3122,
+        "beat": false
+      },
+      {
+        "year": 2020,
+        "plan": 0.0201,
+        "spy": 0.1833,
+        "beat": false
+      },
+      {
+        "year": 2021,
+        "plan": 0.02,
+        "spy": 0.2873,
+        "beat": false
+      },
+      {
+        "year": 2022,
+        "plan": 0.0199,
+        "spy": -0.1818,
+        "beat": true
+      },
+      {
+        "year": 2023,
+        "plan": 0.0198,
+        "spy": 0.2618,
+        "beat": false
+      },
+      {
+        "year": 2024,
+        "plan": 0.02,
+        "spy": 0.2489,
+        "beat": false
+      },
+      {
+        "year": 2025,
+        "plan": 0.0198,
+        "spy": 0.1772,
+        "beat": false
+      },
+      {
+        "year": 2026,
+        "plan": 0.0145,
+        "spy": 0.1332,
+        "beat": false
+      }
+    ],
+    "prediction": {
+      "months": 344,
+      "ic_12m_mean": 0.0015,
+      "ic_1m_mean": 0.0054,
+      "ic_1m_t": 0.48,
+      "top10_12m": 0.1191,
+      "bottom10_12m": 0.1283,
+      "all_12m": 0.1296,
+      "picks_beat_spy_pct": 0.476
+    },
+    "prediction_by_year": [
+      {
+        "year": 1997,
+        "top": 0.08837265709175497,
+        "bottom": 0.18160967002618175,
+        "ic": 0.025943961280798573
+      },
+      {
+        "year": 1998,
+        "top": 0.21444402664831294,
+        "bottom": 0.196004249320494,
+        "ic": 0.09413030189449138
+      },
+      {
+        "year": 1999,
+        "top": 0.3537987768142083,
+        "bottom": 0.005571646116271534,
+        "ic": 0.09261985028131102
+      },
+      {
+        "year": 2000,
+        "top": -0.2838916668518254,
+        "bottom": 0.31129491787159663,
+        "ic": -0.4626720437496903
+      },
+      {
+        "year": 2001,
+        "top": 0.04834753588193897,
+        "bottom": -0.10524991110330222,
+        "ic": 0.18611215762579106
+      },
+      {
+        "year": 2002,
+        "top": 0.032923606168315626,
+        "bottom": 0.09449517261220282,
+        "ic": 0.02029848114712285
+      },
+      {
+        "year": 2003,
+        "top": 0.2933349065959079,
+        "bottom": 0.39042729957352185,
+        "ic": -0.10922952620957183
+      },
+      {
+        "year": 2004,
+        "top": 0.24043825582469927,
+        "bottom": 0.08099989404886652,
+        "ic": 0.09316939534907755
+      },
+      {
+        "year": 2005,
+        "top": 0.18831026135622023,
+        "bottom": 0.10858534033117534,
+        "ic": 0.042080469871842385
+      },
+      {
+        "year": 2006,
+        "top": 0.1168574039462093,
+        "bottom": 0.1205583609173883,
+        "ic": -0.01764369790264646
+      },
+      {
+        "year": 2007,
+        "top": -0.1562066775706731,
+        "bottom": -0.2571063663057771,
+        "ic": 0.10406642886127326
+      },
+      {
+        "year": 2008,
+        "top": -0.2651029438456191,
+        "bottom": -0.15444014137132392,
+        "ic": -0.019100123553809762
+      },
+      {
+        "year": 2009,
+        "top": 0.259458534575808,
+        "bottom": 0.4690974205988152,
+        "ic": -0.11741891407469061
+      },
+      {
+        "year": 2010,
+        "top": 0.21897595101803716,
+        "bottom": 0.15988913708699537,
+        "ic": 0.11844788844095361
+      },
+      {
+        "year": 2011,
+        "top": 0.09477696936905129,
+        "bottom": 0.052693693333308894,
+        "ic": 0.09249884022180303
+      },
+      {
+        "year": 2012,
+        "top": 0.1784362236260605,
+        "bottom": 0.3653178720061964,
+        "ic": -0.11687534873795608
+      },
+      {
+        "year": 2013,
+        "top": 0.22820706605301042,
+        "bottom": 0.21352378660427682,
+        "ic": -0.011345298881566143
+      },
+      {
+        "year": 2014,
+        "top": 0.10384768511110619,
+        "bottom": 0.08599293166948187,
+        "ic": 0.005009638304173725
+      },
+      {
+        "year": 2015,
+        "top": 0.06223932258595847,
+        "bottom": -0.03471705293159152,
+        "ic": 0.11711220640497522
+      },
+      {
+        "year": 2016,
+        "top": 0.19115193134990469,
+        "bottom": 0.2637283910344092,
+        "ic": -0.1717822179328382
+      },
+      {
+        "year": 2017,
+        "top": 0.2052120817181601,
+        "bottom": 0.1314666797498731,
+        "ic": 0.09595891576990322
+      },
+      {
+        "year": 2018,
+        "top": 0.025325639358413782,
+        "bottom": 0.02982959645831124,
+        "ic": -0.014494066834838205
+      },
+      {
+        "year": 2019,
+        "top": 0.10299182934891339,
+        "bottom": -0.09024974680348467,
+        "ic": 0.2062862626463691
+      },
+      {
+        "year": 2020,
+        "top": 0.29159248088623246,
+        "bottom": 0.6653126618888275,
+        "ic": -0.2662281187609497
+      },
+      {
+        "year": 2021,
+        "top": -0.0226322110888572,
+        "bottom": 0.08756936847013892,
+        "ic": -0.14394427878056895
+      },
+      {
+        "year": 2022,
+        "top": -0.004599746003985034,
+        "bottom": 0.030919712225885233,
+        "ic": -0.05030059000478834
+      },
+      {
+        "year": 2023,
+        "top": 0.2656832196563469,
+        "bottom": 0.11856364662527992,
+        "ic": 0.08259357354459086
+      },
+      {
+        "year": 2024,
+        "top": 0.19380859503425707,
+        "bottom": -0.00646573455243242,
+        "ic": 0.18859912353365169
+      },
+      {
+        "year": 2025,
+        "top": 0.17771666929512198,
+        "bottom": 0.22445628342430182,
+        "ic": -0.01272895890899404
+      }
+    ],
+    "costs_gbp": 32160,
+    "best_ten": [
+      {
+        "year": 1997,
+        "best_ten": [
+          "WEN +129%",
+          "NC +103%",
+          "FITB +101%",
+          "LLY +95%",
+          "USB +95%",
+          "UIS +95%",
+          "CMCSA +86%",
+          "PFE +84%",
+          "C +83%",
+          "PH +83%"
+        ],
+        "we_held": [
+          "USB"
+        ]
+      },
+      {
+        "year": 1998,
+        "best_ten": [
+          "AAPL +152%",
+          "UIS +152%",
+          "CSCO +140%",
+          "LOW +118%",
+          "MSFT +112%",
+          "SCHW +110%",
+          "HD +110%",
+          "WMT +108%",
+          "AMGN +94%",
+          "F +90%"
+        ],
+        "we_held": [
+          "WMT"
+        ]
+      },
+      {
+        "year": 1999,
+        "best_ten": [
+          "ORCL +291%",
+          "GLW +187%",
+          "AMAT +186%",
+          "ADBE +170%",
+          "AAPL +149%",
+          "KLAC +143%",
+          "MSI +128%",
+          "CSCO +125%",
+          "AMGN +124%",
+          "TXN +122%"
+        ],
+        "we_held": [
+          "AAPL"
+        ]
+      },
+      {
+        "year": 2000,
+        "best_ten": [
+          "EHC +211%",
+          "CB +165%",
+          "UNH +128%",
+          "PPL +112%",
+          "LUV +111%",
+          "EXC +111%",
+          "APA +106%",
+          "CNP +105%",
+          "OKE +103%",
+          "CAH +102%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2001,
+        "best_ten": [
+          "BBY +166%",
+          "AZO +158%",
+          "HRB +126%",
+          "DLX +124%",
+          "LOW +108%",
+          "XRX +105%",
+          "CAR +104%",
+          "WOR +83%",
+          "BSX +79%",
+          "FCX +61%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2002,
+        "best_ten": [
+          "BSX +87%",
+          "HAL +57%",
+          "NEM +53%",
+          "CNC +53%",
+          "ZBH +37%",
+          "AFL +28%",
+          "SLM +27%",
+          "FCX +26%",
+          "LMT +26%",
+          "ECL +25%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2003,
+        "best_ten": [
+          "EP +639%",
+          "WMB +250%",
+          "AES +191%",
+          "SANM +179%",
+          "GLW +178%",
+          "FCX +144%",
+          "ATI +122%",
+          "HUM +122%",
+          "LPX +115%",
+          "AMD +113%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2004,
+        "best_ten": [
+          "ADSK +211%",
+          "AAPL +203%",
+          "SBUX +89%",
+          "NUE +89%",
+          "GT +87%",
+          "EBAY +85%",
+          "AET +84%",
+          "BIIB +80%",
+          "CMI +75%",
+          "WMB +67%"
+        ],
+        "we_held": [
+          "WMB"
+        ]
+      },
+      {
+        "year": 2005,
+        "best_ten": [
+          "VLO +141%",
+          "AAPL +127%",
+          "EOG +121%",
+          "HUM +86%",
+          "ATI +78%",
+          "DVN +69%",
+          "GLW +68%",
+          "MCK +67%",
+          "HAL +65%",
+          "AON +56%"
+        ],
+        "we_held": [
+          "VLO",
+          "AAPL"
+        ]
+      },
+      {
+        "year": 2006,
+        "best_ten": [
+          "ATI +153%",
+          "NVDA +94%",
+          "NUE +64%",
+          "CMCSA +61%",
+          "CSCO +57%",
+          "GS +56%",
+          "T +54%",
+          "VFC +54%",
+          "AIV +52%",
+          "MAT +51%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2007,
+        "best_ten": [
+          "NOV +152%",
+          "AMZN +139%",
+          "CNX +138%",
+          "AAPL +136%",
+          "CMI +118%",
+          "FCX +106%",
+          "DE +102%",
+          "FLR +82%",
+          "MUR +77%",
+          "APA +68%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2008,
+        "best_ten": [
+          "HRB +26%",
+          "AMGN +24%",
+          "BBT +22%",
+          "WMT +22%",
+          "AZO +20%",
+          "HAS +20%",
+          "GILD +13%",
+          "PSA +11%",
+          "GIS +10%",
+          "MCD +10%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2009,
+        "best_ten": [
+          "EP +571%",
+          "THC +324%",
+          "AMD +307%",
+          "F +307%",
+          "GNW +297%",
+          "MU +272%",
+          "CBRE +203%",
+          "FCX +200%",
+          "EXPE +193%",
+          "JBL +153%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2010,
+        "best_ten": [
+          "CMI +137%",
+          "AIG +93%",
+          "HBAN +88%",
+          "ZION +82%",
+          "AKAM +82%",
+          "BKNG +78%",
+          "CRM +76%",
+          "WYNN +76%",
+          "AZO +72%",
+          "VIAV +71%"
+        ],
+        "we_held": [
+          "BKNG"
+        ]
+      },
+      {
+        "year": 2011,
+        "best_ten": [
+          "ISRG +72%",
+          "MA +69%",
+          "BIIB +64%",
+          "HUM +60%",
+          "OKE +59%",
+          "VFC +51%",
+          "ROST +51%",
+          "TJX +49%",
+          "FAST +46%",
+          "V +45%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2012,
+        "best_ten": [
+          "PHM +179%",
+          "WHR +115%",
+          "EXPE +111%",
+          "BAC +101%",
+          "LEN +96%",
+          "MPC +94%",
+          "ANDV +84%",
+          "GILD +75%",
+          "EMN +73%",
+          "SHW +71%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2013,
+        "best_ten": [
+          "NFLX +300%",
+          "BBY +245%",
+          "MU +228%",
+          "PBI +129%",
+          "TMUS +109%",
+          "BSX +104%",
+          "GILD +100%",
+          "GME +98%",
+          "GNW +97%",
+          "WDC +96%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2014,
+        "best_ten": [
+          "LUV +126%",
+          "EW +93%",
+          "DAL +79%",
+          "KR +66%",
+          "MNST +62%",
+          "MU +62%",
+          "MAR +61%",
+          "VRTX +61%",
+          "KDP +55%",
+          "IRM +52%"
+        ],
+        "we_held": [
+          "DAL",
+          "MU"
+        ]
+      },
+      {
+        "year": 2015,
+        "best_ten": [
+          "NFLX +129%",
+          "AMZN +119%",
+          "NVDA +66%",
+          "HRL +56%",
+          "VRSN +53%",
+          "SBUX +49%",
+          "FSLR +48%",
+          "STZ +47%",
+          "GOOGL +47%",
+          "AVGO +47%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2016,
+        "best_ten": [
+          "NVDA +233%",
+          "OKE +143%",
+          "CNX +113%",
+          "FCX +101%",
+          "NEM +85%",
+          "AMAT +78%",
+          "DHR +75%",
+          "PWR +72%",
+          "MLM +65%",
+          "ZION +63%"
+        ],
+        "we_held": [
+          "NVDA"
+        ]
+      },
+      {
+        "year": 2017,
+        "best_ten": [
+          "NRG +133%",
+          "FSLR +101%",
+          "VRTX +100%",
+          "WYNN +96%",
+          "BA +93%",
+          "NVDA +90%",
+          "DHI +87%",
+          "PYPL +83%",
+          "MU +82%",
+          "PHM +82%"
+        ],
+        "we_held": [
+          "NVDA"
+        ]
+      },
+      {
+        "year": 2018,
+        "best_ten": [
+          "KDP +69%",
+          "AMD +68%",
+          "TRIP +55%",
+          "AAP +49%",
+          "CMG +47%",
+          "HCA +41%",
+          "LLY +40%",
+          "MRK +40%",
+          "MKC +40%",
+          "BSX +40%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2019,
+        "best_ten": [
+          "AMD +144%",
+          "LRCX +116%",
+          "KLAC +101%",
+          "TGT +99%",
+          "CPRT +91%",
+          "QRVO +90%",
+          "CMG +89%",
+          "AAPL +89%",
+          "XRX +89%",
+          "AMAT +86%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2020,
+        "best_ten": [
+          "NVDA +118%",
+          "PYPL +111%",
+          "ALB +107%",
+          "FCX +98%",
+          "ABMD +92%",
+          "CDNS +91%",
+          "NOW +89%",
+          "IDXX +89%",
+          "ALGN +88%",
+          "AMD +87%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2021,
+        "best_ten": [
+          "DVN +190%",
+          "FTNT +147%",
+          "F +145%",
+          "FANG +125%",
+          "NVDA +124%",
+          "NUE +121%",
+          "IT +112%",
+          "EXR +111%",
+          "ANET +103%",
+          "SPG +102%"
+        ],
+        "we_held": [
+          "NVDA"
+        ]
+      },
+      {
+        "year": 2022,
+        "best_ten": [
+          "OXY +104%",
+          "MPC +82%",
+          "XOM +80%",
+          "SLB +71%",
+          "VLO +70%",
+          "APA +69%",
+          "COP +68%",
+          "HAL +66%",
+          "CVX +56%",
+          "EOG +53%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2023,
+        "best_ten": [
+          "NVDA +246%",
+          "META +184%",
+          "RCL +166%",
+          "CCL +133%",
+          "AMD +130%",
+          "TSLA +130%",
+          "PHM +125%",
+          "AVGO +106%",
+          "CRM +95%",
+          "ANET +95%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2024,
+        "best_ten": [
+          "NVDA +179%",
+          "UAL +138%",
+          "AXON +136%",
+          "AVGO +116%",
+          "TRGP +111%",
+          "HWM +104%",
+          "CEG +95%",
+          "RCL +93%",
+          "ANET +91%",
+          "NFLX +90%"
+        ],
+        "we_held": [
+          "NVDA",
+          "RCL"
+        ]
+      },
+      {
+        "year": 2025,
+        "best_ten": [
+          "WDC +270%",
+          "MU +228%",
+          "STX +225%",
+          "WBD +170%",
+          "NEM +165%",
+          "LRCX +138%",
+          "PLTR +136%",
+          "TPR +98%",
+          "APH +97%",
+          "GEV +93%"
+        ],
+        "we_held": [
+          "PLTR"
+        ]
+      }
+    ],
+    "picks": [
+      {
+        "date": "2023-10-02",
+        "picks": [
+          "GE",
+          "NVDA",
+          "FICO",
+          "PHM",
+          "RCL",
+          "TDG",
+          "META",
+          "BKNG",
+          "AVGO",
+          "ACGL"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2023-11-01",
+        "picks": [],
+        "market_on": false
+      },
+      {
+        "date": "2023-12-01",
+        "picks": [
+          "META",
+          "NVDA",
+          "PHM",
+          "ACGL",
+          "ADBE",
+          "AVGO",
+          "CBOE",
+          "FICO",
+          "CME",
+          "CPRT"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-01-02",
+        "picks": [
+          "NVDA",
+          "META",
+          "CRM",
+          "RCL",
+          "FICO",
+          "CPRT",
+          "NOW",
+          "PHM",
+          "MSFT",
+          "CBOE"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-02-01",
+        "picks": [
+          "META",
+          "NVDA",
+          "UBER",
+          "AVGO",
+          "MSFT",
+          "CBOE",
+          "RCL",
+          "PHM",
+          "NRG",
+          "FICO"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-03-01",
+        "picks": [
+          "NVDA",
+          "AKAM",
+          "META",
+          "MSFT",
+          "NOW",
+          "COR",
+          "ADBE",
+          "PHM",
+          "AVGO",
+          "BR"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-04-01",
+        "picks": [
+          "SMCI",
+          "NVDA",
+          "META",
+          "PCAR",
+          "COR",
+          "JPM",
+          "BLDR",
+          "NRG",
+          "AVGO",
+          "PHM"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-05-01",
+        "picks": [
+          "SMCI",
+          "NVDA",
+          "NRG",
+          "ETN",
+          "UBER",
+          "CEG",
+          "PCAR",
+          "RCL",
+          "IR",
+          "AMZN"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-06-03",
+        "picks": [
+          "VST",
+          "LDOS",
+          "NRG",
+          "TT",
+          "TDG",
+          "WAB",
+          "TRGP",
+          "PGR",
+          "ALL",
+          "PCAR"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-07-01",
+        "picks": [
+          "VST",
+          "NRG",
+          "LDOS",
+          "CEG",
+          "NVDA",
+          "APH",
+          "TT",
+          "PGR",
+          "ALL",
+          "TRGP"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-08-01",
+        "picks": [
+          "GDDY",
+          "VST",
+          "LLY",
+          "PGR",
+          "TRGP",
+          "NRG",
+          "COST",
+          "MCK",
+          "NVDA",
+          "TT"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-09-03",
+        "picks": [
+          "GDDY",
+          "IRM",
+          "ALL",
+          "PGR",
+          "MSI",
+          "TRGP",
+          "LDOS",
+          "CTAS",
+          "COST",
+          "MCK"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-10-01",
+        "picks": [
+          "GDDY",
+          "CTAS",
+          "RTX",
+          "IRM",
+          "MSI",
+          "LDOS",
+          "PGR",
+          "TRGP",
+          "ALL",
+          "NRG"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-11-01",
+        "picks": [
+          "GDDY",
+          "VST",
+          "IRM",
+          "FICO",
+          "MSI",
+          "TRGP",
+          "KKR",
+          "FIS",
+          "FITB",
+          "CTAS"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-12-02",
+        "picks": [
+          "VST",
+          "IRM",
+          "TRGP",
+          "FIS",
+          "WAB",
+          "FICO",
+          "NI",
+          "CTAS",
+          "TT",
+          "GDDY"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-01-02",
+        "picks": [
+          "PLTR",
+          "TRGP",
+          "VST",
+          "WMT",
+          "FICO",
+          "NVDA",
+          "GDDY",
+          "MSI",
+          "NFLX",
+          "HWM"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-02-03",
+        "picks": [
+          "PLTR",
+          "TRGP",
+          "WMT",
+          "GDDY",
+          "VST",
+          "UAL",
+          "HWM",
+          "NI",
+          "FOX",
+          "MSI"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-03-03",
+        "picks": [
+          "MMM",
+          "FOX",
+          "TRGP",
+          "FOXA",
+          "RCL",
+          "UAL",
+          "WMT",
+          "PLTR",
+          "NI",
+          "VST"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-04-01",
+        "picks": [],
+        "market_on": false
+      },
+      {
+        "date": "2025-05-01",
+        "picks": [],
+        "market_on": false
+      },
+      {
+        "date": "2025-06-02",
+        "picks": [
+          "PLTR",
+          "PM",
+          "T",
+          "VRSN",
+          "CAH",
+          "ETR",
+          "ATO",
+          "ORLY",
+          "AEE",
+          "MO"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-07-01",
+        "picks": [
+          "PLTR",
+          "PM",
+          "HWM",
+          "CME",
+          "AXON",
+          "GEV",
+          "CAH",
+          "ETR",
+          "T",
+          "MO"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-08-01",
+        "picks": [
+          "PLTR",
+          "GEV",
+          "NFLX",
+          "CAH",
+          "TPR",
+          "AXON",
+          "JBL",
+          "CME",
+          "T",
+          "HWM"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-09-02",
+        "picks": [
+          "PLTR",
+          "GEV",
+          "TPR",
+          "VST",
+          "JBL",
+          "HWM",
+          "NFLX",
+          "AXON",
+          "T",
+          "CME"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-10-01",
+        "picks": [
+          "PLTR",
+          "GEV",
+          "TPR",
+          "NFLX",
+          "APH",
+          "HWM",
+          "SCHW",
+          "TTWO",
+          "JPM",
+          "LYV"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-11-03",
+        "picks": [
+          "PLTR",
+          "TPR",
+          "WDC",
+          "HWM",
+          "APH",
+          "STX",
+          "GEV",
+          "GS",
+          "LRCX",
+          "JPM"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-12-01",
+        "picks": [
+          "PLTR",
+          "APH",
+          "STX",
+          "LRCX",
+          "HWM",
+          "KLAC",
+          "HII",
+          "TEL",
+          "GOOG",
+          "GOOGL"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-01-02",
+        "picks": [
+          "WDC",
+          "STX",
+          "NEM",
+          "APH",
+          "WELL",
+          "COR",
+          "PLTR",
+          "GOOG",
+          "HII",
+          "TEL"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-02-02",
+        "picks": [
+          "WDC",
+          "MU",
+          "NEM",
+          "WBD",
+          "HII",
+          "JNJ",
+          "DG",
+          "WELL",
+          "GOOGL",
+          "GOOG"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-03-02",
+        "picks": [
+          "WDC",
+          "MU",
+          "STX",
+          "LRCX",
+          "HII",
+          "GOOGL",
+          "GOOG",
+          "KLAC",
+          "APH",
+          "JNJ"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-04-01",
+        "picks": [],
+        "market_on": false
+      },
+      {
+        "date": "2026-05-01",
+        "picks": [
+          "WBD",
+          "WDC",
+          "MU",
+          "STX",
+          "TER",
+          "APA",
+          "LRCX",
+          "CAT",
+          "ALB",
+          "VLO"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-06-01",
+        "picks": [
+          "WDC",
+          "WBD",
+          "STX",
+          "MU",
+          "TER",
+          "GOOGL",
+          "GOOG",
+          "ALB",
+          "CAT",
+          "NUE"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-07-01",
+        "picks": [
+          "WBD",
+          "WDC",
+          "MU",
+          "STX",
+          "INTC",
+          "TER",
+          "GOOGL",
+          "GOOG",
+          "LRCX",
+          "NUE"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-08-03",
+        "picks": [
+          "MU",
+          "WDC",
+          "INTC",
+          "CNC",
+          "JNJ",
+          "VTRS",
+          "JBHT",
+          "CAT",
+          "GOOGL",
+          "GOOG"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-09-01",
+        "picks": [
+          "WDC",
+          "MU",
+          "STX",
+          "VLO",
+          "STT",
+          "STLD",
+          "JBHT",
+          "CNC",
+          "CAT",
+          "VTRS"
+        ],
+        "market_on": true
+      }
+    ]
+  },
+  "industries": {
+    "passes": false,
+    "full": {
+      "plan": {
+        "start_gbp": 10001,
+        "end_gbp": 5146,
+        "gbp_from_10k": 5146,
+        "cagr": -0.0223,
+        "max_drawdown": -0.8739,
+        "calmar": -0.026
+      },
+      "spy": {
+        "start_gbp": 48,
+        "end_gbp": 767,
+        "gbp_from_10k": 158813,
+        "cagr": 0.0986,
+        "max_drawdown": -0.5519,
+        "calmar": 0.179
+      }
+    },
+    "halves": {
+      "1998-2012": {
+        "plan": {
+          "start_gbp": 10001,
+          "end_gbp": 15146,
+          "gbp_from_10k": 15144,
+          "cagr": 0.0268,
+          "max_drawdown": -0.5765,
+          "calmar": 0.047
+        },
+        "spy": {
+          "start_gbp": 48,
+          "end_gbp": 113,
+          "gbp_from_10k": 23367,
+          "cagr": 0.0557,
+          "max_drawdown": -0.5519,
+          "calmar": 0.101
+        }
+      },
+      "2013-now": {
+        "plan": {
+          "start_gbp": 15581,
+          "end_gbp": 5146,
+          "gbp_from_10k": 3303,
+          "cagr": -0.0775,
+          "max_drawdown": -0.7834,
+          "calmar": -0.099
+        },
+        "spy": {
+          "start_gbp": 116,
+          "end_gbp": 767,
+          "gbp_from_10k": 66267,
+          "cagr": 0.1477,
+          "max_drawdown": -0.3372,
+          "calmar": 0.438
+        }
+      }
+    },
+    "yearly": [
+      {
+        "year": 1997,
+        "plan": 0.0839,
+        "spy": 0.2273,
+        "beat": false
+      },
+      {
+        "year": 1998,
+        "plan": 0.0104,
+        "spy": 0.2869,
+        "beat": false
+      },
+      {
+        "year": 1999,
+        "plan": 0.6527,
+        "spy": 0.2039,
+        "beat": true
+      },
+      {
+        "year": 2000,
+        "plan": 0.3319,
+        "spy": -0.0974,
+        "beat": true
+      },
+      {
+        "year": 2001,
+        "plan": 0.0197,
+        "spy": -0.1176,
+        "beat": true
+      },
+      {
+        "year": 2002,
+        "plan": 0.0052,
+        "spy": -0.2158,
+        "beat": true
+      },
+      {
+        "year": 2003,
+        "plan": 0.1898,
+        "spy": 0.2818,
+        "beat": false
+      },
+      {
+        "year": 2004,
+        "plan": -0.0912,
+        "spy": 0.107,
+        "beat": false
+      },
+      {
+        "year": 2005,
+        "plan": 0.2185,
+        "spy": 0.0483,
+        "beat": true
+      },
+      {
+        "year": 2006,
+        "plan": -0.3267,
+        "spy": 0.1585,
+        "beat": false
+      },
+      {
+        "year": 2007,
+        "plan": -0.1793,
+        "spy": 0.0515,
+        "beat": false
+      },
+      {
+        "year": 2008,
+        "plan": 0.0201,
+        "spy": -0.3679,
+        "beat": true
+      },
+      {
+        "year": 2009,
+        "plan": 0.085,
+        "spy": 0.2635,
+        "beat": false
+      },
+      {
+        "year": 2010,
+        "plan": -0.0353,
+        "spy": 0.1506,
+        "beat": false
+      },
+      {
+        "year": 2011,
+        "plan": -0.1402,
+        "spy": 0.0189,
+        "beat": false
+      },
+      {
+        "year": 2012,
+        "plan": -0.083,
+        "spy": 0.1599,
+        "beat": false
+      },
+      {
+        "year": 2013,
+        "plan": 0.2026,
+        "spy": 0.3231,
+        "beat": false
+      },
+      {
+        "year": 2014,
+        "plan": -0.0532,
+        "spy": 0.1346,
+        "beat": false
+      },
+      {
+        "year": 2015,
+        "plan": -0.1025,
+        "spy": 0.0123,
+        "beat": false
+      },
+      {
+        "year": 2016,
+        "plan": -0.0932,
+        "spy": 0.12,
+        "beat": false
+      },
+      {
+        "year": 2017,
+        "plan": -0.0275,
+        "spy": 0.2171,
+        "beat": false
+      },
+      {
+        "year": 2018,
+        "plan": -0.0527,
+        "spy": -0.0457,
+        "beat": false
+      },
+      {
+        "year": 2019,
+        "plan": -0.0993,
+        "spy": 0.3122,
+        "beat": false
+      },
+      {
+        "year": 2020,
+        "plan": -0.0901,
+        "spy": 0.1833,
+        "beat": false
+      },
+      {
+        "year": 2021,
+        "plan": -0.0676,
+        "spy": 0.2873,
+        "beat": false
+      },
+      {
+        "year": 2022,
+        "plan": -0.236,
+        "spy": -0.1818,
+        "beat": false
+      },
+      {
+        "year": 2023,
+        "plan": -0.2413,
+        "spy": 0.2618,
+        "beat": false
+      },
+      {
+        "year": 2024,
+        "plan": 0.0174,
+        "spy": 0.2489,
+        "beat": false
+      },
+      {
+        "year": 2025,
+        "plan": -0.2063,
+        "spy": 0.1772,
+        "beat": false
+      },
+      {
+        "year": 2026,
+        "plan": 0.1128,
+        "spy": 0.1332,
+        "beat": false
+      }
+    ],
+    "prediction": {
+      "months": 344,
+      "ic_12m_mean": 0.0015,
+      "ic_1m_mean": 0.0054,
+      "ic_1m_t": 0.48,
+      "top10_12m": 0.1191,
+      "bottom10_12m": 0.1283,
+      "all_12m": 0.1296,
+      "picks_beat_spy_pct": 0.505
+    },
+    "prediction_by_year": [
+      {
+        "year": 1997,
+        "top": 0.08837265709175497,
+        "bottom": 0.18160967002618175,
+        "ic": 0.025943961280798573
+      },
+      {
+        "year": 1998,
+        "top": 0.21444402664831294,
+        "bottom": 0.196004249320494,
+        "ic": 0.09413030189449138
+      },
+      {
+        "year": 1999,
+        "top": 0.3537987768142083,
+        "bottom": 0.005571646116271534,
+        "ic": 0.09261985028131102
+      },
+      {
+        "year": 2000,
+        "top": -0.2838916668518254,
+        "bottom": 0.31129491787159663,
+        "ic": -0.4626720437496903
+      },
+      {
+        "year": 2001,
+        "top": 0.04834753588193897,
+        "bottom": -0.10524991110330222,
+        "ic": 0.18611215762579106
+      },
+      {
+        "year": 2002,
+        "top": 0.032923606168315626,
+        "bottom": 0.09449517261220282,
+        "ic": 0.02029848114712285
+      },
+      {
+        "year": 2003,
+        "top": 0.2933349065959079,
+        "bottom": 0.39042729957352185,
+        "ic": -0.10922952620957183
+      },
+      {
+        "year": 2004,
+        "top": 0.24043825582469927,
+        "bottom": 0.08099989404886652,
+        "ic": 0.09316939534907755
+      },
+      {
+        "year": 2005,
+        "top": 0.18831026135622023,
+        "bottom": 0.10858534033117534,
+        "ic": 0.042080469871842385
+      },
+      {
+        "year": 2006,
+        "top": 0.1168574039462093,
+        "bottom": 0.1205583609173883,
+        "ic": -0.01764369790264646
+      },
+      {
+        "year": 2007,
+        "top": -0.1562066775706731,
+        "bottom": -0.2571063663057771,
+        "ic": 0.10406642886127326
+      },
+      {
+        "year": 2008,
+        "top": -0.2651029438456191,
+        "bottom": -0.15444014137132392,
+        "ic": -0.019100123553809762
+      },
+      {
+        "year": 2009,
+        "top": 0.259458534575808,
+        "bottom": 0.4690974205988152,
+        "ic": -0.11741891407469061
+      },
+      {
+        "year": 2010,
+        "top": 0.21897595101803716,
+        "bottom": 0.15988913708699537,
+        "ic": 0.11844788844095361
+      },
+      {
+        "year": 2011,
+        "top": 0.09477696936905129,
+        "bottom": 0.052693693333308894,
+        "ic": 0.09249884022180303
+      },
+      {
+        "year": 2012,
+        "top": 0.1784362236260605,
+        "bottom": 0.3653178720061964,
+        "ic": -0.11687534873795608
+      },
+      {
+        "year": 2013,
+        "top": 0.22820706605301042,
+        "bottom": 0.21352378660427682,
+        "ic": -0.011345298881566143
+      },
+      {
+        "year": 2014,
+        "top": 0.10384768511110619,
+        "bottom": 0.08599293166948187,
+        "ic": 0.005009638304173725
+      },
+      {
+        "year": 2015,
+        "top": 0.06223932258595847,
+        "bottom": -0.03471705293159152,
+        "ic": 0.11711220640497522
+      },
+      {
+        "year": 2016,
+        "top": 0.19115193134990469,
+        "bottom": 0.2637283910344092,
+        "ic": -0.1717822179328382
+      },
+      {
+        "year": 2017,
+        "top": 0.2052120817181601,
+        "bottom": 0.1314666797498731,
+        "ic": 0.09595891576990322
+      },
+      {
+        "year": 2018,
+        "top": 0.025325639358413782,
+        "bottom": 0.02982959645831124,
+        "ic": -0.014494066834838205
+      },
+      {
+        "year": 2019,
+        "top": 0.10299182934891339,
+        "bottom": -0.09024974680348467,
+        "ic": 0.2062862626463691
+      },
+      {
+        "year": 2020,
+        "top": 0.29159248088623246,
+        "bottom": 0.6653126618888275,
+        "ic": -0.2662281187609497
+      },
+      {
+        "year": 2021,
+        "top": -0.0226322110888572,
+        "bottom": 0.08756936847013892,
+        "ic": -0.14394427878056895
+      },
+      {
+        "year": 2022,
+        "top": -0.004599746003985034,
+        "bottom": 0.030919712225885233,
+        "ic": -0.05030059000478834
+      },
+      {
+        "year": 2023,
+        "top": 0.2656832196563469,
+        "bottom": 0.11856364662527992,
+        "ic": 0.08259357354459086
+      },
+      {
+        "year": 2024,
+        "top": 0.19380859503425707,
+        "bottom": -0.00646573455243242,
+        "ic": 0.18859912353365169
+      },
+      {
+        "year": 2025,
+        "top": 0.17771666929512198,
+        "bottom": 0.22445628342430182,
+        "ic": -0.01272895890899404
+      }
+    ],
+    "costs_gbp": 56547,
+    "best_ten": [
+      {
+        "year": 1997,
+        "best_ten": [
+          "WEN +129%",
+          "NC +103%",
+          "FITB +101%",
+          "LLY +95%",
+          "USB +95%",
+          "UIS +95%",
+          "CMCSA +86%",
+          "PFE +84%",
+          "C +83%",
+          "PH +83%"
+        ],
+        "we_held": [
+          "USB"
+        ]
+      },
+      {
+        "year": 1998,
+        "best_ten": [
+          "AAPL +152%",
+          "UIS +152%",
+          "CSCO +140%",
+          "LOW +118%",
+          "MSFT +112%",
+          "SCHW +110%",
+          "HD +110%",
+          "WMT +108%",
+          "AMGN +94%",
+          "F +90%"
+        ],
+        "we_held": [
+          "WMT"
+        ]
+      },
+      {
+        "year": 1999,
+        "best_ten": [
+          "ORCL +291%",
+          "GLW +187%",
+          "AMAT +186%",
+          "ADBE +170%",
+          "AAPL +149%",
+          "KLAC +143%",
+          "MSI +128%",
+          "CSCO +125%",
+          "AMGN +124%",
+          "TXN +122%"
+        ],
+        "we_held": [
+          "AAPL",
+          "CSCO"
+        ]
+      },
+      {
+        "year": 2000,
+        "best_ten": [
+          "EHC +211%",
+          "CB +165%",
+          "UNH +128%",
+          "PPL +112%",
+          "LUV +111%",
+          "EXC +111%",
+          "APA +106%",
+          "CNP +105%",
+          "OKE +103%",
+          "CAH +102%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2001,
+        "best_ten": [
+          "BBY +166%",
+          "AZO +158%",
+          "HRB +126%",
+          "DLX +124%",
+          "LOW +108%",
+          "XRX +105%",
+          "CAR +104%",
+          "WOR +83%",
+          "BSX +79%",
+          "FCX +61%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2002,
+        "best_ten": [
+          "BSX +87%",
+          "HAL +57%",
+          "NEM +53%",
+          "CNC +53%",
+          "ZBH +37%",
+          "AFL +28%",
+          "SLM +27%",
+          "FCX +26%",
+          "LMT +26%",
+          "ECL +25%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2003,
+        "best_ten": [
+          "EP +639%",
+          "WMB +250%",
+          "AES +191%",
+          "SANM +179%",
+          "GLW +178%",
+          "FCX +144%",
+          "ATI +122%",
+          "HUM +122%",
+          "LPX +115%",
+          "AMD +113%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2004,
+        "best_ten": [
+          "ADSK +211%",
+          "AAPL +203%",
+          "SBUX +89%",
+          "NUE +89%",
+          "GT +87%",
+          "EBAY +85%",
+          "AET +84%",
+          "BIIB +80%",
+          "CMI +75%",
+          "WMB +67%"
+        ],
+        "we_held": [
+          "WMB"
+        ]
+      },
+      {
+        "year": 2005,
+        "best_ten": [
+          "VLO +141%",
+          "AAPL +127%",
+          "EOG +121%",
+          "HUM +86%",
+          "ATI +78%",
+          "DVN +69%",
+          "GLW +68%",
+          "MCK +67%",
+          "HAL +65%",
+          "AON +56%"
+        ],
+        "we_held": [
+          "VLO",
+          "AAPL",
+          "HAL"
+        ]
+      },
+      {
+        "year": 2006,
+        "best_ten": [
+          "ATI +153%",
+          "NVDA +94%",
+          "NUE +64%",
+          "CMCSA +61%",
+          "CSCO +57%",
+          "GS +56%",
+          "T +54%",
+          "VFC +54%",
+          "AIV +52%",
+          "MAT +51%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2007,
+        "best_ten": [
+          "NOV +152%",
+          "AMZN +139%",
+          "CNX +138%",
+          "AAPL +136%",
+          "CMI +118%",
+          "FCX +106%",
+          "DE +102%",
+          "FLR +82%",
+          "MUR +77%",
+          "APA +68%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2008,
+        "best_ten": [
+          "HRB +26%",
+          "AMGN +24%",
+          "BBT +22%",
+          "WMT +22%",
+          "AZO +20%",
+          "HAS +20%",
+          "GILD +13%",
+          "PSA +11%",
+          "GIS +10%",
+          "MCD +10%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2009,
+        "best_ten": [
+          "EP +571%",
+          "THC +324%",
+          "AMD +307%",
+          "F +307%",
+          "GNW +297%",
+          "MU +272%",
+          "CBRE +203%",
+          "FCX +200%",
+          "EXPE +193%",
+          "JBL +153%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2010,
+        "best_ten": [
+          "CMI +137%",
+          "AIG +93%",
+          "HBAN +88%",
+          "ZION +82%",
+          "AKAM +82%",
+          "BKNG +78%",
+          "CRM +76%",
+          "WYNN +76%",
+          "AZO +72%",
+          "VIAV +71%"
+        ],
+        "we_held": [
+          "BKNG"
+        ]
+      },
+      {
+        "year": 2011,
+        "best_ten": [
+          "ISRG +72%",
+          "MA +69%",
+          "BIIB +64%",
+          "HUM +60%",
+          "OKE +59%",
+          "VFC +51%",
+          "ROST +51%",
+          "TJX +49%",
+          "FAST +46%",
+          "V +45%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2012,
+        "best_ten": [
+          "PHM +179%",
+          "WHR +115%",
+          "EXPE +111%",
+          "BAC +101%",
+          "LEN +96%",
+          "MPC +94%",
+          "ANDV +84%",
+          "GILD +75%",
+          "EMN +73%",
+          "SHW +71%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2013,
+        "best_ten": [
+          "NFLX +300%",
+          "BBY +245%",
+          "MU +228%",
+          "PBI +129%",
+          "TMUS +109%",
+          "BSX +104%",
+          "GILD +100%",
+          "GME +98%",
+          "GNW +97%",
+          "WDC +96%"
+        ],
+        "we_held": [
+          "GILD"
+        ]
+      },
+      {
+        "year": 2014,
+        "best_ten": [
+          "LUV +126%",
+          "EW +93%",
+          "DAL +79%",
+          "KR +66%",
+          "MNST +62%",
+          "MU +62%",
+          "MAR +61%",
+          "VRTX +61%",
+          "KDP +55%",
+          "IRM +52%"
+        ],
+        "we_held": [
+          "MU"
+        ]
+      },
+      {
+        "year": 2015,
+        "best_ten": [
+          "NFLX +129%",
+          "AMZN +119%",
+          "NVDA +66%",
+          "HRL +56%",
+          "VRSN +53%",
+          "SBUX +49%",
+          "FSLR +48%",
+          "STZ +47%",
+          "GOOGL +47%",
+          "AVGO +47%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2016,
+        "best_ten": [
+          "NVDA +233%",
+          "OKE +143%",
+          "CNX +113%",
+          "FCX +101%",
+          "NEM +85%",
+          "AMAT +78%",
+          "DHR +75%",
+          "PWR +72%",
+          "MLM +65%",
+          "ZION +63%"
+        ],
+        "we_held": [
+          "NVDA"
+        ]
+      },
+      {
+        "year": 2017,
+        "best_ten": [
+          "NRG +133%",
+          "FSLR +101%",
+          "VRTX +100%",
+          "WYNN +96%",
+          "BA +93%",
+          "NVDA +90%",
+          "DHI +87%",
+          "PYPL +83%",
+          "MU +82%",
+          "PHM +82%"
+        ],
+        "we_held": [
+          "NVDA"
+        ]
+      },
+      {
+        "year": 2018,
+        "best_ten": [
+          "KDP +69%",
+          "AMD +68%",
+          "TRIP +55%",
+          "AAP +49%",
+          "CMG +47%",
+          "HCA +41%",
+          "LLY +40%",
+          "MRK +40%",
+          "MKC +40%",
+          "BSX +40%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2019,
+        "best_ten": [
+          "AMD +144%",
+          "LRCX +116%",
+          "KLAC +101%",
+          "TGT +99%",
+          "CPRT +91%",
+          "QRVO +90%",
+          "CMG +89%",
+          "AAPL +89%",
+          "XRX +89%",
+          "AMAT +86%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2020,
+        "best_ten": [
+          "NVDA +118%",
+          "PYPL +111%",
+          "ALB +107%",
+          "FCX +98%",
+          "ABMD +92%",
+          "CDNS +91%",
+          "NOW +89%",
+          "IDXX +89%",
+          "ALGN +88%",
+          "AMD +87%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2021,
+        "best_ten": [
+          "DVN +190%",
+          "FTNT +147%",
+          "F +145%",
+          "FANG +125%",
+          "NVDA +124%",
+          "NUE +121%",
+          "IT +112%",
+          "EXR +111%",
+          "ANET +103%",
+          "SPG +102%"
+        ],
+        "we_held": [
+          "NVDA"
+        ]
+      },
+      {
+        "year": 2022,
+        "best_ten": [
+          "OXY +104%",
+          "MPC +82%",
+          "XOM +80%",
+          "SLB +71%",
+          "VLO +70%",
+          "APA +69%",
+          "COP +68%",
+          "HAL +66%",
+          "CVX +56%",
+          "EOG +53%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2023,
+        "best_ten": [
+          "NVDA +246%",
+          "META +184%",
+          "RCL +166%",
+          "CCL +133%",
+          "AMD +130%",
+          "TSLA +130%",
+          "PHM +125%",
+          "AVGO +106%",
+          "CRM +95%",
+          "ANET +95%"
+        ],
+        "we_held": []
+      },
+      {
+        "year": 2024,
+        "best_ten": [
+          "NVDA +179%",
+          "UAL +138%",
+          "AXON +136%",
+          "AVGO +116%",
+          "TRGP +111%",
+          "HWM +104%",
+          "CEG +95%",
+          "RCL +93%",
+          "ANET +91%",
+          "NFLX +90%"
+        ],
+        "we_held": [
+          "NVDA",
+          "RCL"
+        ]
+      },
+      {
+        "year": 2025,
+        "best_ten": [
+          "WDC +270%",
+          "MU +228%",
+          "STX +225%",
+          "WBD +170%",
+          "NEM +165%",
+          "LRCX +138%",
+          "PLTR +136%",
+          "TPR +98%",
+          "APH +97%",
+          "GEV +93%"
+        ],
+        "we_held": [
+          "PLTR"
+        ]
+      }
+    ],
+    "picks": [
+      {
+        "date": "2023-10-02",
+        "picks": [
+          "NVDA",
+          "FICO",
+          "PHM",
+          "RCL",
+          "META",
+          "BKNG",
+          "AVGO",
+          "ORCL",
+          "CPRT",
+          "BKR"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2023-11-01",
+        "picks": [],
+        "market_on": false
+      },
+      {
+        "date": "2023-12-01",
+        "picks": [
+          "META",
+          "NVDA",
+          "PHM",
+          "ADBE",
+          "AVGO",
+          "SNPS",
+          "MSFT",
+          "NOW",
+          "CPRT",
+          "RCL"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-01-02",
+        "picks": [
+          "NVDA",
+          "META",
+          "CRM",
+          "RCL",
+          "CPRT",
+          "ADBE",
+          "NOW",
+          "PHM",
+          "MSFT",
+          "AAPL"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-02-01",
+        "picks": [
+          "META",
+          "NVDA",
+          "UBER",
+          "AVGO",
+          "MSFT",
+          "RCL",
+          "PHM",
+          "FICO",
+          "ANET",
+          "ADBE"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-03-01",
+        "picks": [
+          "NVDA",
+          "META",
+          "MSFT",
+          "NOW",
+          "COR",
+          "ADBE",
+          "PHM",
+          "AVGO",
+          "FICO",
+          "UBER"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-04-01",
+        "picks": [
+          "SMCI",
+          "NVDA",
+          "UBER",
+          "META",
+          "PCAR",
+          "COR",
+          "JPM",
+          "AVGO",
+          "PHM",
+          "NOW"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-05-01",
+        "picks": [
+          "SMCI",
+          "NVDA",
+          "ETN",
+          "UBER",
+          "PCAR",
+          "RCL",
+          "PSX",
+          "WDC",
+          "AVGO",
+          "JPM"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-06-03",
+        "picks": [
+          "VST",
+          "LDOS",
+          "NRG",
+          "WAB",
+          "ETN",
+          "TRGP",
+          "PGR",
+          "ALL",
+          "PCAR",
+          "PSX"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-07-01",
+        "picks": [
+          "VST",
+          "NRG",
+          "LDOS",
+          "CEG",
+          "NVDA",
+          "PGR",
+          "ALL",
+          "TRGP",
+          "WDC",
+          "WAB"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-08-01",
+        "picks": [
+          "VST",
+          "PGR",
+          "TRGP",
+          "NRG",
+          "NVDA",
+          "GE",
+          "LDOS",
+          "CEG",
+          "ALL",
+          "TDG"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-09-03",
+        "picks": [
+          "ALL",
+          "PGR",
+          "MSI",
+          "TRGP",
+          "LDOS",
+          "CTAS",
+          "WELL",
+          "NRG",
+          "GE",
+          "VST"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-10-01",
+        "picks": [
+          "CTAS",
+          "RTX",
+          "MSI",
+          "LDOS",
+          "PGR",
+          "TRGP",
+          "ALL",
+          "NRG",
+          "WELL",
+          "GE"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-11-01",
+        "picks": [
+          "FICO",
+          "MSI",
+          "TRGP",
+          "KKR",
+          "FITB",
+          "CTAS",
+          "WAB",
+          "AXP",
+          "BLK",
+          "LDOS"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2024-12-02",
+        "picks": [
+          "VST",
+          "TRGP",
+          "WAB",
+          "FICO",
+          "CTAS",
+          "KKR",
+          "LDOS",
+          "MSI",
+          "AXP",
+          "FITB"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-01-02",
+        "picks": [
+          "PLTR",
+          "TRGP",
+          "VST",
+          "FICO",
+          "MSI",
+          "NFLX",
+          "UAL",
+          "KKR",
+          "FOX",
+          "WAB"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-02-03",
+        "picks": [
+          "PLTR",
+          "TRGP",
+          "GDDY",
+          "VST",
+          "UAL",
+          "FOX",
+          "KMI",
+          "MSI",
+          "FOXA",
+          "WAB"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-03-03",
+        "picks": [
+          "MMM",
+          "FOX",
+          "TRGP",
+          "FOXA",
+          "RCL",
+          "UAL",
+          "PLTR",
+          "VST",
+          "GDDY",
+          "KMI"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-04-01",
+        "picks": [],
+        "market_on": false
+      },
+      {
+        "date": "2025-05-01",
+        "picks": [],
+        "market_on": false
+      },
+      {
+        "date": "2025-06-02",
+        "picks": [
+          "PLTR",
+          "VRSN",
+          "CAH",
+          "ATO",
+          "CME",
+          "AXON",
+          "RSG",
+          "NFLX",
+          "HWM",
+          "FTNT"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-07-01",
+        "picks": [
+          "PLTR",
+          "HWM",
+          "CME",
+          "AXON",
+          "GEV",
+          "CAH",
+          "VRSN",
+          "NFLX",
+          "FOXA",
+          "ATO"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-08-01",
+        "picks": [
+          "PLTR",
+          "GEV",
+          "NFLX",
+          "CAH",
+          "TPR",
+          "VST",
+          "AXON",
+          "JBL",
+          "CME",
+          "HWM"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-09-02",
+        "picks": [
+          "PLTR",
+          "GEV",
+          "TPR",
+          "VST",
+          "JBL",
+          "HWM",
+          "NFLX",
+          "AXON",
+          "SCHW",
+          "CAH"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-10-01",
+        "picks": [
+          "PLTR",
+          "GEV",
+          "TPR",
+          "NFLX",
+          "APH",
+          "HWM",
+          "SCHW",
+          "JPM",
+          "AXON",
+          "LYV"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-11-03",
+        "picks": [
+          "PLTR",
+          "TPR",
+          "WDC",
+          "HWM",
+          "APH",
+          "STX",
+          "GE",
+          "GLW",
+          "GS",
+          "JPM"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2025-12-01",
+        "picks": [
+          "APH",
+          "STX",
+          "AVGO",
+          "LRCX",
+          "GE",
+          "WDC",
+          "GLW",
+          "HWM",
+          "KLAC",
+          "TEL"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-01-02",
+        "picks": [
+          "WDC",
+          "STX",
+          "APH",
+          "MU",
+          "GE",
+          "HWM",
+          "LRCX",
+          "COR",
+          "CAH",
+          "KLAC"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-02-02",
+        "picks": [
+          "WDC",
+          "MU",
+          "NEM",
+          "WBD",
+          "STX",
+          "HWM",
+          "DG",
+          "APH",
+          "LRCX",
+          "CAH"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-03-02",
+        "picks": [
+          "WDC",
+          "MU",
+          "STX",
+          "LRCX",
+          "NEM",
+          "HII",
+          "KLAC",
+          "APH",
+          "LHX",
+          "DG"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-04-01",
+        "picks": [],
+        "market_on": false
+      },
+      {
+        "date": "2026-05-01",
+        "picks": [
+          "WBD",
+          "WDC",
+          "MU",
+          "STX",
+          "TER",
+          "APA",
+          "LRCX",
+          "CAT",
+          "GLW",
+          "ALB"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-06-01",
+        "picks": [
+          "WDC",
+          "WBD",
+          "STX",
+          "MU",
+          "TER",
+          "INTC",
+          "GOOGL",
+          "GOOG",
+          "ALB",
+          "CAT"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-07-01",
+        "picks": [
+          "WDC",
+          "MU",
+          "STX",
+          "INTC",
+          "TER",
+          "GOOGL",
+          "GOOG",
+          "LRCX",
+          "GLW",
+          "CAT"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-08-03",
+        "picks": [
+          "MU",
+          "WDC",
+          "INTC",
+          "STX",
+          "LRCX",
+          "AMAT",
+          "CNC",
+          "JNJ",
+          "VTRS",
+          "CAT"
+        ],
+        "market_on": true
+      },
+      {
+        "date": "2026-09-01",
+        "picks": [
+          "WDC",
+          "MU",
+          "STX",
+          "AMAT",
+          "INTC",
+          "VLO",
+          "LRCX",
+          "CNC",
+          "CAT",
+          "VTRS"
+        ],
+        "market_on": true
+      }
+    ]
+  }
 }
