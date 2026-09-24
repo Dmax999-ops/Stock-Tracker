@@ -598,6 +598,21 @@ def write_markdown(plan: dict, path: Path):
                  f"{h['industry']}{rk} | {theme_txt(h.get('theme'), h.get('theme_rank'), plan.get('themes_total'))} | "
                  f"{h['trend']} |")
     L.append("\n## 2. What you should own — £10,000 model portfolio\n")
+    bt = plan.get("backtest") or {}
+    th = bt.get("themes") or {}
+    if th and not th.get("passes"):
+        f = th.get("full", {})
+        pr = th.get("prediction", {})
+        L.append("> **⚠ THIS STOCK LIST FAILED ITS BACKTEST — DO NOT BUY FROM IT.** Run every "
+                 f"month since {bt.get('from', '1997')}, the same rules turned £10,000 into "
+                 f"£{f.get('plan', {}).get('gbp_from_10k', 0):,} against "
+                 f"£{f.get('spy', {}).get('gbp_from_10k', 0):,} in the S&P 500, after HL costs. "
+                 f"The score did not predict: the stocks it ranked highest went on to make "
+                 f"{pr.get('top10_12m', 0):+.1%} a year, the lowest-ranked "
+                 f"{pr.get('bottom10_12m', 0):+.1%}. It is shown only so you can see what it "
+                 "would pick. **What the tests support today:** one low-cost S&P 500 tracker "
+                 "fund, with the market switch above as the only timing rule that has held up. "
+                 "See docs/BACKTEST.md and docs/FACTORS.md.\n")
     if not plan["model"]:
         L.append("**Hold cash (a money-market fund).** " + " ".join(plan["model_notes"]) + "\n")
     else:
@@ -796,6 +811,15 @@ def main() -> int:
         plan = run(P, univ, holdings, docs / "plan_state.json", watchlist=watch,
                    universe_note=man.get("universe", ""))
         plan["universe_detail"] = man
+        bt_path = Path("data/plan_backtest.json")
+        if bt_path.exists():
+            try:
+                plan["backtest"] = {k: v for k, v in json.loads(bt_path.read_text()).items()
+                                    if k in ("from", "to", "themes")}
+                plan["backtest"].get("themes", {}).pop("picks", None)
+                plan["backtest"].get("themes", {}).pop("best_ten", None)
+            except Exception:                                      # noqa: BLE001
+                pass
         (docs / "plan.json").write_text(json.dumps(plan, indent=2, default=str))
         write_markdown(plan, docs / "PLAN.md")
         print((docs / "PLAN.md").read_text())
