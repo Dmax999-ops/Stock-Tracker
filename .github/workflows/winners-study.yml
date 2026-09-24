@@ -1,0 +1,69 @@
+name: Winners study
+
+# What makes a winner? Every S&P 500 stock, every month since 1997: the top 5%
+# over the next 12 months vs everyone else, described by price action,
+# technical patterns, volume and company accounts -- as they looked BEFORE the
+# run. Pattern pairs found on 1997-2011 are tested on 2012-now.
+# Results: docs/WINNERS.md and data/winners_study.json
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 1 * *'       # monthly, 1st at 10:00 UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: winners-study
+  cancel-in-progress: false
+
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt requests lxml pyyaml pyarrow
+
+      - name: Rebuild price panel if absent
+        run: |
+          if [ ! -f data/prices.parquet ]; then
+            python scripts/fetch_universe.py --config config/universe.yml --out data/
+          fi
+
+      - name: Fetch company accounts from SEC EDGAR (first run, or if missing)
+        env:
+          SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT || secrets.SEC_USER_AGENT }}
+        run: |
+          if [ ! -f data/fundamentals.parquet ]; then
+            python scripts/fetch_fundamentals.py || echo "accounts fetch failed - price-only scores will still run"
+          fi
+
+      - name: Run the winners study
+        if: always()
+        run: python scripts/winners_study.py
+
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # add each file on its own: one missing file must not stop the other
+          for f in docs/WINNERS.md data/winners_study.json data/fundamentals.parquet data/fundamentals_manifest.json; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
+          if git diff --staged --quiet; then echo "no changes to commit"; exit 0; fi
+          git commit -m "winners study $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git fetch origin main
+            git rebase --autostash origin/main || git rebase --abort || true
+            if git push origin HEAD:main; then echo "pushed on attempt $i"; exit 0; fi
+            echo "push rejected, retrying ($i/3)"; sleep 5
+          done
+          echo "could not push after 3 attempts"; exit 1
