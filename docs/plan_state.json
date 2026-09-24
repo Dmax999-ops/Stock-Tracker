@@ -2,16 +2,17 @@
   "as_of": "2026-09-24",
   "model": [
     "SNDK",
-    "MRNA",
     "MU",
-    "DELL",
-    "ILMN",
-    "BE",
+    "LITE",
     "VLO",
+    "MRK",
+    "JNJ",
+    "ILMN",
     "MPC",
-    "CRL",
-    "NUE"
+    "NUE",
+    "PFG"
   ],
+  "method": "risk_adjusted_12_1_v2",
   "market_on": true,
   "holdings": [
     {

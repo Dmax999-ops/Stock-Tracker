@@ -1,12 +1,134 @@
 {
-  "generated": "2026-09-24T13:28:04.290911+00:00",
+  "generated": "2026-09-24T13:52:53.832563+00:00",
   "as_of": "2026-09-24",
+  "holding_ranks": [
+    {
+      "ticker": "IQE.L",
+      "rank": 6,
+      "why": "qualifies, but the Information Technology places went to higher scores (limit 3 per sector, 2 per industry)",
+      "of": 507,
+      "score": 3.55,
+      "in_model": false
+    },
+    {
+      "ticker": "GOOG",
+      "rank": 132,
+      "why": "not in a confirmed uptrend",
+      "of": 507,
+      "score": 1.02,
+      "in_model": false
+    },
+    {
+      "ticker": "DEBS.L",
+      "rank": 143,
+      "why": "industry not in the top fifth",
+      "of": 507,
+      "score": 0.99,
+      "in_model": false
+    },
+    {
+      "ticker": "AAPL",
+      "rank": 190,
+      "why": "qualifies, but scores below the tenth place",
+      "of": 507,
+      "score": 0.81,
+      "in_model": false
+    },
+    {
+      "ticker": "ZOO.L",
+      "rank": 193,
+      "why": "industry not in the top fifth",
+      "of": 507,
+      "score": 0.76,
+      "in_model": false
+    },
+    {
+      "ticker": "FRES.L",
+      "rank": 201,
+      "why": "not in a confirmed uptrend",
+      "of": 507,
+      "score": 0.74,
+      "in_model": false
+    },
+    {
+      "ticker": "AMZN",
+      "rank": 249,
+      "why": "industry not in the top fifth",
+      "of": 507,
+      "score": 0.49,
+      "in_model": false
+    },
+    {
+      "ticker": "NVDA",
+      "rank": 250,
+      "why": "qualifies, but scores below the tenth place",
+      "of": 507,
+      "score": 0.49,
+      "in_model": false
+    },
+    {
+      "ticker": "MSFT",
+      "rank": 379,
+      "why": "qualifies, but scores below the tenth place",
+      "of": 507,
+      "score": -0.07,
+      "in_model": false
+    },
+    {
+      "ticker": "TEM",
+      "rank": 404,
+      "why": "industry not in the top fifth",
+      "of": 507,
+      "score": -0.22,
+      "in_model": false
+    },
+    {
+      "ticker": "TSLA",
+      "rank": 431,
+      "why": "not in a confirmed uptrend",
+      "of": 507,
+      "score": -0.35,
+      "in_model": false
+    },
+    {
+      "ticker": "CELH",
+      "rank": 451,
+      "why": "not in a confirmed uptrend",
+      "of": 507,
+      "score": -0.49,
+      "in_model": false
+    },
+    {
+      "ticker": "LIT.L",
+      "rank": 467,
+      "why": "not in a confirmed uptrend",
+      "of": 507,
+      "score": -0.59,
+      "in_model": false
+    },
+    {
+      "ticker": "VST",
+      "rank": 485,
+      "why": "not in a confirmed uptrend",
+      "of": 507,
+      "score": -0.74,
+      "in_model": false
+    },
+    {
+      "ticker": "SPCX",
+      "rank": null,
+      "why": "not enough price history",
+      "of": 507,
+      "score": null,
+      "in_model": false
+    }
+  ],
   "market": {
     "on": true,
-    "spy": 767.8099975585938,
-    "ma200": 713.9185919189454,
-    "vs200": 0.07548676592774162,
-    "ret_12m": 0.16383786942844192
+    "spy": 765.1699829101562,
+    "ma200": 714.3525842285156,
+    "vs200": 0.07113769839094553,
+    "ret_12m": 0.16618426603398784
   },
   "rebalance_day": true,
   "holdings": [
@@ -20,9 +142,9 @@
       "industry_rank": 15,
       "industries_total": 84,
       "trend": "down",
-      "vs_200d": -0.1113,
-      "price": 2903.0,
-      "momentum": 0.0608
+      "vs_200d": -0.1235,
+      "price": 2863.0,
+      "momentum": 0.0462
     },
     {
       "ticker": "IQE.L",
@@ -30,13 +152,13 @@
       "action": "BUY",
       "why": "strong industry (top fifth) and a confirmed uptrend -- qualifies to add",
       "industry": "Semiconductors",
-      "industry_rank_pct": 0.964,
-      "industry_rank": 4,
+      "industry_rank_pct": 0.952,
+      "industry_rank": 5,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.3614,
-      "price": 44.4,
-      "momentum": 1.7202
+      "vs_200d": 0.3674,
+      "price": 44.6,
+      "momentum": 1.7325
     },
     {
       "ticker": "ZOO.L",
@@ -44,8 +166,8 @@
       "action": "HOLD",
       "why": "uptrend, industry not in the top fifth",
       "industry": "Movies & Entertainment",
-      "industry_rank_pct": 0.179,
-      "industry_rank": 70,
+      "industry_rank_pct": 0.19,
+      "industry_rank": 69,
       "industries_total": 84,
       "trend": "up",
       "vs_200d": 0.3705,
@@ -76,9 +198,9 @@
       "industry_rank": 59,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.1267,
-      "price": 23.9,
-      "momentum": 0.4001
+      "vs_200d": 0.1312,
+      "price": 23.99,
+      "momentum": 0.4057
     },
     {
       "ticker": "AAPL",
@@ -90,9 +212,9 @@
       "industry_rank": 1,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.1752,
-      "price": 337.02,
-      "momentum": 0.2712
+      "vs_200d": 0.1697,
+      "price": 335.79,
+      "momentum": 0.2925
     },
     {
       "ticker": "AMZN",
@@ -104,9 +226,9 @@
       "industry_rank": 59,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.0359,
-      "price": 249.27,
-      "momentum": 0.1206
+      "vs_200d": 0.0227,
+      "price": 246.18,
+      "momentum": 0.1209
     },
     {
       "ticker": "GOOG",
@@ -114,13 +236,13 @@
       "action": "HOLD",
       "why": "no confirmed trend either way",
       "industry": "Interactive Media & Services",
-      "industry_rank_pct": 0.56,
-      "industry_rank": 38,
+      "industry_rank_pct": 0.595,
+      "industry_rank": 35,
       "industries_total": 84,
       "trend": "mixed",
-      "vs_200d": -0.0035,
-      "price": 334.98,
-      "momentum": 0.1531
+      "vs_200d": -0.005,
+      "price": 334.56,
+      "momentum": 0.1548
     },
     {
       "ticker": "MSFT",
@@ -128,13 +250,13 @@
       "action": "BUY",
       "why": "strong industry (top fifth) and a confirmed uptrend -- qualifies to add",
       "industry": "Systems Software",
-      "industry_rank_pct": 0.952,
-      "industry_rank": 5,
+      "industry_rank_pct": 0.964,
+      "industry_rank": 4,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.1631,
-      "price": 500.59,
-      "momentum": 0.2339
+      "vs_200d": 0.1415,
+      "price": 491.35,
+      "momentum": 0.2326
     },
     {
       "ticker": "NVDA",
@@ -142,13 +264,13 @@
       "action": "BUY",
       "why": "strong industry (top fifth) and a confirmed uptrend -- qualifies to add",
       "industry": "Semiconductors",
-      "industry_rank_pct": 0.964,
-      "industry_rank": 4,
+      "industry_rank_pct": 0.952,
+      "industry_rank": 5,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.1348,
-      "price": 225.51,
-      "momentum": 0.2186
+      "vs_200d": 0.1193,
+      "price": 222.65,
+      "momentum": 0.2128
     },
     {
       "ticker": "TSLA",
@@ -160,9 +282,9 @@
       "industry_rank": 42,
       "industries_total": 84,
       "trend": "down",
-      "vs_200d": -0.0409,
-      "price": 380.12,
-      "momentum": -0.04
+      "vs_200d": -0.0438,
+      "price": 378.62,
+      "momentum": -0.0402
     },
     {
       "ticker": "CELH",
@@ -170,13 +292,13 @@
       "action": "SELL",
       "why": "confirmed downtrend: below its 200-day, 50-day below 200-day",
       "industry": "Soft Drinks & Non-alcoholic Beverages",
-      "industry_rank_pct": 0.619,
-      "industry_rank": 33,
+      "industry_rank_pct": 0.679,
+      "industry_rank": 28,
       "industries_total": 84,
       "trend": "down",
-      "vs_200d": -0.2111,
-      "price": 29.18,
-      "momentum": -0.207
+      "vs_200d": -0.2164,
+      "price": 28.93,
+      "momentum": -0.2008
     },
     {
       "ticker": "VST",
@@ -188,9 +310,9 @@
       "industry_rank": 74,
       "industries_total": 84,
       "trend": "down",
-      "vs_200d": -0.1124,
-      "price": 137.97,
-      "momentum": -0.2028
+      "vs_200d": -0.12,
+      "price": 136.66,
+      "momentum": -0.2021
     },
     {
       "ticker": "TEM",
@@ -198,13 +320,13 @@
       "action": "HOLD",
       "why": "uptrend, industry not in the top fifth",
       "industry": "Health Care Services",
-      "industry_rank_pct": 0.643,
-      "industry_rank": 31,
+      "industry_rank_pct": 0.607,
+      "industry_rank": 34,
       "industries_total": 84,
       "trend": "up",
-      "vs_200d": 0.3631,
-      "price": 76.59,
-      "momentum": 0.3117
+      "vs_200d": 0.3691,
+      "price": 76.93,
+      "momentum": 0.3205
     },
     {
       "ticker": "SPCX",
@@ -212,12 +334,12 @@
       "action": "HOLD",
       "why": "too little price history to judge -- no signal",
       "industry": "Aerospace & Defense",
-      "industry_rank_pct": 0.19,
-      "industry_rank": 69,
+      "industry_rank_pct": 0.179,
+      "industry_rank": 70,
       "industries_total": 84,
       "trend": "insufficient",
       "vs_200d": null,
-      "price": 148.36,
+      "price": 146.01,
       "momentum": null
     }
   ],
@@ -229,20 +351,11 @@
       "sector": "Information Technology",
       "industry": "Technology Hardware, Storage & Peripherals",
       "industry_rank_pct": 1.0,
-      "momentum": 6.0617,
+      "momentum": 5.7496,
+      "score": 10.957,
       "gbp": 1000.0,
-      "price": 1816.57
-    },
-    {
-      "ticker": "MRNA",
-      "yf": "MRNA",
-      "name": "Moderna",
-      "sector": "Health Care",
-      "industry": "Biotechnology",
-      "industry_rank_pct": 0.976,
-      "momentum": 3.4726,
-      "gbp": 1000.0,
-      "price": 182.11
+      "price": 1791.6,
+      "owned": false
     },
     {
       "ticker": "MU",
@@ -250,43 +363,25 @@
       "name": "Micron Technology",
       "sector": "Information Technology",
       "industry": "Semiconductors",
-      "industry_rank_pct": 0.964,
-      "momentum": 2.4186,
+      "industry_rank_pct": 0.952,
+      "momentum": 2.3273,
+      "score": 4.924,
       "gbp": 1000.0,
-      "price": 1071.88
+      "price": 1054.96,
+      "owned": false
     },
     {
-      "ticker": "DELL",
-      "yf": "DELL",
-      "name": "Dell Technologies",
+      "ticker": "LITE",
+      "yf": "LITE",
+      "name": "Lumentum",
       "sector": "Information Technology",
-      "industry": "Technology Hardware, Storage & Peripherals",
-      "industry_rank_pct": 1.0,
-      "momentum": 1.8318,
+      "industry": "Communications Equipment",
+      "industry_rank_pct": 0.94,
+      "momentum": 1.6887,
+      "score": 4.559,
       "gbp": 1000.0,
-      "price": 549.83
-    },
-    {
-      "ticker": "ILMN",
-      "yf": "ILMN",
-      "name": "Illumina, Inc.",
-      "sector": "Health Care",
-      "industry": "Life Sciences Tools & Services",
-      "industry_rank_pct": 0.917,
-      "momentum": 1.0323,
-      "gbp": 1000.0,
-      "price": 255.38
-    },
-    {
-      "ticker": "BE",
-      "yf": "BE",
-      "name": "Bloom Energy",
-      "sector": "Industrials",
-      "industry": "Electrical Components & Equipment",
-      "industry_rank_pct": 0.881,
-      "momentum": 0.9733,
-      "gbp": 1000.0,
-      "price": 275.19
+      "price": 943.97,
+      "owned": false
     },
     {
       "ticker": "VLO",
@@ -295,9 +390,50 @@
       "sector": "Energy",
       "industry": "Oil & Gas Refining & Marketing",
       "industry_rank_pct": 0.988,
-      "momentum": 0.8351,
+      "momentum": 0.8494,
+      "score": 2.899,
       "gbp": 1000.0,
-      "price": 375.84
+      "price": 384.0,
+      "owned": false
+    },
+    {
+      "ticker": "MRK",
+      "yf": "MRK",
+      "name": "Merck & Co.",
+      "sector": "Health Care",
+      "industry": "Pharmaceuticals",
+      "industry_rank_pct": 0.869,
+      "momentum": 0.4958,
+      "score": 2.823,
+      "gbp": 1000.0,
+      "price": 150.33,
+      "owned": false
+    },
+    {
+      "ticker": "JNJ",
+      "yf": "JNJ",
+      "name": "Johnson & Johnson",
+      "sector": "Health Care",
+      "industry": "Pharmaceuticals",
+      "industry_rank_pct": 0.869,
+      "momentum": 0.305,
+      "score": 2.723,
+      "gbp": 1000.0,
+      "price": 273.11,
+      "owned": false
+    },
+    {
+      "ticker": "ILMN",
+      "yf": "ILMN",
+      "name": "Illumina, Inc.",
+      "sector": "Health Care",
+      "industry": "Life Sciences Tools & Services",
+      "industry_rank_pct": 0.929,
+      "momentum": 1.0273,
+      "score": 2.689,
+      "gbp": 1000.0,
+      "price": 258.77,
+      "owned": false
     },
     {
       "ticker": "MPC",
@@ -306,20 +442,11 @@
       "sector": "Energy",
       "industry": "Oil & Gas Refining & Marketing",
       "industry_rank_pct": 0.988,
-      "momentum": 0.7925,
+      "momentum": 0.8025,
+      "score": 2.654,
       "gbp": 1000.0,
-      "price": 388.38
-    },
-    {
-      "ticker": "CRL",
-      "yf": "CRL",
-      "name": "Charles River Laboratories",
-      "sector": "Health Care",
-      "industry": "Life Sciences Tools & Services",
-      "industry_rank_pct": 0.917,
-      "momentum": 0.6754,
-      "gbp": 1000.0,
-      "price": 277.33
+      "price": 396.9,
+      "owned": false
     },
     {
       "ticker": "NUE",
@@ -328,85 +455,109 @@
       "sector": "Materials",
       "industry": "Steel",
       "industry_rank_pct": 0.833,
-      "momentum": 0.4858,
+      "momentum": 0.4758,
+      "score": 2.427,
       "gbp": 1000.0,
-      "price": 246.98
+      "price": 247.71,
+      "owned": false
+    },
+    {
+      "ticker": "PFG",
+      "yf": "PFG",
+      "name": "Principal Financial Group",
+      "sector": "Financials",
+      "industry": "Life & Health Insurance",
+      "industry_rank_pct": 0.81,
+      "momentum": 0.2778,
+      "score": 1.76,
+      "gbp": 1000.0,
+      "price": 114.07,
+      "owned": false
     }
   ],
   "model_notes": [],
-  "prev_model": [],
+  "prev_model": [
+    "SNDK",
+    "MRNA",
+    "MU",
+    "DELL",
+    "ILMN",
+    "BE",
+    "VLO",
+    "MPC",
+    "CRL",
+    "NUE"
+  ],
   "changes": [
-    "Model: **BUY** VLO",
-    "Model: **BUY** MRNA",
-    "Model: **BUY** BE",
-    "Model: **BUY** ILMN",
-    "Model: **BUY** NUE",
-    "Model: **BUY** MPC",
-    "Model: **BUY** MU",
-    "Model: **BUY** SNDK",
-    "Model: **BUY** CRL",
-    "Model: **BUY** DELL"
+    "Model: **SELL** DELL",
+    "Model: **SELL** MRNA",
+    "Model: **SELL** CRL",
+    "Model: **SELL** BE",
+    "Model: **BUY** MRK",
+    "Model: **BUY** PFG",
+    "Model: **BUY** JNJ",
+    "Model: **BUY** LITE"
   ],
   "top_industries": [
     [
       "Technology Hardware, Storage & Peripherals",
-      1.382612627496002
+      1.353808448044496
     ],
     [
       "Oil & Gas Refining & Marketing",
-      0.7668271957980922
+      0.7811706132757777
     ],
     [
       "Biotechnology",
-      0.6647276885429229
-    ],
-    [
-      "Semiconductors",
-      0.5959096671195111
+      0.6714086807511319
     ],
     [
       "Systems Software",
-      0.5503356336956142
+      0.5708762568077642
+    ],
+    [
+      "Semiconductors",
+      0.553099756349994
     ],
     [
       "Communications Equipment",
-      0.5240487391546457
-    ],
-    [
-      "Semiconductor Materials & Equipment",
-      0.515818444793775
+      0.5311257607055953
     ],
     [
       "Life Sciences Tools & Services",
-      0.45576886961856605
+      0.457572861017292
+    ],
+    [
+      "Semiconductor Materials & Equipment",
+      0.43622321453094093
     ],
     [
       "Managed Health Care",
-      0.3947209193118998
+      0.38112365513509383
     ],
     [
       "Electronic Components",
-      0.32660593211763417
+      0.31514646257703155
     ],
     [
       "Electrical Components & Equipment",
-      0.2966410752149413
-    ],
-    [
-      "Electronic Equipment & Instruments",
-      0.22767992480894758
+      0.27530469874025276
     ],
     [
       "Pharmaceuticals",
-      0.21467719664754795
+      0.2311298045975864
     ],
     [
-      "Electronic Manufacturing Services",
-      0.20948648196302203
+      "SECTOR:Energy",
+      0.22069327851910198
+    ],
+    [
+      "Electronic Equipment & Instruments",
+      0.2129708996205006
     ],
     [
       "SECTOR:Materials",
-      0.20541047923861588
+      0.19655144533274188
     ]
   ]
 }
