@@ -494,15 +494,15 @@
     "status": "recycled"
   },
   "AT": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "1996-01-02..2007-11-16",
-    "last_try": "2026-09-23",
+    "last_try": "2026-09-24",
     "status": "empty"
   },
   "ATGE": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "2009-06-09..2012-09-25",
-    "last_try": "2026-09-23",
+    "last_try": "2026-09-24",
     "status": "empty"
   },
   "ATI": {
@@ -536,9 +536,9 @@
     "symbol_used": "ATVI"
   },
   "AV": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "2000-10-02..2007-10-25",
-    "last_try": "2026-09-23",
+    "last_try": "2026-09-24",
     "status": "empty"
   },
   "AVP": {
@@ -557,15 +557,15 @@
     "symbol_used": "AVP"
   },
   "AW": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "1999-08-02..2008-12-04",
-    "last_try": "2026-09-23",
+    "last_try": "2026-09-24",
     "status": "empty"
   },
   "AWE": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "2001-07-09..2004-10-26",
-    "last_try": "2026-09-23",
+    "last_try": "2026-09-24",
     "status": "empty"
   },
   "AYE": {
@@ -599,27 +599,27 @@
     "symbol_used": "AYI"
   },
   "AZA.A": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "1996-01-02..2001-06-20",
-    "last_try": "2026-09-23",
+    "last_try": "2026-09-24",
     "status": "empty"
   },
   "BAY": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "1996-02-12..1998-08-28",
-    "last_try": "2026-09-23",
+    "last_try": "2026-09-24",
     "status": "empty"
   },
   "BBBY": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "1999-10-01..2017-07-25",
-    "last_try": "2026-09-23",
+    "last_try": "2026-09-24",
     "status": "empty"
   },
   "BBI": {
-    "attempts": 1,
+    "attempts": 2,
     "index_window": "1996-01-02..1998-01-05",
-    "last_try": "2026-09-23",
+    "last_try": "2026-09-24",
     "status": "empty"
   },
   "BBT": {
@@ -668,11 +668,11 @@
     "symbol_used": "BC"
   },
   "BCO": {
-    "attempts": 1,
+    "attempts": 2,
     "data_window": "1999-11-12..2026-09-23",
     "gap_days": 1400,
     "index_window": "1996-01-02..1996-01-12",
-    "last_try": "2026-09-23",
+    "last_try": "2026-09-24",
     "status": "recycled"
   },
   "BCR": {
@@ -691,15 +691,15 @@
     "symbol_used": "BCR"
   },
   "BDK": {
-    "attempts": 1,
+    "attempts": 2,
     "index_window": "1996-01-02..2010-03-11",
-    "last_try": "2026-09-23",
+    "last_try": "2026-09-24",
     "status": "empty"
   },
   "BEV": {
-    "attempts": 1,
+    "attempts": 2,
     "index_window": "1996-01-02..1997-12-02",
-    "last_try": "2026-09-23",
+    "last_try": "2026-09-24",
     "status": "empty"
   },
   "BF.B": {
@@ -716,5 +716,82 @@
     "rows": 1403,
     "status": "done",
     "symbol_used": "BF-B"
+  },
+  "BFI": {
+    "attempts": 1,
+    "index_window": "1996-01-02..1999-07-30",
+    "last_try": "2026-09-24",
+    "status": "empty"
+  },
+  "BFO": {
+    "attempts": 1,
+    "data_window": "2003-10-10..2020-12-15",
+    "gap_days": 1103,
+    "index_window": "1996-01-02..2000-10-02",
+    "last_try": "2026-09-24",
+    "status": "recycled"
+  },
+  "BGEN": {
+    "attempts": 1,
+    "index_window": "2000-01-31..2003-11-12",
+    "last_try": "2026-09-24",
+    "status": "empty"
+  },
+  "BGG": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2020-07-20",
+    "delisting_date": "2020-07-20",
+    "fate_heuristic": "wipeout",
+    "final_drawdown": -0.9598,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..2001-04-02",
+    "last": "2020-07-20",
+    "last_try": "2026-09-24",
+    "post_exit_only": false,
+    "rows": 1081,
+    "status": "done",
+    "symbol_used": "BGG"
+  },
+  "BHF": {
+    "attempts": 1,
+    "data_window": "2017-07-28..2026-09-23",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.2124,
+    "first": "2017-07-28",
+    "index_window": "2017-08-07..2019-02-27",
+    "last": "2026-09-23",
+    "last_try": "2026-09-24",
+    "post_exit_only": false,
+    "rows": 479,
+    "status": "done",
+    "symbol_used": "BHF"
+  },
+  "BHMSQ": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2000-12-08",
+    "last_try": "2026-09-24",
+    "status": "empty"
+  },
+  "BIG": {
+    "attempts": 1,
+    "index_window": "1998-01-20..2013-02-06",
+    "last_try": "2026-09-24",
+    "status": "empty"
+  },
+  "BIO": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-09-23",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0227,
+    "first": "1999-11-12",
+    "index_window": "2020-06-22..2024-09-21",
+    "last": "2026-09-23",
+    "last_try": "2026-09-24",
+    "post_exit_only": false,
+    "rows": 1403,
+    "status": "done",
+    "symbol_used": "BIO"
   }
 }
