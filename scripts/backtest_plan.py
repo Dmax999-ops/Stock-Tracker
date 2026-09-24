@@ -103,16 +103,31 @@ def load_panel(prices: str, delisted: str) -> tuple[pd.DataFrame, dict]:
     return C, info
 
 
-def load_spy(idx: pd.DatetimeIndex) -> pd.Series:
-    try:
-        import yfinance as yf
-        s = yf.download("SPY", start=str(idx[0].date()), auto_adjust=True,
-                        progress=False)["Close"]
-        s = s.squeeze()
-        s.index = pd.to_datetime(s.index).tz_localize(None)
-        return s.reindex(idx).ffill()
-    except Exception:                                              # noqa: BLE001
-        return pd.Series(dtype=float)
+def load_spy(idx: pd.DatetimeIndex, log=print) -> pd.Series:
+    """S&P 500 (SPY, dividends included). Several routes, because one failing
+    download must not sink an hour-long test."""
+    import time
+    import yfinance as yf
+    for attempt in range(4):
+        for how in ("download", "history"):
+            try:
+                if how == "download":
+                    d = yf.download("SPY", start="1993-01-01", auto_adjust=True, progress=False)
+                    s = d["Close"]
+                    s = s.iloc[:, 0] if isinstance(s, pd.DataFrame) else s
+                else:
+                    s = yf.Ticker("SPY").history(period="max", auto_adjust=True)["Close"]
+                s.index = pd.to_datetime(s.index)
+                if s.index.tz is not None:
+                    s.index = s.index.tz_localize(None)
+                s.index = s.index.normalize()
+                s = s[~s.index.duplicated()].sort_index()
+                if len(s) > 1000:
+                    return s.reindex(idx).ffill()
+            except Exception as e:                                 # noqa: BLE001
+                log(f"  SPY via {how} failed: {type(e).__name__}: {e}")
+        time.sleep(15 * (attempt + 1))
+    return pd.Series(dtype=float)
 
 
 # ---------------------------------------------------------------------------
@@ -340,10 +355,16 @@ def write_md(out: dict, path: Path):
                  f"{f['max_drawdown']:.0%} vs {s['max_drawdown']:.0%}. Costs paid: "
                  f"£{r['costs_gbp']:,.0f}.\n")
         for h, v in r["halves"].items():
+            if not v.get("plan") or not v.get("spy"):
+                L.append(f"- {h}: not enough data")
+                continue
             L.append(f"- {h}: plan {v['plan']['cagr']:+.1%}/yr (worst {v['plan']['max_drawdown']:.0%}), "
                      f"S&P {v['spy']['cagr']:+.1%}/yr (worst {v['spy']['max_drawdown']:.0%})")
         p = r["prediction"]
-        L.append(f"\n**Did the score predict the next 12 months?** Rank correlation "
+        if not p:
+            L.append("\n_Prediction check: not enough history after each pick to measure._\n")
+        else:
+          L.append(f"\n**Did the score predict the next 12 months?** Rank correlation "
                  f"{p['ic_12m_mean']:+.3f} on average (t = {p['ic_1m_t']:+.1f} on non-overlapping "
                  f"months; above 2 means real). Top tenth by score went on to make "
                  f"{p['top10_12m']:+.1%} a year, bottom tenth {p['bottom10_12m']:+.1%}, the average "
@@ -424,7 +445,7 @@ def main() -> int:
             spy = pd.read_csv(a.spy_csv, index_col=0, parse_dates=True).iloc[:, 0].reindex(C.index).ffill()
         else:
             spy = load_spy(C.index)
-        if spy.notna().sum() < 1000:
+        if spy.notna().sum() < 0.5 * len(C):
             raise RuntimeError("could not get SPY history")
         C = C.loc[spy.first_valid_index():]
         member = member[-len(C):]
@@ -458,6 +479,8 @@ def main() -> int:
         out["error"] = f"{type(exc).__name__}: {exc}"
         out["traceback"] = traceback.format_exc().splitlines()[-25:]
         Path(a.out).write_text(json.dumps(out, indent=2, default=str))
+        Path(a.md).parent.mkdir(parents=True, exist_ok=True)
+        Path(a.md).write_text("# Backtest FAILED\n\n```\n" + "\n".join(out["traceback"]) + "\n```\n")
         print(traceback.format_exc(), file=sys.stderr)
         return 1
 
