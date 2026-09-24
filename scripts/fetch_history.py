@@ -40,7 +40,13 @@ import requests
 FRENCH = "https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/"
 F_FACTORS = FRENCH + "F-F_Research_Data_Factors_CSV.zip"
 F_IND10 = FRENCH + "10_Industry_Portfolios_CSV.zip"
+# Finer industries. Momentum is consistently stronger with finer groupings --
+# ten broad sectors blur it -- and many of these finer industries now have
+# their own ETFs.
+F_IND30 = FRENCH + "30_Industry_Portfolios_CSV.zip"
+F_IND49 = FRENCH + "49_Industry_Portfolios_CSV.zip"
 FRED_GS10 = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=GS10"
+FRED_GS10_ALT = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=GS10&cosd=1953-04-01"
 SHILLER = "http://www.econ.yale.edu/~shiller/data/ie_data.xls"
 UA = {"User-Agent": "Mozilla/5.0 (research; Stock-Tracker)"}
 
@@ -126,8 +132,21 @@ def long_yields(man: dict) -> pd.Series:
     except Exception as e:                                         # noqa: BLE001
         man["shiller"] = f"FAILED: {type(e).__name__}: {e}"
     try:
-        r = requests.get(FRED_GS10, headers=UA, timeout=120)
-        r.raise_for_status()
+        r, last = None, None
+        for attempt in range(4):
+            for url in (FRED_GS10, FRED_GS10_ALT):
+                try:
+                    r = requests.get(url, headers=UA, timeout=300)
+                    r.raise_for_status()
+                    break
+                except Exception as e:                             # noqa: BLE001
+                    last, r = e, None
+            if r is not None:
+                break
+            import time
+            time.sleep(20 * (attempt + 1))
+        if r is None:
+            raise last
         f = pd.read_csv(io.StringIO(r.text))
         f.columns = ["date", "GS10"]
         f["date"] = pd.to_datetime(f["date"]) + pd.offsets.MonthEnd(0)
@@ -159,6 +178,14 @@ def main() -> int:
         ind.to_csv(out / "industries.csv", index_label="date")
         man["industries"] = (f"{list(ind.columns)} {ind.index[0].date()} -> "
                              f"{ind.index[-1].date()}")
+
+        for name, url in (("industries30", F_IND30), ("industries49", F_IND49)):
+            try:
+                d = french_first_monthly_table(get_zip_csv(url))
+                d.to_csv(out / f"{name}.csv", index_label="date")
+                man[name] = f"{d.shape[1]} industries {d.index[0].date()} -> {d.index[-1].date()}"
+            except Exception as e:                                 # noqa: BLE001
+                man[name] = f"FAILED: {type(e).__name__}: {e}"
 
         y = long_yields(man)
         b = bond_returns_from_yields(y)
