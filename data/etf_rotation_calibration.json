@@ -1,0 +1,60 @@
+{
+  "generated": "2026-09-24T09:20:06.516798+00:00",
+  "env": {
+    "pandas": "3.0.6",
+    "numpy": "2.4.6",
+    "python": "3.11.16"
+  },
+  "mode": "calibration",
+  "false_positive_rate": 0.0,
+  "detail": [
+    {
+      "panel": 0,
+      "fired": []
+    },
+    {
+      "panel": 1,
+      "fired": []
+    },
+    {
+      "panel": 2,
+      "fired": []
+    },
+    {
+      "panel": 3,
+      "fired": []
+    },
+    {
+      "panel": 4,
+      "fired": []
+    },
+    {
+      "panel": 5,
+      "fired": []
+    },
+    {
+      "panel": 6,
+      "fired": []
+    },
+    {
+      "panel": 7,
+      "fired": []
+    },
+    {
+      "panel": 8,
+      "fired": []
+    },
+    {
+      "panel": 9,
+      "fired": []
+    },
+    {
+      "panel": 10,
+      "fired": []
+    },
+    {
+      "panel": 11,
+      "fired": []
+    }
+  ]
+}
