@@ -2,7 +2,8 @@ name: Daily plan
 
 # Two outputs every weekday, after the US close:
 #   1. BUY / HOLD / SELL for every stock in config/holdings.yml
-#   2. the GBP 10,000 model portfolio from the whole S&P 500
+#   2. the GBP 10,000 model portfolio from the Russell 1000 (S&P 500 fallback),
+#      with themes (e.g. AI) found from how stocks trade together
 # Written to docs/PLAN.md (readable on GitHub) and docs/plan.json.
 
 on:
@@ -28,7 +29,7 @@ jobs:
           python-version: '3.11'
           cache: pip
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt requests lxml pyyaml
 
       - name: Build today's plan
         run: python scripts/daily_plan.py
