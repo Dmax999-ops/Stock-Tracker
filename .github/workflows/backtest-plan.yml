@@ -38,6 +38,7 @@ jobs:
           fi
 
       - name: Run the backtest
+        if: always()
         run: python scripts/backtest_plan.py
 
       - name: Commit
@@ -45,7 +46,10 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A docs/BACKTEST.md data/plan_backtest.json || true
+          # add each file on its own: one missing file must not stop the other
+          for f in docs/BACKTEST.md data/plan_backtest.json; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
           if git diff --staged --quiet; then echo "no changes to commit"; exit 0; fi
           git commit -m "plan backtest $(date -u +%Y-%m-%d)"
           for i in 1 2 3; do
