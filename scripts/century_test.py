@@ -53,6 +53,16 @@ OOS_END = pd.Timestamp("1999-12-31")
 CAGR_MARGIN, CALMAR_MULT, T_BAR = 0.01, 1.10, 2.0
 
 
+def load_fine(root="data/history"):
+    """30- and 49-industry panels, if the fetch job has saved them."""
+    out = {}
+    for n in (30, 49):
+        f = Path(root) / f"industries{n}.csv"
+        if f.exists():
+            out[n] = pd.read_csv(f, index_col=0, parse_dates=True)
+    return out
+
+
 def load(root="data/history"):
     m = pd.read_csv(f"{root}/market.csv", index_col=0, parse_dates=True)
     ind = pd.read_csv(f"{root}/industries.csv", index_col=0, parse_dates=True)
@@ -143,6 +153,44 @@ def rules(R: pd.DataFrame) -> dict:
     return A
 
 
+def fine_rules(R: pd.DataFrame, F: pd.DataFrame, tag: str) -> dict:
+    """
+    The SAME pre-registered rule on finer industries: average of 3/6/12-month
+    momentum, hold the top fifth (30 -> 6, 49 -> 10), equal weight, monthly.
+    Plus the same market filter into the same safe haven. Nothing re-tuned.
+    """
+    cols = list(F.columns)
+    k = max(3, round(len(cols) / 5))
+    J = F.reindex(R.index)
+    LF = (1 + J.fillna(0)).cumprod().where(J.notna().cumsum() > 0)
+    LM = (1 + R["MKT"].fillna(0)).cumprod()
+    ma10 = LM.rolling(10, min_periods=10).mean()
+    LB = (1 + R["BOND"].fillna(0)).cumprod().where(R["BOND"].notna().cumsum() > 0)
+    mb = LB.rolling(10, min_periods=10).mean()
+
+    def pick(t):
+        if t < 12:
+            return None
+        sc = sum(LF.iloc[t] / LF.iloc[t - n] - 1 for n in (3, 6, 12)) / 3
+        sc = sc.dropna()
+        if len(sc) < k * 2:
+            return None
+        top = sc.sort_values(ascending=False).index[:k]
+        return {f"{tag}:{c}": 1 / k for c in top}
+
+    def safe(t):
+        if np.isfinite(mb.iat[t]) and LB.iat[t] > mb.iat[t]:
+            return {"BOND": 1.0}
+        return {"RF": 1.0}
+
+    def filt(t):
+        p = pick(t)
+        if p is None or not np.isfinite(ma10.iat[t]):
+            return None
+        return p if LM.iat[t] > ma10.iat[t] else safe(t)
+    return {f"{tag}_top": pick, f"{tag}_top_safe": filt}
+
+
 def run(R: pd.DataFrame, decide) -> pd.Series:
     """Decide at the end of month t with data to t; earn month t+1's returns."""
     n = len(R)
@@ -195,8 +243,14 @@ def periods(eq):
             "2000_on": eq[eq.index > OOS_END], "century": eq}
 
 
-def evaluate(R):
+def evaluate(R, fine=None):
     A = rules(R)
+    if fine:
+        for n, F in fine.items():
+            tag = f"ind{n}"
+            for c in F.columns:
+                R[f"{tag}:{c}"] = F[c].reindex(R.index)
+            A.update(fine_rules(R, F, tag))
     curves = {k: run(R, f) for k, f in A.items()}
     t0 = max(c.index[0] for c in curves.values())
     curves = {k: v[v.index >= t0] for k, v in curves.items()}
@@ -272,7 +326,9 @@ def main() -> int:
             return 0
 
         R = load(a.data)
-        curves = evaluate(R)
+        fine = load_fine(a.data)
+        print("finer industry panels:", {n: f.shape[1] for n, f in fine.items()} or "none")
+        curves = evaluate(R, fine)
         mh = curves["market_hold"]
         table, ts = {}, {}
         for k, eq in curves.items():
