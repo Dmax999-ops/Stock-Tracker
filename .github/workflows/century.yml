@@ -1,0 +1,61 @@
+name: Century test
+
+# The same rotation rules, on US market, industry, T-bill and 10-year Treasury
+# returns back to 1926 (Kenneth French's data library + Shiller/FRED yields).
+# 1927-1999 is history these rules were never tested on -- the out-of-sample
+# test. The raw monthly data is committed to data/history/ so every later
+# test can run from the repo.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 5 * *'        # monthly, after French updates his library
+
+permissions:
+  contents: write
+
+concurrency:
+  group: century
+  cancel-in-progress: false
+
+jobs:
+  century:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install requests xlrd
+
+      - name: Fetch a hundred years of history
+        run: python scripts/fetch_history.py
+
+      - name: Calibrate against random walks
+        if: always()
+        run: python scripts/century_test.py --calibrate 12 --out data/century_calibration.json
+
+      - name: Run the rules on 1926 onwards
+        if: always()
+        run: python scripts/century_test.py --out data/century_evidence.json
+
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A data/
+          if git diff --staged --quiet; then echo "no changes to commit"; exit 0; fi
+          git commit -m "century test $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git fetch origin main
+            git rebase --autostash origin/main || git rebase --abort || true
+            if git push origin HEAD:main; then echo "pushed on attempt $i"; exit 0; fi
+            echo "push rejected, retrying ($i/3)"; sleep 5
+          done
+          echo "could not push after 3 attempts"; exit 1
