@@ -105,6 +105,80 @@ def load_constituents(src=CONSTITUENTS) -> pd.DataFrame:
     return d[["Symbol", "yf", "Security", "GICS Sector", "GICS Sub-Industry"]]
 
 
+IWB = ("https://www.ishares.com/us/products/239707/ishares-russell-1000-etf/"
+       "1467271812596.ajax?fileType=csv&fileName=IWB_holdings&dataType=fund")
+NDX_WIKI = "https://en.wikipedia.org/wiki/Nasdaq-100"
+
+
+def parse_ishares(text: str) -> pd.DataFrame:
+    """iShares holdings CSV: a few preamble lines, then the table."""
+    import io
+    lines = text.splitlines()
+    start = next(i for i, l in enumerate(lines) if l.startswith("Ticker,"))
+    d = pd.read_csv(io.StringIO("\n".join(lines[start:])), on_bad_lines="skip")
+    d = d[(d.get("Asset Class") == "Equity") & d["Ticker"].astype(str).str.match(r"^[A-Z][A-Z0-9.\-]*$")]
+    if "Location" in d:
+        d = d[d["Location"] == "United States"]
+    fix = {"Communication": "Communication Services", "Information Technology": "Information Technology"}
+    sec = d["Sector"].astype(str).replace(fix) if "Sector" in d else "Unknown"
+    return pd.DataFrame({"Symbol": d["Ticker"].astype(str), "Security": d["Name"].astype(str).str.title(),
+                         "GICS Sector": sec})
+
+
+def load_universe(sp_src=CONSTITUENTS, man: dict | None = None) -> pd.DataFrame:
+    """
+    WHERE UP-AND-COMING COMPANIES ARE. Many of the newest AI and technology
+    names are not in the S&P 500 yet. The universe is the Russell 1000 -- the
+    1,000 largest US companies -- with the S&P 500's detailed industry labels
+    where they exist. Companies without a detailed label are still grouped
+    correctly, by the THEMES found from how they trade (see themes()). If the
+    Russell list cannot be fetched it falls back to NASDAQ-100 + S&P 500, then
+    to the S&P 500 alone -- it never simply stops.
+    """
+    man = man if man is not None else {}
+    sp = load_constituents(sp_src)
+    extra = None
+    try:
+        import requests
+        r = requests.get(IWB, timeout=60, headers={"User-Agent": "Mozilla/5.0"})
+        r.raise_for_status()
+        extra = parse_ishares(r.text)
+        man["universe"] = f"Russell 1000 ({len(extra)}) + S&P 500 labels"
+    except Exception as e:                                         # noqa: BLE001
+        man["russell_error"] = f"{type(e).__name__}: {e}"
+        try:
+            import io
+            import requests
+            h = requests.get(NDX_WIKI, timeout=60, headers={"User-Agent": "Mozilla/5.0"})
+            h.raise_for_status()
+            t = pd.read_html(io.StringIO(h.text))
+            tab = next(x for x in t if "Ticker" in x.columns or "Symbol" in x.columns)
+            col = "Ticker" if "Ticker" in tab.columns else "Symbol"
+            extra = pd.DataFrame({"Symbol": tab[col].astype(str),
+                                  "Security": tab.get("Company", tab[col]).astype(str),
+                                  "GICS Sector": tab.get("GICS Sector", "Unknown")})
+            man["universe"] = f"NASDAQ-100 ({len(extra)}) + S&P 500"
+        except Exception as e2:                                    # noqa: BLE001
+            man["nasdaq_error"] = f"{type(e2).__name__}: {e2}"
+            man["universe"] = "S&P 500 only"
+    if extra is not None:
+        extra["yf"] = extra["Symbol"].map(yf_symbol)
+        extra = extra[~extra["yf"].isin(sp["yf"])]
+        extra["GICS Sub-Industry"] = ""                # grouped by theme, not label
+        sp = pd.concat([sp, extra[sp.columns]], ignore_index=True)
+    return sp.drop_duplicates("yf")
+
+
+def load_watchlist(path="config/watchlist.yml") -> list[str]:
+    """Any extra tickers you want considered -- they compete on equal terms."""
+    p = Path(path)
+    if not p.exists():
+        return []
+    import yaml
+    cfg = yaml.safe_load(p.read_text()) or {}
+    return [yf_symbol(str(t)) for t in (cfg.get("watchlist") or [])]
+
+
 def load_holdings(path="config/holdings.yml") -> list[dict]:
     import yaml
     cfg = yaml.safe_load(Path(path).read_text()) or {}
@@ -147,7 +221,7 @@ def momentum(P: pd.DataFrame) -> pd.Series:
     return pd.Series(out)
 
 
-METHOD = "risk_adjusted_12_1_v2"
+METHOD = "risk_adjusted_12_1_themes_v3"
 
 
 def stock_score(P: pd.DataFrame) -> pd.Series:
@@ -168,13 +242,133 @@ def stock_score(P: pd.DataFrame) -> pd.Series:
     out = {}
     for c in P.columns:
         x = P[c].dropna()
-        if len(x) < 253:
+        if len(x) < 253 or c in pinned(P):
             out[c] = np.nan
             continue
-        vol = x.pct_change().iloc[-126:].std() * np.sqrt(252)
+        vol = max(x.pct_change().iloc[-126:].std() * np.sqrt(252), VOL_FLOOR)
         m = x.iloc[-22] / x.iloc[-253] - 1
-        out[c] = m / vol if vol > 0 else np.nan
+        out[c] = m / vol
     return pd.Series(out)
+
+
+VOL_FLOOR, PINNED_VOL = 0.15, 0.08
+
+
+def pinned(P: pd.DataFrame) -> set[str]:
+    """
+    TAKEOVER TARGETS. When a company agrees to be bought for cash, its share
+    price freezes just under the offer price. Its volatility collapses, and
+    "momentum per unit of volatility" explodes -- the first theme version put
+    AES (being taken private by GIP/EQT at a fixed price) in the ten with a
+    score of 4.4. There is no upside left in a stock like that. A real
+    listed company almost never moves less than 8% a year; a frozen one does.
+    """
+    key = (id(P), P.shape, P.index[-1])
+    if _PIN.get("key") != key:
+        R = P.pct_change(fill_method=None).iloc[-63:]
+        v = R.std() * np.sqrt(252)
+        W = P.iloc[-63:]
+        rng = W.max() / W.min() - 1                  # whole 3-month range
+        _PIN["key"], _PIN["val"] = key, {c for c in P.columns if c != "SPY" and (
+            v.get(c, 1) < PINNED_VOL or rng.get(c, 1) < 0.05)}
+    return _PIN["val"]
+
+
+_PIN: dict = {}
+
+
+N_THEME_DIMS, THEME_WINDOW, MAX_PER_THEME, MIN_THEME = 20, 126, 3, 6
+
+
+def themes(P: pd.DataFrame, cols: list[str], score: pd.Series, univ: pd.DataFrame,
+           seed: int = 0) -> tuple[pd.Series, pd.DataFrame]:
+    """
+    THEMES FROM THE DATA, NOT FROM LABELS.
+
+    Official industry labels are slow and backward-looking. "AI" is not a
+    label at all: it is spread across semiconductors, hardware, communications
+    equipment, electrical equipment and utilities, so a label-based rule only
+    ever sees it in pieces, and would miss the NEXT theme until someone
+    invents a category for it.
+
+    Stocks that move together ARE a theme, whatever they are called. So: take
+    the last six months of daily returns, remove each stock's ordinary market
+    movement, and group stocks by how their remaining moves line up. On real
+    prices this, with no labels at all, produced a 17-stock AI data-centre
+    theme spanning four official industries -- Sandisk, Micron, Lumentum,
+    Western Digital, Seagate, AMD, Intel, Ciena -- alongside separate pharma,
+    oil, bank and logistics themes. A new theme appears on its own the moment
+    its stocks start trading together.
+
+    Method: residual returns -> 20-dimension fingerprint (SVD) -> k-means on
+    the fingerprints (cosine), about 15 stocks per theme. numpy only.
+    """
+    spy = P["SPY"].dropna()
+    cols = [c for c in dict.fromkeys(cols) if c in P.columns and c != "SPY"]
+    Q = P[cols].reindex(spy.index).ffill(limit=3).iloc[-THEME_WINDOW - 1:]
+    use = [c for c in cols if Q[c].notna().all()]
+    if len(use) < 60:
+        return pd.Series(dtype=float), pd.DataFrame()
+    Q = Q[use]
+    R = Q.pct_change().iloc[1:]
+    m = spy.pct_change().iloc[-THEME_WINDOW:].to_numpy()
+    X = R.to_numpy()
+    mv = m.var()
+    beta = ((X * m[:, None]).mean(0) - X.mean(0) * m.mean()) / mv
+    X = X - np.outer(m, beta)
+    X = (X - X.mean(0)) / np.where(X.std(0) > 0, X.std(0), 1)
+    U, S, Vt = np.linalg.svd(X, full_matrices=False)
+    E = Vt[:N_THEME_DIMS].T * S[:N_THEME_DIMS]
+    E /= np.linalg.norm(E, axis=1, keepdims=True)
+    k = max(20, len(use) // 15)
+    rng = np.random.default_rng(seed)
+    best, best_fit = None, -np.inf
+    for _ in range(8):                         # several starts, keep the tightest
+        C = E[rng.choice(len(E), k, replace=False)]
+        for _ in range(60):
+            lab = np.argmax(E @ C.T, axis=1)
+            C = np.array([E[lab == j].mean(0) if (lab == j).any() else C[j] for j in range(k)])
+            C /= np.linalg.norm(C, axis=1, keepdims=True)
+        # a "theme" of two or three stocks is noise, not a theme: fold tiny
+        # groups into the nearest real one (smallest first, one at a time)
+        while True:
+            cnt = np.bincount(lab, minlength=len(C))
+            small = [j for j in np.argsort(cnt) if 0 < cnt[j] < MIN_THEME]
+            if not small or (cnt >= MIN_THEME).sum() == 0:
+                break
+            j = small[0]
+            keep = np.where(cnt >= MIN_THEME)[0] if (cnt >= MIN_THEME).any() else None
+            idx = np.where(lab == j)[0]
+            lab[idx] = keep[np.argmax(E[idx] @ C[keep].T, axis=1)]
+            for q in set(lab):
+                C[q] = E[lab == q].mean(0); C[q] /= np.linalg.norm(C[q])
+        fit = float((E * C[lab]).sum())
+        if fit > best_fit:
+            best, best_fit = lab.copy(), fit
+    lab = pd.Series(best, index=use)
+    names = dict(zip(univ["yf"], univ["Security"]))
+    labels = dict(zip(univ["yf"], univ["GICS Sub-Industry"].fillna("").replace("", np.nan)
+                      .fillna(univ["GICS Sector"])))
+    rows = []
+    for j in sorted(lab.unique()):
+        mem = list(lab[lab == j].index)
+        sc = score.reindex(mem).dropna()
+        if len(mem) < 3 or len(sc) < 3:
+            continue
+        lead = list(sc.sort_values(ascending=False).index[:4])
+        off = pd.Series([labels.get(c, "?") for c in mem]).value_counts()
+        rows.append({"theme": int(j), "score": float(sc.median()), "n": len(mem),
+                     "mom": float(pd.Series({c: P[c].dropna().iloc[-1] / P[c].dropna().iloc[-253] - 1
+                                             for c in mem if P[c].dropna().size > 253}).median()),
+                     "leaders": ", ".join(names.get(c, c) for c in lead),
+                     "labels": ", ".join(f"{a} ({b})" for a, b in off.head(3).items()),
+                     "members": mem})
+    T = pd.DataFrame(rows).sort_values("score", ascending=False).reset_index(drop=True)
+    T["pct"] = T["score"].rank(pct=True)
+    T["rank"] = np.arange(1, len(T) + 1)
+    T["of"] = len(T)
+    tid = lab[lab.isin(T["theme"])]
+    return tid, T
 
 
 def trend_table(P: pd.DataFrame) -> pd.DataFrame:
@@ -220,9 +414,14 @@ def industry_ranks(univ: pd.DataFrame, mom: pd.Series) -> pd.DataFrame:
     """Percentile rank of each stock's industry (1.0 = strongest)."""
     u = univ.copy()
     u["mom"] = u["yf"].map(mom)
+    u["GICS Sub-Industry"] = u["GICS Sub-Industry"].fillna("")
+    u["GICS Sector"] = u["GICS Sector"].fillna("Unknown").astype(str)
     sub_n = u.groupby("GICS Sub-Industry")["yf"].transform("count")
-    u["group"] = np.where(sub_n >= MIN_SUB, u["GICS Sub-Industry"], "SECTOR:" + u["GICS Sector"])
-    g = u.groupby("group")["mom"].mean().dropna()
+    ok = (sub_n >= MIN_SUB) & (u["GICS Sub-Industry"] != "")
+    u["group"] = np.where(ok, u["GICS Sub-Industry"], "SECTOR:" + u["GICS Sector"])
+    # stocks with no known industry at all are ranked by theme only; lumping
+    # them into one "Unknown" group would invent an industry that doesn't exist
+    g = u[u["GICS Sector"] != "Unknown"].groupby("group")["mom"].mean().dropna()
     pct = g.rank(pct=True)
     u["ind_mom"] = u["group"].map(g)
     u["ind_pct"] = u["group"].map(pct)
@@ -271,22 +470,28 @@ def build_model(u: pd.DataFrame, tr: pd.DataFrame, score: pd.Series, prev: list[
         # near-identical stocks. The first version put last month's picks
         # FIRST, and that let Dell (2.50) block IQE (3.55): the opposite of
         # "the ten best, regardless".
-        elig = u[(u["trend"] == "up") & u["score"].notna()
-                 & ((u["ind_pct"] >= 1 - ENTER_PCT)
-                    | (u["yf"].isin(prev) & (u["ind_pct"] >= 1 - KEEP_PCT)))].copy()
+        strong = (u["ind_pct"] >= 1 - ENTER_PCT) | (u["theme_pct"] >= 1 - ENTER_PCT)
+        kept = u["yf"].isin(prev) & ((u["ind_pct"] >= 1 - KEEP_PCT)
+                                     | (u["theme_pct"] >= 1 - KEEP_PCT))
+        elig = u[(u["trend"] == "up") & u["score"].notna() & (strong | kept)].copy()
         elig["rank_score"] = elig["score"] * np.where(elig["yf"].isin(prev), 1.10, 1.0)
         order = elig.sort_values("rank_score", ascending=False)
-        subs, secs = {}, {}
+        # Concentration is capped by THEME (what actually moves together), not
+        # by official sector: at most 3 from any one theme, 2 per labelled
+        # industry. A sector cap wrongly treated AI chips and AI-unrelated
+        # software as the same risk, and AI power stocks as different.
+        subs, ths = {}, {}
         for _, r in order.iterrows():
             if len(held) == N_MODEL:
                 break
-            if subs.get(r["GICS Sub-Industry"], 0) >= MAX_PER_SUB:
-                continue
-            if secs.get(r["GICS Sector"], 0) >= MAX_PER_SECTOR:
+            sub = r["GICS Sub-Industry"] or f"_{r['yf']}"
+            th = r.get("theme_id")
+            th = f"_{r['yf']}" if pd.isna(th) else th
+            if subs.get(sub, 0) >= MAX_PER_SUB or ths.get(th, 0) >= MAX_PER_THEME:
                 continue
             held.append(r["yf"])
-            subs[r["GICS Sub-Industry"]] = subs.get(r["GICS Sub-Industry"], 0) + 1
-            secs[r["GICS Sector"]] = secs.get(r["GICS Sector"], 0) + 1
+            subs[sub] = subs.get(sub, 0) + 1
+            ths[th] = ths.get(th, 0) + 1
     elif len(held) < N_MODEL:
         notes.append(f"{N_MODEL - len(held)} slot(s) in cash until the next monthly rebalance.")
     per = BUDGET / N_MODEL
@@ -296,8 +501,12 @@ def build_model(u: pd.DataFrame, tr: pd.DataFrame, score: pd.Series, prev: list[
         r = u[u["yf"] == t].iloc[0]
         x = r.get("vol", np.nan)
         out.append({"ticker": r["Symbol"], "yf": t, "name": r["Security"],
-                    "sector": r["GICS Sector"], "industry": r["GICS Sub-Industry"],
-                    "industry_rank_pct": round(float(r["ind_pct"]), 3),
+                    "sector": r["GICS Sector"],
+                    "industry": r["GICS Sub-Industry"] or r["GICS Sector"],
+                    "theme": r.get("theme_leaders", "") if isinstance(r.get("theme_leaders"), str) else "",
+                    "theme_rank_pct": None if pd.isna(r.get("theme_pct")) else round(float(r["theme_pct"]), 3),
+                    "theme_rank": None if pd.isna(r.get("theme_rank")) else int(r["theme_rank"]),
+                    "industry_rank_pct": None if pd.isna(r["ind_pct"]) else round(float(r["ind_pct"]), 3),
                     "momentum": round(float(r["mom"]), 4),
                     "score": round(float(r["score"]), 3), "gbp": per,
                     "price": round(float(r["price"]), 2), "owned": bool(r.get("owned", False))})
@@ -309,7 +518,12 @@ def judge_holding(h: dict, u: pd.DataFrame, groups: pd.Series, gpct: pd.Series,
                   mkt_on: bool) -> dict:
     t = yf_symbol(h["ticker"])
     row = u[u["yf"] == t]
-    if len(row):
+    tpct = float(row.iloc[0].get("theme_pct", np.nan)) if len(row) else np.nan
+    tlead = row.iloc[0].get("theme_leaders", "") if len(row) else ""
+    tlead = tlead if isinstance(tlead, str) else ""
+    trank = row.iloc[0].get("theme_rank", np.nan) if len(row) else np.nan
+    tpct = tpct if np.isfinite(tpct) else np.nan
+    if len(row) and row.iloc[0]["GICS Sub-Industry"]:
         sector, sub = row.iloc[0]["GICS Sector"], row.iloc[0]["GICS Sub-Industry"]
     else:
         sector, sub = INDUSTRY_OVERRIDE.get(h["ticker"], ("Unknown", "Unknown"))
@@ -331,25 +545,37 @@ def judge_holding(h: dict, u: pd.DataFrame, groups: pd.Series, gpct: pd.Series,
         act = "SELL"; reason.append("confirmed downtrend: below its 200-day, 50-day below 200-day")
     elif np.isfinite(ipct) and ipct <= ENTER_PCT and np.isfinite(vs200) and vs200 < 0:
         act = "SELL"; reason.append("weak industry (bottom fifth) and below its 200-day")
-    elif trend == "up" and np.isfinite(ipct) and ipct >= 1 - ENTER_PCT:
+    elif trend == "up" and ((np.isfinite(ipct) and ipct >= 1 - ENTER_PCT)
+                            or (np.isfinite(tpct) and tpct >= 1 - ENTER_PCT)):
         act = "BUY"
-        reason.append("strong industry (top fifth) and a confirmed uptrend -- qualifies to add"
+        what = ("strong industry (top fifth)" if np.isfinite(ipct) and ipct >= 1 - ENTER_PCT
+                else "strong theme (top fifth)")
+        reason.append(what + " and a confirmed uptrend -- qualifies to add"
                       + (" (also in the model)" if t in model else ""))
     else:
         act = "HOLD"
         if trend == "up":
-            reason.append("uptrend" + (", industry in the top fifth" if ipct >= 1 - ENTER_PCT
-                                       else ", industry not in the top fifth"))
+            reason.append("uptrend, but neither its industry nor its theme is in the top fifth")
         else:
             reason.append("no confirmed trend either way")
     return {"ticker": h["ticker"], "name": h.get("name", h["ticker"]), "action": act,
             "why": "; ".join(reason), "industry": sub,
+            "theme_rank_pct": None if not np.isfinite(tpct) else round(tpct, 3),
+            "theme": tlead,
+            "theme_rank": None if pd.isna(trank) else int(trank),
             "industry_rank_pct": None if not np.isfinite(ipct) else round(ipct, 3),
             "industry_rank": irank, "industries_total": len(order),
             "trend": trend, "vs_200d": None if not np.isfinite(vs200) else round(float(vs200), 4),
             "price": None if not np.isfinite(price) else round(float(price), 2),
             "momentum": None if t not in mom or not np.isfinite(mom.get(t, np.nan))
             else round(float(mom[t]), 4)}
+
+
+def theme_txt(lead, rank, of) -> str:
+    if not lead:
+        return "— (moves on its own)"
+    first = ", ".join(str(lead).split(", ")[:2])
+    return f"{first}…" + ("" if rank is None else f" (#{rank} of {of})")
 
 
 def write_markdown(plan: dict, path: Path):
@@ -363,27 +589,30 @@ def write_markdown(plan: dict, path: Path):
              + (f", {m['ret_12m']:+.1%} over 12 months." if m.get('ret_12m') is not None else ".")
              + "\n")
     L.append("## 1. Your holdings\n")
-    L.append("| Action | Stock | Why | Industry (rank) | Trend |")
-    L.append("|---|---|---|---|---|")
+    L.append("| Action | Stock | Why | Industry (rank) | Theme it trades with | Trend |")
+    L.append("|---|---|---|---|---|---|")
     order = {"SELL": 0, "BUY": 1, "HOLD": 2}
     for h in sorted(plan["holdings"], key=lambda x: (order[x["action"]], x["ticker"])):
         rk = "" if not h.get("industry_rank") else f" (#{h['industry_rank']} of {h['industries_total']})"
         L.append(f"| **{h['action']}** | {h['ticker']} — {h['name']} | {h['why']} | "
-                 f"{h['industry']}{rk} | {h['trend']} |")
+                 f"{h['industry']}{rk} | {theme_txt(h.get('theme'), h.get('theme_rank'), plan.get('themes_total'))} | "
+                 f"{h['trend']} |")
     L.append("\n## 2. What you should own — £10,000 model portfolio\n")
     if not plan["model"]:
         L.append("**Hold cash (a money-market fund).** " + " ".join(plan["model_notes"]) + "\n")
     else:
         L.append(f"_{'Rebalance day.' if plan['rebalance_day'] else 'Between rebalances — changes only on a SELL.'}"
                  f" Next rebalance: first trading day of next month._\n")
-        L.append("The ten best stocks right now — chosen from the whole S&P 500 **and** everything "
-                 "you already own, on identical terms. If you already own it, the action is HOLD.\n")
-        L.append("| Action | Stock | £ | Industry | 12m momentum | Score |")
-        L.append("|---|---|---|---|---|---|")
+        L.append(f"The ten best stocks right now — chosen from {plan.get('universe', 'the S&P 500')} "
+                 "**and** everything you already own, on identical terms. If you already own it, "
+                 "the action is HOLD.\n")
+        L.append("| Action | Stock | £ | Industry | Theme it trades with | 12m momentum | Score |")
+        L.append("|---|---|---|---|---|---|---|")
         for r in plan["model"]:
             act = "HOLD (you own it)" if r.get("owned") else "BUY"
             L.append(f"| **{act}** | {r['ticker']} — {r['name']} | £{r['gbp']:,.0f} | "
-                     f"{r['industry']} | {r['momentum']:+.0%} | {r['score']:.2f} |")
+                     f"{r['industry']} | {theme_txt(r.get('theme'), r.get('theme_rank'), plan.get('themes_total'))} | "
+                     f"{r['momentum']:+.0%} | {r['score']:.2f} |")
         L.append("\n_Score = momentum per unit of volatility: it prefers steady strength over "
                  "violent swings. Expect this portfolio to move roughly three times as much as "
                  "the S&P 500 in both directions._")
@@ -397,10 +626,23 @@ def write_markdown(plan: dict, path: Path):
             L.append(f"| {r['ticker']} | {('#' + str(r['rank'])) if r['rank'] else '—'} of "
                      f"{r['of']} | {'' if r['score'] is None else format(r['score'], '.2f')} | "
                      f"{'yes' if r['in_model'] else 'no'} | {r.get('why', '')} |")
+    if plan.get("excluded_takeovers"):
+        L.append("\n_Left out because the price is frozen (agreed takeover): "
+                 + ", ".join(plan["excluded_takeovers"]) + "._")
     if plan.get("changes"):
         L.append("\n## Changes since the last run\n")
         L.extend(f"- {c}" for c in plan["changes"])
-    L.append("\n## Strongest industries today\n")
+    if plan.get("themes"):
+        L.append("\n## Top themes today — found from how stocks trade, not from labels\n")
+        L.append("Stocks that move together form a theme, whatever their official industry. "
+                 "This is how new trends such as AI show up before any label exists for them.\n")
+        L.append("| # | Theme (its strongest stocks) | Official labels it spans | Stocks | "
+                 "Median 12m | Score |")
+        L.append("|---|---|---|---|---|---|")
+        for i, t in enumerate(plan["themes"][:10], 1):
+            L.append(f"| {i} | {t['leaders']} | {t['labels']} | {t['n']} | {t['mom']:+.0%} | "
+                     f"{t['score']:.2f} |")
+    L.append("\n## Strongest official industries today\n")
     L.append(", ".join((f"{k[7:]} (sector)" if k.startswith("SECTOR:") else k) + f" {v:+.0%}"
                        for k, v in plan["top_industries"][:10]))
     L.append(f"\n\n---\n_Costs: about £{DEAL_GBP} per trade on Hargreaves Lansdown plus "
@@ -412,7 +654,7 @@ def write_markdown(plan: dict, path: Path):
 
 
 def run(P: pd.DataFrame, univ: pd.DataFrame, holdings: list[dict], state_path: Path,
-        today=None) -> dict:
+        today=None, watchlist: list[str] | None = None, universe_note: str = "") -> dict:
     P = P.dropna(how="all")
     as_of = P.index[-1]
     mom = momentum(P)
@@ -436,9 +678,26 @@ def run(P: pd.DataFrame, univ: pd.DataFrame, holdings: list[dict], state_path: P
                       "GICS Sector": sector, "GICS Sub-Industry": sub, "mom": mom.get(t, np.nan),
                       "group": g, "ind_mom": groups.get(g, np.nan),
                       "ind_pct": gpct.get(g, np.nan), "owned": True})
+    for t in watchlist or []:
+        if t in set(u["yf"]) or t in {e["yf"] for e in extra} or t not in P.columns:
+            continue
+        extra.append({"Symbol": t, "yf": t, "Security": t, "GICS Sector": "Unknown",
+                      "GICS Sub-Industry": "", "mom": mom.get(t, np.nan), "group": "SECTOR:Unknown",
+                      "ind_mom": np.nan, "ind_pct": np.nan, "owned": False})
     if extra:
         u = pd.concat([u, pd.DataFrame(extra)], ignore_index=True)
+    u["owned"] = u["owned"].fillna(False).astype(bool)
     score = stock_score(P)
+    tid, T = themes(P, list(u["yf"]), score, u)
+    if len(T):
+        u["theme_id"] = u["yf"].map(tid)
+        u["theme_pct"] = u["theme_id"].map(T.set_index("theme")["pct"])
+        u["theme_leaders"] = u["theme_id"].map(T.set_index("theme")["leaders"])
+        u["theme_rank"] = u["theme_id"].map(T.set_index("theme")["rank"])
+        n_themes = len(T)
+    else:
+        u["theme_id"], u["theme_pct"], u["theme_leaders"], u["theme_rank"] = np.nan, np.nan, "", np.nan
+        n_themes = 0
     prev = {}
     if state_path.exists():
         prev = json.loads(state_path.read_text())
@@ -471,16 +730,21 @@ def run(P: pd.DataFrame, univ: pd.DataFrame, holdings: list[dict], state_path: P
             return "in the ten"
         if not mk["on"]:
             return "market switch off -- model is cash"
+        if t in pinned(P):
+            return "price frozen -- looks like an agreed takeover, no upside left"
         if t not in pos:
             return "not enough price history"
         r = uj.loc[t] if t in uj.index else None
         if r is None or r.get("trend") != "up":
             return "not in a confirmed uptrend"
-        if not (r.get("ind_pct", 0) >= 1 - ENTER_PCT):
-            return "industry not in the top fifth"
+        ip, tp = r.get("ind_pct"), r.get("theme_pct")
+        ip = ip if pd.notna(ip) else 0
+        tp = tp if pd.notna(tp) else 0
+        if not (ip >= 1 - ENTER_PCT or tp >= 1 - ENTER_PCT):
+            return "neither its industry nor its theme is in the top fifth"
         if float(score[t]) >= cut:
-            return (f"qualifies, but the {r.get('GICS Sector')} places went to higher "
-                    f"scores (limit {MAX_PER_SECTOR} per sector, {MAX_PER_SUB} per industry)")
+            return (f"qualifies, but its theme/industry places went to higher scores "
+                    f"(limit {MAX_PER_THEME} per theme, {MAX_PER_SUB} per industry)")
         return "qualifies, but scores below the tenth place"
 
     holding_ranks = sorted([{"ticker": h["ticker"], "rank": pos.get(yf_symbol(h["ticker"])),
@@ -495,7 +759,13 @@ def run(P: pd.DataFrame, univ: pd.DataFrame, holdings: list[dict], state_path: P
             "market": mk, "rebalance_day": bool(rebalance), "holdings": hold,
             "model": model, "model_notes": notes, "prev_model": prev_model,
             "changes": changes,
-            "top_industries": [(k, float(v)) for k, v in groups.head(15).items()]}
+            "top_industries": [(k, float(v)) for k, v in groups.head(15).items()],
+            "universe": universe_note or "the S&P 500",
+            "excluded_takeovers": sorted(pinned(P)),
+            "themes_total": n_themes,
+            "themes": [] if not len(T) else
+            [{k: v for k, v in row.items() if k != "members"}
+             for row in T.drop(columns=["theme"]).head(15).to_dict("records")]}
     state_path.write_text(json.dumps({"as_of": plan["as_of"], "model": model_yf, "method": METHOD,
                                       "market_on": mk["on"],
                                       "holdings": [{"ticker": h["ticker"], "action": h["action"]}
@@ -508,18 +778,24 @@ def main() -> int:
     ap.add_argument("--holdings", default="config/holdings.yml")
     ap.add_argument("--constituents", default=CONSTITUENTS)
     ap.add_argument("--docs", default="docs")
+    ap.add_argument("--watchlist", default="config/watchlist.yml")
     ap.add_argument("--prices-out", default="data/live_prices.csv")
     a = ap.parse_args()
     docs = Path(a.docs); docs.mkdir(parents=True, exist_ok=True)
     try:
-        univ = load_constituents(a.constituents)
+        man: dict = {}
+        univ = load_universe(a.constituents, man)
         holdings = load_holdings(a.holdings)
-        tickers = sorted(set(univ["yf"]) | {yf_symbol(h["ticker"]) for h in holdings} | {"SPY"})
+        watch = load_watchlist(a.watchlist)
+        tickers = sorted(set(univ["yf"]) | {yf_symbol(h["ticker"]) for h in holdings}
+                         | set(watch) | {"SPY"})
         print(f"downloading {len(tickers)} tickers")
         P = download(tickers)
         Path(a.prices_out).parent.mkdir(parents=True, exist_ok=True)
         P.to_csv(a.prices_out, float_format="%.4f")
-        plan = run(P, univ, holdings, docs / "plan_state.json")
+        plan = run(P, univ, holdings, docs / "plan_state.json", watchlist=watch,
+                   universe_note=man.get("universe", ""))
+        plan["universe_detail"] = man
         (docs / "plan.json").write_text(json.dumps(plan, indent=2, default=str))
         write_markdown(plan, docs / "PLAN.md")
         print((docs / "PLAN.md").read_text())
