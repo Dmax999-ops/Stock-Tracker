@@ -147,6 +147,36 @@ def momentum(P: pd.DataFrame) -> pd.Series:
     return pd.Series(out)
 
 
+METHOD = "risk_adjusted_12_1_v2"
+
+
+def stock_score(P: pd.DataFrame) -> pd.Series:
+    """
+    How the ten are chosen WITHIN strong industries.
+
+    The first version ranked on raw momentum and picked the most violent
+    movers: Sandisk +606% (it fell 56% within the year), Moderna at 263%
+    annualised volatility. Those are the stocks that crash hardest when
+    momentum turns. The documented fix is to rank on momentum PER UNIT OF
+    VOLATILITY, and to skip the latest month, which tends to reverse:
+        score = (price 1 month ago / price 12 months ago - 1) / 6-month volatility
+    On a year of real prices this made nearly the same money (GBP 17,922
+    against 18,263 from GBP 10,000) with a smaller worst drop (-21.5% against
+    -28.5%). One year is a sanity check, not proof; the choice rests on the
+    published evidence that volatility-scaled momentum crashes less.
+    """
+    out = {}
+    for c in P.columns:
+        x = P[c].dropna()
+        if len(x) < 253:
+            out[c] = np.nan
+            continue
+        vol = x.pct_change().iloc[-126:].std() * np.sqrt(252)
+        m = x.iloc[-22] / x.iloc[-253] - 1
+        out[c] = m / vol if vol > 0 else np.nan
+    return pd.Series(out)
+
+
 def trend_table(P: pd.DataFrame) -> pd.DataFrame:
     rows = {}
     for c in P.columns:
@@ -207,56 +237,70 @@ def group_of(sub: str, sector: str, groups: pd.Index) -> str:
 # the plan
 # ---------------------------------------------------------------------------
 
-def build_model(u: pd.DataFrame, tr: pd.DataFrame, prev: list[str],
+def build_model(u: pd.DataFrame, tr: pd.DataFrame, score: pd.Series, prev: list[str],
                 rebalance: bool, mkt_on: bool) -> tuple[list[dict], list[str]]:
+    """
+    The ten best stocks to own, from the S&P 500 AND every stock you already
+    own, all competing on the same terms. Ownership gives no advantage and no
+    penalty.
+    """
     notes = []
     if not mkt_on:
         notes.append("Market switch is OFF: the model holds cash.")
         return [], notes
     u = u.join(tr, on="yf")
-    ok = u["trend"] == "up"
+    u["score"] = u["yf"].map(score)
     held = []
-    # keep existing model holdings unless they break (hysteresis)
     for t in prev:
         r = u[u["yf"] == t]
         if r.empty:
-            notes.append(f"{t} left the S&P 500 list: dropped.")
+            notes.append(f"{t} is no longer in the candidate list: dropped.")
             continue
         r = r.iloc[0]
         if r["trend"] == "down":
             notes.append(f"{t} is in a confirmed downtrend: SELL.")
             continue
-        if rebalance and not (r["ind_pct"] >= 1 - KEEP_PCT):
-            notes.append(f"{t}'s industry fell out of the top 40%: replaced at rebalance.")
-            continue
+        if rebalance:
+            continue                         # rebuilt from scratch below
         held.append(t)
-    need = N_MODEL - len(held)
-    if need > 0 and (rebalance or not prev):
-        cand = u[ok & (u["ind_pct"] >= 1 - ENTER_PCT) & u["mom"].notna()
-                 & ~u["yf"].isin(held)].sort_values("mom", ascending=False)
-        subs = u[u["yf"].isin(held)]["GICS Sub-Industry"].value_counts().to_dict()
-        secs = u[u["yf"].isin(held)]["GICS Sector"].value_counts().to_dict()
-        for _, r in cand.iterrows():
-            if need == 0:
+    if rebalance or not prev:
+        held = []
+        # ONE ranking, purely on score. Last month's picks may stay if their
+        # industry is still in the top 40% (not just the top 20%), and they get
+        # a 10% tie-break -- only enough to avoid paying HL fees to swap two
+        # near-identical stocks. The first version put last month's picks
+        # FIRST, and that let Dell (2.50) block IQE (3.55): the opposite of
+        # "the ten best, regardless".
+        elig = u[(u["trend"] == "up") & u["score"].notna()
+                 & ((u["ind_pct"] >= 1 - ENTER_PCT)
+                    | (u["yf"].isin(prev) & (u["ind_pct"] >= 1 - KEEP_PCT)))].copy()
+        elig["rank_score"] = elig["score"] * np.where(elig["yf"].isin(prev), 1.10, 1.0)
+        order = elig.sort_values("rank_score", ascending=False)
+        subs, secs = {}, {}
+        for _, r in order.iterrows():
+            if len(held) == N_MODEL:
                 break
             if subs.get(r["GICS Sub-Industry"], 0) >= MAX_PER_SUB:
                 continue
             if secs.get(r["GICS Sector"], 0) >= MAX_PER_SECTOR:
                 continue
-            held.append(r["yf"]); need -= 1
+            held.append(r["yf"])
             subs[r["GICS Sub-Industry"]] = subs.get(r["GICS Sub-Industry"], 0) + 1
             secs[r["GICS Sector"]] = secs.get(r["GICS Sector"], 0) + 1
-    elif need > 0:
-        notes.append(f"{need} slot(s) held in cash until the next monthly rebalance.")
+    elif len(held) < N_MODEL:
+        notes.append(f"{N_MODEL - len(held)} slot(s) in cash until the next monthly rebalance.")
     per = BUDGET / N_MODEL
     out = []
+    held = sorted(held, key=lambda t: -float(score.get(t, -9)))
     for t in held:
         r = u[u["yf"] == t].iloc[0]
+        x = r.get("vol", np.nan)
         out.append({"ticker": r["Symbol"], "yf": t, "name": r["Security"],
                     "sector": r["GICS Sector"], "industry": r["GICS Sub-Industry"],
                     "industry_rank_pct": round(float(r["ind_pct"]), 3),
-                    "momentum": round(float(r["mom"]), 4), "gbp": per,
-                    "price": round(float(r["price"]), 2)})
+                    "momentum": round(float(r["mom"]), 4),
+                    "score": round(float(r["score"]), 3), "gbp": per,
+                    "price": round(float(r["price"]), 2), "owned": bool(r.get("owned", False))})
     return out, notes
 
 
@@ -332,15 +376,27 @@ def write_markdown(plan: dict, path: Path):
     else:
         L.append(f"_{'Rebalance day.' if plan['rebalance_day'] else 'Between rebalances — changes only on a SELL.'}"
                  f" Next rebalance: first trading day of next month._\n")
-        L.append("| Action | Stock | £ | Industry | Momentum |")
-        L.append("|---|---|---|---|---|")
-        owned = {x["ticker"] for x in plan["holdings"]}
+        L.append("The ten best stocks right now — chosen from the whole S&P 500 **and** everything "
+                 "you already own, on identical terms. If you already own it, the action is HOLD.\n")
+        L.append("| Action | Stock | £ | Industry | 12m momentum | Score |")
+        L.append("|---|---|---|---|---|---|")
         for r in plan["model"]:
-            act = "HOLD" if r["ticker"] in owned or r["yf"] in plan.get("prev_model", []) else "BUY"
+            act = "HOLD (you own it)" if r.get("owned") else "BUY"
             L.append(f"| **{act}** | {r['ticker']} — {r['name']} | £{r['gbp']:,.0f} | "
-                     f"{r['industry']} | {r['momentum']:+.0%} |")
+                     f"{r['industry']} | {r['momentum']:+.0%} | {r['score']:.2f} |")
+        L.append("\n_Score = momentum per unit of volatility: it prefers steady strength over "
+                 "violent swings. Expect this portfolio to move roughly three times as much as "
+                 "the S&P 500 in both directions._")
         if plan["model_notes"]:
             L.append("\n" + "\n".join(f"- {n}" for n in plan["model_notes"]))
+    if plan.get("holding_ranks"):
+        L.append("\n### Where your stocks rank among all candidates\n")
+        L.append("| Stock | Rank | Score | In the ten? | Why |")
+        L.append("|---|---|---|---|---|")
+        for r in plan["holding_ranks"]:
+            L.append(f"| {r['ticker']} | {('#' + str(r['rank'])) if r['rank'] else '—'} of "
+                     f"{r['of']} | {'' if r['score'] is None else format(r['score'], '.2f')} | "
+                     f"{'yes' if r['in_model'] else 'no'} | {r.get('why', '')} |")
     if plan.get("changes"):
         L.append("\n## Changes since the last run\n")
         L.extend(f"- {c}" for c in plan["changes"])
@@ -364,13 +420,33 @@ def run(P: pd.DataFrame, univ: pd.DataFrame, holdings: list[dict], state_path: P
     mk = market_switch(P["SPY"])
     u, groups = industry_ranks(univ, mom)
     gpct = groups.rank(pct=True)
+    # your holdings join the candidate list on the same terms
+    owned_yf = {yf_symbol(h["ticker"]) for h in holdings}
+    u["owned"] = u["yf"].isin(owned_yf)
+    extra = []
+    for h in holdings:
+        t = yf_symbol(h["ticker"])
+        if t in set(u["yf"]):
+            continue
+        sector, sub = INDUSTRY_OVERRIDE.get(h["ticker"], ("Unknown", "Unknown"))
+        if h.get("industry"):
+            sub = h["industry"]
+        g = group_of(sub, sector, groups.index)
+        extra.append({"Symbol": h["ticker"], "yf": t, "Security": h.get("name", t),
+                      "GICS Sector": sector, "GICS Sub-Industry": sub, "mom": mom.get(t, np.nan),
+                      "group": g, "ind_mom": groups.get(g, np.nan),
+                      "ind_pct": gpct.get(g, np.nan), "owned": True})
+    if extra:
+        u = pd.concat([u, pd.DataFrame(extra)], ignore_index=True)
+    score = stock_score(P)
     prev = {}
     if state_path.exists():
         prev = json.loads(state_path.read_text())
     prev_model = prev.get("model", [])
     last_month = prev.get("as_of", "")[:7]
-    rebalance = (not prev_model) or last_month != str(as_of.date())[:7]
-    model, notes = build_model(u, tr, prev_model, rebalance, mk["on"])
+    rebalance = ((not prev_model) or last_month != str(as_of.date())[:7]
+                 or prev.get("method") != METHOD)
+    model, notes = build_model(u, tr, score, prev_model, rebalance, mk["on"])
     model_yf = [m["yf"] for m in model]
     hold = [judge_holding(h, u, groups, gpct, tr, mom, model_yf, mk["on"]) for h in holdings]
     changes = []
@@ -384,12 +460,43 @@ def run(P: pd.DataFrame, univ: pd.DataFrame, holdings: list[dict], state_path: P
         changes.append(f"Model: **BUY** {t}")
     if prev.get("market_on") is not None and prev["market_on"] != mk["on"]:
         changes.insert(0, f"MARKET SWITCH → **{'ON' if mk['on'] else 'OFF'}**")
+    ranked = u.assign(sc=u["yf"].map(score)).dropna(subset=["sc"]).drop_duplicates("yf")
+    ranked = ranked.sort_values("sc", ascending=False).reset_index(drop=True)
+    pos = {t: i + 1 for i, t in enumerate(ranked["yf"])}
+    uj = u.join(tr, on="yf", rsuffix="_t").drop_duplicates("yf").set_index("yf")
+    cut = sorted([float(score[m]) for m in model_yf if m in score.index])[0] if model_yf else np.inf
+
+    def why_not(t):
+        if t in model_yf:
+            return "in the ten"
+        if not mk["on"]:
+            return "market switch off -- model is cash"
+        if t not in pos:
+            return "not enough price history"
+        r = uj.loc[t] if t in uj.index else None
+        if r is None or r.get("trend") != "up":
+            return "not in a confirmed uptrend"
+        if not (r.get("ind_pct", 0) >= 1 - ENTER_PCT):
+            return "industry not in the top fifth"
+        if float(score[t]) >= cut:
+            return (f"qualifies, but the {r.get('GICS Sector')} places went to higher "
+                    f"scores (limit {MAX_PER_SECTOR} per sector, {MAX_PER_SUB} per industry)")
+        return "qualifies, but scores below the tenth place"
+
+    holding_ranks = sorted([{"ticker": h["ticker"], "rank": pos.get(yf_symbol(h["ticker"])),
+                             "why": why_not(yf_symbol(h["ticker"])),
+                             "of": len(ranked),
+                             "score": None if yf_symbol(h["ticker"]) not in pos
+                             else round(float(score[yf_symbol(h["ticker"])]), 2),
+                             "in_model": yf_symbol(h["ticker"]) in model_yf} for h in holdings],
+                           key=lambda r: r["rank"] or 10 ** 6)
     plan = {"generated": pd.Timestamp.now("UTC").isoformat(), "as_of": str(as_of.date()),
+            "holding_ranks": holding_ranks,
             "market": mk, "rebalance_day": bool(rebalance), "holdings": hold,
             "model": model, "model_notes": notes, "prev_model": prev_model,
             "changes": changes,
             "top_industries": [(k, float(v)) for k, v in groups.head(15).items()]}
-    state_path.write_text(json.dumps({"as_of": plan["as_of"], "model": model_yf,
+    state_path.write_text(json.dumps({"as_of": plan["as_of"], "model": model_yf, "method": METHOD,
                                       "market_on": mk["on"],
                                       "holdings": [{"ticker": h["ticker"], "action": h["action"]}
                                                    for h in hold]}, indent=2))
