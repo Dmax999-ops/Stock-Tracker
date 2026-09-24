@@ -1,60 +1,62 @@
 #!/usr/bin/env python3
 """
-Buy-and-hold, with the dying stocks taken out.
+Trend rules where they are actually used: indices, sectors and bonds.
 
-THE DESIGN FLAW THIS FIXES
---------------------------
-Every rule built in this repo so far answered one question: "this stock, or
-cash?" Buy-and-hold answers a different one: "all stocks, always." When a rule
-here sold a failing stock, the money sat in cash at 0% -- for a quarter of the
-time, in the best confirmation arm. When buy-and-hold held that same failing
-stock, the loss was absorbed by six hundred others still compounding.
+WHY THE TERRAIN CHANGES
+-----------------------
+Six weeks of single-stock testing kept failing for reasons that had nothing to
+do with technical analysis: survivorship, look-ahead in index membership (worth
+4% a year to buy-and-hold and 10% a year to momentum), recycled tickers and bad
+prints. Every fix exposed another data problem.
 
-So the comparison was a single-stock timing rule against a fully invested
-portfolio, and the timing rule kept losing the pound race while WINNING the
-risk race: the retest confirmation with an escape hatch returned 11.9% a year
-against 15.1%, but with a worst drawdown of -30.6% against -54.0%, a Sharpe of
-0.90 against 0.78 and a Calmar of 0.39 against 0.28. The entire pound gap is
-explained by the cash it sat in.
+Professional trend-followers do not trade 600 single stocks. They apply exactly
+these rules -- 200-day filters, momentum, confirmation -- to indices, sectors and
+bonds. The data is clean: an ETF never delists, never gets recycled, and never
+joins an index with hindsight. And every instrument here can actually be bought.
 
-THE FIX, IN ONE SENTENCE
-------------------------
-When a stock is sold, its money does not go to cash; it goes to the stocks that
-are currently in healthy trends. Always invested, but never in the failing ones.
-That is buy-and-hold minus the stocks that are dying.
+THE MISTAKE EVERY FILTER SO FAR MADE
+------------------------------------
+When the market filter got out of 2000-02 and 2008, the money earned 2% in
+cash. In those same crashes government bonds RALLIED. The documented way trend
+rules beat buy-and-hold on return, not only on risk, is to rotate into
+Treasuries when the equity trend breaks. Not one test in this repo did that.
 
-THE ARMS, ALL REBALANCED ON THE SAME CALENDAR
-----------------------------------------------
-    index           equal weight in every live stock, rebalanced. The fair
-                    benchmark -- the index-fund version of buy-and-hold. Every
-                    other arm differs from it ONLY by its rules.
-    trend           equal weight in every stock the confirmed-exit rules say is
-                    healthy; failing stocks get nothing and their money is
-                    redistributed. Cash only if too few stocks qualify.
-    trend_top100    the same, but among healthy stocks hold only the 100 with
-                    the strongest 12-month-minus-1-month momentum
-    trend_top50     the same, top 50
-    trend_invvol    healthy stocks weighted by inverse volatility, so a wild
-                    stock and a calm one carry the same risk, not the same money
-    top100_invvol   momentum top 100, inverse-vol weighted
+THE ARMS (all decisions at month end, traded next day, 10bp per switch)
+-----------------------------------------------------------------------
+    spy_hold          buy and hold the S&P 500. The benchmark.
+    spy_200_cash      S&P when above its 200-day, else cash (T-bills)
+    spy_200_bonds     S&P when above its 200-day, else Treasuries
+    spy_absmom        S&P when its 12-month return beats cash, else Treasuries
+                      (absolute momentum)
+    gem               if absolute momentum is positive, whichever of US or
+                      international is stronger over 12 months; else Treasuries
+                      (dual momentum)
+    sect_top3         the three strongest of the nine original sector funds,
+                      always invested (relative momentum at industry level)
+    sect_top3_bonds   the same, but Treasuries when the S&P is below its 200-day
+                      (industry momentum + market filter + no idle cash)
+    sect_top3_conf    the same, but the market exit is checked DAILY and needs
+                      three consecutive closes below the 200-day to fire --
+                      confirmation from the technical canon -- while re-entry
+                      waits for month end
+    sect_trend        every sector above its OWN 200-day, equal weight; the
+                      share of sectors in downtrends goes to Treasuries
+                      (industry-by-industry filter)
+    walkforward       every January, pick whichever of the arms above had the
+                      best return-per-drawdown over the previous five years --
+                      using ONLY past data -- and run it for the year. The
+                      reported result is the stitched real-time record: the
+                      system improving itself without ever seeing the future.
 
-A sale is executed the day the rule fires, not at month end: an escape hatch
-that waits three weeks is not an escape hatch. Freed money waits in cash, at a
-cash rate, until the next rebalance redeploys it.
-
-HONESTY
+THE BAR
 -------
-    - Stocks that delist are sold at their last price, in every arm alike.
-    - Cash earns --cash-rate (default 2%, a rough 30-year average for a UK
-      instant-access or US T-bill rate); 0% is also reported.
-    - Fit on 1996-2012, reported separately on 2013-2026.
-    - --calibrate runs the whole thing on random walks first.
-    - Costs: 10bp round trip on all turnover, rebalancing included.
+Beat the S&P 500 by 1% a year AND on Calmar (return per unit of worst drawdown),
+in 1999-2012 AND in 2013 onwards, separately. --calibrate runs everything on
+random walks first; nothing is believed until that comes back near zero.
 """
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -62,340 +64,388 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-HERE = Path(__file__).resolve().parent
-_spec = importlib.util.spec_from_file_location("cf", HERE / "confirmation.py")
-cf = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(cf)
-
 START = 10_000.0
-COST_SIDE = 0.0005             # 10bp round trip
+COST = 0.0010                 # per switch, ETF spread + commission, generous
 SPLIT = pd.Timestamp("2013-01-01")
-MIN_NAMES = 20                 # below this many healthy stocks, hold cash
-# THE BAR, SET BY THE NULL. On 12 random-walk panels the best of these arms, in
-# its weaker half, never beat the index by more than -1.3% a year. Beating it by
-# "any amount" fired on 1 panel in 5. Requiring +1% a year in BOTH halves sits
-# clear of that noise -- and 1% a year compounded over thirty years is about a
-# third more money, so it is also where the effort starts being worth it.
 CAGR_MARGIN = 0.01
-SEED = 20260930
+CALMAR_MULT = 1.10
+# A FIXED MARGIN IS NOT ENOUGH. A three-sector portfolio wanders a long way from
+# the S&P 500 by chance alone, so over a 13-year half it beat it by 1% a year on
+# 3 random-walk panels in 8. The lead has to be large relative to how noisy the
+# strategy is against the benchmark: excess return divided by its standard error
+# (tracking error over the square root of the years) must exceed T_BAR in EACH
+# half. That is the information-ratio test professionals use.
+T_BAR = 2.0
+WF_LOOKBACK_YEARS = 5
 
-
-def healthy_state(C, Hh, Ll, V):
-    """
-    The best rule found so far, as a per-stock daily in/out state:
-    retest-confirmed exit, fast oversold re-entry after an ordinary exit,
-    trend repair required after a hard exit, 60-day cooldown.
-    """
-    S = cf.indicators(C, Hh, Ll, V)
-    conf = cf.retest_confirm(C, S["ma200"], S["atr"])
-    hard = cf.hard_exit(C, Ll, S)
-    z = np.zeros((1, C.shape[1]), bool)
-    fast = np.nan_to_num(
-        ((S["kf"] > S["dsl"]) & np.r_[z, S["kf"][:-1] <= S["dsl"][:-1]]
-         & (S["kf"] < 40))
-        | ((S["rsi"] > 30) & np.r_[z, S["rsi"][:-1] <= 30])).astype(bool)
-    ma50s = np.r_[np.full((20, C.shape[1]), np.nan), S["ma50"][:-20]]
-    repair = np.nan_to_num((C > S["ma200"]) & (S["ma50"] > ma50s)).astype(bool)
-    st = cf.machine(conf, hard, fast, C, 60, True, repair)
-    # a stock without 200 days of history has no trend to judge yet
-    return st & np.isfinite(S["ma200"])
+SECTORS = ["XLK", "XLF", "XLE", "XLV", "XLI", "XLY", "XLP", "XLU", "XLB"]
+EQUITY = "SPY"
+INTL = "EFA"
+INTL_FALLBACK = "VGTSX"       # Vanguard Total International, pre-2001
+BONDS = "VFITX"               # Vanguard Intermediate Treasury fund, from 1991
+CASH_YIELD = "^IRX"           # 13-week T-bill yield
 
 
 # ---------------------------------------------------------------------------
-# MARKET AND INDUSTRY -- the flaw in blind reinvestment
+# data
 # ---------------------------------------------------------------------------
-# The first rotation run sold failing stocks and put the money into stocks that
-# had NOT FAILED YET. In 2008 those were about to. The portfolio stayed fully
-# invested all the way down a market-wide crash: worst drawdown -50.6% against
-# the index's -55.3%, barely any protection, and it lost the 1996-2012 half by
-# 3.2% a year because of it. A stock-level rule cannot see that everything is
-# falling together. These can.
 
-def market_regime(C, state, confirm=3, member=None):
-    """
-    Two views of the whole market, both point-in-time.
-
-    trend    the equal-weight index of every live stock, against its own
-             200-day average -- confirmed by `confirm` consecutive closes either
-             side, the confirmation that did best in the battery. Off = cash.
-    breadth  the share of stocks the rules call healthy. Exposure scales with
-             it: at 50% healthy or more, fully invested; at 25%, half invested;
-             at 0%, all cash. Selling INTO strength of evidence rather than on
-             a single line.
-    """
-    R = pd.DataFrame(C).pct_change().to_numpy()
-    live = np.isfinite(R) if member is None else (np.isfinite(R) & member)
-    mr = np.where(live.sum(axis=1) > 0,
-                  np.nansum(np.where(live, R, 0), axis=1) / np.maximum(live.sum(axis=1), 1),
-                  0.0)
-    lvl = np.cumprod(1 + np.nan_to_num(mr))
-    ma = pd.Series(lvl).rolling(200, min_periods=200).mean().to_numpy()
-    above = np.nan_to_num(lvl > ma).astype(bool)
-    below = np.nan_to_num(lvl < ma).astype(bool)
-    run_a = pd.Series(above.astype(float)).rolling(confirm).sum().to_numpy() >= confirm
-    run_b = pd.Series(below.astype(float)).rolling(confirm).sum().to_numpy() >= confirm
-    on = np.ones(len(lvl), bool); cur = True
-    for t in range(len(lvl)):
-        if cur and run_b[t]:
-            cur = False
-        elif not cur and run_a[t]:
-            cur = True
-        on[t] = cur
-    alive = np.isfinite(C) if member is None else (np.isfinite(C) & member)
-    br = np.where(alive.sum(axis=1) > 0,
-                  (state & alive).sum(axis=1) / np.maximum(alive.sum(axis=1), 1), 0.0)
-    exposure = np.clip(br / 0.5, 0.0, 1.0)
-    return on.astype(float), exposure
-
-
-def industry_health(C, state, every=21, lookback=252, peers=20):
-    """
-    Is this stock's INDUSTRY healthy?
-
-    Industry here is measured, not labelled: each month, each stock's peer group
-    is the 20 stocks whose daily returns moved most closely with its own over the
-    previous year. Three reasons for that over a sector label:
-      - it exists for every company, including the ones that were delisted,
-        which no free sector list covers
-      - it is point-in-time: the groups are built only from past returns
-      - it captures what actually moves together. A chip-maker and a cloud
-        company may sit in different official sectors and trade as one.
-    The industry is healthy when more than half its peers are healthy by the
-    same rules. A stock can look fine while its whole group is rolling over;
-    this sees that.
-    """
-    nd, nt = C.shape
-    R = pd.DataFrame(C).pct_change().to_numpy()
-    out = np.zeros((nd, nt))
-    stf = state.astype(float)
-    for t0 in range(0, nd, every):
-        t1 = min(t0 + every, nd)
-        if t0 < lookback:
-            out[t0:t1] = 1.0          # not enough history: do not block
-            continue
-        W = R[t0 - lookback:t0]
-        ok = np.isfinite(W)
-        cnt = ok.sum(axis=0)
-        use = cnt >= 150
-        X = np.where(ok, W, 0.0)
-        mu = X.sum(axis=0) / np.maximum(cnt, 1)
-        X = np.where(ok, W - mu, 0.0)
-        sd = np.sqrt((X ** 2).sum(axis=0) / np.maximum(cnt, 1))
-        X = np.where(sd > 0, X / np.where(sd > 0, sd, 1), 0.0)
-        corr = (X.T @ X) / lookback
-        np.fill_diagonal(corr, -np.inf)
-        corr[:, ~use] = -np.inf
-        P = np.zeros((nt, nt))
-        k = min(peers, int(use.sum()) - 1)
-        if k < 5:
-            out[t0:t1] = 1.0
-            continue
-        top = np.argpartition(-corr, k - 1, axis=1)[:, :k]
-        rows = np.repeat(np.arange(nt), k)
-        P[rows, top.ravel()] = 1.0 / k
-        out[t0:t1] = stf[t0:t1] @ P.T
-        out[t0:t1, ~use] = 1.0        # a stock with no measurable group: do not block
-    return out
-
-
-MEMBERSHIP_URL = ("https://raw.githubusercontent.com/hanshof/sp500_constituents/"
-                  "main/sp_500_historical_components.csv")
-
-
-def membership_mask(idx, cols, url=MEMBERSHIP_URL):
-    """
-    THE LOOK-AHEAD THIS REMOVES -- the largest flaw in the whole project.
-
-    The universe is every stock that was EVER in the S&P 500 between 1996 and
-    2026, and until now every portfolio could hold those stocks from the day
-    they listed. Amazon from 1997, though it joined the index in 2005. Nvidia
-    from 1999, joined 2001. Netflix from 2002, joined 2010. Tesla from 2010,
-    joined 2020. 660 of the stocks were not in the index at the end of 1996.
-
-    Choosing from a list of FUTURE index members is choosing from a list of
-    companies already known to have succeeded. It is why the "index" showed
-    +20.4% a year for 1996-2012, a period containing two 50% crashes.
-
-    The fix is standard: a stock is eligible on a date only if it was IN the
-    index on that date. The membership file is dated snapshots; each snapshot
-    holds until the next one.
-    """
-    h = pd.read_csv(url)
-    h["date"] = pd.to_datetime(h["date"])
-    h = h.sort_values("date")
-    norm = lambda x: x.strip().upper().replace(".", "-")          # noqa: E731
-    col_pos = {norm(c): i for i, c in enumerate(cols)}
-    M = np.zeros((len(idx), len(cols)), bool)
-    snap_dates = h["date"].to_numpy()
-    snaps = [[col_pos[norm(t)] for t in str(r).split(",")
-              if t.strip() and norm(t) in col_pos] for r in h["tickers"]]
-    pos = np.searchsorted(snap_dates, idx.to_numpy(), side="right") - 1
-    for t in range(len(idx)):
-        if pos[t] >= 0:
-            M[t, snaps[pos[t]]] = True
-    return M
-
-
-def run_portfolio(C, target_fn, rebal_every, cash_rate):
-    """
-    Daily portfolio walk. Holdings drift with prices between rebalances.
-    `target_fn(t)` returns target weights over stocks (summing to <= 1; the
-    remainder is cash). A stock whose weight target is zero is SOLD THAT DAY
-    -- exits are immediate; only redeployment waits for the rebalance.
-    """
-    nd, nt = C.shape
-    R = np.nan_to_num(pd.DataFrame(C).pct_change().to_numpy())
-    alive = np.isfinite(C)
-    val = np.zeros(nt)
-    cash = START
-    eq = np.empty(nd)
-    turnover = 0.0
-    daily_cash = (1 + cash_rate) ** (1 / 252) - 1
-    for t in range(nd):
-        if t > 0:
-            val *= (1 + R[t])
-            cash *= (1 + daily_cash)
-        # a delisted stock is sold at its last price
-        dead = (val > 0) & ~alive[t]
-        if dead.any():
-            cash += val[dead].sum() * (1 - COST_SIDE)
-            turnover += val[dead].sum(); val[dead] = 0.0
-        tw = target_fn(t)
-        # immediate exits
-        sell = (val > 0) & (tw <= 0)
-        if sell.any():
-            cash += val[sell].sum() * (1 - COST_SIDE)
-            turnover += val[sell].sum(); val[sell] = 0.0
-        if t % rebal_every == 0:
-            total = cash + val.sum()
-            want = tw * total
-            delta = want - val
-            cost = np.abs(delta).sum() * COST_SIDE
-            turnover += np.abs(delta).sum()
-            val = want.copy()
-            cash = total - want.sum() - cost
-        eq[t] = cash + val.sum()
-    return eq, turnover / START
-
-
-def metrics(eq, idx, mask=None):
-    if mask is not None:
-        eq = eq[mask]; idx = idx[mask]
-    eq = eq / eq[0] * START
-    return {"final_gbp": float(eq[-1]), **cf.risk(eq, idx)}
-
-
-def build_targets(C, state, mode, mom=None, vol=None, top=None,
-                  regime=None, industry=None, member=None):
-    nd, nt = C.shape
-    alive = np.isfinite(C) if member is None else (np.isfinite(C) & member)
-
-    def fn(t):
-        if mode == "index":
-            m = alive[t].copy()
+def download(start: str) -> tuple[pd.DataFrame, pd.Series]:
+    import yfinance as yf
+    tickers = [EQUITY, INTL, INTL_FALLBACK, BONDS] + SECTORS
+    px = {}
+    for t in tickers:
+        d = yf.download(t, start=start, auto_adjust=True, progress=False,
+                        threads=False)
+        if isinstance(d.columns, pd.MultiIndex):
+            d.columns = d.columns.get_level_values(0)
+        if len(d):
+            px[t] = d["Close"].astype(float)
+            print(f"  {t:6} {len(d):5,} days  {d.index[0].date()} -> {d.index[-1].date()}")
         else:
-            m = alive[t] & state[t]
-        if industry is not None:
-            m &= industry[t] > 0.5
-        if top is not None and mom is not None:
-            sc = np.where(m & np.isfinite(mom[t]), mom[t], -np.inf)
-            k = int(min(top, np.isfinite(sc).sum()))
-            m = np.zeros(nt, bool)
-            if k > 0:
-                m[np.argpartition(-sc, k - 1)[:k]] = True
-                m &= np.isfinite(sc)
-        n = int(m.sum())
-        w = np.zeros(nt)
-        if mode != "index" and n < MIN_NAMES:
-            return w
-        if n == 0:
-            return w
-        if vol is not None:
-            # THE BUG THE FIRST RUN HIT: a delisted stock with a stale, flat
-            # price has volatility near zero, so inverse-vol handed it nearly
-            # all the money. Floor the volatility at 10% a year and cap any
-            # single position at 5%.
-            v = np.where(np.isfinite(vol[t]), np.maximum(vol[t], 0.10), np.nan)
-            iv = np.where(m & np.isfinite(v), 1 / v, 0.0)
-            if iv.sum() > 0:
-                w = iv / iv.sum()
-                for _ in range(5):
-                    over = w > 0.05
-                    if not over.any():
-                        break
-                    excess = (w[over] - 0.05).sum()
-                    w[over] = 0.05
-                    rest = (w > 0) & ~over
-                    if rest.any():
-                        w[rest] += excess * w[rest] / w[rest].sum()
-        else:
-            w[m] = 1.0 / n
-        if regime is not None:
-            w = w * float(regime[t])       # the remainder is cash
+            print(f"  {t:6} NO DATA")
+    P = pd.DataFrame(px).sort_index()
+    y = yf.download(CASH_YIELD, start=start, progress=False, threads=False)
+    if isinstance(y.columns, pd.MultiIndex):
+        y.columns = y.columns.get_level_values(0)
+    irx = y["Close"].astype(float).reindex(P.index).ffill().fillna(2.0)
+    # splice international: the fallback fund until EFA exists
+    if INTL in P and INTL_FALLBACK in P:
+        r = P[INTL].pct_change()
+        rf = P[INTL_FALLBACK].pct_change()
+        spliced = r.where(P[INTL].notna(), rf)
+        P["INTL"] = (1 + spliced.fillna(0)).cumprod()
+        P.loc[P[INTL].isna() & P[INTL_FALLBACK].isna(), "INTL"] = np.nan
+    elif INTL in P:
+        P["INTL"] = P[INTL]
+    return P, irx
+
+
+# ---------------------------------------------------------------------------
+# the engine
+# ---------------------------------------------------------------------------
+
+def month_ends(idx: pd.DatetimeIndex) -> np.ndarray:
+    s = pd.Series(np.arange(len(idx)), index=idx)
+    return s.groupby([idx.year, idx.month]).max().to_numpy()
+
+
+def run_arm(P, irx, decide, daily_override=None):
+    """
+    `decide(i)` returns target weights {asset: w} on month-end bar i, using only
+    data up to and including bar i. Weights are applied from bar i+1. Assets are
+    column names of P, or "CASH". `daily_override(i, w)` may change the weights
+    on any day (used for confirmed intra-month exits).
+    """
+    R = P.pct_change()
+    cash_r = (irx / 100.0 / 252.0).to_numpy()
+    me = set(month_ends(P.index).tolist())
+    n = len(P)
+    eq = np.empty(n)
+    v = START
+    w = {"CASH": 1.0}
+    started = False
+    for i in range(n):
+        if i > 0:
+            day = 0.0
+            for a, x in w.items():
+                if a == "CASH":
+                    day += x * cash_r[i]
+                else:
+                    ri = R[a].iat[i]
+                    day += x * (0.0 if not np.isfinite(ri) else ri)
+            v *= 1 + day
+        new = None
+        if i in me:
+            new = decide(i)
+            if new is not None:
+                started = True
+        if daily_override is not None and started:
+            o = daily_override(i, new if new is not None else w)
+            if o is not None:
+                new = o
+        if new is not None and new != w:
+            turn = sum(abs(new.get(k, 0) - w.get(k, 0)) for k in set(new) | set(w))
+            v *= 1 - COST * turn / 2
+            w = new
+        eq[i] = v if started else START
+    return pd.Series(eq, index=P.index)
+
+
+def build_arms(P, irx):
+    C = P
+    ma200 = C.rolling(200, min_periods=200).mean()
+    cash_lvl = (1 + irx / 100.0 / 252.0).cumprod()
+
+    def ret_n(col, i, n):
+        if i - n < 0:
+            return np.nan
+        a, b = C[col].iat[i - n], C[col].iat[i]
+        return b / a - 1 if np.isfinite(a) and np.isfinite(b) and a > 0 else np.nan
+
+    def cash_n(i, n):
+        return cash_lvl.iat[i] / cash_lvl.iat[i - n] - 1 if i - n >= 0 else np.nan
+
+    def ok(col, i):
+        return col in C and np.isfinite(C[col].iat[i]) and np.isfinite(ma200[col].iat[i])
+
+    def bond_or_cash(i):
+        return {BONDS: 1.0} if ok(BONDS, i) else {"CASH": 1.0}
+
+    def safe_haven(i):
+        """
+        The first run's worst year for the bond-rotation rule was 2022, when
+        rising rates crashed bonds AND stocks together. Rotating blindly into
+        bonds has the same flaw as rotating blindly into stocks. So the safe
+        haven is itself trend-checked: Treasuries only while Treasuries are
+        above their own 200-day average; otherwise T-bills.
+        """
+        if ok(BONDS, i) and C[BONDS].iat[i] > ma200[BONDS].iat[i]:
+            return {BONDS: 1.0}
+        return {"CASH": 1.0}
+
+    def spy_up(i):
+        return C[EQUITY].iat[i] > ma200[EQUITY].iat[i]
+
+    def mom_score(col, i):
+        xs = [ret_n(col, i, n) for n in (63, 126, 252)]
+        xs = [x for x in xs if np.isfinite(x)]
+        return np.mean(xs) if len(xs) == 3 else np.nan
+
+    def ready(i):
+        return ok(EQUITY, i)
+
+    arms = {}
+    arms["spy_hold"] = lambda i: {EQUITY: 1.0} if np.isfinite(C[EQUITY].iat[i]) else None
+    arms["spy_200_cash"] = lambda i: (None if not ready(i) else
+                                      ({EQUITY: 1.0} if spy_up(i) else {"CASH": 1.0}))
+    arms["spy_200_bonds"] = lambda i: (None if not ready(i) else
+                                       ({EQUITY: 1.0} if spy_up(i) else bond_or_cash(i)))
+
+    def absmom(i):
+        if not ready(i):
+            return None
+        r12 = ret_n(EQUITY, i, 252)
+        return {EQUITY: 1.0} if r12 > cash_n(i, 252) else bond_or_cash(i)
+    arms["spy_absmom"] = absmom
+
+    def gem(i):
+        if not ready(i) or "INTL" not in C:
+            return None
+        r_us, r_in = ret_n(EQUITY, i, 252), ret_n("INTL", i, 252)
+        if not (r_us > cash_n(i, 252)):
+            return bond_or_cash(i)
+        if np.isfinite(r_in) and r_in > r_us:
+            return {"INTL": 1.0}
+        return {EQUITY: 1.0}
+    arms["gem"] = gem
+
+    def top3(i, filt):
+        if not ready(i):
+            return None
+        if filt and not spy_up(i):
+            return bond_or_cash(i)
+        sc = {s: mom_score(s, i) for s in SECTORS if s in C}
+        sc = {k: v for k, v in sc.items() if np.isfinite(v)}
+        if len(sc) < 5:
+            return None
+        pick = sorted(sc, key=sc.get, reverse=True)[:3]
+        return {s: 1 / 3 for s in pick}
+    arms["sect_top3"] = lambda i: top3(i, False)
+    arms["sect_top3_bonds"] = lambda i: top3(i, True)
+
+    def sect_trend(i):
+        if not ready(i):
+            return None
+        live = [s for s in SECTORS if ok(s, i)]
+        if len(live) < 5:
+            return None
+        up = [s for s in live if C[s].iat[i] > ma200[s].iat[i]]
+        w = {s: 1 / len(live) for s in up}
+        rest = 1 - sum(w.values())
+        if rest > 1e-9:
+            b = bond_or_cash(i)
+            for k in b:
+                w[k] = w.get(k, 0) + rest
         return w
-    return fn
+    arms["sect_trend"] = sect_trend
+
+    arms["spy_200_safe"] = lambda i: (None if not ready(i) else
+                                      ({EQUITY: 1.0} if spy_up(i) else safe_haven(i)))
+
+    def top3_safe(i):
+        if not ready(i):
+            return None
+        if not spy_up(i):
+            return safe_haven(i)
+        return top3(i, False)
+    arms["sect_top3_safe"] = top3_safe
+
+    def blend(i):
+        """Half the market filter, half the sector rotation: two different
+        routes to the same idea, so neither's bad year is the portfolio's."""
+        a, b = arms["spy_200_safe"](i), top3_safe(i)
+        if a is None or b is None:
+            return None
+        w = {}
+        for part in (a, b):
+            for k, x in part.items():
+                w[k] = w.get(k, 0) + 0.5 * x
+        return w
+    arms["blend_safe"] = blend
+
+    # confirmation: exit checked DAILY, needs 3 closes below the 200-day
+    below = (C[EQUITY] < ma200[EQUITY]).astype(float)
+    conf3 = (below.rolling(3).sum() >= 3).to_numpy()
+
+    def override(i, w):
+        if conf3[i] and any(k in SECTORS or k == EQUITY for k in w):
+            return bond_or_cash(i)
+        return None
+    arms["sect_top3_conf"] = (lambda i: top3(i, True), override)
+    return arms
 
 
-def run_all(C, Hh, Ll, V, idx, rebal, cash_rate, member=None):
-    state = healthy_state(C, Hh, Ll, V)
-    df = pd.DataFrame(C)
-    # 12-1 momentum, the standard academic definition: skip the latest month
-    mom = (df.shift(21) / df.shift(252) - 1).to_numpy()
-    vol = (df.pct_change().rolling(63, min_periods=40).std()
-           * np.sqrt(252)).to_numpy()
-    mkt_on, breadth = market_regime(C, state, member=member)
-    ind = industry_health(C, state)
-    T, I = "trend", "index"
-    arms = {
-        "index":            build_targets(C, state, I, member=member),
-        # the OLD benchmark, kept only to show how big the look-ahead was
-        "index_lookahead":  build_targets(C, state, I),
-        "index+mkt":        build_targets(C, state, I, regime=mkt_on, member=member),
-        "trend_top50":      build_targets(C, state, T, mom=mom, top=50, member=member),
-        "top50+mkt":        build_targets(C, state, T, mom=mom, top=50, regime=mkt_on, member=member),
-        "top50+breadth":    build_targets(C, state, T, mom=mom, top=50, regime=breadth, member=member),
-        "top50+ind":        build_targets(C, state, T, mom=mom, top=50, industry=ind, member=member),
-        "top50+mkt+ind":    build_targets(C, state, T, mom=mom, top=50, regime=mkt_on, industry=ind, member=member),
-        "top50+brd+ind":    build_targets(C, state, T, mom=mom, top=50, regime=breadth, industry=ind, member=member),
-        "top100+mkt+ind":   build_targets(C, state, T, mom=mom, top=100, regime=mkt_on, industry=ind, member=member),
-        "trend+mkt+ind":    build_targets(C, state, T, regime=mkt_on, industry=ind, member=member),
-        "top50_iv+mkt+ind": build_targets(C, state, T, mom=mom, vol=vol, top=50, regime=mkt_on, industry=ind, member=member),
-    }
-    res = {}
-    fit = np.asarray(idx < SPLIT)
-    for name, fn in arms.items():
-        eq, to = run_portfolio(C, fn, rebal, cash_rate)
-        res[name] = {"full": metrics(eq, idx),
-                     "fit_1996_2012": metrics(eq, idx, fit),
-                     "test_2013_on": metrics(eq, idx, ~fit),
-                     "turnover_x": float(to)}
-    return res
+def risk(eq: pd.Series) -> dict:
+    eq = eq.dropna()
+    if len(eq) < 50 or eq.iloc[0] <= 0:
+        return {}
+    yrs = (eq.index[-1] - eq.index[0]).days / 365.25
+    r = eq.pct_change().dropna()
+    pk = eq.cummax()
+    dd = float((eq / pk - 1).min())
+    cagr = float((eq.iloc[-1] / eq.iloc[0]) ** (1 / yrs) - 1)
+    vol = float(r.std() * np.sqrt(252))
+    yearly = eq.resample("YE").last().pct_change().dropna()
+    return {"final_gbp": float(START * eq.iloc[-1] / eq.iloc[0]),
+            "cagr": cagr, "max_drawdown": dd, "vol": vol,
+            "sharpe": cagr / vol if vol > 0 else None,
+            "calmar": cagr / abs(dd) if dd < 0 else None,
+            "worst_year": float(yearly.min()) if len(yearly) else None}
 
 
-def synthetic(seed, n_tick=160, n=2600):
-    C, Hh, Ll, V = cf.synthetic(seed, n_tick, n)
-    return C, Hh, Ll, V
-
-
-def verdict_for(res, key="full"):
-    b = res["index"][key]
-    wins = []
-    for k, v in res.items():
-        if k in ("index", "index_lookahead"):
+def walkforward(curves: dict[str, pd.Series], start_year: int) -> tuple[pd.Series, list]:
+    """
+    Each January, choose the arm with the best Calmar over the previous
+    WF_LOOKBACK_YEARS using only data before that January, then hold it for the
+    year. Stitch the years. This is the only arm here whose rule-choice was
+    never made with hindsight.
+    """
+    cands = {k: v for k, v in curves.items() if k != "spy_hold"}
+    rets = {k: v.pct_change().fillna(0.0) for k, v in cands.items()}
+    idx = next(iter(curves.values())).index
+    out = pd.Series(np.nan, index=idx)
+    choices = []
+    last_year = idx[-1].year
+    level = START
+    for y in range(start_year, last_year + 1):
+        t0 = pd.Timestamp(f"{y}-01-01")
+        lb0 = pd.Timestamp(f"{y - WF_LOOKBACK_YEARS}-01-01")
+        best, bestc = None, -np.inf
+        for k, r in rets.items():
+            hist = r[(r.index >= lb0) & (r.index < t0)]
+            if len(hist) < 200 * WF_LOOKBACK_YEARS:
+                continue
+            m = risk((1 + hist).cumprod())
+            c = m.get("calmar")
+            if c is not None and c > bestc:
+                best, bestc = k, c
+        if best is None:
             continue
-        m = v[key]
-        if (m["cagr"] > b["cagr"] + CAGR_MARGIN
-                and (m["calmar"] or 0) > (b["calmar"] or 0) * 1.10):
-            wins.append(k)
-    return wins
+        yr = rets[best][(rets[best].index >= t0) & (rets[best].index < pd.Timestamp(f"{y+1}-01-01"))]
+        if not len(yr):
+            continue
+        path = level * (1 + yr).cumprod()
+        out.loc[path.index] = path.to_numpy()
+        level = float(path.iloc[-1])
+        choices.append({"year": y, "chosen": best, "trailing_calmar": float(bestc)})
+    return out.dropna(), choices
+
+
+def evaluate(P, irx):
+    arms = build_arms(P, irx)
+    curves = {}
+    for name, spec in arms.items():
+        if isinstance(spec, tuple):
+            curves[name] = run_arm(P, irx, spec[0], spec[1])
+        else:
+            curves[name] = run_arm(P, irx, spec)
+    # common start: once every sector fund and the 200-day exist
+    starts = []
+    for name, eq in curves.items():
+        moved = eq[eq != START]
+        if len(moved):
+            starts.append(moved.index[0])
+    t0 = max(starts)
+    curves = {k: v[v.index >= t0] for k, v in curves.items()}
+    wf, choices = walkforward(curves, t0.year + WF_LOOKBACK_YEARS)
+    return curves, wf, choices, t0
+
+
+def windows(eq: pd.Series) -> dict:
+    return {"full": risk(eq),
+            "first_half": risk(eq[eq.index < SPLIT]),
+            "second_half": risk(eq[eq.index >= SPLIT])}
+
+
+def excess_t(eq: pd.Series, bench_eq: pd.Series) -> float:
+    """Annualised excess return over its own standard error."""
+    j = eq.index.intersection(bench_eq.index)
+    if len(j) < 500:
+        return float("nan")
+    ra = eq.loc[j].pct_change().dropna()
+    rb = bench_eq.loc[j].pct_change().dropna()
+    d = (ra - rb).dropna()
+    yrs = len(d) / 252
+    te = float(d.std() * np.sqrt(252))
+    ex = float(d.mean() * 252)
+    return ex / (te / np.sqrt(yrs)) if te > 0 else float("nan")
+
+
+def split(eq, key):
+    if key == "first_half":
+        return eq[eq.index < SPLIT]
+    if key == "second_half":
+        return eq[eq.index >= SPLIT]
+    return eq
+
+
+def passes(res, bench, key, eq=None, bench_eq=None):
+    a, b = res.get(key, {}), bench.get(key, {})
+    if not a or not b:
+        return False
+    ok = (a["cagr"] > b["cagr"] + CAGR_MARGIN
+          and (a.get("calmar") or 0) > (b.get("calmar") or 0) * CALMAR_MULT)
+    if ok and eq is not None and bench_eq is not None:
+        t = excess_t(split(eq, key), split(bench_eq, key))
+        ok = bool(np.isfinite(t) and t > T_BAR)
+    return ok
+
+
+# ---------------------------------------------------------------------------
+# calibration
+# ---------------------------------------------------------------------------
+
+def synthetic(seed, n=6800):
+    """Equity, sectors, international and bonds as random walks. Nothing to find."""
+    rng = np.random.default_rng(seed)
+    idx = pd.bdate_range("1998-01-02", periods=n)
+    mkt = rng.normal(0.0003, 0.012, n)
+    P = {}
+    P[EQUITY] = 100 * np.exp(np.cumsum(mkt))
+    P["INTL"] = 100 * np.exp(np.cumsum(0.8 * mkt + rng.normal(0.0001, 0.008, n)))
+    P[BONDS] = 100 * np.exp(np.cumsum(rng.normal(0.00018, 0.004, n)))
+    for s in SECTORS:
+        P[s] = 100 * np.exp(np.cumsum(mkt + rng.normal(0.0, 0.009, n)))
+    df = pd.DataFrame(P, index=idx)
+    irx = pd.Series(2.0, index=idx)
+    return df, irx
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--prices", default="data/prices.parquet")
-    ap.add_argument("--out", default="data/rotation_evidence.json")
-    ap.add_argument("--rebal", type=int, default=21)
-    ap.add_argument("--cash-rate", type=float, default=0.02)
+    ap.add_argument("--start", default="1996-01-01")
+    ap.add_argument("--out", default="data/etf_rotation_evidence.json")
     ap.add_argument("--calibrate", type=int, default=0)
     a = ap.parse_args()
     out_path = Path(a.out)
@@ -406,15 +456,21 @@ def main() -> int:
         if a.calibrate:
             fired, rows = 0, []
             for p in range(a.calibrate):
-                C, Hh, Ll, V = synthetic(1000 + p)
-                idx = pd.bdate_range("2004-01-01", periods=C.shape[0])
-                res = run_all(C, Hh, Ll, V, idx, a.rebal, a.cash_rate)
-                # the verdict must hold IN THE TEST WINDOW, not just overall
-                w = verdict_for(res, "test_2013_on")
-                w = [k for k in w if k in verdict_for(res, "fit_1996_2012")]
-                fired += bool(w)
-                rows.append({"panel": p, "winners": w})
-                print(f"  panel {p:2}  {'FIRED ' + ', '.join(w) if w else 'nothing'}",
+                P, irx = synthetic(3000 + p)
+                curves, wf, _, _ = evaluate(P, irx)
+                bench = windows(curves["spy_hold"])
+                hits = []
+                for k, eq in list(curves.items()) + [("walkforward", wf)]:
+                    if k == "spy_hold":
+                        continue
+                    r = windows(eq)
+                    be = curves["spy_hold"]
+                    if (passes(r, bench, "first_half", eq, be)
+                            and passes(r, bench, "second_half", eq, be)):
+                        hits.append(k)
+                fired += bool(hits)
+                rows.append({"panel": p, "fired": hits})
+                print(f"  panel {p:2}  {'FIRED ' + ', '.join(hits) if hits else 'nothing'}",
                       flush=True)
             rate = fired / max(a.calibrate, 1)
             print(f"\n  FALSE POSITIVE RATE: {fired}/{a.calibrate} = {rate:.0%}")
@@ -424,64 +480,108 @@ def main() -> int:
                  "detail": rows}, indent=2, default=str))
             return 0
 
-        px = pd.read_parquet(a.prices)
-        px["date"] = pd.to_datetime(px["date"])
-        w = {f: px.pivot_table(index="date", columns="ticker", values=f)
-                  .sort_index() for f in ("high", "low", "close", "volume")}
-        idx = w["close"].index
-        C, Hh, Ll, V = (w[f].to_numpy(float) for f in ("close", "high", "low", "volume"))
-        keep = np.isfinite(C).sum(axis=0) > 500
-        C, Hh, Ll, V = C[:, keep], Hh[:, keep], Ll[:, keep], V[:, keep]
-        cols = [c for c, k in zip(w["close"].columns, keep) if k]
-        try:
-            member = membership_mask(idx, cols)
-            print(f"membership: {member.any(axis=0).sum()} of {len(cols)} stocks "
-                  f"matched to the index history; avg {member.sum(axis=1).mean():.0f} "
-                  f"eligible per day")
-        except Exception as e:                                # noqa: BLE001
-            member = None
-            print(f"membership file unavailable ({e}); running WITHOUT it")
-        print(f"{C.shape[1]} stocks (delisted ones INCLUDED, sold at last price), "
-              f"{len(idx):,} days, {idx[0].date()} -> {idx[-1].date()}")
+        P, irx = download(a.start)
+        curves, wf, choices, t0 = evaluate(P, irx)
+        bench = windows(curves["spy_hold"])
+        table = {k: windows(v) for k, v in curves.items()}
+        table["walkforward"] = windows(wf)
+        # benchmark over the walk-forward's own period, for a fair comparison
+        spy_wf = curves["spy_hold"][curves["spy_hold"].index >= wf.index[0]]
+        wf_bench = risk(spy_wf / spy_wf.iloc[0] * START)
 
-        out = {}
-        for cr in (a.cash_rate, 0.0):
-            res = run_all(C, Hh, Ll, V, idx, a.rebal, cr, member)
-            out[f"cash_{cr:.0%}"] = res
-            print(f"\n  === cash earns {cr:.0%}, rebalance every {a.rebal} days ===")
-            for win in ("full", "fit_1996_2012", "test_2013_on"):
-                print(f"\n  {win}")
-                print(f"  {'arm':16}{'GBP':>13}{'CAGR':>8}{'maxDD':>8}"
-                      f"{'Sharpe':>8}{'Calmar':>8}")
-                for k in sorted(res, key=lambda x: -res[x][win]["final_gbp"]):
-                    m = res[k][win]
-                    print(f"  {k:16}{m['final_gbp']:>13,.0f}{m['cagr']:>+8.1%}"
-                          f"{m['max_drawdown']:>8.1%}{(m['sharpe'] or 0):>8.2f}"
-                          f"{(m['calmar'] or 0):>8.2f}")
+        print(f"\n  from {t0.date()}  (all sector funds live and 200-day warm)")
+        for win in ("full", "first_half", "second_half"):
+            print(f"\n  === {win} ===")
+            print(f"  {'arm':18}{'GBP':>12}{'CAGR':>8}{'vs SPY':>8}{'maxDD':>8}"
+                  f"{'Sharpe':>8}{'Calmar':>8}{'worst yr':>10}")
+            b = bench[win]
+            for k in sorted(table, key=lambda x: -(table[x][win].get("final_gbp") or 0)):
+                m = table[k][win]
+                if not m:
+                    continue
+                print(f"  {k:18}{m['final_gbp']:>12,.0f}{m['cagr']:>+8.1%}"
+                      f"{m['cagr']-b['cagr']:>+8.1%}{m['max_drawdown']:>8.1%}"
+                      f"{(m['sharpe'] or 0):>8.2f}{(m['calmar'] or 0):>8.2f}"
+                      f"{(m['worst_year'] or 0):>+10.1%}")
+        wfr = table["walkforward"]["full"]
+        print(f"\n  WALK-FORWARD, judged over ITS OWN years ({wf.index[0].date()} on):")
+        print(f"    walk-forward  GBP {wfr['final_gbp']:>10,.0f}  CAGR {wfr['cagr']:+.1%}"
+              f"  maxDD {wfr['max_drawdown']:.1%}  Calmar {wfr['calmar']:.2f}")
+        print(f"    S&P 500       GBP {wf_bench['final_gbp']:>10,.0f}  CAGR {wf_bench['cagr']:+.1%}"
+              f"  maxDD {wf_bench['max_drawdown']:.1%}  Calmar {wf_bench['calmar']:.2f}")
+        print("  its yearly choices:",
+              ", ".join(f"{c['year']}:{c['chosen']}" for c in choices))
 
-        res = out[f"cash_{a.cash_rate:.0%}"]
-        both = [k for k in verdict_for(res, "fit_1996_2012")
-                if k in verdict_for(res, "test_2013_on")]
-        b = res["index"]["full"]
-        if both:
-            best = max(both, key=lambda k: res[k]["full"]["final_gbp"])
-            m = res[best]["full"]
-            verdict = (f"BEATS BUY AND HOLD, IN BOTH HALVES: {best} turns "
-                       f"GBP 10,000 into GBP {m['final_gbp']:,.0f} against the "
-                       f"index's GBP {b['final_gbp']:,.0f} — CAGR "
-                       f"{m['cagr']:+.1%} vs {b['cagr']:+.1%}, worst drawdown "
-                       f"{m['max_drawdown']:.1%} vs {b['max_drawdown']:.1%}. "
-                       f"Passing arms: {', '.join(both)}.")
-        else:
-            verdict = (f"No arm beat the index by {CAGR_MARGIN:.0%} a year AND "
-                       f"on Calmar in BOTH halves of the sample.")
+        allc = dict(curves); allc["walkforward"] = wf
+        be = curves["spy_hold"]
+        print(f"\n  excess-return t-stat vs S&P 500 (must exceed {T_BAR} in BOTH halves)")
+        tstats = {}
+        for k, eq in allc.items():
+            if k == "spy_hold":
+                continue
+            t1 = excess_t(split(eq, "first_half"), split(be, "first_half"))
+            t2 = excess_t(split(eq, "second_half"), split(be, "second_half"))
+            tf = excess_t(eq, be)
+            tstats[k] = {"first_half_t": t1, "second_half_t": t2, "full_t": tf}
+            print(f"    {k:18} 1999-2012 t {t1:+5.2f}   2013-on t {t2:+5.2f}"
+                  f"   full t {tf:+5.2f}")
+        winners = [k for k in table if k != "spy_hold"
+                   and passes(table[k], bench, "first_half", allc[k], be)
+                   and passes(table[k], bench, "second_half", allc[k], be)]
+        verdict = (
+            f"BEATS BUY AND HOLD IN BOTH HALVES: {', '.join(winners)}. Each beat "
+            f"the S&P 500 by more than {CAGR_MARGIN:.0%} a year, on "
+            f"return-per-drawdown, and with an excess-return t above {T_BAR}, "
+            f"in 1999-2012 and again from 2013."
+            if winners else
+            "No arm beat the S&P 500 by 1% a year AND on Calmar in BOTH halves.")
         print(f"\n  {verdict}")
+
+        # the live call, for each arm, as of the last bar -- this is what the
+        # daily job will publish once a winner is confirmed
+        arms = build_arms(P, irx)
+        core = [EQUITY, BONDS] + [x for x in SECTORS if x in P]
+        complete = P[core].notna().all(axis=1)
+        last = int(np.flatnonzero(complete.to_numpy())[-1])
+        live = {}
+        for k, spec in arms.items():
+            fn = spec[0] if isinstance(spec, tuple) else spec
+            try:
+                live[k] = fn(last)
+            except Exception:                                 # noqa: BLE001
+                live[k] = None
+        as_of = str(P.index[last].date())
+        # the rule to follow: best full-period Calmar among rules that beat the
+        # S&P 500 on BOTH return and Calmar over the full sample
+        bfull = bench["full"]
+        eligible = [k for k in table if k not in ("spy_hold", "walkforward")
+                    and table[k]["full"].get("cagr", -9) > bfull["cagr"]
+                    and (table[k]["full"].get("calmar") or 0) > (bfull.get("calmar") or 0)]
+        lead = max(eligible, key=lambda k: table[k]["full"]["calmar"]) if eligible else None
+        sig = {"generated": pd.Timestamp.now("UTC").isoformat(), "as_of": as_of,
+               "lead_rule": lead,
+               "lead_position": live.get(lead) if lead else None,
+               "lead_stats_full": table[lead]["full"] if lead else None,
+               "sp500_stats_full": bfull,
+               "all_rules": live,
+               "note": ("Lead rule = best return-per-drawdown among rules that beat "
+                        "the S&P 500 on BOTH return and drawdown over the full sample. "
+                        "It has NOT passed the both-halves significance bar.")}
+        Path("docs").mkdir(exist_ok=True)
+        Path("docs/etf_signal.json").write_text(json.dumps(sig, indent=2, default=str))
+        print(f"\n  LEAD RULE: {lead}  ->  as of {as_of}: {live.get(lead)}")
+        print("\n  WHAT EACH RULE SAYS TODAY:")
+        for k, w in live.items():
+            print(f"    {k:18} {w}")
+
         out_path.write_text(json.dumps(
             {"generated": pd.Timestamp.now("UTC").isoformat(), "env": env,
-             "stocks": int(C.shape[1]), "from": str(idx[0].date()),
-             "to": str(idx[-1].date()), "rebalance_days": a.rebal,
-             "min_names": MIN_NAMES, "results": out,
-             "passes_both_halves": both, "verdict": verdict}, indent=2, default=str))
+             "from": str(t0.date()), "to": str(P.index[-1].date()),
+             "cost_per_switch": COST, "cagr_margin": CAGR_MARGIN,
+             "results": table, "excess_t": tstats, "t_bar": T_BAR,
+             "walkforward_choices": choices,
+             "walkforward_benchmark": wf_bench, "passes_both_halves": winners,
+             "live_positions": live, "verdict": verdict}, indent=2, default=str))
         return 0
     except Exception as exc:                                     # noqa: BLE001
         import traceback
