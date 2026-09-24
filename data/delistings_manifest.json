@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-24T00:15:38.147328+00:00",
+  "generated": "2026-09-24T04:11:12.953388+00:00",
   "env": {
     "pandas": "3.0.6",
     "python": "3.11.16"
@@ -7,7 +7,7 @@
   "universe": 1128,
   "tickers_processed": 1128,
   "with_terminal_event": 568,
-  "resolved_by_full_text_search": 17,
+  "resolved_by_full_text_search": 0,
   "unresolved": 287,
   "by_cause": {
     "delisted": 349,
