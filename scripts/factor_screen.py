@@ -189,6 +189,16 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True) -> tuple[pd.Ser
     pos, strikes, opened = {}, {}, {}
     streak = np.zeros(X.shape[1], int)            # weeks in a row in the top 5%
     marks, trades, holds = {}, 0, []
+    book, entry = [], {}                          # every round trip, for the audit
+    cols = list(Cff.columns)
+
+    def close(k, i, px):
+        e_i, e_px = entry.pop(k)
+        seg = X[e_i:i + 1, k]
+        day = np.nanmax(np.abs(np.diff(np.log(seg[np.isfinite(seg)])))) if np.isfinite(seg).sum() > 2 else 0
+        book.append({"ticker": cols[k], "in": str(idx[e_i].date()), "out": str(idx[i].date()),
+                     "ret": float(px / e_px - 1), "gbp": 0.0, "shares": 0.0,
+                     "biggest_day_move": float(np.expm1(day)), "open": False, "_e": e_px, "_x": px})
     for i in range(start_i, len(idx), CHECK_EVERY):
         ok = member[i] & np.isfinite(S[i]) & np.isfinite(X[i])
         ref = np.sort(S[i, ok])
@@ -205,6 +215,9 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True) -> tuple[pd.Ser
             strikes[k] = strikes.get(k, 0) + 1 if weak else 0
             if not alive or strikes[k] >= EXIT_CONFIRM:
                 px = X[i, k] if np.isfinite(X[i, k]) else Cff.iloc[:i + 1, k].dropna().iloc[-1]
+                sh = pos[k]
+                close(k, i, px)
+                book[-1]["gbp"] = float(sh * (px - book[-1]["_e"]))
                 amt = pos.pop(k) * px * (1 - fx) - fee
                 index_units += max(amt - fee, 0) / Y[i]          # back into the tracker
                 trades += 1
@@ -224,13 +237,32 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True) -> tuple[pd.Ser
                     break
                 index_units -= need / Y[i]
                 pos[k] = (per - fee) * (1 - fx) / X[i, k]
+                entry[k] = (i, X[i, k])
                 opened[k] = i
                 strikes[k] = 0
                 trades += 1
         marks[idx[i]] = index_units * Y[i] + sum(
             p * X[i, k] for k, p in pos.items() if np.isfinite(X[i, k]))
+    last = len(idx) - 1
+    for k in list(pos):                            # still held: mark at today's price
+        sh = pos[k]
+        close(k, last, X[last, k])
+        book[-1].update(gbp=float(sh * (X[last, k] - book[-1]["_e"])), open=True)
+    for b in book:
+        b.pop("_e"); b.pop("_x"); b.pop("shares")
+    gains = sorted(book, key=lambda b: -b["gbp"])
+    total_gain = sum(b["gbp"] for b in book)
+    top3 = sum(b["gbp"] for b in gains[:3])
     yrs = max((idx[-1] - idx[start_i]).days / 365.25, 1e-9)
     return pd.Series(marks), {
+        "best_trades": [{k: (round(v, 3) if isinstance(v, float) else v) for k, v in b.items()}
+                        for b in gains[:5]],
+        "worst_trades": [{k: (round(v, 3) if isinstance(v, float) else v) for k, v in b.items()}
+                         for b in gains[-3:]],
+        "net_trading_gain_gbp": round(total_gain),
+        "share_of_gain_from_best_3": round(top3 / total_gain, 2) if total_gain > 0 else None,
+        "suspect_price_jumps": [f"{b['ticker']} {b['in']}" for b in book
+                                if b["biggest_day_move"] > 1.0],
         "trades_per_year": round(trades / yrs, 1),
         "median_hold_days": int(np.median(holds) * 365.25 / 252) if holds else None,
         "still_held": len(pos)}
@@ -296,6 +328,27 @@ def write_md(out: dict, path: Path):
                  f"{m['worst']:.0%} | {m['spy_worst']:.0%} | {r['turnover']['trades_per_year']} | "
                  f"{r['turnover']['median_hold_days'] or '—'} days | {d[0]} | {d[1]} | "
                  f"{'**PASSES**' if r['passes'] else 'no'} |")
+    L.append("\n## 3. Where the money came from — was it a rule, or a few lucky stocks?\n")
+    L.append("For every score whose commit portfolio ended ahead of the S&P 500 (after costs): "
+             "its five best trades, and how much of all its trading profit came from just "
+             "three stocks. If three trades are most of the profit, the 'rule' is really a "
+             "few lucky holdings, and it would not repeat. A price jump of more than 100% in one "
+             "day is flagged as a possible data error.\n")
+    for name, r in sorted(out["scores"].items(),
+                          key=lambda kv: -kv[1]["money_costs"]["all"]["gbp_from_10k"]):
+        m, t = r["money_costs"]["all"], r["turnover"]
+        if m["gbp_from_10k"] <= m["spy_gbp_from_10k"]:
+            continue
+        sh = t.get("share_of_gain_from_best_3")
+        L.append(f"**{name}** — trading profit £{t.get('net_trading_gain_gbp', 0):,}; "
+                 f"{'' if sh is None else f'{sh:.0%} of it from the best three trades. '}"
+                 f"{'Possible data errors: ' + ', '.join(t['suspect_price_jumps'][:8]) if t.get('suspect_price_jumps') else 'No suspect price jumps.'}\n")
+        L.append("| Stock | Bought | Sold | Return | £ gain |")
+        L.append("|---|---|---|---|---|")
+        for b in t.get("best_trades", []):
+            L.append(f"| {b['ticker']} | {b['in']} | {'still held' if b['open'] else b['out']} | "
+                     f"{b['ret']:+.0%} | £{b['gbp']:,.0f} |")
+        L.append("")
     L.append(f"\n**Result:** {out['verdict']}\n")
     L.append("---\n_Known bias: most bankrupt or taken-over companies have no Yahoo prices; those "
              "in the delisted archive are included. That flatters every score equally, so it "
