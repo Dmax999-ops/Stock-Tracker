@@ -1,0 +1,7 @@
+# Extra tickers you want the daily plan to consider, on equal terms with the
+# Russell 1000. Use Yahoo symbols: US as-is (PLTR), London with .L (RR.L).
+# They only enter the ten if they genuinely score in the top ten.
+watchlist:
+  - PLTR
+  - ARM
+  - TSM
