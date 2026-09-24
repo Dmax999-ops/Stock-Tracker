@@ -103,6 +103,33 @@ def load_panel(prices: str, delisted: str) -> tuple[pd.DataFrame, dict]:
     return C, info
 
 
+MEMBERSHIP_URL = ("https://raw.githubusercontent.com/hanshof/sp500_constituents/"
+                  "main/sp_500_historical_components.csv")
+
+
+def membership_mask(idx, cols, url=MEMBERSHIP_URL):
+    """
+    A stock is eligible on a date only if it was IN the S&P 500 on that date.
+    Choosing from today's members would be choosing from companies already
+    known to have succeeded. The file is dated snapshots; each holds until the
+    next. (Kept inside this script so it depends on no other file.)
+    """
+    h = pd.read_csv(url)
+    h["date"] = pd.to_datetime(h["date"])
+    h = h.sort_values("date")
+    norm = lambda x: x.strip().upper().replace(".", "-")          # noqa: E731
+    col_pos = {norm(c): i for i, c in enumerate(cols)}
+    M = np.zeros((len(idx), len(cols)), bool)
+    snap_dates = h["date"].to_numpy()
+    snaps = [[col_pos[norm(t)] for t in str(r).split(",")
+              if t.strip() and norm(t) in col_pos] for r in h["tickers"]]
+    pos = np.searchsorted(snap_dates, idx.to_numpy(), side="right") - 1
+    for t in range(len(idx)):
+        if pos[t] >= 0:
+            M[t, snaps[pos[t]]] = True
+    return M
+
+
 def load_spy(idx: pd.DatetimeIndex, log=print) -> pd.Series:
     """S&P 500 (SPY, dividends included). Several routes, because one failing
     download must not sink an hour-long test."""
@@ -434,8 +461,7 @@ def main() -> int:
         try:
             if a.no_membership:
                 raise RuntimeError("membership disabled (test mode)")
-            rot = _load("rot", "rotation.py")
-            member = rot.membership_mask(C.index, list(C.columns))
+            member = membership_mask(C.index, list(C.columns))
         except Exception as e:                                     # noqa: BLE001
             if not (a.allow_no_membership or a.no_membership):
                 raise
