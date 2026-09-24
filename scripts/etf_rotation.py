@@ -192,6 +192,18 @@ def build_arms(P, irx):
     def bond_or_cash(i):
         return {BONDS: 1.0} if ok(BONDS, i) else {"CASH": 1.0}
 
+    def safe_haven(i):
+        """
+        The first run's worst year for the bond-rotation rule was 2022, when
+        rising rates crashed bonds AND stocks together. Rotating blindly into
+        bonds has the same flaw as rotating blindly into stocks. So the safe
+        haven is itself trend-checked: Treasuries only while Treasuries are
+        above their own 200-day average; otherwise T-bills.
+        """
+        if ok(BONDS, i) and C[BONDS].iat[i] > ma200[BONDS].iat[i]:
+            return {BONDS: 1.0}
+        return {"CASH": 1.0}
+
     def spy_up(i):
         return C[EQUITY].iat[i] > ma200[EQUITY].iat[i]
 
@@ -257,6 +269,76 @@ def build_arms(P, irx):
                 w[k] = w.get(k, 0) + rest
         return w
     arms["sect_trend"] = sect_trend
+
+    arms["spy_200_safe"] = lambda i: (None if not ready(i) else
+                                      ({EQUITY: 1.0} if spy_up(i) else safe_haven(i)))
+
+    def top3_safe(i):
+        if not ready(i):
+            return None
+        if not spy_up(i):
+            return safe_haven(i)
+        return top3(i, False)
+    arms["sect_top3_safe"] = top3_safe
+
+    def blend(i):
+        """Half the market filter, half the sector rotation: two different
+        routes to the same idea, so neither's bad year is the portfolio's."""
+        a, b = arms["spy_200_safe"](i), top3_safe(i)
+        if a is None or b is None:
+            return None
+        w = {}
+        for part in (a, b):
+            for k, x in part.items():
+                w[k] = w.get(k, 0) + 0.5 * x
+        return w
+    arms["blend_safe"] = blend
+
+    # ------------------------------------------------------------------
+    # ENSEMBLE EXPOSURE: six trend signals instead of one switch.
+    #
+    # Every exit of 1-4 months in 27 years LOST money (V-shaped dips: sell near
+    # the bottom, buy back after the bounce); the whole edge came from three
+    # long exits in 2000-02 and 2008. Nothing observable at the moment of the
+    # sell -- neither the slope of the 200-day nor sector breadth -- separated
+    # the two groups, and a rule fitted to three events would be a curve fit.
+    # So: do not bet everything on one switch. Equity exposure = the share of
+    # six standard trend signals that are positive; the rest goes to the safe
+    # haven. A V-dip flips the fast signals only, so you trim rather than dump;
+    # a real bear flips all six. Nothing here is tuned to any past event.
+    # ------------------------------------------------------------------
+    ma50 = C.rolling(50, min_periods=50).mean()
+    ma100 = C.rolling(100, min_periods=100).mean()
+
+    def trend_score(i):
+        x = C[EQUITY].iat[i]
+        sig = [x > ma50[EQUITY].iat[i], x > ma100[EQUITY].iat[i],
+               x > ma200[EQUITY].iat[i]]
+        sig += [ret_n(EQUITY, i, n) > 0 for n in (63, 126, 252)]
+        return float(np.mean(sig))
+
+    def with_haven(i, equity_w, sc):
+        w = {k: v * sc for k, v in equity_w.items()}
+        rest = 1 - sc
+        if rest > 1e-9:
+            for k, v in safe_haven(i).items():
+                w[k] = w.get(k, 0) + rest * v
+        return w
+
+    def ens_spy(i):
+        if not ready(i):
+            return None
+        return with_haven(i, {EQUITY: 1.0}, trend_score(i))
+    arms["ens_spy_safe"] = ens_spy
+
+    def ens_sect(i):
+        if not ready(i):
+            return None
+        t = top3(i, False)
+        if t is None:
+            return None
+        return with_haven(i, t, trend_score(i))
+    arms["ens_sect_safe"] = ens_sect
 
     # confirmation: exit checked DAILY, needs 3 closes below the 200-day
     below = (C[EQUITY] < ma200[EQUITY]).astype(float)
@@ -445,6 +527,12 @@ def main() -> int:
             return 0
 
         P, irx = download(a.start)
+        # Save the exact prices used, so every later test -- including in the
+        # analysis sandbox, which cannot reach Yahoo -- runs on the same daily
+        # history instead of a weekly stand-in.
+        Path("data").mkdir(exist_ok=True)
+        snap = P.copy(); snap["IRX"] = irx
+        snap.to_csv("data/etf_prices.csv", index_label="date", float_format="%.6f")
         curves, wf, choices, t0 = evaluate(P, irx)
         bench = windows(curves["spy_hold"])
         table = {k: windows(v) for k, v in curves.items()}
@@ -467,9 +555,12 @@ def main() -> int:
                       f"{m['cagr']-b['cagr']:>+8.1%}{m['max_drawdown']:>8.1%}"
                       f"{(m['sharpe'] or 0):>8.2f}{(m['calmar'] or 0):>8.2f}"
                       f"{(m['worst_year'] or 0):>+10.1%}")
-        print(f"\n  walk-forward from {wf.index[0].date()}: "
-              f"GBP {table['walkforward']['full']['final_gbp']:,.0f} "
-              f"vs S&P 500 over the same years GBP {wf_bench['final_gbp']:,.0f}")
+        wfr = table["walkforward"]["full"]
+        print(f"\n  WALK-FORWARD, judged over ITS OWN years ({wf.index[0].date()} on):")
+        print(f"    walk-forward  GBP {wfr['final_gbp']:>10,.0f}  CAGR {wfr['cagr']:+.1%}"
+              f"  maxDD {wfr['max_drawdown']:.1%}  Calmar {wfr['calmar']:.2f}")
+        print(f"    S&P 500       GBP {wf_bench['final_gbp']:>10,.0f}  CAGR {wf_bench['cagr']:+.1%}"
+              f"  maxDD {wf_bench['max_drawdown']:.1%}  Calmar {wf_bench['calmar']:.2f}")
         print("  its yearly choices:",
               ", ".join(f"{c['year']}:{c['chosen']}" for c in choices))
 
@@ -482,8 +573,10 @@ def main() -> int:
                 continue
             t1 = excess_t(split(eq, "first_half"), split(be, "first_half"))
             t2 = excess_t(split(eq, "second_half"), split(be, "second_half"))
-            tstats[k] = {"first_half_t": t1, "second_half_t": t2}
-            print(f"    {k:18} 1999-2012 t {t1:+5.2f}   2013-on t {t2:+5.2f}")
+            tf = excess_t(eq, be)
+            tstats[k] = {"first_half_t": t1, "second_half_t": t2, "full_t": tf}
+            print(f"    {k:18} 1999-2012 t {t1:+5.2f}   2013-on t {t2:+5.2f}"
+                  f"   full t {tf:+5.2f}")
         winners = [k for k in table if k != "spy_hold"
                    and passes(table[k], bench, "first_half", allc[k], be)
                    and passes(table[k], bench, "second_half", allc[k], be)]
@@ -499,13 +592,36 @@ def main() -> int:
         # the live call, for each arm, as of the last bar -- this is what the
         # daily job will publish once a winner is confirmed
         arms = build_arms(P, irx)
+        core = [EQUITY, BONDS] + [x for x in SECTORS if x in P]
+        complete = P[core].notna().all(axis=1)
+        last = int(np.flatnonzero(complete.to_numpy())[-1])
         live = {}
         for k, spec in arms.items():
             fn = spec[0] if isinstance(spec, tuple) else spec
             try:
-                live[k] = fn(len(P) - 1)
+                live[k] = fn(last)
             except Exception:                                 # noqa: BLE001
                 live[k] = None
+        as_of = str(P.index[last].date())
+        # the rule to follow: best full-period Calmar among rules that beat the
+        # S&P 500 on BOTH return and Calmar over the full sample
+        bfull = bench["full"]
+        eligible = [k for k in table if k not in ("spy_hold", "walkforward")
+                    and table[k]["full"].get("cagr", -9) > bfull["cagr"]
+                    and (table[k]["full"].get("calmar") or 0) > (bfull.get("calmar") or 0)]
+        lead = max(eligible, key=lambda k: table[k]["full"]["calmar"]) if eligible else None
+        sig = {"generated": pd.Timestamp.now("UTC").isoformat(), "as_of": as_of,
+               "lead_rule": lead,
+               "lead_position": live.get(lead) if lead else None,
+               "lead_stats_full": table[lead]["full"] if lead else None,
+               "sp500_stats_full": bfull,
+               "all_rules": live,
+               "note": ("Lead rule = best return-per-drawdown among rules that beat "
+                        "the S&P 500 on BOTH return and drawdown over the full sample. "
+                        "It has NOT passed the both-halves significance bar.")}
+        Path("docs").mkdir(exist_ok=True)
+        Path("docs/etf_signal.json").write_text(json.dumps(sig, indent=2, default=str))
+        print(f"\n  LEAD RULE: {lead}  ->  as of {as_of}: {live.get(lead)}")
         print("\n  WHAT EACH RULE SAYS TODAY:")
         for k, w in live.items():
             print(f"    {k:18} {w}")
