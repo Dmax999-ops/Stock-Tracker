@@ -1,0 +1,57 @@
+name: Backtest daily plan
+
+# Year by year since 1998: what the daily plan WOULD have told you to own each
+# month (seeing only what was known then, only stocks in the S&P 500 then),
+# what that did in GBP after Hargreaves Lansdown costs, and whether the
+# stocks it ranked highest really did go on to do best.
+# Results: docs/BACKTEST.md and data/plan_backtest.json
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 1 * *'        # monthly, 1st at 06:00 UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: backtest-plan
+  cancel-in-progress: false
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt requests lxml pyyaml pyarrow
+
+      - name: Rebuild price panel if absent
+        run: |
+          if [ ! -f data/prices.parquet ]; then
+            python scripts/fetch_universe.py --config config/universe.yml --out data/
+          fi
+
+      - name: Run the backtest
+        run: python scripts/backtest_plan.py
+
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A docs/BACKTEST.md data/plan_backtest.json || true
+          if git diff --staged --quiet; then echo "no changes to commit"; exit 0; fi
+          git commit -m "plan backtest $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git fetch origin main
+            git rebase --autostash origin/main || git rebase --abort || true
+            if git push origin HEAD:main; then echo "pushed on attempt $i"; exit 0; fi
+            echo "push rejected, retrying ($i/3)"; sleep 5
+          done
+          echo "could not push after 3 attempts"; exit 1
