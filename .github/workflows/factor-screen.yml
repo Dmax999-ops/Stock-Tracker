@@ -1,6 +1,6 @@
 name: Factor screen
 
-# Ten candidate stock scores tested side by side on every S&P 500 stock since
+# Every candidate stock score (price-based AND company-accounts-based) tested side by side on every S&P 500 stock since
 # 1997 (only stocks in the index on each date): which, if any, told you in
 # advance which stocks would do best? Plus GBP 10,000 in the top 20 of each,
 # rebuilt yearly, after Hargreaves Lansdown costs.
@@ -21,7 +21,7 @@ concurrency:
 jobs:
   screen:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -37,6 +37,14 @@ jobs:
             python scripts/fetch_universe.py --config config/universe.yml --out data/
           fi
 
+      - name: Fetch company accounts from SEC EDGAR (first run, or if missing)
+        env:
+          SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT || secrets.SEC_USER_AGENT }}
+        run: |
+          if [ ! -f data/fundamentals.parquet ]; then
+            python scripts/fetch_fundamentals.py || echo "accounts fetch failed - price-only scores will still run"
+          fi
+
       - name: Run the factor screen
         if: always()
         run: python scripts/factor_screen.py
@@ -47,7 +55,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # add each file on its own: one missing file must not stop the other
-          for f in docs/FACTORS.md data/factor_screen.json; do
+          for f in docs/FACTORS.md data/factor_screen.json data/fundamentals.parquet data/fundamentals_manifest.json; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
           if git diff --staged --quiet; then echo "no changes to commit"; exit 0; fi
