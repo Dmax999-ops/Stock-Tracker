@@ -621,6 +621,27 @@ def main() -> int:
                         "It has NOT passed the both-halves significance bar.")}
         Path("docs").mkdir(exist_ok=True)
         Path("docs/etf_signal.json").write_text(json.dumps(sig, indent=2, default=str))
+
+        # FORWARD PAPER-TRADING LOG. The future is the only data these rules
+        # have genuinely never seen. Every run appends what each rule holds as
+        # of the last complete close -- once per date -- so a real,
+        # untouchable out-of-sample record builds up from today. Nothing here
+        # is ever rewritten.
+        logp = Path("data/paper_log.jsonl")
+        seen = set()
+        if logp.exists():
+            for line in logp.read_text().splitlines():
+                try:
+                    seen.add(json.loads(line)["as_of"])
+                except Exception:                              # noqa: BLE001
+                    pass
+        if as_of not in seen:
+            closes = {k: float(P[k].iat[last]) for k in P.columns
+                      if np.isfinite(P[k].iat[last])}
+            with logp.open("a") as fh:
+                fh.write(json.dumps({"as_of": as_of, "lead_rule": lead,
+                                     "positions": live, "closes": closes},
+                                    default=str) + "\n")
         print(f"\n  LEAD RULE: {lead}  ->  as of {as_of}: {live.get(lead)}")
         print("\n  WHAT EACH RULE SAYS TODAY:")
         for k, w in live.items():
