@@ -112,6 +112,123 @@ def build_signals(C: pd.DataFrame, seed: int = 7) -> dict[str, pd.DataFrame]:
     }
 
 
+def _asof_panel(F: pd.DataFrame, item: str, index, columns, stale_days=550) -> pd.DataFrame:
+    """Latest annual value of one item that had been FILED by each date."""
+    f = F[F["item"] == item].sort_values(["ticker", "filed", "end"])
+    out = {}
+    for t, g in f.groupby("ticker"):
+        if t not in columns:
+            continue
+        g = g[g["end"] >= g["end"].cummax()]            # a late filing of an OLD year is ignored
+        v = g.groupby("filed")["val"].last()
+        u = index.union(v.index)
+        filed_on = pd.Series(v.index, index=v.index).reindex(u).ffill().reindex(index)
+        s = v.reindex(u).ffill().reindex(index)
+        s[(index.to_series() - filed_on).dt.days > stale_days] = np.nan
+        out[t] = s
+    return pd.DataFrame(out, index=index).reindex(columns=columns)
+
+
+def _prior_year(F: pd.DataFrame, item: str) -> pd.DataFrame:
+    """Each annual value paired with the SAME company's value one year earlier."""
+    f = F[F["item"] == item][["ticker", "end", "filed", "val"]].sort_values("end")
+    p = f.rename(columns={"val": "prev", "end": "prev_end"}).drop(columns="filed")
+    f = f.assign(want=f["end"] - pd.Timedelta(days=365)).sort_values("want")
+    p = p.sort_values("prev_end")
+    m = pd.merge_asof(f, p, left_on="want", right_on="prev_end", by="ticker",
+                      tolerance=pd.Timedelta(days=30), direction="nearest")
+    return m.dropna(subset=["prev"]).assign(item=item + "_prev",
+                                            val=lambda d: d["prev"])[["ticker", "item", "end", "filed", "val"]]
+
+
+def build_fund_signals(C, mom12, fpath, epath, spy) -> dict[str, pd.DataFrame]:
+    """
+    ACCOUNT-BASED SCORES -- what the published stock-picking evidence rests on.
+    All point in time: a figure is used only from the day it was filed.
+
+        gross_profitability  gross profit / total assets  (Novy-Marx 2013)
+        roa                  net income / total assets
+        low_accruals         profits that ARE cash: -(net income - operating cash) / assets
+                             (Sloan 1996)
+        low_asset_growth     companies NOT bloating their balance sheet (Cooper et al 2008)
+        earnings_yield       net income / market value
+        fcf_yield            free cash flow / market value
+        book_to_market       equity / market value (Fama-French value)
+        quality_value        gross profitability AND cheap on free cash flow, together
+        quality_momentum     gross profitability AND 12-month momentum, together
+        value_momentum       earnings yield AND 12-month momentum, together
+                             (Asness, Moskowitz, Pedersen 2013: value and momentum
+                             work best combined)
+        earnings_reaction    how the stock moved vs the S&P 500 over the two days
+                             around its results, held as a score for the next
+                             three months (post-earnings drift; Bernard & Thomas 1989)
+
+    Market value comes from the "public float" each company states in its 10-K,
+    rolled forward with the share price -- so no split or dividend adjustment
+    can distort it.
+    """
+    out = {}
+    idx, cols = C.index, list(C.columns)
+    Cf = C.ffill(limit=10)
+    if Path(fpath).exists():
+        F = pd.read_parquet(fpath)
+        F["end"], F["filed"] = pd.to_datetime(F["end"]), pd.to_datetime(F["filed"])
+        F = pd.concat([F, _prior_year(F, "assets")], ignore_index=True)
+        get = lambda it: _asof_panel(F, it, idx, cols)          # noqa: E731
+        A = get("assets").where(lambda x: x > 0)
+        GP = get("gross_profit")
+        GP = GP.fillna(get("revenue") - get("cogs"))
+        NI, CFO, CAPEX, EQ = get("net_income"), get("cfo"), get("capex"), get("equity")
+        A0 = get("assets_prev").where(lambda x: x > 0)
+        # market value: float stated at date d, moved with the price since d
+        fl = F[F["item"] == "public_float"].sort_values(["ticker", "filed"])
+        mv = {}
+        for t, g in fl.groupby("ticker"):
+            if t not in cols:
+                continue
+            g = g[g["end"] >= g["end"].cummax()]
+            px_at = [Cf[t].asof(e) for e in g["end"]]
+            ratio = pd.Series(np.array(g["val"], float) / np.array(px_at, float),
+                              index=g["filed"].to_numpy())
+            ratio = ratio[np.isfinite(ratio)].groupby(level=0).last()
+            r = ratio.reindex(idx.union(ratio.index)).ffill().reindex(idx)
+            mv[t] = r * Cf[t]
+        MV = pd.DataFrame(mv, index=idx).reindex(columns=cols).where(lambda x: x > 0)
+        out.update({
+            "gross_profitability": GP / A,
+            "roa": NI / A,
+            "low_accruals": -(NI - CFO) / A,
+            "low_asset_growth": -(A / A0 - 1),
+            "earnings_yield": NI / MV,
+            "fcf_yield": (CFO - CAPEX.fillna(0)) / MV,
+            "book_to_market": (EQ / MV).where(EQ > 0),
+        })
+        rk = lambda D: D.rank(axis=1, pct=True)                 # noqa: E731
+        out["quality_value"] = (rk(out["gross_profitability"]) + rk(out["fcf_yield"])) / 2
+        out["quality_momentum"] = (rk(out["gross_profitability"]) + rk(mom12)) / 2
+        out["value_momentum"] = (rk(out["earnings_yield"]) + rk(mom12)) / 2
+    if Path(epath).exists():
+        E = pd.read_csv(epath, usecols=["ticker", "date"])
+        E["date"] = pd.to_datetime(E["date"])
+        R = Cf.pct_change(fill_method=None)
+        rs = spy.pct_change()
+        pos = {c: k for k, c in enumerate(cols)}
+        X = np.full(C.shape, np.nan)
+        Rv, rsv = R.to_numpy(), rs.to_numpy()
+        for t, d in zip(E["ticker"], E["date"]):
+            k = pos.get(str(t).upper().replace(".", "-"))
+            if k is None:
+                continue
+            i = idx.searchsorted(d)                    # first trading day on/after the filing
+            if i < 1 or i + 2 >= len(idx):
+                continue
+            # the day before (results often land after the close) through the day after
+            ab = np.nansum(Rv[i - 1:i + 2, k]) - np.nansum(rsv[i - 1:i + 2])
+            X[i + 2:min(i + 2 + 63, len(idx)), k] = ab     # usable from two days later
+        out["earnings_reaction"] = pd.DataFrame(X, index=idx, columns=cols)
+    return out
+
+
 # ---------------------------------------------------------------------------
 # tests
 # ---------------------------------------------------------------------------
@@ -149,10 +266,10 @@ def prediction(sig: pd.DataFrame, Cff: pd.DataFrame, member: np.ndarray,
     return pd.DataFrame(rows).set_index("date")
 
 
-def summarise(P: pd.DataFrame) -> dict:
+def summarise(P: pd.DataFrame, split=SPLIT) -> dict:
     out = {}
-    for name, sl in (("all", slice(None)), ("1997-2012", slice(None, SPLIT)),
-                     ("2013-now", slice(SPLIT, None))):
+    for name, sl in (("all", slice(None)), ("first", slice(None, split)),
+                     ("second", slice(split, None))):
         p = P.loc[sl]
         if p.empty:
             continue
@@ -268,10 +385,10 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True) -> tuple[pd.Ser
         "still_held": len(pos)}
 
 
-def money(eq: pd.Series, spy: pd.Series) -> dict:
+def money(eq: pd.Series, spy: pd.Series, split=SPLIT) -> dict:
     res = {}
-    for name, sl in (("all", slice(None)), ("1997-2012", slice(None, SPLIT)),
-                     ("2013-now", slice(SPLIT, None))):
+    for name, sl in (("all", slice(None)), ("first", slice(None, split)),
+                     ("second", slice(split, None))):
         e = eq.loc[sl]
         s = spy.reindex(e.index).ffill()
         if len(e) < 12:
@@ -292,21 +409,21 @@ def money(eq: pd.Series, spy: pd.Series) -> dict:
 # ---------------------------------------------------------------------------
 
 def write_md(out: dict, path: Path):
-    L = ["# What predicts which stocks do best? — ten scores tested side by side\n",
+    L = ["# What predicts which stocks do best? — every score tested side by side\n",
          f"_Generated {out['generated'][:16].replace('T', ' ')} UTC. {out['data']}, "
          f"{out['from']} → {out['to']}. Only stocks in the S&P 500 on each date. "
          f"'random' is the control: a score that does no better than it predicts nothing._\n",
          f"**Bar:** t ≥ {T_ALL:.0f} overall and t ≥ {T_HALF:.0f} in BOTH halves, and the "
          f"commit-rules portfolio beats the S&P 500 by {MARGIN:.0%}/yr after HL costs in both halves.\n",
          "## 1. Did the score predict the next month / year?\n",
-         "| Score | Rank corr. (1m) | t (all) | t 1997–2012 | t 2013–now | Top 10% next 12m | "
+         "| Score (years tested; halves split at) | Rank corr. (1m) | t (all) | t first half | t second half | Top 10% next 12m | "
          "Bottom 10% | Average stock | Verdict |",
          "|---|---|---|---|---|---|---|---|---|"]
     for name, r in sorted(out["scores"].items(), key=lambda kv: -kv[1]["prediction"]["all"]["t_1m"]):
         a = r["prediction"]["all"]
-        h1 = r["prediction"].get("1997-2012", {}).get("t_1m", 0)
-        h2 = r["prediction"].get("2013-now", {}).get("t_1m", 0)
-        L.append(f"| {name} | {a['ic_1m']:+.3f} | {a['t_1m']:+.1f} | {h1:+.1f} | {h2:+.1f} | "
+        h1 = r["prediction"].get("first", {}).get("t_1m", 0)
+        h2 = r["prediction"].get("second", {}).get("t_1m", 0)
+        L.append(f"| {name} ({r['period']}) | {a['ic_1m']:+.3f} | {a['t_1m']:+.1f} | {h1:+.1f} | {h2:+.1f} | "
                  f"{a['top10_12m']:+.1%} | {a['bot10_12m']:+.1%} | {a['all_12m']:+.1%} | "
                  f"{'**PREDICTS**' if r['predicts'] else 'no'} |")
     L += ["\n## 2. £10,000 run by commit rules — no calendar, trade only on strong evidence\n",
@@ -315,15 +432,15 @@ def write_md(out: dict, path: Path):
           f"{SLOTS} stocks), and sold only when it has "
           f"fallen into the bottom half on {EXIT_CONFIRM} weekly checks in a row.\n",
           "| Score | £ after HL costs | £ with no costs | S&P 500 £ | Yearly (costs) | S&P yearly | "
-          "Worst fall | S&P worst | Trades / year | Typical hold | 1997–2012 vs S&P | "
-          "2013–now vs S&P | Verdict |",
+          "Worst fall | S&P worst | Trades / year | Typical hold | First half vs S&P | "
+          "Second half vs S&P | Verdict |",
           "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for name, r in sorted(out["scores"].items(),
                           key=lambda kv: -kv[1]["money_costs"]["all"]["gbp_from_10k"]):
         m, z = r["money_costs"]["all"], r["money_free"]["all"]
-        h = [r["money_costs"].get(k, {}) for k in ("1997-2012", "2013-now")]
+        h = [r["money_costs"].get(k, {}) for k in ("first", "second")]
         d = [f"{(x['cagr'] - x['spy_cagr']):+.1%}/yr" if x else "" for x in h]
-        L.append(f"| {name} | £{m['gbp_from_10k']:,} | £{z['gbp_from_10k']:,} | "
+        L.append(f"| {name} ({r['period']}) | £{m['gbp_from_10k']:,} | £{z['gbp_from_10k']:,} | "
                  f"£{m['spy_gbp_from_10k']:,} | {m['cagr']:+.1%} | {m['spy_cagr']:+.1%} | "
                  f"{m['worst']:.0%} | {m['spy_worst']:.0%} | {r['turnover']['trades_per_year']} | "
                  f"{r['turnover']['median_hold_days'] or '—'} days | {d[0]} | {d[1]} | "
@@ -379,6 +496,8 @@ def main() -> int:
     ap.add_argument("--out", default="data/factor_screen.json")
     ap.add_argument("--md", default="docs/FACTORS.md")
     ap.add_argument("--spy-csv", default="")
+    ap.add_argument("--fundamentals", default="data/fundamentals.parquet")
+    ap.add_argument("--earnings", default="data/earnings_dates.csv")
     ap.add_argument("--no-membership", action="store_true", help="test data only")
     a = ap.parse_args()
     out = {"generated": pd.Timestamp.now("UTC").isoformat()}
@@ -405,19 +524,37 @@ def main() -> int:
                             f"({info.get('delisted_added', 0)} from the delisted archive)",
                     "info": info, "scores": {}})
         print(out["data"], out["from"], "->", out["to"], flush=True)
-        for name, sig in build_signals(C).items():
-            P = prediction(sig, Cff, member, dates)
-            pr = summarise(P)
-            eq_c, turn = commit_portfolio(sig, Cff, spy, member, dates[0], True)
-            eq_f, turn_f = commit_portfolio(sig, Cff, spy, member, dates[0], False)
-            mc, mf = money(eq_c, spy), money(eq_f, spy)
+        sigs = build_signals(C)
+        try:
+            fs = build_fund_signals(C, sigs["mom_12_1"], a.fundamentals, a.earnings, spy)
+            sigs.update(fs)
+            out["fundamentals"] = f"{len(fs)} account-based scores added"
+        except Exception as e:                                     # noqa: BLE001
+            out["fundamentals"] = f"not available: {type(e).__name__}: {e}"
+        print("fundamentals:", out["fundamentals"], flush=True)
+        for name, sig in sigs.items():
+            # each score is tested from the first date it has enough stocks to rank,
+            # and its halves are split at the middle of ITS OWN history
+            cnt = (sig.notna().to_numpy() & member).sum(axis=1)
+            d_sig = [i for i in dates if cnt[i] >= 100]
+            if len(d_sig) < 36:
+                print(f"  {name}: not enough history, skipped", flush=True)
+                continue
+            split = C.index[d_sig[len(d_sig) // 2]]
+            P = prediction(sig, Cff, member, d_sig)
+            pr = summarise(P, split)
+            eq_c, turn = commit_portfolio(sig, Cff, spy, member, d_sig[0], True)
+            eq_f, turn_f = commit_portfolio(sig, Cff, spy, member, d_sig[0], False)
+            mc, mf = money(eq_c, spy, split), money(eq_f, spy, split)
             predicts = (pr["all"]["t_1m"] >= T_ALL
                         and all(pr.get(h, {}).get("t_1m", 0) >= T_HALF
-                                for h in ("1997-2012", "2013-now")))
+                                for h in ("first", "second")))
             passes = predicts and all(
                 mc.get(h) and mc[h]["cagr"] >= mc[h]["spy_cagr"] + MARGIN
-                for h in ("1997-2012", "2013-now"))
+                for h in ("first", "second"))
             out["scores"][name] = {"prediction": pr, "money_costs": mc, "money_free": mf,
+                                   "period": f"{C.index[d_sig[0]].year}–{C.index[-1].year}; "
+                                             f"{split.year}",
                                    "turnover": turn, "turnover_free": turn_f,
                                    "predicts": bool(predicts), "passes": bool(passes)}
             print(f"  {name:18} trades/yr={turn['trades_per_year']:5} hold={turn['median_hold_days'] or '-'}d t={pr['all']['t_1m']:+5.1f}  top10={pr['all']['top10_12m']:+.1%} "
