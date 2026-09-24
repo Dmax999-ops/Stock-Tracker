@@ -1,19 +1,19 @@
 {
-  "generated": "2026-09-23T20:29:14.245280+00:00",
+  "generated": "2026-09-24T00:15:38.147328+00:00",
   "env": {
     "pandas": "3.0.6",
     "python": "3.11.16"
   },
   "universe": 1128,
-  "tickers_processed": 1000,
-  "with_terminal_event": 505,
-  "resolved_by_full_text_search": 42,
-  "unresolved": 254,
+  "tickers_processed": 1128,
+  "with_terminal_event": 568,
+  "resolved_by_full_text_search": 17,
+  "unresolved": 287,
   "by_cause": {
-    "delisted": 313,
-    "deregistered_after_delisting": 140,
-    "deregistered": 33,
-    "bankruptcy": 19
+    "delisted": 349,
+    "deregistered_after_delisting": 158,
+    "deregistered": 38,
+    "bankruptcy": 23
   },
   "SOURCE": "SEC EDGAR forms 25-NSE, 25, 15-12B, 15-12G and 8-K item 1.03. Dates are filing dates, which for a 25-NSE is the exchange's own notice of removal."
 }
