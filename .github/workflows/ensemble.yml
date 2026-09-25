@@ -1,0 +1,55 @@
+name: Ensemble picker
+
+# A stock picker that learns each year how to weigh every pattern together
+# (price, technical, volume, company accounts, results-day reactions, peers),
+# fitted only on the past and tested only on years it has not seen.
+# Results: docs/ENSEMBLE.md and data/ensemble.json
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 12 1 * *'       # monthly, 1st at 12:00 UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ensemble
+  cancel-in-progress: false
+
+jobs:
+  ensemble:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt requests lxml pyyaml pyarrow
+
+      - name: Rebuild price panel if absent
+        run: |
+          if [ ! -f data/prices.parquet ]; then
+            python scripts/fetch_universe.py --config config/universe.yml --out data/
+          fi
+
+      - name: Fetch company accounts from SEC EDGAR (first run, or if missing)
+        env:
+          SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT || secrets.SEC_USER_AGENT }}
+        run: |
+          if [ ! -f data/fundamentals.parquet ]; then
+            python scripts/fetch_fundamentals.py || echo "accounts fetch failed - price-only scores will still run"
+          fi
+
+      - name: Run the ensemble picker
+        if: always()
+        run: python scripts/ensemble_picker.py
+
+      - name: Commit
+        if: always()
+        run: |
+          bash scripts/commit_push.sh "ensemble picker $(date -u +%Y-%m-%d)" \
+            docs/ENSEMBLE.md data/ensemble.json data/fundamentals.parquet data/fundamentals_manifest.json
