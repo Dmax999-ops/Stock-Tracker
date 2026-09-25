@@ -12,7 +12,7 @@ a list of companies already known to have succeeded). Between rebalances the
 plan's own daily SELL rules apply: a pick in a confirmed downtrend is sold to
 cash, and when the market switch turns off everything goes to cash.
 
-Costs are Hargreaves Lansdown's: GBP 11.95 a deal, plus 1% FX on every US buy
+Costs are Hargreaves Lansdown's 2026 tariff: GBP 6.95 a deal, plus tiered FX on every US buy
 and every sale. Cash earns 2% a year.
 
 THE QUESTIONS IT ANSWERS
@@ -64,8 +64,20 @@ def _load(name, file):
 
 dp = _load("dp", "daily_plan.py")
 
-START_GBP = 10_000.0
-DEAL, FX = 11.95, 0.01
+import os
+# pot size: set POT_GBP in the workflow (default GBP 10,000)
+START_GBP = float(os.environ.get("POT_GBP", "10000") or 10000)
+# Hargreaves Lansdown, 2026 tariff: GBP 6.95 an online deal (0-19 deals a month);
+# FX on US shares tiered by the size of each trade: 1% on the first GBP 5,000,
+# 0.75% on the next 5,000, 0.5% on the next 10,000, 0.25% above 20,000.
+DEAL = 6.95
+FX = 0.01                                  # kept for the report text
+
+
+def fx_cost(v: float) -> float:
+    v = max(float(v), 0.0)
+    return (min(v, 5000) * 0.01 + min(max(v - 5000, 0), 5000) * 0.0075
+            + min(max(v - 10000, 0), 10000) * 0.005 + max(v - 20000, 0) * 0.0025)
 CASH = 0.02
 WINDOW = 320                       # trading days of history run() sees
 SPLIT = pd.Timestamp("2013-01-01")
@@ -214,8 +226,9 @@ def simulate(C, member, spy, univ_labels, use_themes, log=print):
                 if np.isfinite(p):
                     last_px[t] = p
                 elif not np.isfinite(X[i:min(i + 10, len(idx)), k]).any():
-                    cash += pos.pop(t) * last_px[t] * (1 - FX) - DEAL
-                    costs += DEAL
+                    amt = pos.pop(t) * last_px[t]
+                    cash += amt - fx_cost(amt) - DEAL
+                    costs += DEAL + fx_cost(amt)
                     continue
                 val += pos[t] * last_px[t]
             cash *= (1 + CASH) ** (1 / 252)
@@ -225,8 +238,8 @@ def simulate(C, member, spy, univ_labels, use_themes, log=print):
                 sell = list(pos) if not mkt[i] else [t for t in pos if down[i, cp.__getitem__(t)]]
                 for t in sell:
                     amt = pos.pop(t) * last_px[t]
-                    cash += amt * (1 - FX) - DEAL
-                    costs += DEAL + amt * FX
+                    cash += amt - fx_cost(amt) - DEAL
+                    costs += DEAL + fx_cost(amt)
                 continue
             # monthly: ask the real plan what to own
             live = [c for k, c in enumerate(cols) if member[i, k] and np.isfinite(X[i, k])]
@@ -269,8 +282,8 @@ def simulate(C, member, spy, univ_labels, use_themes, log=print):
             # touched (no fee to "top up")
             for t in [t for t in pos if t not in want]:
                 amt = pos.pop(t) * last_px[t]
-                cash += amt * (1 - FX) - DEAL
-                costs += DEAL + amt * FX
+                cash += amt - fx_cost(amt) - DEAL
+                costs += DEAL + fx_cost(amt)
             new = [t for t in want if t not in pos]
             if new:
                 total = cash + sum(pos[t] * last_px[t] for t in pos)
@@ -280,10 +293,10 @@ def simulate(C, member, spy, univ_labels, use_themes, log=print):
                     if not np.isfinite(p) or per <= DEAL * 2:
                         continue
                     spend = per - DEAL
-                    pos[t] = spend * (1 - FX) / p
+                    pos[t] = (spend - fx_cost(spend)) / p
                     last_px[t] = p
                     cash -= per
-                    costs += DEAL + spend * FX
+                    costs += DEAL + fx_cost(spend)
             picks_log.append({"date": str(idx[i].date()), "picks": want,
                               "market_on": bool(plan["market"]["on"])})
             if len(picks_log) % 24 == 0:
@@ -300,7 +313,7 @@ def stats(eq: pd.Series) -> dict:
     cagr = (eq.iloc[-1] / eq.iloc[0]) ** (1 / yrs) - 1
     dd = float((eq / eq.cummax() - 1).min())
     return {"start_gbp": round(float(eq.iloc[0])), "end_gbp": round(float(eq.iloc[-1])),
-            "gbp_from_10k": round(10_000 * float(eq.iloc[-1] / eq.iloc[0])),
+            "gbp_from_10k": round(START_GBP * float(eq.iloc[-1] / eq.iloc[0])),
             "cagr": round(float(cagr), 4), "max_drawdown": round(dd, 4),
             "calmar": round(float(cagr / -dd), 3) if dd < 0 else None}
 
@@ -365,7 +378,7 @@ def write_md(out: dict, path: Path):
     L = ["# Would the daily plan have worked? — year by year\n",
          f"_Generated {out['generated'][:16].replace('T', ' ')} UTC. The exact daily-plan code, "
          f"run every month from {out['from']} seeing only what was known at the time, and only "
-         f"stocks that were in the S&P 500 then. HL costs included (£{DEAL} a deal + {FX:.0%} FX "
+         f"stocks that were in the S&P 500 then. HL costs included (£{DEAL} a deal + tiered FX, 1% → 0.25% "
          f"each way). {out['data']}._\n"]
     for key, title in (("themes", "Current plan (with themes)"),
                        ("industries", "Official industries only")):
@@ -377,7 +390,7 @@ def write_md(out: dict, path: Path):
                  f"(beat the S&P 500 by {MARGIN:.0%}/yr after costs AND a better Calmar, in both "
                  f"halves).\n")
         f, s = r["full"]["plan"], r["full"]["spy"]
-        L.append(f"£10,000 → **£{f['gbp_from_10k']:,}** with the plan, £{s['gbp_from_10k']:,} in "
+        L.append(f"£{START_GBP:,.0f} → **£{f['gbp_from_10k']:,}** with the plan, £{s['gbp_from_10k']:,} in "
                  f"the S&P 500. Yearly: {f['cagr']:+.1%} vs {s['cagr']:+.1%}. Worst fall: "
                  f"{f['max_drawdown']:.0%} vs {s['max_drawdown']:.0%}. Costs paid: "
                  f"£{r['costs_gbp']:,.0f}.\n")
@@ -454,7 +467,11 @@ def main() -> int:
     ap.add_argument("--allow-no-membership", action="store_true")
     ap.add_argument("--no-membership", action="store_true", help="test data only")
     a = ap.parse_args()
-    out = {"generated": pd.Timestamp.now("UTC").isoformat()}
+    if START_GBP != 10_000:                   # a different pot writes its own report
+        tag = f"_{int(START_GBP / 1000)}k"
+        a.out = a.out.replace(".json", f"{tag}.json")
+        a.md = a.md.replace(".md", f"{tag}.md")
+    out = {"generated": pd.Timestamp.now("UTC").isoformat(), "pot_gbp": START_GBP}
     try:
         C, info = load_panel(a.prices, a.delisted)
         C = C.loc[:, C.notna().sum() > 260]
