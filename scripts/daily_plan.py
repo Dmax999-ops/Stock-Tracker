@@ -190,7 +190,9 @@ def download(tickers: list[str]) -> pd.DataFrame:
     frames = []
     for i in range(0, len(tickers), 100):
         chunk = tickers[i:i + 100]
-        d = yf.download(chunk, period="2y", auto_adjust=True, progress=False,
+        # fixed start (not a rolling "2y"), so the strategy replay from Jan 2024
+        # sees identical history every day
+        d = yf.download(chunk, start="2022-06-01", auto_adjust=True, progress=False,
                         threads=True, group_by="column")
         c = d["Close"] if isinstance(d.columns, pd.MultiIndex) else d[["Close"]].rename(
             columns={"Close": chunk[0]})
@@ -588,6 +590,11 @@ def write_markdown(plan: dict, path: Path):
     L.append(f"S&P 500 {m['vs200']:+.1%} vs its 200-day average"
              + (f", {m['ret_12m']:+.1%} over 12 months." if m.get('ret_12m') is not None else ".")
              + "\n")
+    if plan.get("strategy_md"):
+        L.extend(plan["strategy_md"])
+    elif plan.get("strategy_error"):
+        L.append("## ▶ THE STRATEGY — could not be calculated today\n\n```\n"
+                 + "\n".join(plan["strategy_error"]) + "\n```\n")
     L.append("## 1. Your holdings\n")
     L.append("| Action | Stock | Why | Industry (rank) | Theme it trades with | Trend |")
     L.append("|---|---|---|---|---|---|")
@@ -597,6 +604,8 @@ def write_markdown(plan: dict, path: Path):
         L.append(f"| **{h['action']}** | {h['ticker']} — {h['name']} | {h['why']} | "
                  f"{h['industry']}{rk} | {theme_txt(h.get('theme'), h.get('theme_rank'), plan.get('themes_total'))} | "
                  f"{h['trend']} |")
+    if plan.get("strategy_md"):
+        return _tail(plan, L, path)
     L.append("\n## 2. What you should own — £10,000 model portfolio\n")
     bt = plan.get("backtest") or {}
     th = bt.get("themes") or {}
@@ -641,7 +650,11 @@ def write_markdown(plan: dict, path: Path):
             L.append(f"| {r['ticker']} | {('#' + str(r['rank'])) if r['rank'] else '—'} of "
                      f"{r['of']} | {'' if r['score'] is None else format(r['score'], '.2f')} | "
                      f"{'yes' if r['in_model'] else 'no'} | {r.get('why', '')} |")
-    if plan.get("excluded_takeovers"):
+    return _tail(plan, L, path)
+
+
+def _tail(plan: dict, L: list, path: Path):
+    if plan.get("excluded_takeovers") and not plan.get("strategy_md"):
         L.append("\n_Left out because the price is frozen (agreed takeover): "
                  + ", ".join(plan["excluded_takeovers"]) + "._")
     if plan.get("changes"):
@@ -660,11 +673,9 @@ def write_markdown(plan: dict, path: Path):
     L.append("\n## Strongest official industries today\n")
     L.append(", ".join((f"{k[7:]} (sector)" if k.startswith("SECTOR:") else k) + f" {v:+.0%}"
                        for k, v in plan["top_industries"][:10]))
-    L.append(f"\n\n---\n_Costs: about £{DEAL_GBP} per trade on Hargreaves Lansdown plus "
-             f"~{FX_PCT:.0%} FX on US shares. A full 10-stock rebuild costs roughly "
-             f"£{N_MODEL * DEAL_GBP + BUDGET * FX_PCT:,.0f}, which is why the model rebalances monthly "
-             f"and keeps holdings until they break. SELL on a single stock is insurance, not a "
-             f"forecast: historically it rescued collapses and cost on recoveries._")
+    L.append("\n\n---\n_Costs (Hargreaves Lansdown, 2026): £6.95 a deal; FX on US shares 1% on the "
+             "first £5,000 of each trade, then 0.75%, 0.5% and 0.25%. Tested rules, not personal "
+             "financial advice. SELL on a single holding is insurance, not a forecast._")
     path.write_text("\n".join(L) + "\n")
 
 
@@ -803,7 +814,7 @@ def main() -> int:
         holdings = load_holdings(a.holdings)
         watch = load_watchlist(a.watchlist)
         tickers = sorted(set(univ["yf"]) | {yf_symbol(h["ticker"]) for h in holdings}
-                         | set(watch) | {"SPY"})
+                         | set(watch) | {"SPY", "VFITX"})
         print(f"downloading {len(tickers)} tickers")
         P = download(tickers)
         Path(a.prices_out).parent.mkdir(parents=True, exist_ok=True)
@@ -820,6 +831,21 @@ def main() -> int:
                 plan["backtest"].get("themes", {}).pop("best_ten", None)
             except Exception:                                      # noqa: BLE001
                 pass
+        try:
+            import importlib.util, os
+            spec = importlib.util.spec_from_file_location("strategy", Path(__file__).parent / "strategy.py")
+            strat = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(strat)
+            pot = float(os.environ.get("STRATEGY_POT", "10000") or 10000)
+            sp = load_constituents(a.constituents)["yf"].tolist()
+            res = strat.live(P, sp, pot, P["VFITX"] if "VFITX" in P else None)
+            rows = strat.log_day(res)
+            plan["strategy"] = res
+            plan["strategy_md"] = strat.markdown(res, rows)
+        except Exception as e:                                     # noqa: BLE001
+            import traceback
+            plan["strategy_error"] = traceback.format_exc().splitlines()[-6:]
+            print("strategy failed:", e, file=sys.stderr)
         (docs / "plan.json").write_text(json.dumps(plan, indent=2, default=str))
         write_markdown(plan, docs / "PLAN.md")
         print((docs / "PLAN.md").read_text())
