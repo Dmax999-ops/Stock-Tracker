@@ -1,0 +1,53 @@
+name: Robustness
+
+# Stress tests for the stock pickers that beat buy-and-hold (momentum + market
+# switch): nudged settings, random 80% universes, bad-price stocks removed, and
+# year-by-year results. Results: docs/ROBUSTNESS.md (docs/ROBUSTNESS_100k.md)
+
+on:
+  workflow_dispatch:
+    inputs:
+      pot:
+        description: 'Pot size in GBP (e.g. 10000 or 100000)'
+        required: false
+        default: '10000'
+  schedule:
+    - cron: '0 14 1 * *'       # monthly, 1st at 14:00 UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: robustness
+  cancel-in-progress: false
+
+jobs:
+  robust:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt requests lxml pyyaml pyarrow
+
+      - name: Rebuild price panel if absent
+        run: |
+          if [ ! -f data/prices.parquet ]; then
+            python scripts/fetch_universe.py --config config/universe.yml --out data/
+          fi
+
+      - name: Run the stress tests
+        if: always()
+        env:
+          POT_GBP: ${{ github.event.inputs.pot || '10000' }}
+        run: python scripts/robustness.py
+
+      - name: Commit
+        if: always()
+        run: |
+          bash scripts/commit_push.sh "robustness $(date -u +%Y-%m-%d)" \
+            docs/ROBUSTNESS*.md data/robustness*.json
