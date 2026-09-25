@@ -362,7 +362,7 @@ EXIT_CONFIRM = CONFIRM_CHECKS
 
 
 def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
-                     bond=None) -> tuple[pd.Series, dict]:
+                     bond=None, check_idx=None, return_state=False) -> tuple[pd.Series, dict]:
     """
     No calendar. Idle money is in an S&P 500 tracker. Every week the evidence
     is checked; a trade happens only when ENTER or EXIT fires (see top).
@@ -380,6 +380,7 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
     pos, strikes, opened = {}, {}, {}
     streak = np.zeros(X.shape[1], int)            # weeks in a row in the top 5%
     marks, trades, holds = {}, 0, []
+    actions = []                                  # (date, action, ticker, gbp) -- for the live plan
     book, entry = [], {}                          # every round trip, for the audit
     cols = list(Cff.columns)
 
@@ -390,7 +391,9 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
         book.append({"ticker": cols[k], "in": str(idx[e_i].date()), "out": str(idx[i].date()),
                      "ret": float(px / e_px - 1), "gbp": 0.0, "shares": 0.0,
                      "biggest_day_move": float(np.expm1(day)), "open": False, "_e": e_px, "_x": px})
-    for i in range(start_i, len(idx), CHECK_EVERY):
+    steps = (range(start_i, len(idx), CHECK_EVERY) if check_idx is None
+             else [int(i) for i in check_idx if i >= start_i])
+    for i in steps:
         # MARKET SWITCH (optional): S&P 500 below its 200-day for 3 closes ->
         # everything into a bond fund; back to the tracker when it recovers.
         if SW is not None:
@@ -405,6 +408,7 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
                         gross = pos.pop(k) * px
                         cash += max(gross - fxc(gross) - fee, 0)
                         trades += 1
+                        actions.append((str(idx[i].date()), "SELL (market switch off)", cols[k], round(gross)))
                         holds.append(i - opened.pop(k))
                         strikes.pop(k, None)
                     if index_units > 0:
@@ -413,9 +417,12 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
                         trades += 1
                     bond_units += max(cash - fee, 0) / B[i]
                     trades += 1
+                    actions.append((str(idx[i].date()), "MOVE ALL TO BONDS", "", round(cash)))
                 marks[idx[i]] = bond_units * B[i]
                 continue
             if bond_units > 0:
+                actions.append((str(idx[i].date()), "MOVE BONDS BACK TO S&P TRACKER", "",
+                                round(bond_units * B[i])))
                 index_units += max(bond_units * B[i] - 2 * fee, 0) / Y[i]
                 bond_units = 0.0
                 trades += 2
@@ -440,6 +447,7 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
                 close(k, i, px)
                 book[-1]["gbp"] = float(sh * (px - book[-1]["_e"]))
                 gross = pos.pop(k) * px
+                actions.append((str(idx[i].date()), "SELL", cols[k], round(gross)))
                 amt = gross - fxc(gross) - fee
                 index_units += max(amt - fee, 0) / Y[i]          # back into the tracker
                 trades += 1
@@ -459,6 +467,7 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
                     break
                 index_units -= need / Y[i]
                 pos[k] = (per - fee - fxc(per - fee)) / X[i, k]
+                actions.append((str(idx[i].date()), "BUY", cols[k], round(per)))
                 entry[k] = (i, X[i, k])
                 opened[k] = i
                 strikes[k] = 0
@@ -466,6 +475,21 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
         marks[idx[i]] = index_units * Y[i] + sum(
             p * X[i, k] for k, p in pos.items() if np.isfinite(X[i, k]))
     last = len(idx) - 1
+    state = None
+    if return_state:
+        li = steps[-1] if len(steps) else last
+        state = {
+            "as_of_check": str(idx[li].date()),
+            "holdings": [{"ticker": cols[k], "shares": float(u), "bought": str(idx[opened[k]].date()),
+                          "bought_at": float(entry[k][1]), "price": float(X[last, k]),
+                          "value": float(u * X[last, k]), "weeks_weak": int(strikes.get(k, 0))}
+                         for k, u in pos.items()],
+            "tracker_value": float(index_units * Y[last]),
+            "bond_value": float(bond_units * B[last]) if B is not None else 0.0,
+            "on_deck": [{"ticker": cols[k], "weeks_in_top": int(streak[k])}
+                        for k in np.argsort(-streak) if 0 < streak[k] < CONFIRM_CHECKS and k not in pos][:10],
+            "actions": actions[-40:],
+        }
     for k in list(pos):                            # still held: mark at today's price
         sh = pos[k]
         close(k, last, X[last, k])
@@ -487,7 +511,7 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
                                 if b["biggest_day_move"] > 0.5],
         "trades_per_year": round(trades / yrs, 1),
         "median_hold_days": int(np.median(holds) * 365.25 / 252) if holds else None,
-        "still_held": len(pos)}
+        "still_held": len(pos), "state": state}
 
 
 def money(eq: pd.Series, spy: pd.Series, split=SPLIT) -> dict:
