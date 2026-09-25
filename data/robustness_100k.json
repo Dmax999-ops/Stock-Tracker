@@ -1,0 +1,2349 @@
+{
+  "generated": "2026-09-25T22:52:05.269858+00:00",
+  "pot_gbp": 100000.0,
+  "scores": {
+    "mom_6_1": {
+      "base": {
+        "money": {
+          "all": {
+            "gbp_from_10k": 14206801,
+            "spy_gbp_from_10k": 1624026,
+            "cagr": 0.182,
+            "spy_cagr": 0.0986,
+            "worst": -0.303,
+            "spy_worst": -0.547
+          },
+          "first": {
+            "gbp_from_10k": 1008027,
+            "spy_gbp_from_10k": 194994,
+            "cagr": 0.1688,
+            "spy_cagr": 0.0461,
+            "worst": -0.303,
+            "spy_worst": -0.547
+          },
+          "second": {
+            "gbp_from_10k": 1408668,
+            "spy_gbp_from_10k": 789902,
+            "cagr": 0.1957,
+            "spy_cagr": 0.1499,
+            "worst": -0.264,
+            "spy_worst": -0.317
+          }
+        },
+        "ok": true,
+        "trades_per_year": 42.1
+      },
+      "years": [
+        {
+          "year": 1997,
+          "strategy": 0.16197926369423477,
+          "sp500": 0.25333455976387986
+        },
+        {
+          "year": 1998,
+          "strategy": 0.14772773273746131,
+          "sp500": 0.29736027563759215
+        },
+        {
+          "year": 1999,
+          "strategy": 0.425867920868499,
+          "sp500": 0.1893818662805966
+        },
+        {
+          "year": 2000,
+          "strategy": 0.4082281586805212,
+          "sp500": -0.07626523948870578
+        },
+        {
+          "year": 2001,
+          "strategy": 0.07180680107614013,
+          "sp500": -0.13103250172304926
+        },
+        {
+          "year": 2002,
+          "strategy": 0.04226241917862272,
+          "sp500": -0.21984811478211408
+        },
+        {
+          "year": 2003,
+          "strategy": 0.6554914183209617,
+          "sp500": 0.2653372827109466
+        },
+        {
+          "year": 2004,
+          "strategy": 0.19251125640029265,
+          "sp500": 0.12292326373206652
+        },
+        {
+          "year": 2005,
+          "strategy": 0.3221422519464614,
+          "sp500": 0.0587222893922541
+        },
+        {
+          "year": 2006,
+          "strategy": -0.04915348626637406,
+          "sp500": 0.14670537992328514
+        },
+        {
+          "year": 2007,
+          "strategy": -0.07356901420286899,
+          "sp500": 0.0734833725548476
+        },
+        {
+          "year": 2008,
+          "strategy": 0.11308967255302727,
+          "sp500": -0.4035923566127342
+        },
+        {
+          "year": 2009,
+          "strategy": 0.5176782123409343,
+          "sp500": 0.32417362466227484
+        },
+        {
+          "year": 2010,
+          "strategy": 0.1423729499332962,
+          "sp500": 0.13965073399107863
+        },
+        {
+          "year": 2011,
+          "strategy": -0.26456207114722063,
+          "sp500": 0.027232999901584565
+        },
+        {
+          "year": 2012,
+          "strategy": 0.30728486388038156,
+          "sp500": 0.1454920104479447
+        },
+        {
+          "year": 2013,
+          "strategy": 0.7288813224375703,
+          "sp500": 0.32923778218968613
+        },
+        {
+          "year": 2014,
+          "strategy": 0.01246755798898258,
+          "sp500": 0.15219220969073377
+        },
+        {
+          "year": 2015,
+          "strategy": -0.049173229290113696,
+          "sp500": 0.005769879315287385
+        },
+        {
+          "year": 2016,
+          "strategy": 0.07733674645841071,
+          "sp500": 0.11419569357409487
+        },
+        {
+          "year": 2017,
+          "strategy": 0.3056352684818,
+          "sp500": 0.21469601998495058
+        },
+        {
+          "year": 2018,
+          "strategy": -0.017452253728477918,
+          "sp500": -0.06158859547463891
+        },
+        {
+          "year": 2019,
+          "strategy": 0.2105815371975588,
+          "sp500": 0.33217416381881093
+        },
+        {
+          "year": 2020,
+          "strategy": 0.06824974744383683,
+          "sp500": 0.17790414000833188
+        },
+        {
+          "year": 2021,
+          "strategy": 0.10114049845473083,
+          "sp500": 0.29320236389478715
+        },
+        {
+          "year": 2022,
+          "strategy": -0.17580046564940022,
+          "sp500": -0.17959269454281335
+        },
+        {
+          "year": 2023,
+          "strategy": 0.10906856406678211,
+          "sp500": 0.26208809346116313
+        },
+        {
+          "year": 2024,
+          "strategy": 0.6296561553888442,
+          "sp500": 0.27767243119383433
+        },
+        {
+          "year": 2025,
+          "strategy": 0.2692314830291873,
+          "sp500": 0.16143339270356738
+        },
+        {
+          "year": 2026,
+          "strategy": 0.797530054212181,
+          "sp500": 0.12095592870855887
+        }
+      ],
+      "nudges": [
+        {
+          "label": "SLOTS=7",
+          "money": {
+            "all": {
+              "gbp_from_10k": 29724455,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.2119,
+              "spy_cagr": 0.0986,
+              "worst": -0.314,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 1045622,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1717,
+              "spy_cagr": 0.0461,
+              "worst": -0.314,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 2841342,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2537,
+              "spy_cagr": 0.1499,
+              "worst": -0.288,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 30.4
+        },
+        {
+          "label": "SLOTS=15",
+          "money": {
+            "all": {
+              "gbp_from_10k": 11488173,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1736,
+              "spy_cagr": 0.0986,
+              "worst": -0.266,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 957090,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1647,
+              "spy_cagr": 0.0461,
+              "worst": -0.266,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1199728,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1828,
+              "spy_cagr": 0.1499,
+              "worst": -0.261,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 57.3
+        },
+        {
+          "label": "ENTER_PCT=0.97",
+          "money": {
+            "all": {
+              "gbp_from_10k": 13421556,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1798,
+              "spy_cagr": 0.0986,
+              "worst": -0.329,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 843444,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1548,
+              "spy_cagr": 0.0461,
+              "worst": -0.329,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1590491,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2055,
+              "spy_cagr": 0.1499,
+              "worst": -0.29,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 38.6
+        },
+        {
+          "label": "ENTER_PCT=0.92",
+          "money": {
+            "all": {
+              "gbp_from_10k": 21674869,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.199,
+              "spy_cagr": 0.0986,
+              "worst": -0.309,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 1306789,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1894,
+              "spy_cagr": 0.0461,
+              "worst": -0.309,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1657812,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2089,
+              "spy_cagr": 0.1499,
+              "worst": -0.264,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 43.3
+        },
+        {
+          "label": "EXIT_PCT=0.4",
+          "money": {
+            "all": {
+              "gbp_from_10k": 8072004,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1597,
+              "spy_cagr": 0.0986,
+              "worst": -0.325,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 863437,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1566,
+              "spy_cagr": 0.0461,
+              "worst": -0.325,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 934405,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.163,
+              "spy_cagr": 0.1499,
+              "worst": -0.293,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 39.1
+        },
+        {
+          "label": "EXIT_PCT=0.6",
+          "money": {
+            "all": {
+              "gbp_from_10k": 12899001,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1782,
+              "spy_cagr": 0.0986,
+              "worst": -0.307,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 840328,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1545,
+              "spy_cagr": 0.0461,
+              "worst": -0.299,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1534234,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2026,
+              "spy_cagr": 0.1499,
+              "worst": -0.264,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 43.8
+        },
+        {
+          "label": "CONFIRM_CHECKS=2",
+          "money": {
+            "all": {
+              "gbp_from_10k": 19469983,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1947,
+              "spy_cagr": 0.0986,
+              "worst": -0.385,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 1517505,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.2015,
+              "spy_cagr": 0.0461,
+              "worst": -0.372,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1282389,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1881,
+              "spy_cagr": 0.1499,
+              "worst": -0.385,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 44.6
+        },
+        {
+          "label": "CONFIRM_CHECKS=4",
+          "money": {
+            "all": {
+              "gbp_from_10k": 13613447,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1803,
+              "spy_cagr": 0.0986,
+              "worst": -0.329,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 1003840,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1685,
+              "spy_cagr": 0.0461,
+              "worst": -0.329,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1355464,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1926,
+              "spy_cagr": 0.1499,
+              "worst": -0.284,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 37.7
+        }
+      ],
+      "subsets": [
+        {
+          "label": "random 80% #1",
+          "money": {
+            "all": {
+              "gbp_from_10k": 9469784,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.166,
+              "spy_cagr": 0.0986,
+              "worst": -0.299,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 868643,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1571,
+              "spy_cagr": 0.0461,
+              "worst": -0.288,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1089641,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1751,
+              "spy_cagr": 0.1499,
+              "worst": -0.284,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 41.1
+        },
+        {
+          "label": "random 80% #2",
+          "money": {
+            "all": {
+              "gbp_from_10k": 16360666,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1877,
+              "spy_cagr": 0.0986,
+              "worst": -0.331,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 923793,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1619,
+              "spy_cagr": 0.0461,
+              "worst": -0.307,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1770152,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2143,
+              "spy_cagr": 0.1499,
+              "worst": -0.331,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 40.6
+        },
+        {
+          "label": "random 80% #3",
+          "money": {
+            "all": {
+              "gbp_from_10k": 17470728,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1903,
+              "spy_cagr": 0.0986,
+              "worst": -0.314,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 1107602,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1762,
+              "spy_cagr": 0.0461,
+              "worst": -0.314,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1576564,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2048,
+              "spy_cagr": 0.1499,
+              "worst": -0.277,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 40.3
+        },
+        {
+          "label": "random 80% #4",
+          "money": {
+            "all": {
+              "gbp_from_10k": 8161936,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1601,
+              "spy_cagr": 0.0986,
+              "worst": -0.294,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 1372103,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1934,
+              "spy_cagr": 0.0461,
+              "worst": -0.291,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 594554,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.128,
+              "spy_cagr": 0.1499,
+              "worst": -0.294,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": false,
+          "trades_per_year": 41.0
+        },
+        {
+          "label": "random 80% #5",
+          "money": {
+            "all": {
+              "gbp_from_10k": 5446579,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1444,
+              "spy_cagr": 0.0986,
+              "worst": -0.384,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 1034698,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1709,
+              "spy_cagr": 0.0461,
+              "worst": -0.287,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 526132,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1187,
+              "spy_cagr": 0.1499,
+              "worst": -0.384,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": false,
+          "trades_per_year": 41.2
+        },
+        {
+          "label": "random 80% #6",
+          "money": {
+            "all": {
+              "gbp_from_10k": 10763870,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.171,
+              "spy_cagr": 0.0986,
+              "worst": -0.349,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 854929,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1559,
+              "spy_cagr": 0.0461,
+              "worst": -0.337,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1258412,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1866,
+              "spy_cagr": 0.1499,
+              "worst": -0.295,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 41.1
+        },
+        {
+          "label": "random 80% #7",
+          "money": {
+            "all": {
+              "gbp_from_10k": 13300781,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1794,
+              "spy_cagr": 0.0986,
+              "worst": -0.354,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 1104337,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.176,
+              "spy_cagr": 0.0461,
+              "worst": -0.354,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1203816,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1831,
+              "spy_cagr": 0.1499,
+              "worst": -0.291,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 41.3
+        },
+        {
+          "label": "random 80% #8",
+          "money": {
+            "all": {
+              "gbp_from_10k": 13937034,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1813,
+              "spy_cagr": 0.0986,
+              "worst": -0.295,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 935128,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1629,
+              "spy_cagr": 0.0461,
+              "worst": -0.288,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1489647,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2002,
+              "spy_cagr": 0.1499,
+              "worst": -0.256,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 40.4
+        },
+        {
+          "label": "random 80% #9",
+          "money": {
+            "all": {
+              "gbp_from_10k": 9661173,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1668,
+              "spy_cagr": 0.0986,
+              "worst": -0.31,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 869550,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1572,
+              "spy_cagr": 0.0461,
+              "worst": -0.295,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1110504,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1766,
+              "spy_cagr": 0.1499,
+              "worst": -0.31,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 40.2
+        },
+        {
+          "label": "random 80% #10",
+          "money": {
+            "all": {
+              "gbp_from_10k": 8261134,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1606,
+              "spy_cagr": 0.0986,
+              "worst": -0.327,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 739751,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1446,
+              "spy_cagr": 0.0461,
+              "worst": -0.327,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1116192,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.177,
+              "spy_cagr": 0.1499,
+              "worst": -0.298,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 39.6
+        }
+      ],
+      "clean": {
+        "money": {
+          "all": {
+            "gbp_from_10k": 9846320,
+            "spy_gbp_from_10k": 1624026,
+            "cagr": 0.1675,
+            "spy_cagr": 0.0986,
+            "worst": -0.335,
+            "spy_worst": -0.547
+          },
+          "first": {
+            "gbp_from_10k": 748150,
+            "spy_gbp_from_10k": 194994,
+            "cagr": 0.1455,
+            "spy_cagr": 0.0461,
+            "worst": -0.324,
+            "spy_worst": -0.547
+          },
+          "second": {
+            "gbp_from_10k": 1315436,
+            "spy_gbp_from_10k": 789902,
+            "cagr": 0.1902,
+            "spy_cagr": 0.1499,
+            "worst": -0.29,
+            "spy_worst": -0.317
+          }
+        },
+        "ok": true,
+        "trades_per_year": 41.5
+      },
+      "passed": 18,
+      "runs": 20,
+      "share": 0.9,
+      "robust": true
+    },
+    "mom_3": {
+      "base": {
+        "money": {
+          "all": {
+            "gbp_from_10k": 9018163,
+            "spy_gbp_from_10k": 1624026,
+            "cagr": 0.1641,
+            "spy_cagr": 0.0986,
+            "worst": -0.372,
+            "spy_worst": -0.547
+          },
+          "first": {
+            "gbp_from_10k": 840647,
+            "spy_gbp_from_10k": 194994,
+            "cagr": 0.1545,
+            "spy_cagr": 0.0461,
+            "worst": -0.344,
+            "spy_worst": -0.547
+          },
+          "second": {
+            "gbp_from_10k": 1072233,
+            "spy_gbp_from_10k": 789902,
+            "cagr": 0.1738,
+            "spy_cagr": 0.1499,
+            "worst": -0.302,
+            "spy_worst": -0.317
+          }
+        },
+        "ok": true,
+        "trades_per_year": 48.9
+      },
+      "years": [
+        {
+          "year": 1997,
+          "strategy": 0.026805993957347507,
+          "sp500": 0.25333455976387986
+        },
+        {
+          "year": 1998,
+          "strategy": 0.2748986486322731,
+          "sp500": 0.29736027563759215
+        },
+        {
+          "year": 1999,
+          "strategy": 0.5672020467740777,
+          "sp500": 0.1893818662805966
+        },
+        {
+          "year": 2000,
+          "strategy": 0.5164638588401642,
+          "sp500": -0.07626523948870578
+        },
+        {
+          "year": 2001,
+          "strategy": 0.07180680107613968,
+          "sp500": -0.13103250172304926
+        },
+        {
+          "year": 2002,
+          "strategy": 0.03786305263537404,
+          "sp500": -0.21984811478211408
+        },
+        {
+          "year": 2003,
+          "strategy": 0.4150790792500607,
+          "sp500": 0.2653372827109466
+        },
+        {
+          "year": 2004,
+          "strategy": 0.025695533922540204,
+          "sp500": 0.12292326373206652
+        },
+        {
+          "year": 2005,
+          "strategy": 0.15923884955154044,
+          "sp500": 0.0587222893922541
+        },
+        {
+          "year": 2006,
+          "strategy": 0.0007080202998455132,
+          "sp500": 0.14670537992328514
+        },
+        {
+          "year": 2007,
+          "strategy": 0.14766884247754652,
+          "sp500": 0.0734833725548476
+        },
+        {
+          "year": 2008,
+          "strategy": 0.08109973513315394,
+          "sp500": -0.4035923566127342
+        },
+        {
+          "year": 2009,
+          "strategy": 0.35750186306702303,
+          "sp500": 0.32417362466227484
+        },
+        {
+          "year": 2010,
+          "strategy": 0.12991443457287,
+          "sp500": 0.13965073399107863
+        },
+        {
+          "year": 2011,
+          "strategy": -0.26513023556358917,
+          "sp500": 0.027232999901584565
+        },
+        {
+          "year": 2012,
+          "strategy": 0.24282577454655807,
+          "sp500": 0.1454920104479447
+        },
+        {
+          "year": 2013,
+          "strategy": 0.8562696567352377,
+          "sp500": 0.32923778218968613
+        },
+        {
+          "year": 2014,
+          "strategy": 0.03006975172384041,
+          "sp500": 0.15219220969073377
+        },
+        {
+          "year": 2015,
+          "strategy": -0.04778540542455456,
+          "sp500": 0.005769879315287385
+        },
+        {
+          "year": 2016,
+          "strategy": 0.3116485929259385,
+          "sp500": 0.11419569357409487
+        },
+        {
+          "year": 2017,
+          "strategy": 0.279551927276942,
+          "sp500": 0.21469601998495058
+        },
+        {
+          "year": 2018,
+          "strategy": -0.044512644303576376,
+          "sp500": -0.06158859547463891
+        },
+        {
+          "year": 2019,
+          "strategy": 0.12264483718403874,
+          "sp500": 0.33217416381881093
+        },
+        {
+          "year": 2020,
+          "strategy": 0.02935143502470794,
+          "sp500": 0.17790414000833188
+        },
+        {
+          "year": 2021,
+          "strategy": 0.381521181411131,
+          "sp500": 0.29320236389478715
+        },
+        {
+          "year": 2022,
+          "strategy": -0.15363637977524514,
+          "sp500": -0.17959269454281335
+        },
+        {
+          "year": 2023,
+          "strategy": 0.03309526337444302,
+          "sp500": 0.26208809346116313
+        },
+        {
+          "year": 2024,
+          "strategy": 0.25034917912221233,
+          "sp500": 0.27767243119383433
+        },
+        {
+          "year": 2025,
+          "strategy": 0.18735576680405552,
+          "sp500": 0.16143339270356738
+        },
+        {
+          "year": 2026,
+          "strategy": 0.4714852251880701,
+          "sp500": 0.12095592870855887
+        }
+      ],
+      "nudges": [
+        {
+          "label": "SLOTS=7",
+          "money": {
+            "all": {
+              "gbp_from_10k": 11851336,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1748,
+              "spy_cagr": 0.0986,
+              "worst": -0.498,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 1012611,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1691,
+              "spy_cagr": 0.0461,
+              "worst": -0.484,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1169794,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1808,
+              "spy_cagr": 0.1499,
+              "worst": -0.359,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 35.8
+        },
+        {
+          "label": "SLOTS=15",
+          "money": {
+            "all": {
+              "gbp_from_10k": 4590629,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1378,
+              "spy_cagr": 0.0986,
+              "worst": -0.356,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 551471,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1222,
+              "spy_cagr": 0.0461,
+              "worst": -0.296,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 832021,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1539,
+              "spy_cagr": 0.1499,
+              "worst": -0.311,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": false,
+          "trades_per_year": 69.9
+        },
+        {
+          "label": "ENTER_PCT=0.97",
+          "money": {
+            "all": {
+              "gbp_from_10k": 11354714,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1731,
+              "spy_cagr": 0.0986,
+              "worst": -0.432,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 882431,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1583,
+              "spy_cagr": 0.0461,
+              "worst": -0.357,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1286115,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1884,
+              "spy_cagr": 0.1499,
+              "worst": -0.271,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 44.7
+        },
+        {
+          "label": "ENTER_PCT=0.92",
+          "money": {
+            "all": {
+              "gbp_from_10k": 9199818,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1648,
+              "spy_cagr": 0.0986,
+              "worst": -0.42,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 711797,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1417,
+              "spy_cagr": 0.0461,
+              "worst": -0.399,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1291837,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1887,
+              "spy_cagr": 0.1499,
+              "worst": -0.294,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 51.9
+        },
+        {
+          "label": "EXIT_PCT=0.4",
+          "money": {
+            "all": {
+              "gbp_from_10k": 10136484,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1687,
+              "spy_cagr": 0.0986,
+              "worst": -0.341,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 856654,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.156,
+              "spy_cagr": 0.0461,
+              "worst": -0.302,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1182677,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1816,
+              "spy_cagr": 0.1499,
+              "worst": -0.3,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 44.9
+        },
+        {
+          "label": "EXIT_PCT=0.6",
+          "money": {
+            "all": {
+              "gbp_from_10k": 4333341,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1356,
+              "spy_cagr": 0.0986,
+              "worst": -0.372,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 451745,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1071,
+              "spy_cagr": 0.0461,
+              "worst": -0.342,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 958769,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.165,
+              "spy_cagr": 0.1499,
+              "worst": -0.309,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 54.5
+        },
+        {
+          "label": "CONFIRM_CHECKS=2",
+          "money": {
+            "all": {
+              "gbp_from_10k": 5217310,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1428,
+              "spy_cagr": 0.0986,
+              "worst": -0.426,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 667072,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1367,
+              "spy_cagr": 0.0461,
+              "worst": -0.382,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 781733,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.149,
+              "spy_cagr": 0.1499,
+              "worst": -0.33,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": false,
+          "trades_per_year": 57.3
+        },
+        {
+          "label": "CONFIRM_CHECKS=4",
+          "money": {
+            "all": {
+              "gbp_from_10k": 10477075,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.17,
+              "spy_cagr": 0.0986,
+              "worst": -0.313,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 1025503,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1701,
+              "spy_cagr": 0.0461,
+              "worst": -0.287,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1021145,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.17,
+              "spy_cagr": 0.1499,
+              "worst": -0.289,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 44.0
+        }
+      ],
+      "subsets": [
+        {
+          "label": "random 80% #1",
+          "money": {
+            "all": {
+              "gbp_from_10k": 3992276,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1325,
+              "spy_cagr": 0.0986,
+              "worst": -0.415,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 482716,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1121,
+              "spy_cagr": 0.0461,
+              "worst": -0.359,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 826634,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1534,
+              "spy_cagr": 0.1499,
+              "worst": -0.274,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": false,
+          "trades_per_year": 47.8
+        },
+        {
+          "label": "random 80% #2",
+          "money": {
+            "all": {
+              "gbp_from_10k": 10897414,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1715,
+              "spy_cagr": 0.0986,
+              "worst": -0.343,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 855219,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1559,
+              "spy_cagr": 0.0461,
+              "worst": -0.301,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1273592,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1876,
+              "spy_cagr": 0.1499,
+              "worst": -0.343,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 46.6
+        },
+        {
+          "label": "random 80% #3",
+          "money": {
+            "all": {
+              "gbp_from_10k": 7234233,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1554,
+              "spy_cagr": 0.0986,
+              "worst": -0.436,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 581414,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1262,
+              "spy_cagr": 0.0461,
+              "worst": -0.397,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1243630,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1857,
+              "spy_cagr": 0.1499,
+              "worst": -0.323,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 47.4
+        },
+        {
+          "label": "random 80% #4",
+          "money": {
+            "all": {
+              "gbp_from_10k": 5240298,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1429,
+              "spy_cagr": 0.0986,
+              "worst": -0.302,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 623548,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1315,
+              "spy_cagr": 0.0461,
+              "worst": -0.249,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 839983,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1546,
+              "spy_cagr": 0.1499,
+              "worst": -0.302,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": false,
+          "trades_per_year": 48.3
+        },
+        {
+          "label": "random 80% #5",
+          "money": {
+            "all": {
+              "gbp_from_10k": 6310676,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1501,
+              "spy_cagr": 0.0986,
+              "worst": -0.395,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 743493,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.145,
+              "spy_cagr": 0.0461,
+              "worst": -0.363,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 848366,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1554,
+              "spy_cagr": 0.1499,
+              "worst": -0.395,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": false,
+          "trades_per_year": 47.8
+        },
+        {
+          "label": "random 80% #6",
+          "money": {
+            "all": {
+              "gbp_from_10k": 6204204,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1495,
+              "spy_cagr": 0.0986,
+              "worst": -0.38,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 608355,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1296,
+              "spy_cagr": 0.0461,
+              "worst": -0.333,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1019327,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1698,
+              "spy_cagr": 0.1499,
+              "worst": -0.289,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 47.5
+        },
+        {
+          "label": "random 80% #7",
+          "money": {
+            "all": {
+              "gbp_from_10k": 5656762,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1459,
+              "spy_cagr": 0.0986,
+              "worst": -0.332,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 713291,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1418,
+              "spy_cagr": 0.0461,
+              "worst": -0.291,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 792657,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1501,
+              "spy_cagr": 0.1499,
+              "worst": -0.323,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": false,
+          "trades_per_year": 49.6
+        },
+        {
+          "label": "random 80% #8",
+          "money": {
+            "all": {
+              "gbp_from_10k": 3462516,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1271,
+              "spy_cagr": 0.0986,
+              "worst": -0.373,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 564273,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1239,
+              "spy_cagr": 0.0461,
+              "worst": -0.295,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 613320,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1304,
+              "spy_cagr": 0.1499,
+              "worst": -0.373,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": false,
+          "trades_per_year": 49.3
+        },
+        {
+          "label": "random 80% #9",
+          "money": {
+            "all": {
+              "gbp_from_10k": 4952129,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1407,
+              "spy_cagr": 0.0986,
+              "worst": -0.383,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 566368,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1242,
+              "spy_cagr": 0.0461,
+              "worst": -0.337,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 873932,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1577,
+              "spy_cagr": 0.1499,
+              "worst": -0.321,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": false,
+          "trades_per_year": 48.4
+        },
+        {
+          "label": "random 80% #10",
+          "money": {
+            "all": {
+              "gbp_from_10k": 6333981,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1503,
+              "spy_cagr": 0.0986,
+              "worst": -0.416,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 766578,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1474,
+              "spy_cagr": 0.0461,
+              "worst": -0.354,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 825857,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1533,
+              "spy_cagr": 0.1499,
+              "worst": -0.33,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": false,
+          "trades_per_year": 48.2
+        }
+      ],
+      "clean": {
+        "money": {
+          "all": {
+            "gbp_from_10k": 6726748,
+            "spy_gbp_from_10k": 1624026,
+            "cagr": 0.1526,
+            "spy_cagr": 0.0986,
+            "worst": -0.32,
+            "spy_worst": -0.547
+          },
+          "first": {
+            "gbp_from_10k": 584348,
+            "spy_gbp_from_10k": 194994,
+            "cagr": 0.1266,
+            "spy_cagr": 0.0461,
+            "worst": -0.285,
+            "spy_worst": -0.547
+          },
+          "second": {
+            "gbp_from_10k": 1150582,
+            "spy_gbp_from_10k": 789902,
+            "cagr": 0.1795,
+            "spy_cagr": 0.1499,
+            "worst": -0.32,
+            "spy_worst": -0.317
+          }
+        },
+        "ok": true,
+        "trades_per_year": 48.9
+      },
+      "passed": 11,
+      "runs": 20,
+      "share": 0.55,
+      "robust": false
+    },
+    "trend_200": {
+      "base": {
+        "money": {
+          "all": {
+            "gbp_from_10k": 8660003,
+            "spy_gbp_from_10k": 1624026,
+            "cagr": 0.1625,
+            "spy_cagr": 0.0986,
+            "worst": -0.315,
+            "spy_worst": -0.547
+          },
+          "first": {
+            "gbp_from_10k": 687517,
+            "spy_gbp_from_10k": 194994,
+            "cagr": 0.139,
+            "spy_cagr": 0.0461,
+            "worst": -0.303,
+            "spy_worst": -0.547
+          },
+          "second": {
+            "gbp_from_10k": 1258980,
+            "spy_gbp_from_10k": 789902,
+            "cagr": 0.1866,
+            "spy_cagr": 0.1499,
+            "worst": -0.315,
+            "spy_worst": -0.317
+          }
+        },
+        "ok": true,
+        "trades_per_year": 36.5
+      },
+      "years": [
+        {
+          "year": 1997,
+          "strategy": 0.0678995646477929,
+          "sp500": 0.25333455976387986
+        },
+        {
+          "year": 1998,
+          "strategy": 0.05284787190322726,
+          "sp500": 0.29736027563759215
+        },
+        {
+          "year": 1999,
+          "strategy": 0.3574824216017014,
+          "sp500": 0.1893818662805966
+        },
+        {
+          "year": 2000,
+          "strategy": 0.4643190760792004,
+          "sp500": -0.07626523948870578
+        },
+        {
+          "year": 2001,
+          "strategy": 0.0718068010761399,
+          "sp500": -0.13103250172304926
+        },
+        {
+          "year": 2002,
+          "strategy": 0.017002940642410813,
+          "sp500": -0.21984811478211408
+        },
+        {
+          "year": 2003,
+          "strategy": 0.4264157277290752,
+          "sp500": 0.2653372827109466
+        },
+        {
+          "year": 2004,
+          "strategy": 0.214067604774689,
+          "sp500": 0.12292326373206652
+        },
+        {
+          "year": 2005,
+          "strategy": 0.35152424297939255,
+          "sp500": 0.0587222893922541
+        },
+        {
+          "year": 2006,
+          "strategy": -0.1791003833906315,
+          "sp500": 0.14670537992328514
+        },
+        {
+          "year": 2007,
+          "strategy": 0.14723891769322628,
+          "sp500": 0.0734833725548476
+        },
+        {
+          "year": 2008,
+          "strategy": 0.09072026147843948,
+          "sp500": -0.4035923566127342
+        },
+        {
+          "year": 2009,
+          "strategy": 0.3476749849634042,
+          "sp500": 0.32417362466227484
+        },
+        {
+          "year": 2010,
+          "strategy": -0.006377782971586865,
+          "sp500": 0.13965073399107863
+        },
+        {
+          "year": 2011,
+          "strategy": -0.15140607613695278,
+          "sp500": 0.027232999901584565
+        },
+        {
+          "year": 2012,
+          "strategy": 0.23076074906980826,
+          "sp500": 0.1454920104479447
+        },
+        {
+          "year": 2013,
+          "strategy": 0.6169566309462056,
+          "sp500": 0.32923778218968613
+        },
+        {
+          "year": 2014,
+          "strategy": 0.0037317973331278953,
+          "sp500": 0.15219220969073377
+        },
+        {
+          "year": 2015,
+          "strategy": -0.0323335035840181,
+          "sp500": 0.005769879315287385
+        },
+        {
+          "year": 2016,
+          "strategy": 0.1651580489275304,
+          "sp500": 0.11419569357409487
+        },
+        {
+          "year": 2017,
+          "strategy": 0.32696644788783447,
+          "sp500": 0.21469601998495058
+        },
+        {
+          "year": 2018,
+          "strategy": -0.04336342335849708,
+          "sp500": -0.06158859547463891
+        },
+        {
+          "year": 2019,
+          "strategy": 0.31247002804500723,
+          "sp500": 0.33217416381881093
+        },
+        {
+          "year": 2020,
+          "strategy": 0.06112646600499372,
+          "sp500": 0.17790414000833188
+        },
+        {
+          "year": 2021,
+          "strategy": 0.25536182118995354,
+          "sp500": 0.29320236389478715
+        },
+        {
+          "year": 2022,
+          "strategy": -0.03127256333027417,
+          "sp500": -0.17959269454281335
+        },
+        {
+          "year": 2023,
+          "strategy": 0.09422461896437273,
+          "sp500": 0.26208809346116313
+        },
+        {
+          "year": 2024,
+          "strategy": 0.4294913048401583,
+          "sp500": 0.27767243119383433
+        },
+        {
+          "year": 2025,
+          "strategy": 0.11899284315090619,
+          "sp500": 0.16143339270356738
+        },
+        {
+          "year": 2026,
+          "strategy": 0.5352790656336448,
+          "sp500": 0.12095592870855887
+        }
+      ],
+      "nudges": [
+        {
+          "label": "SLOTS=7",
+          "money": {
+            "all": {
+              "gbp_from_10k": 19545874,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1948,
+              "spy_cagr": 0.0986,
+              "worst": -0.318,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 960577,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.165,
+              "spy_cagr": 0.0461,
+              "worst": -0.318,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 2033796,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2257,
+              "spy_cagr": 0.1499,
+              "worst": -0.318,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 26.7
+        },
+        {
+          "label": "SLOTS=15",
+          "money": {
+            "all": {
+              "gbp_from_10k": 10712131,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1708,
+              "spy_cagr": 0.0986,
+              "worst": -0.27,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 791278,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1498,
+              "spy_cagr": 0.0461,
+              "worst": -0.27,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1353105,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1924,
+              "spy_cagr": 0.1499,
+              "worst": -0.264,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 50.3
+        },
+        {
+          "label": "ENTER_PCT=0.97",
+          "money": {
+            "all": {
+              "gbp_from_10k": 11086233,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1722,
+              "spy_cagr": 0.0986,
+              "worst": -0.295,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 655276,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1353,
+              "spy_cagr": 0.0461,
+              "worst": -0.295,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1691002,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2105,
+              "spy_cagr": 0.1499,
+              "worst": -0.286,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 33.4
+        },
+        {
+          "label": "ENTER_PCT=0.92",
+          "money": {
+            "all": {
+              "gbp_from_10k": 9143825,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1646,
+              "spy_cagr": 0.0986,
+              "worst": -0.321,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 692258,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1395,
+              "spy_cagr": 0.0461,
+              "worst": -0.321,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1320213,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1905,
+              "spy_cagr": 0.1499,
+              "worst": -0.315,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 37.9
+        },
+        {
+          "label": "EXIT_PCT=0.4",
+          "money": {
+            "all": {
+              "gbp_from_10k": 7760904,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1582,
+              "spy_cagr": 0.0986,
+              "worst": -0.315,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 719347,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1425,
+              "spy_cagr": 0.0461,
+              "worst": -0.303,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1078347,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1743,
+              "spy_cagr": 0.1499,
+              "worst": -0.315,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 35.1
+        },
+        {
+          "label": "EXIT_PCT=0.6",
+          "money": {
+            "all": {
+              "gbp_from_10k": 14434445,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1827,
+              "spy_cagr": 0.0986,
+              "worst": -0.315,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 945464,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1637,
+              "spy_cagr": 0.0461,
+              "worst": -0.304,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1525947,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2022,
+              "spy_cagr": 0.1499,
+              "worst": -0.315,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 37.8
+        },
+        {
+          "label": "CONFIRM_CHECKS=2",
+          "money": {
+            "all": {
+              "gbp_from_10k": 9054581,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1642,
+              "spy_cagr": 0.0986,
+              "worst": -0.337,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 680192,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1382,
+              "spy_cagr": 0.0461,
+              "worst": -0.337,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1330520,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1911,
+              "spy_cagr": 0.1499,
+              "worst": -0.309,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 39.7
+        },
+        {
+          "label": "CONFIRM_CHECKS=4",
+          "money": {
+            "all": {
+              "gbp_from_10k": 6758344,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1528,
+              "spy_cagr": 0.0986,
+              "worst": -0.334,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 603415,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.129,
+              "spy_cagr": 0.0461,
+              "worst": -0.334,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1119460,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1773,
+              "spy_cagr": 0.1499,
+              "worst": -0.309,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 35.1
+        }
+      ],
+      "subsets": [
+        {
+          "label": "random 80% #1",
+          "money": {
+            "all": {
+              "gbp_from_10k": 12181782,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1759,
+              "spy_cagr": 0.0986,
+              "worst": -0.298,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 680144,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1382,
+              "spy_cagr": 0.0461,
+              "worst": -0.298,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1790171,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2152,
+              "spy_cagr": 0.1499,
+              "worst": -0.269,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 34.8
+        },
+        {
+          "label": "random 80% #2",
+          "money": {
+            "all": {
+              "gbp_from_10k": 9459269,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1659,
+              "spy_cagr": 0.0986,
+              "worst": -0.291,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 705613,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.141,
+              "spy_cagr": 0.0461,
+              "worst": -0.274,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1339909,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1917,
+              "spy_cagr": 0.1499,
+              "worst": -0.291,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 35.6
+        },
+        {
+          "label": "random 80% #3",
+          "money": {
+            "all": {
+              "gbp_from_10k": 9004287,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.164,
+              "spy_cagr": 0.0986,
+              "worst": -0.33,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 604524,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1291,
+              "spy_cagr": 0.0461,
+              "worst": -0.33,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1488745,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2002,
+              "spy_cagr": 0.1499,
+              "worst": -0.289,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 35.9
+        },
+        {
+          "label": "random 80% #4",
+          "money": {
+            "all": {
+              "gbp_from_10k": 9016145,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.164,
+              "spy_cagr": 0.0986,
+              "worst": -0.347,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 620792,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1312,
+              "spy_cagr": 0.0461,
+              "worst": -0.347,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1451642,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1981,
+              "spy_cagr": 0.1499,
+              "worst": -0.273,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 35.5
+        },
+        {
+          "label": "random 80% #5",
+          "money": {
+            "all": {
+              "gbp_from_10k": 12294582,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1763,
+              "spy_cagr": 0.0986,
+              "worst": -0.296,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 716856,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1422,
+              "spy_cagr": 0.0461,
+              "worst": -0.296,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1714219,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2117,
+              "spy_cagr": 0.1499,
+              "worst": -0.296,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 35.2
+        },
+        {
+          "label": "random 80% #6",
+          "money": {
+            "all": {
+              "gbp_from_10k": 7014376,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1542,
+              "spy_cagr": 0.0986,
+              "worst": -0.286,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 763283,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1471,
+              "spy_cagr": 0.0461,
+              "worst": -0.269,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 918519,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1616,
+              "spy_cagr": 0.1499,
+              "worst": -0.286,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 36.2
+        },
+        {
+          "label": "random 80% #7",
+          "money": {
+            "all": {
+              "gbp_from_10k": 10415801,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1697,
+              "spy_cagr": 0.0986,
+              "worst": -0.325,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 587680,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.127,
+              "spy_cagr": 0.0461,
+              "worst": -0.325,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1771481,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.2143,
+              "spy_cagr": 0.1499,
+              "worst": -0.296,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 35.3
+        },
+        {
+          "label": "random 80% #8",
+          "money": {
+            "all": {
+              "gbp_from_10k": 9739306,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1671,
+              "spy_cagr": 0.0986,
+              "worst": -0.305,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 747670,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1455,
+              "spy_cagr": 0.0461,
+              "worst": -0.299,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1301974,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1893,
+              "spy_cagr": 0.1499,
+              "worst": -0.305,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 35.9
+        },
+        {
+          "label": "random 80% #9",
+          "money": {
+            "all": {
+              "gbp_from_10k": 7943441,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1591,
+              "spy_cagr": 0.0986,
+              "worst": -0.323,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 643637,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1339,
+              "spy_cagr": 0.0461,
+              "worst": -0.323,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1233537,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.185,
+              "spy_cagr": 0.1499,
+              "worst": -0.296,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 35.9
+        },
+        {
+          "label": "random 80% #10",
+          "money": {
+            "all": {
+              "gbp_from_10k": 10900372,
+              "spy_gbp_from_10k": 1624026,
+              "cagr": 0.1715,
+              "spy_cagr": 0.0986,
+              "worst": -0.343,
+              "spy_worst": -0.547
+            },
+            "first": {
+              "gbp_from_10k": 798143,
+              "spy_gbp_from_10k": 194994,
+              "cagr": 0.1505,
+              "spy_cagr": 0.0461,
+              "worst": -0.343,
+              "spy_worst": -0.547
+            },
+            "second": {
+              "gbp_from_10k": 1365038,
+              "spy_gbp_from_10k": 789902,
+              "cagr": 0.1931,
+              "spy_cagr": 0.1499,
+              "worst": -0.294,
+              "spy_worst": -0.317
+            }
+          },
+          "ok": true,
+          "trades_per_year": 35.6
+        }
+      ],
+      "clean": {
+        "money": {
+          "all": {
+            "gbp_from_10k": 8257398,
+            "spy_gbp_from_10k": 1624026,
+            "cagr": 0.1606,
+            "spy_cagr": 0.0986,
+            "worst": -0.315,
+            "spy_worst": -0.547
+          },
+          "first": {
+            "gbp_from_10k": 613919,
+            "spy_gbp_from_10k": 194994,
+            "cagr": 0.1303,
+            "spy_cagr": 0.0461,
+            "worst": -0.303,
+            "spy_worst": -0.547
+          },
+          "second": {
+            "gbp_from_10k": 1344363,
+            "spy_gbp_from_10k": 789902,
+            "cagr": 0.1919,
+            "spy_cagr": 0.1499,
+            "worst": -0.315,
+            "spy_worst": -0.317
+          }
+        },
+        "ok": true,
+        "trades_per_year": 36.9
+      },
+      "passed": 20,
+      "runs": 20,
+      "share": 1.0,
+      "robust": true
+    }
+  },
+  "clean_removed": 45,
+  "from": "1997-02-03",
+  "to": "2026-09-25"
+}
