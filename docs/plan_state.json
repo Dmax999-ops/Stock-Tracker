@@ -1,16 +1,16 @@
 {
-  "as_of": "2026-09-24",
+  "as_of": "2026-09-25",
   "model": [
     "SNDK",
-    "MU",
     "LITE",
+    "MU",
     "STT",
-    "VLO",
+    "ILMN",
     "MRK",
-    "TRGP",
+    "VLO",
     "JNJ",
     "MPC",
-    "ILMN"
+    "TRGP"
   ],
   "method": "risk_adjusted_12_1_themes_v3",
   "market_on": true,
@@ -33,7 +33,7 @@
     },
     {
       "ticker": "DEBS.L",
-      "action": "BUY"
+      "action": "HOLD"
     },
     {
       "ticker": "AAPL",
