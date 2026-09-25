@@ -1,90 +1,90 @@
 {
-  "generated": "2026-09-24T18:59:15.837451+00:00",
+  "generated": "2026-09-25T20:58:16.549607+00:00",
   "from": "1997-02-03",
-  "to": "2026-09-24",
-  "data": "641 stocks ever in the S&P 500 (19 from the delisted archive)",
+  "to": "2026-09-25",
+  "data": "644 stocks ever in the S&P 500 (21 from the delisted archive)",
   "info": {
-    "yahoo_stocks": 624,
-    "delisted_added": 19
+    "yahoo_stocks": 625,
+    "delisted_added": 21
   },
   "scores": {
     "mom_12_1_riskadj": {
       "prediction": {
         "all": {
-          "ic_1m": 0.0064,
-          "t_1m": 0.59,
-          "ic_12m": 0.0018,
-          "t_12m": -0.08,
-          "top10_12m": 0.1205,
-          "bot10_12m": 0.1307,
-          "all_12m": 0.1317
+          "ic_1m": 0.0063,
+          "t_1m": 0.58,
+          "ic_12m": 0.0012,
+          "t_12m": -0.09,
+          "top10_12m": 0.1202,
+          "bot10_12m": 0.1306,
+          "all_12m": 0.1319
         },
         "first": {
-          "ic_1m": 0.013,
-          "t_1m": 0.88,
-          "ic_12m": 0.011,
-          "t_12m": 0.16,
-          "top10_12m": 0.101,
-          "bot10_12m": 0.1128,
-          "all_12m": 0.1178
+          "ic_1m": 0.0129,
+          "t_1m": 0.87,
+          "ic_12m": 0.0098,
+          "t_12m": 0.15,
+          "top10_12m": 0.1005,
+          "bot10_12m": 0.1126,
+          "all_12m": 0.1182
         },
         "second": {
           "ic_1m": -0.0008,
           "t_1m": -0.05,
-          "ic_12m": -0.0078,
+          "ic_12m": -0.0079,
           "t_12m": 0.01,
-          "top10_12m": 0.1416,
-          "bot10_12m": 0.1502,
-          "all_12m": 0.147
+          "top10_12m": 0.1417,
+          "bot10_12m": 0.1501,
+          "all_12m": 0.1469
         }
       },
       "money_costs": {
         "all": {
-          "gbp_from_10k": 89206,
+          "gbp_from_10k": 81757,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.0766,
+          "cagr": 0.0735,
           "spy_cagr": 0.0986,
           "worst": -0.606,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 18671,
+          "gbp_from_10k": 18468,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.043,
+          "cagr": 0.0423,
           "spy_cagr": 0.0461,
           "worst": -0.606,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 45589,
+          "gbp_from_10k": 42093,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.1079,
+          "cagr": 0.102,
           "spy_cagr": 0.1499,
-          "worst": -0.473,
+          "worst": -0.451,
           "spy_worst": -0.317
         }
       },
       "money_free": {
         "all": {
-          "gbp_from_10k": 196312,
+          "gbp_from_10k": 186297,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.1057,
+          "cagr": 0.1037,
           "spy_cagr": 0.0986,
           "worst": -0.569,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 27440,
+          "gbp_from_10k": 25972,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.0705,
+          "cagr": 0.0665,
           "spy_cagr": 0.0461,
           "worst": -0.569,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 68093,
+          "gbp_from_10k": 68024,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.1384,
+          "cagr": 0.1383,
           "spy_cagr": 0.1499,
           "worst": -0.405,
           "spy_worst": -0.317
@@ -94,20 +94,11 @@
       "turnover": {
         "best_trades": [
           {
-            "ticker": "WDC",
-            "in": "2025-12-26",
-            "out": "2026-09-24",
-            "ret": 1.511,
-            "gbp": 11103.822,
-            "biggest_day_move": 0.168,
-            "open": true
-          },
-          {
             "ticker": "NVDA",
             "in": "2016-05-12",
             "out": "2019-01-10",
             "ret": 3.135,
-            "gbp": 10819.4,
+            "gbp": 10452.225,
             "biggest_day_move": 0.298,
             "open": false
           },
@@ -116,68 +107,77 @@
             "in": "2024-01-05",
             "out": "2025-06-13",
             "ret": 1.893,
-            "gbp": 7639.924,
+            "gbp": 8647.201,
             "biggest_day_move": 0.204,
             "open": false
           },
           {
-            "ticker": "AXON",
-            "in": "2023-06-01",
-            "out": "2025-12-26",
-            "ret": 2.039,
-            "gbp": 7284.217,
-            "biggest_day_move": 0.287,
+            "ticker": "IRM",
+            "in": "2022-01-24",
+            "out": "2025-08-19",
+            "ret": 1.363,
+            "gbp": 6555.237,
+            "biggest_day_move": 0.109,
             "open": false
           },
           {
-            "ticker": "CPRT",
-            "in": "2018-09-14",
-            "out": "2021-05-14",
-            "ret": 0.915,
-            "gbp": 5288.729,
-            "biggest_day_move": 0.174,
+            "ticker": "AVGO",
+            "in": "2014-11-20",
+            "out": "2018-03-12",
+            "ret": 2.073,
+            "gbp": 6091.905,
+            "biggest_day_move": 0.147,
             "open": false
+          },
+          {
+            "ticker": "WDC",
+            "in": "2026-02-10",
+            "out": "2026-09-25",
+            "ret": 0.742,
+            "gbp": 5679.765,
+            "biggest_day_move": 0.161,
+            "open": true
           }
         ],
         "worst_trades": [
+          {
+            "ticker": "CINF",
+            "in": "2019-10-25",
+            "out": "2020-05-26",
+            "ret": -0.462,
+            "gbp": -2022.325,
+            "biggest_day_move": 0.168,
+            "open": false
+          },
           {
             "ticker": "CNX",
             "in": "2008-07-09",
             "out": "2009-02-11",
             "ret": -0.668,
-            "gbp": -2137.575,
+            "gbp": -2121.718,
             "biggest_day_move": 0.287,
             "open": false
           },
           {
             "ticker": "NKTR",
-            "in": "2018-04-24",
+            "in": "2018-04-03",
             "out": "2018-12-03",
-            "ret": -0.52,
-            "gbp": -2848.495,
+            "ret": -0.592,
+            "gbp": -3401.905,
             "biggest_day_move": 0.719,
-            "open": false
-          },
-          {
-            "ticker": "MRNA",
-            "in": "2021-09-08",
-            "out": "2022-02-07",
-            "ret": -0.621,
-            "gbp": -3080.9,
-            "biggest_day_move": 0.218,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 96855,
-        "share_of_gain_from_best_3": 0.31,
+        "net_trading_gain_gbp": 90577,
+        "share_of_gain_from_best_3": 0.28,
         "suspect_price_jumps": [
           "UIS 1998-03-09",
           "AAPL 1999-12-03",
           "TMUS 2011-04-11",
           "NFLX 2011-02-18",
-          "NKTR 2018-04-24"
+          "NKTR 2018-04-03"
         ],
-        "trades_per_year": 14.5,
+        "trades_per_year": 14.4,
         "median_hold_days": 326,
         "still_held": 8
       },
@@ -186,9 +186,9 @@
           {
             "ticker": "WDC",
             "in": "2025-12-26",
-            "out": "2026-09-24",
-            "ret": 1.511,
-            "gbp": 24438.088,
+            "out": "2026-09-25",
+            "ret": 1.519,
+            "gbp": 23308.111,
             "biggest_day_move": 0.168,
             "open": true
           },
@@ -197,7 +197,7 @@
             "in": "2016-05-12",
             "out": "2019-01-10",
             "ret": 3.135,
-            "gbp": 17971.067,
+            "gbp": 17054.257,
             "biggest_day_move": 0.298,
             "open": false
           },
@@ -206,7 +206,7 @@
             "in": "2024-01-05",
             "out": "2025-06-13",
             "ret": 1.893,
-            "gbp": 16223.85,
+            "gbp": 15396.16,
             "biggest_day_move": 0.204,
             "open": false
           },
@@ -215,7 +215,7 @@
             "in": "2023-06-01",
             "out": "2025-12-26",
             "ret": 2.039,
-            "gbp": 15356.301,
+            "gbp": 14572.875,
             "biggest_day_move": 0.287,
             "open": false
           },
@@ -224,7 +224,7 @@
             "in": "2024-06-28",
             "out": "2026-01-27",
             "ret": 0.929,
-            "gbp": 10598.223,
+            "gbp": 10057.536,
             "biggest_day_move": 0.394,
             "open": false
           }
@@ -235,7 +235,7 @@
             "in": "2019-10-25",
             "out": "2020-05-26",
             "ret": -0.462,
-            "gbp": -3798.406,
+            "gbp": -3604.625,
             "biggest_day_move": 0.168,
             "open": false
           },
@@ -244,7 +244,7 @@
             "in": "2018-04-03",
             "out": "2018-12-03",
             "ret": -0.592,
-            "gbp": -5772.525,
+            "gbp": -5478.032,
             "biggest_day_move": 0.719,
             "open": false
           },
@@ -253,21 +253,22 @@
             "in": "2021-09-08",
             "out": "2022-02-07",
             "ret": -0.621,
-            "gbp": -6128.441,
+            "gbp": -5815.789,
             "biggest_day_move": 0.218,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 175248,
+        "net_trading_gain_gbp": 166650,
         "share_of_gain_from_best_3": 0.33,
         "suspect_price_jumps": [
           "UIS 1998-03-09",
           "AAPL 1999-12-03",
+          "THC 2008-10-23",
           "TMUS 2011-04-11",
           "NFLX 2011-02-18",
           "NKTR 2018-04-03"
         ],
-        "trades_per_year": 15.0,
+        "trades_per_year": 15.1,
         "median_hold_days": 326,
         "still_held": 8
       },
@@ -277,82 +278,82 @@
     "mom_12_1": {
       "prediction": {
         "all": {
-          "ic_1m": 0.0045,
-          "t_1m": 0.4,
-          "ic_12m": -0.009,
-          "t_12m": -0.33,
-          "top10_12m": 0.1333,
+          "ic_1m": 0.0044,
+          "t_1m": 0.38,
+          "ic_12m": -0.01,
+          "t_12m": -0.35,
+          "top10_12m": 0.132,
           "bot10_12m": 0.1734,
-          "all_12m": 0.1317
+          "all_12m": 0.1319
         },
         "first": {
-          "ic_1m": 0.01,
-          "t_1m": 0.61,
-          "ic_12m": -0.009,
-          "t_12m": -0.16,
-          "top10_12m": 0.1111,
-          "bot10_12m": 0.1746,
-          "all_12m": 0.1178
+          "ic_1m": 0.0098,
+          "t_1m": 0.6,
+          "ic_12m": -0.011,
+          "t_12m": -0.19,
+          "top10_12m": 0.1087,
+          "bot10_12m": 0.1752,
+          "all_12m": 0.1182
         },
         "second": {
           "ic_1m": -0.0017,
           "t_1m": -0.11,
-          "ic_12m": -0.0089,
+          "ic_12m": -0.0087,
           "t_12m": -0.07,
-          "top10_12m": 0.1573,
-          "bot10_12m": 0.1721,
-          "all_12m": 0.147
+          "top10_12m": 0.1572,
+          "bot10_12m": 0.1714,
+          "all_12m": 0.1469
         }
       },
       "money_costs": {
         "all": {
-          "gbp_from_10k": 58279,
+          "gbp_from_10k": 56195,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.0613,
+          "cagr": 0.06,
           "spy_cagr": 0.0986,
-          "worst": -0.794,
+          "worst": -0.805,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 6038,
+          "gbp_from_10k": 5294,
           "spy_gbp_from_10k": 19499,
-          "cagr": -0.0335,
+          "cagr": -0.042,
           "spy_cagr": 0.0461,
-          "worst": -0.794,
+          "worst": -0.805,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 92791,
+          "gbp_from_10k": 100678,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.1624,
+          "cagr": 0.1689,
           "spy_cagr": 0.1499,
-          "worst": -0.443,
+          "worst": -0.456,
           "spy_worst": -0.317
         }
       },
       "money_free": {
         "all": {
-          "gbp_from_10k": 232651,
+          "gbp_from_10k": 204859,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.112,
+          "cagr": 0.1073,
           "spy_cagr": 0.0986,
-          "worst": -0.727,
+          "worst": -0.739,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 12057,
+          "gbp_from_10k": 10407,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.0127,
+          "cagr": 0.0027,
           "spy_cagr": 0.0461,
-          "worst": -0.727,
+          "worst": -0.739,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 185437,
+          "gbp_from_10k": 187378,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.2181,
+          "cagr": 0.219,
           "spy_cagr": 0.1499,
-          "worst": -0.398,
+          "worst": -0.396,
           "spy_worst": -0.317
         }
       },
@@ -362,36 +363,36 @@
           {
             "ticker": "MU",
             "in": "2026-02-10",
-            "out": "2026-09-24",
-            "ret": 1.874,
-            "gbp": 8065.332,
+            "out": "2026-09-25",
+            "ret": 1.901,
+            "gbp": 7889.242,
             "biggest_day_move": 0.193,
             "open": true
           },
           {
             "ticker": "NVDA",
             "in": "2023-12-06",
-            "out": "2026-09-24",
-            "ret": 3.94,
-            "gbp": 7261.034,
+            "out": "2026-09-25",
+            "ret": 3.961,
+            "gbp": 7069.816,
             "biggest_day_move": 0.204,
             "open": true
           },
           {
             "ticker": "WDC",
             "in": "2025-12-26",
-            "out": "2026-09-24",
-            "ret": 1.511,
-            "gbp": 6468.092,
+            "out": "2026-09-25",
+            "ret": 1.519,
+            "gbp": 6268.544,
             "biggest_day_move": 0.168,
             "open": true
           },
           {
             "ticker": "GE",
             "in": "2023-06-01",
-            "out": "2026-09-24",
-            "ret": 2.914,
-            "gbp": 5205.829,
+            "out": "2026-09-25",
+            "ret": 2.983,
+            "gbp": 5097.996,
             "biggest_day_move": 0.125,
             "open": true
           },
@@ -400,27 +401,18 @@
             "in": "2023-06-01",
             "out": "2025-12-26",
             "ret": 2.039,
-            "gbp": 3641.386,
+            "gbp": 3484.15,
             "biggest_day_move": 0.287,
             "open": false
           }
         ],
         "worst_trades": [
           {
-            "ticker": "EOG",
-            "in": "2008-05-19",
-            "out": "2009-03-19",
-            "ret": -0.546,
-            "gbp": -1255.195,
-            "biggest_day_move": 0.204,
-            "open": false
-          },
-          {
             "ticker": "NTAP",
             "in": "2000-03-08",
             "out": "2001-02-20",
             "ret": -0.692,
-            "gbp": -1408.358,
+            "gbp": -1408.359,
             "biggest_day_move": 0.409,
             "open": false
           },
@@ -429,12 +421,21 @@
             "in": "2021-08-10",
             "out": "2022-02-22",
             "ret": -0.683,
-            "gbp": -1560.306,
+            "gbp": -1462.577,
             "biggest_day_move": 0.218,
+            "open": false
+          },
+          {
+            "ticker": "NOV",
+            "in": "2007-10-05",
+            "out": "2008-10-16",
+            "ret": -0.693,
+            "gbp": -1693.122,
+            "biggest_day_move": 0.244,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 61436,
+        "net_trading_gain_gbp": 59956,
         "share_of_gain_from_best_3": 0.35,
         "suspect_price_jumps": [
           "UIS 1998-02-13",
@@ -444,10 +445,10 @@
           "THC 2008-10-09",
           "EP 2009-12-03",
           "TMUS 2011-03-28",
-          "NFLX 2011-03-28"
+          "NFLX 2011-03-14"
         ],
-        "trades_per_year": 13.9,
-        "median_hold_days": 318,
+        "trades_per_year": 14.0,
+        "median_hold_days": 307,
         "still_held": 7
       },
       "turnover_free": {
@@ -455,66 +456,66 @@
           {
             "ticker": "MU",
             "in": "2026-02-10",
-            "out": "2026-09-24",
-            "ret": 1.874,
-            "gbp": 32472.94,
+            "out": "2026-09-25",
+            "ret": 1.901,
+            "gbp": 26680.341,
             "biggest_day_move": 0.193,
-            "open": true
-          },
-          {
-            "ticker": "NVDA",
-            "in": "2023-12-06",
-            "out": "2026-09-24",
-            "ret": 3.94,
-            "gbp": 28688.175,
-            "biggest_day_move": 0.204,
             "open": true
           },
           {
             "ticker": "WDC",
             "in": "2025-12-26",
-            "out": "2026-09-24",
-            "ret": 1.511,
-            "gbp": 25876.881,
+            "out": "2026-09-25",
+            "ret": 1.519,
+            "gbp": 21788.589,
             "biggest_day_move": 0.168,
             "open": true
           },
           {
-            "ticker": "GE",
-            "in": "2023-06-01",
-            "out": "2026-09-24",
-            "ret": 2.914,
-            "gbp": 20415.907,
-            "biggest_day_move": 0.125,
+            "ticker": "NVDA",
+            "in": "2024-01-12",
+            "out": "2026-09-25",
+            "ret": 3.126,
+            "gbp": 19123.767,
+            "biggest_day_move": 0.204,
             "open": true
           },
           {
-            "ticker": "AXON",
-            "in": "2023-06-01",
-            "out": "2025-12-26",
-            "ret": 2.039,
-            "gbp": 14280.57,
-            "biggest_day_move": 0.287,
+            "ticker": "STX",
+            "in": "2026-02-10",
+            "out": "2026-09-25",
+            "ret": 1.321,
+            "gbp": 18543.469,
+            "biggest_day_move": 0.139,
+            "open": true
+          },
+          {
+            "ticker": "PLTR",
+            "in": "2024-10-08",
+            "out": "2026-06-22",
+            "ret": 1.883,
+            "gbp": 17547.29,
+            "biggest_day_move": 0.24,
             "open": false
           }
         ],
         "worst_trades": [
           {
-            "ticker": "F",
-            "in": "2022-02-22",
-            "out": "2022-06-16",
-            "ret": -0.345,
-            "gbp": -2793.236,
-            "biggest_day_move": 0.091,
+            "ticker": "NOV",
+            "in": "2007-10-12",
+            "out": "2008-10-16",
+            "ret": -0.7,
+            "gbp": -2270.782,
+            "biggest_day_move": 0.244,
             "open": false
           },
           {
-            "ticker": "STX",
+            "ticker": "INTC",
             "in": "2026-06-22",
-            "out": "2026-09-24",
-            "ret": -0.169,
-            "gbp": -4557.91,
-            "biggest_day_move": 0.139,
+            "out": "2026-09-25",
+            "ret": -0.127,
+            "gbp": -3050.792,
+            "biggest_day_move": 0.121,
             "open": true
           },
           {
@@ -522,13 +523,13 @@
             "in": "2021-08-10",
             "out": "2022-02-22",
             "ret": -0.683,
-            "gbp": -5815.476,
+            "gbp": -4161.217,
             "biggest_day_move": 0.218,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 212981,
-        "share_of_gain_from_best_3": 0.41,
+        "net_trading_gain_gbp": 187324,
+        "share_of_gain_from_best_3": 0.36,
         "suspect_price_jumps": [
           "UIS 1998-02-13",
           "AAPL 1999-12-10",
@@ -536,11 +537,11 @@
           "CF 2008-09-11",
           "THC 2008-10-09",
           "EP 2009-12-03",
-          "TMUS 2011-04-18",
+          "TMUS 2011-03-28",
           "NFLX 2011-03-28"
         ],
-        "trades_per_year": 14.1,
-        "median_hold_days": 318,
+        "trades_per_year": 14.3,
+        "median_hold_days": 311,
         "still_held": 7
       },
       "predicts": false,
@@ -549,80 +550,80 @@
     "mom_6_1": {
       "prediction": {
         "all": {
-          "ic_1m": -0.0061,
-          "t_1m": -0.6,
-          "ic_12m": 0.0019,
-          "t_12m": 0.04,
-          "top10_12m": 0.1379,
-          "bot10_12m": 0.1595,
-          "all_12m": 0.1318
+          "ic_1m": -0.006,
+          "t_1m": -0.59,
+          "ic_12m": 0.0017,
+          "t_12m": 0.03,
+          "top10_12m": 0.1377,
+          "bot10_12m": 0.1603,
+          "all_12m": 0.1319
         },
         "first": {
-          "ic_1m": -0.0102,
-          "t_1m": -0.68,
-          "ic_12m": -0.0002,
+          "ic_1m": -0.01,
+          "t_1m": -0.67,
+          "ic_12m": -0.0006,
           "t_12m": -0.06,
-          "top10_12m": 0.1122,
-          "bot10_12m": 0.1635,
-          "all_12m": 0.1177
+          "top10_12m": 0.1119,
+          "bot10_12m": 0.1656,
+          "all_12m": 0.1181
         },
         "second": {
           "ic_1m": -0.0026,
           "t_1m": -0.19,
-          "ic_12m": 0.0041,
+          "ic_12m": 0.0042,
           "t_12m": 0.44,
-          "top10_12m": 0.1656,
-          "bot10_12m": 0.1553,
-          "all_12m": 0.1471
+          "top10_12m": 0.1655,
+          "bot10_12m": 0.1546,
+          "all_12m": 0.147
         }
       },
       "money_costs": {
         "all": {
-          "gbp_from_10k": 216,
+          "gbp_from_10k": 613,
           "spy_gbp_from_10k": 162403,
-          "cagr": -0.1214,
+          "cagr": -0.0899,
           "spy_cagr": 0.0986,
-          "worst": -0.991,
+          "worst": -0.982,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 1841,
+          "gbp_from_10k": 1983,
           "spy_gbp_from_10k": 19499,
-          "cagr": -0.108,
+          "cagr": -0.1035,
           "spy_cagr": 0.0461,
-          "worst": -0.91,
+          "worst": -0.899,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 1144,
+          "gbp_from_10k": 2999,
           "spy_gbp_from_10k": 78990,
-          "cagr": -0.1363,
+          "cagr": -0.0781,
           "spy_cagr": 0.1499,
-          "worst": -0.924,
+          "worst": -0.87,
           "spy_worst": -0.317
         }
       },
       "money_free": {
         "all": {
-          "gbp_from_10k": 1282036,
+          "gbp_from_10k": 1428864,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.178,
+          "cagr": 0.1823,
           "spy_cagr": 0.0986,
-          "worst": -0.755,
+          "worst": -0.747,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 15240,
+          "gbp_from_10k": 16914,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.0289,
+          "cagr": 0.0361,
           "spy_cagr": 0.0461,
-          "worst": -0.755,
+          "worst": -0.747,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 816935,
+          "gbp_from_10k": 820946,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.3465,
+          "cagr": 0.3469,
           "spy_cagr": 0.1499,
           "worst": -0.315,
           "spy_worst": -0.317
@@ -636,7 +637,7 @@
             "in": "1999-12-17",
             "out": "2000-09-12",
             "ret": 2.019,
-            "gbp": 2543.377,
+            "gbp": 2543.378,
             "biggest_day_move": 0.358,
             "open": false
           },
@@ -645,7 +646,7 @@
             "in": "2004-07-06",
             "out": "2006-03-27",
             "ret": 2.169,
-            "gbp": 2190.15,
+            "gbp": 2177.561,
             "biggest_day_move": 0.1,
             "open": false
           },
@@ -668,12 +669,12 @@
             "open": false
           },
           {
-            "ticker": "EOG",
-            "in": "2004-08-31",
-            "out": "2006-03-27",
-            "ret": 1.5,
-            "gbp": 1509.185,
-            "biggest_day_move": 0.086,
+            "ticker": "AAPL",
+            "in": "2004-07-27",
+            "out": "2005-08-12",
+            "ret": 1.843,
+            "gbp": 1685.396,
+            "biggest_day_move": 0.132,
             "open": false
           }
         ],
@@ -692,7 +693,7 @@
             "in": "2008-04-14",
             "out": "2008-12-12",
             "ret": -0.738,
-            "gbp": -841.558,
+            "gbp": -856.489,
             "biggest_day_move": 0.579,
             "open": false
           },
@@ -706,59 +707,60 @@
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 9839,
-        "share_of_gain_from_best_3": 0.68,
+        "net_trading_gain_gbp": 11365,
+        "share_of_gain_from_best_3": 0.59,
         "suspect_price_jumps": [
           "EP 2000-10-31",
+          "GR 2003-06-02",
           "EP 2003-05-23",
           "EP 2004-08-24",
-          "EP 2006-05-31",
+          "EP 2006-06-14",
           "THC 2008-04-14",
-          "EP 2009-05-08",
-          "EP 2010-03-17",
-          "TMUS 2010-09-28",
+          "EP 2009-05-15",
+          "EP 2010-03-10",
+          "TMUS 2010-09-07",
           "NFLX 2011-07-07",
           "EXPE 2011-09-16"
         ],
-        "trades_per_year": 22.0,
+        "trades_per_year": 23.5,
         "median_hold_days": 166,
-        "still_held": 1
+        "still_held": 4
       },
       "turnover_free": {
         "best_trades": [
           {
             "ticker": "MRNA",
             "in": "2026-04-23",
-            "out": "2026-09-24",
-            "ret": 2.623,
-            "gbp": 225301.64,
+            "out": "2026-09-25",
+            "ret": 2.763,
+            "gbp": 264470.475,
             "biggest_day_move": 1.77,
             "open": true
           },
           {
             "ticker": "MU",
             "in": "2025-11-12",
-            "out": "2026-09-24",
-            "ret": 3.382,
-            "gbp": 183144.939,
+            "out": "2026-09-25",
+            "ret": 3.424,
+            "gbp": 206633.814,
             "biggest_day_move": 0.193,
             "open": true
           },
           {
             "ticker": "WDC",
             "in": "2025-10-22",
-            "out": "2026-09-24",
-            "ret": 2.787,
-            "gbp": 145105.096,
+            "out": "2026-09-25",
+            "ret": 2.799,
+            "gbp": 162389.384,
             "biggest_day_move": 0.168,
             "open": true
           },
           {
             "ticker": "STX",
             "in": "2025-10-01",
-            "out": "2026-09-24",
-            "ret": 2.557,
-            "gbp": 139621.925,
+            "out": "2026-09-25",
+            "ret": 2.591,
+            "gbp": 157652.069,
             "biggest_day_move": 0.191,
             "open": true
           },
@@ -767,7 +769,7 @@
             "in": "2024-10-08",
             "out": "2026-03-18",
             "ret": 2.686,
-            "gbp": 98278.883,
+            "gbp": 109534.472,
             "biggest_day_move": 0.24,
             "open": false
           }
@@ -778,7 +780,7 @@
             "in": "2021-08-31",
             "out": "2022-01-31",
             "ret": -0.55,
-            "gbp": -8812.264,
+            "gbp": -9821.507,
             "biggest_day_move": 0.218,
             "open": false
           },
@@ -787,7 +789,7 @@
             "in": "2025-01-03",
             "out": "2025-07-22",
             "ret": -0.224,
-            "gbp": -9115.352,
+            "gbp": -10159.313,
             "biggest_day_move": 0.14,
             "open": false
           },
@@ -796,26 +798,27 @@
             "in": "2026-03-18",
             "out": "2026-07-28",
             "ret": -0.316,
-            "gbp": -21479.334,
+            "gbp": -23939.299,
             "biggest_day_move": 0.163,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 1260830,
+        "net_trading_gain_gbp": 1432102,
         "share_of_gain_from_best_3": 0.44,
         "suspect_price_jumps": [
           "EP 2000-12-20",
           "EP 2003-06-02",
-          "EP 2004-01-05",
-          "EP 2006-05-31",
-          "THC 2008-04-07",
+          "EP 2004-08-24",
+          "EP 2006-06-14",
+          "THC 2008-04-14",
           "EP 2009-05-15",
           "EP 2010-03-10",
-          "TMUS 2010-09-28",
+          "TMUS 2010-09-07",
+          "NFLX 2011-07-07",
           "EXPE 2011-09-16",
           "MRNA 2026-04-23"
         ],
-        "trades_per_year": 26.6,
+        "trades_per_year": 26.4,
         "median_hold_days": 166,
         "still_held": 8
       },
@@ -825,80 +828,80 @@
     "mom_3": {
       "prediction": {
         "all": {
-          "ic_1m": -0.0182,
-          "t_1m": -1.83,
-          "ic_12m": 0.0026,
-          "t_12m": 0.04,
-          "top10_12m": 0.1496,
-          "bot10_12m": 0.1579,
-          "all_12m": 0.1318
+          "ic_1m": -0.0184,
+          "t_1m": -1.85,
+          "ic_12m": 0.003,
+          "t_12m": 0.03,
+          "top10_12m": 0.1499,
+          "bot10_12m": 0.1584,
+          "all_12m": 0.132
         },
         "first": {
-          "ic_1m": -0.0224,
-          "t_1m": -1.56,
-          "ic_12m": -0.0034,
+          "ic_1m": -0.0226,
+          "t_1m": -1.58,
+          "ic_12m": -0.0027,
           "t_12m": -0.04,
-          "top10_12m": 0.1312,
-          "bot10_12m": 0.1613,
-          "all_12m": 0.1178
+          "top10_12m": 0.132,
+          "bot10_12m": 0.1626,
+          "all_12m": 0.1182
         },
         "second": {
-          "ic_1m": -0.0142,
-          "t_1m": -1.03,
-          "ic_12m": 0.0086,
+          "ic_1m": -0.0143,
+          "t_1m": -1.04,
+          "ic_12m": 0.0087,
           "t_12m": 0.38,
-          "top10_12m": 0.1699,
-          "bot10_12m": 0.1542,
-          "all_12m": 0.1472
+          "top10_12m": 0.1696,
+          "bot10_12m": 0.1537,
+          "all_12m": 0.1471
         }
       },
       "money_costs": {
         "all": {
-          "gbp_from_10k": 136824,
+          "gbp_from_10k": 144064,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.0923,
+          "cagr": 0.0942,
           "spy_cagr": 0.0986,
-          "worst": -0.68,
+          "worst": -0.708,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 12632,
+          "gbp_from_10k": 13680,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.0159,
+          "cagr": 0.0214,
           "spy_cagr": 0.0461,
-          "worst": -0.68,
+          "worst": -0.708,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 102529,
+          "gbp_from_10k": 99629,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.1703,
+          "cagr": 0.168,
           "spy_cagr": 0.1499,
-          "worst": -0.455,
+          "worst": -0.454,
           "spy_worst": -0.317
         }
       },
       "money_free": {
         "all": {
-          "gbp_from_10k": 1658686,
+          "gbp_from_10k": 1787334,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.1882,
+          "cagr": 0.1912,
           "spy_cagr": 0.0986,
-          "worst": -0.649,
+          "worst": -0.627,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 70385,
+          "gbp_from_10k": 75515,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.1408,
+          "cagr": 0.1462,
           "spy_cagr": 0.0461,
-          "worst": -0.649,
+          "worst": -0.627,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 223730,
+          "gbp_from_10k": 224617,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.2337,
+          "cagr": 0.234,
           "spy_cagr": 0.1499,
           "worst": -0.407,
           "spy_worst": -0.317
@@ -912,25 +915,25 @@
             "in": "2025-08-12",
             "out": "2026-09-09",
             "ret": 5.373,
-            "gbp": 33510.731,
+            "gbp": 35278.565,
             "biggest_day_move": 0.168,
             "open": false
           },
           {
             "ticker": "STX",
             "in": "2025-09-17",
-            "out": "2026-09-24",
-            "ret": 3.296,
-            "gbp": 20109.107,
+            "out": "2026-09-25",
+            "ret": 3.336,
+            "gbp": 21428.66,
             "biggest_day_move": 0.191,
             "open": true
           },
           {
             "ticker": "MU",
             "in": "2026-01-20",
-            "out": "2026-09-24",
-            "ret": 1.939,
-            "gbp": 14578.732,
+            "out": "2026-09-25",
+            "ret": 1.967,
+            "gbp": 15568.994,
             "biggest_day_move": 0.193,
             "open": true
           },
@@ -939,7 +942,7 @@
             "in": "2024-11-05",
             "out": "2026-01-20",
             "ret": 2.296,
-            "gbp": 13025.665,
+            "gbp": 13788.998,
             "biggest_day_move": 0.24,
             "open": false
           },
@@ -948,19 +951,19 @@
             "in": "2021-01-12",
             "out": "2022-08-22",
             "ret": 2.811,
-            "gbp": 12076.754,
+            "gbp": 12754.924,
             "biggest_day_move": 0.137,
             "open": false
           }
         ],
         "worst_trades": [
           {
-            "ticker": "CCL",
-            "in": "2023-07-31",
-            "out": "2023-10-03",
-            "ret": -0.324,
-            "gbp": -1897.468,
-            "biggest_day_move": 0.071,
+            "ticker": "NCLH",
+            "in": "2024-11-12",
+            "out": "2025-03-12",
+            "ret": -0.318,
+            "gbp": -1975.729,
+            "biggest_day_move": 0.078,
             "open": false
           },
           {
@@ -968,7 +971,7 @@
             "in": "2026-03-25",
             "out": "2026-06-22",
             "ret": -0.234,
-            "gbp": -2006.537,
+            "gbp": -2112.51,
             "biggest_day_move": 0.136,
             "open": false
           },
@@ -977,23 +980,23 @@
             "in": "2024-12-26",
             "out": "2025-03-12",
             "ret": -0.454,
-            "gbp": -2725.154,
+            "gbp": -2863.539,
             "biggest_day_move": 0.182,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 181212,
+        "net_trading_gain_gbp": 190321,
         "share_of_gain_from_best_3": 0.38,
         "suspect_price_jumps": [
           "UIS 1999-07-21",
           "EP 2003-05-09",
-          "EP 2006-02-17",
-          "EP 2007-02-09",
-          "HBAN 2008-10-02",
-          "EP 2009-04-02",
+          "EP 2006-04-18",
+          "EP 2006-09-08",
+          "EP 2007-02-16",
+          "EP 2009-03-19",
           "TMUS 2010-06-04"
         ],
-        "trades_per_year": 39.0,
+        "trades_per_year": 38.4,
         "median_hold_days": 115,
         "still_held": 9
       },
@@ -1004,25 +1007,25 @@
             "in": "2025-08-12",
             "out": "2026-09-09",
             "ret": 5.373,
-            "gbp": 338640.395,
+            "gbp": 364905.476,
             "biggest_day_move": 0.168,
             "open": false
           },
           {
             "ticker": "STX",
             "in": "2025-07-22",
-            "out": "2026-09-24",
-            "ret": 5.252,
-            "gbp": 307561.897,
+            "out": "2026-09-25",
+            "ret": 5.311,
+            "gbp": 335133.818,
             "biggest_day_move": 0.191,
             "open": true
           },
           {
             "ticker": "MU",
             "in": "2025-11-05",
-            "out": "2026-09-24",
-            "ret": 3.518,
-            "gbp": 258582.94,
+            "out": "2026-09-25",
+            "ret": 3.561,
+            "gbp": 282039.884,
             "biggest_day_move": 0.193,
             "open": true
           },
@@ -1031,7 +1034,7 @@
             "in": "2024-11-05",
             "out": "2026-01-20",
             "ret": 2.296,
-            "gbp": 119690.385,
+            "gbp": 128973.611,
             "biggest_day_move": 0.24,
             "open": false
           },
@@ -1040,7 +1043,7 @@
             "in": "2023-02-28",
             "out": "2024-05-22",
             "ret": 1.677,
-            "gbp": 72549.802,
+            "gbp": 78176.8,
             "biggest_day_move": 0.203,
             "open": false
           }
@@ -1051,7 +1054,7 @@
             "in": "2024-11-12",
             "out": "2025-03-12",
             "ret": -0.318,
-            "gbp": -17280.091,
+            "gbp": -18620.34,
             "biggest_day_move": 0.078,
             "open": false
           },
@@ -1060,7 +1063,7 @@
             "in": "2026-01-20",
             "out": "2026-07-07",
             "ret": -0.248,
-            "gbp": -21427.672,
+            "gbp": -23089.616,
             "biggest_day_move": 0.163,
             "open": false
           },
@@ -1069,24 +1072,24 @@
             "in": "2026-03-25",
             "out": "2026-06-22",
             "ret": -0.234,
-            "gbp": -23184.532,
+            "gbp": -24982.723,
             "biggest_day_move": 0.136,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 1625634,
+        "net_trading_gain_gbp": 1767841,
         "share_of_gain_from_best_3": 0.56,
         "suspect_price_jumps": [
           "UIS 1999-07-21",
           "EP 2001-02-12",
           "EP 2003-06-23",
           "EP 2006-02-17",
+          "EP 2006-09-08",
           "EP 2007-02-09",
-          "HBAN 2008-10-02",
-          "EP 2009-04-02",
+          "EP 2009-04-24",
           "TMUS 2010-06-04"
         ],
-        "trades_per_year": 39.7,
+        "trades_per_year": 39.6,
         "median_hold_days": 115,
         "still_held": 8
       },
@@ -1096,80 +1099,80 @@
     "reversal_1m": {
       "prediction": {
         "all": {
-          "ic_1m": 0.0196,
-          "t_1m": 2.2,
-          "ic_12m": -0.0016,
-          "t_12m": 0.04,
-          "top10_12m": 0.1478,
-          "bot10_12m": 0.1498,
-          "all_12m": 0.1319
+          "ic_1m": 0.0198,
+          "t_1m": 2.23,
+          "ic_12m": -0.0017,
+          "t_12m": 0.02,
+          "top10_12m": 0.1491,
+          "bot10_12m": 0.1497,
+          "all_12m": 0.132
         },
         "first": {
-          "ic_1m": 0.026,
-          "t_1m": 2.11,
-          "ic_12m": 0.0007,
-          "t_12m": -0.09,
-          "top10_12m": 0.1376,
-          "bot10_12m": 0.1302,
-          "all_12m": 0.1178
+          "ic_1m": 0.0262,
+          "t_1m": 2.14,
+          "ic_12m": 0.0006,
+          "t_12m": -0.12,
+          "top10_12m": 0.1404,
+          "bot10_12m": 0.1304,
+          "all_12m": 0.1182
         },
         "second": {
-          "ic_1m": 0.0128,
-          "t_1m": 1.0,
+          "ic_1m": 0.0129,
+          "t_1m": 1.01,
           "ic_12m": -0.0034,
           "t_12m": -0.12,
-          "top10_12m": 0.1592,
-          "bot10_12m": 0.1713,
-          "all_12m": 0.1473
+          "top10_12m": 0.1587,
+          "bot10_12m": 0.1709,
+          "all_12m": 0.1471
         }
       },
       "money_costs": {
         "all": {
-          "gbp_from_10k": 33,
+          "gbp_from_10k": 151,
           "spy_gbp_from_10k": 162403,
-          "cagr": -0.1751,
+          "cagr": -0.1319,
           "spy_cagr": 0.0986,
           "worst": -0.998,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 158,
+          "gbp_from_10k": 173,
           "spy_gbp_from_10k": 19499,
-          "cagr": -0.2442,
+          "cagr": -0.2395,
           "spy_cagr": 0.0461,
-          "worst": -0.992,
+          "worst": -0.991,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 1999,
+          "gbp_from_10k": 8282,
           "spy_gbp_from_10k": 78990,
-          "cagr": -0.1031,
+          "cagr": -0.0127,
           "spy_cagr": 0.1499,
-          "worst": -0.905,
+          "worst": -0.892,
           "spy_worst": -0.317
         }
       },
       "money_free": {
         "all": {
-          "gbp_from_10k": 1144477,
+          "gbp_from_10k": 971809,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.1735,
+          "cagr": 0.167,
           "spy_cagr": 0.0986,
-          "worst": -0.694,
+          "worst": -0.712,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 108922,
+          "gbp_from_10k": 97660,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.1749,
+          "cagr": 0.1663,
           "spy_cagr": 0.0461,
-          "worst": -0.694,
+          "worst": -0.712,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 100383,
+          "gbp_from_10k": 95051,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.1686,
+          "cagr": 0.1643,
           "spy_cagr": 0.1499,
           "worst": -0.55,
           "spy_worst": -0.317
@@ -1183,7 +1186,7 @@
             "in": "2000-12-06",
             "out": "2001-01-12",
             "ret": 1.159,
-            "gbp": 587.59,
+            "gbp": 587.591,
             "biggest_day_move": 0.195,
             "open": false
           },
@@ -1192,7 +1195,7 @@
             "in": "1998-05-27",
             "out": "1998-07-09",
             "ret": 0.504,
-            "gbp": 451.911,
+            "gbp": 451.91,
             "biggest_day_move": 0.163,
             "open": false
           },
@@ -1201,7 +1204,7 @@
             "in": "2000-05-11",
             "out": "2000-07-31",
             "ret": 0.702,
-            "gbp": 412.707,
+            "gbp": 412.708,
             "biggest_day_move": 0.573,
             "open": false
           },
@@ -1210,8 +1213,8 @@
             "in": "1998-08-20",
             "out": "1998-11-13",
             "ret": 0.489,
-            "gbp": 359.605,
-            "biggest_day_move": 0.137,
+            "gbp": 359.606,
+            "biggest_day_move": 0.138,
             "open": false
           },
           {
@@ -1219,7 +1222,7 @@
             "in": "2000-12-13",
             "out": "2001-01-22",
             "ret": 0.687,
-            "gbp": 349.321,
+            "gbp": 349.322,
             "biggest_day_move": 0.232,
             "open": false
           }
@@ -1230,7 +1233,7 @@
             "in": "2000-11-14",
             "out": "2001-08-03",
             "ret": -0.748,
-            "gbp": -409.002,
+            "gbp": -409.003,
             "biggest_day_move": 0.273,
             "open": false
           },
@@ -1239,7 +1242,7 @@
             "in": "1999-07-21",
             "out": "2000-01-18",
             "ret": -0.509,
-            "gbp": -436.928,
+            "gbp": -436.929,
             "biggest_day_move": 0.212,
             "open": false
           },
@@ -1253,8 +1256,8 @@
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 4585,
-        "share_of_gain_from_best_3": 0.32,
+        "net_trading_gain_gbp": 4465,
+        "share_of_gain_from_best_3": 0.33,
         "suspect_price_jumps": [
           "MCIC 1997-12-09",
           "EP 2000-05-11",
@@ -1263,11 +1266,11 @@
           "CNP 2002-05-28",
           "WMB 2002-06-04",
           "EP 2002-08-21",
-          "EP 2002-11-14",
+          "EP 2002-11-21",
           "AAMRQ 2003-01-22",
           "EHC 2002-09-12"
         ],
-        "trades_per_year": 18.4,
+        "trades_per_year": 17.9,
         "median_hold_days": 57,
         "still_held": 0
       },
@@ -1278,7 +1281,7 @@
             "in": "2025-09-03",
             "out": "2025-10-08",
             "ret": 0.463,
-            "gbp": 40605.935,
+            "gbp": 34479.693,
             "biggest_day_move": 0.093,
             "open": false
           },
@@ -1287,7 +1290,7 @@
             "in": "2024-08-05",
             "out": "2024-10-22",
             "ret": 0.389,
-            "gbp": 29292.06,
+            "gbp": 24872.749,
             "biggest_day_move": 0.081,
             "open": false
           },
@@ -1296,7 +1299,7 @@
             "in": "2025-10-29",
             "out": "2025-12-11",
             "ret": 0.287,
-            "gbp": 26084.599,
+            "gbp": 22149.199,
             "biggest_day_move": 0.078,
             "open": false
           },
@@ -1305,7 +1308,7 @@
             "in": "2026-08-04",
             "out": "2026-09-23",
             "ret": 0.216,
-            "gbp": 24669.914,
+            "gbp": 20947.949,
             "biggest_day_move": 0.121,
             "open": false
           },
@@ -1314,7 +1317,7 @@
             "in": "2026-06-29",
             "out": "2026-08-04",
             "ret": 0.246,
-            "gbp": 24450.509,
+            "gbp": 20761.646,
             "biggest_day_move": 0.055,
             "open": false
           }
@@ -1325,7 +1328,7 @@
             "in": "2022-11-30",
             "out": "2023-12-20",
             "ret": -0.697,
-            "gbp": -54118.698,
+            "gbp": -45953.782,
             "biggest_day_move": 0.49,
             "open": false
           },
@@ -1334,7 +1337,7 @@
             "in": "2025-06-23",
             "out": "2026-01-20",
             "ret": -0.809,
-            "gbp": -70715.709,
+            "gbp": -60046.785,
             "biggest_day_move": 0.337,
             "open": false
           },
@@ -1343,12 +1346,12 @@
             "in": "2024-01-29",
             "out": "2025-01-03",
             "ret": -0.98,
-            "gbp": -80978.089,
+            "gbp": -68760.883,
             "biggest_day_move": 0.976,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 1025289,
+        "net_trading_gain_gbp": 875370,
         "share_of_gain_from_best_3": 0.09,
         "suspect_price_jumps": [
           "MCIC 1997-12-09",
@@ -1362,17 +1365,20 @@
           "AAMRQ 2003-01-22",
           "EHC 2002-09-12",
           "EP 2003-07-08",
+          "GR 2003-06-23",
           "NVDA 2004-05-13",
           "MBI 2008-01-16",
-          "HIG 2008-11-13",
-          "ACAS 2008-12-12",
+          "HIG 2008-11-06",
+          "LNC 2008-11-13",
           "EP 2008-12-29",
+          "ACAS 2008-12-29",
           "FNMA 2007-12-10",
+          "AIG 2008-05-27",
           "FMCC 2008-07-09",
-          "AIG 2008-09-18",
           "ACAS 2009-02-26",
           "EP 2009-06-08",
           "AIG 2009-06-22",
+          "GR 2009-09-09",
           "EP 2010-06-04",
           "EP 2010-10-26",
           "NFLX 2011-09-23",
@@ -1383,7 +1389,7 @@
           "NCLH 2020-03-06",
           "PARA 2024-01-29"
         ],
-        "trades_per_year": 94.1,
+        "trades_per_year": 93.3,
         "median_hold_days": 57,
         "still_held": 10
       },
@@ -1393,82 +1399,82 @@
     "near_52w_high": {
       "prediction": {
         "all": {
-          "ic_1m": -0.0115,
-          "t_1m": -0.95,
-          "ic_12m": -0.004,
-          "t_12m": -0.14,
-          "top10_12m": 0.1116,
-          "bot10_12m": 0.1716,
-          "all_12m": 0.1317
+          "ic_1m": -0.0112,
+          "t_1m": -0.94,
+          "ic_12m": -0.0035,
+          "t_12m": -0.13,
+          "top10_12m": 0.1111,
+          "bot10_12m": 0.1704,
+          "all_12m": 0.1319
         },
         "first": {
-          "ic_1m": -0.0097,
-          "t_1m": -0.55,
-          "ic_12m": -0.002,
-          "t_12m": 0.04,
-          "top10_12m": 0.0925,
-          "bot10_12m": 0.1732,
-          "all_12m": 0.1177
+          "ic_1m": -0.0092,
+          "t_1m": -0.53,
+          "ic_12m": -0.0011,
+          "t_12m": 0.05,
+          "top10_12m": 0.0917,
+          "bot10_12m": 0.1716,
+          "all_12m": 0.1181
         },
         "second": {
           "ic_1m": -0.0134,
           "t_1m": -0.81,
-          "ic_12m": -0.0061,
-          "t_12m": -0.11,
-          "top10_12m": 0.1324,
-          "bot10_12m": 0.1695,
-          "all_12m": 0.1471
+          "ic_12m": -0.0058,
+          "t_12m": -0.1,
+          "top10_12m": 0.1323,
+          "bot10_12m": 0.1687,
+          "all_12m": 0.1469
         }
       },
       "money_costs": {
         "all": {
-          "gbp_from_10k": 71284,
+          "gbp_from_10k": 52125,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.0685,
+          "cagr": 0.0573,
           "spy_cagr": 0.0986,
           "worst": -0.425,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 17325,
+          "gbp_from_10k": 18914,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.0378,
+          "cagr": 0.044,
           "spy_cagr": 0.0461,
           "worst": -0.425,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 40015,
+          "gbp_from_10k": 26795,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.0982,
+          "cagr": 0.0689,
           "spy_cagr": 0.1499,
-          "worst": -0.26,
+          "worst": -0.256,
           "spy_worst": -0.317
         }
       },
       "money_free": {
         "all": {
-          "gbp_from_10k": 157613,
+          "gbp_from_10k": 123909,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.0975,
+          "cagr": 0.0886,
           "spy_cagr": 0.0986,
           "worst": -0.388,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 28745,
+          "gbp_from_10k": 31846,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.0739,
+          "cagr": 0.0813,
           "spy_cagr": 0.0461,
           "worst": -0.388,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 53307,
+          "gbp_from_10k": 37819,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.1197,
+          "cagr": 0.094,
           "spy_cagr": 0.1499,
-          "worst": -0.257,
+          "worst": -0.253,
           "spy_worst": -0.317
         }
       },
@@ -1480,44 +1486,44 @@
             "in": "2023-03-21",
             "out": "2024-11-05",
             "ret": 1.399,
-            "gbp": 8480.23,
+            "gbp": 7252.518,
             "biggest_day_move": 0.099,
             "open": false
-          },
-          {
-            "ticker": "NVDA",
-            "in": "2015-10-14",
-            "out": "2017-01-23",
-            "ret": 2.893,
-            "gbp": 7274.33,
-            "biggest_day_move": 0.298,
-            "open": false
-          },
-          {
-            "ticker": "TRGP",
-            "in": "2023-08-28",
-            "out": "2024-12-18",
-            "ret": 1.074,
-            "gbp": 6404.202,
-            "biggest_day_move": 0.072,
-            "open": false
-          },
-          {
-            "ticker": "L",
-            "in": "2023-09-26",
-            "out": "2026-09-24",
-            "ret": 0.66,
-            "gbp": 3832.999,
-            "biggest_day_move": 0.096,
-            "open": true
           },
           {
             "ticker": "MA",
             "in": "2018-02-16",
             "out": "2020-11-12",
             "ret": 0.897,
-            "gbp": 3811.535,
+            "gbp": 3328.31,
             "biggest_day_move": 0.166,
+            "open": false
+          },
+          {
+            "ticker": "NEE",
+            "in": "2018-04-03",
+            "out": "2021-03-04",
+            "ret": 0.886,
+            "gbp": 3176.076,
+            "biggest_day_move": 0.155,
+            "open": false
+          },
+          {
+            "ticker": "MSI",
+            "in": "2018-02-16",
+            "out": "2019-11-08",
+            "ret": 0.603,
+            "gbp": 2238.885,
+            "biggest_day_move": 0.141,
+            "open": false
+          },
+          {
+            "ticker": "LLY",
+            "in": "2023-08-28",
+            "out": "2024-08-05",
+            "ret": 0.407,
+            "gbp": 2071.511,
+            "biggest_day_move": 0.067,
             "open": false
           }
         ],
@@ -1527,7 +1533,7 @@
             "in": "2024-12-26",
             "out": "2025-03-12",
             "ret": -0.142,
-            "gbp": -1075.042,
+            "gbp": -842.971,
             "biggest_day_move": 0.075,
             "open": false
           },
@@ -1536,7 +1542,7 @@
             "in": "2021-10-13",
             "out": "2022-09-27",
             "ret": -0.215,
-            "gbp": -1377.993,
+            "gbp": -1178.882,
             "biggest_day_move": 0.065,
             "open": false
           },
@@ -1545,19 +1551,19 @@
             "in": "2022-05-11",
             "out": "2024-01-05",
             "ret": -0.738,
-            "gbp": -4545.615,
+            "gbp": -3892.019,
             "biggest_day_move": 0.689,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 60860,
-        "share_of_gain_from_best_3": 0.36,
+        "net_trading_gain_gbp": 42246,
+        "share_of_gain_from_best_3": 0.33,
         "suspect_price_jumps": [
           "CSR 1998-08-20",
           "PARA 2022-05-11"
         ],
-        "trades_per_year": 13.3,
-        "median_hold_days": 228,
+        "trades_per_year": 13.6,
+        "median_hold_days": 224,
         "still_held": 10
       },
       "turnover_free": {
@@ -1567,44 +1573,44 @@
             "in": "2023-03-21",
             "out": "2024-11-05",
             "ret": 1.399,
-            "gbp": 17506.245,
+            "gbp": 15698.613,
             "biggest_day_move": 0.099,
             "open": false
-          },
-          {
-            "ticker": "NVDA",
-            "in": "2015-10-14",
-            "out": "2017-01-23",
-            "ret": 2.893,
-            "gbp": 13682.171,
-            "biggest_day_move": 0.298,
-            "open": false
-          },
-          {
-            "ticker": "TRGP",
-            "in": "2023-08-28",
-            "out": "2024-12-18",
-            "ret": 1.074,
-            "gbp": 13365.029,
-            "biggest_day_move": 0.072,
-            "open": false
-          },
-          {
-            "ticker": "L",
-            "in": "2023-09-26",
-            "out": "2026-09-24",
-            "ret": 0.66,
-            "gbp": 8053.426,
-            "biggest_day_move": 0.096,
-            "open": true
           },
           {
             "ticker": "MA",
             "in": "2018-02-16",
             "out": "2020-11-12",
             "ret": 0.897,
-            "gbp": 7525.037,
+            "gbp": 6614.85,
             "biggest_day_move": 0.166,
+            "open": false
+          },
+          {
+            "ticker": "NEE",
+            "in": "2018-04-03",
+            "out": "2021-03-04",
+            "ret": 0.886,
+            "gbp": 6353.702,
+            "biggest_day_move": 0.155,
+            "open": false
+          },
+          {
+            "ticker": "LLY",
+            "in": "2023-08-28",
+            "out": "2024-08-05",
+            "ret": 0.407,
+            "gbp": 4538.843,
+            "biggest_day_move": 0.067,
+            "open": false
+          },
+          {
+            "ticker": "MSI",
+            "in": "2018-02-16",
+            "out": "2019-11-08",
+            "ret": 0.603,
+            "gbp": 4449.671,
+            "biggest_day_move": 0.141,
             "open": false
           }
         ],
@@ -1614,7 +1620,7 @@
             "in": "2024-12-26",
             "out": "2025-03-12",
             "ret": -0.142,
-            "gbp": -2298.56,
+            "gbp": -1908.012,
             "biggest_day_move": 0.075,
             "open": false
           },
@@ -1623,7 +1629,7 @@
             "in": "2021-10-13",
             "out": "2022-09-27",
             "ret": -0.215,
-            "gbp": -2773.699,
+            "gbp": -2486.092,
             "biggest_day_move": 0.065,
             "open": false
           },
@@ -1632,18 +1638,18 @@
             "in": "2022-05-11",
             "out": "2024-01-05",
             "ret": -0.738,
-            "gbp": -9233.675,
+            "gbp": -8282.025,
             "biggest_day_move": 0.689,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 107909,
-        "share_of_gain_from_best_3": 0.41,
+        "net_trading_gain_gbp": 72332,
+        "share_of_gain_from_best_3": 0.4,
         "suspect_price_jumps": [
           "CSR 1998-08-20",
           "PARA 2022-05-11"
         ],
-        "trades_per_year": 13.5,
+        "trades_per_year": 13.6,
         "median_hold_days": 224,
         "still_held": 10
       },
@@ -1653,31 +1659,31 @@
     "low_vol": {
       "prediction": {
         "all": {
-          "ic_1m": -0.0078,
-          "t_1m": -0.58,
-          "ic_12m": 0.0035,
-          "t_12m": 0.14,
-          "top10_12m": 0.1075,
-          "bot10_12m": 0.2032,
-          "all_12m": 0.1317
+          "ic_1m": -0.0075,
+          "t_1m": -0.56,
+          "ic_12m": 0.0047,
+          "t_12m": 0.16,
+          "top10_12m": 0.1078,
+          "bot10_12m": 0.204,
+          "all_12m": 0.1319
         },
         "first": {
-          "ic_1m": -0.0017,
-          "t_1m": -0.09,
-          "ic_12m": 0.0278,
+          "ic_1m": -0.0013,
+          "t_1m": -0.07,
+          "ic_12m": 0.0298,
           "t_12m": 0.4,
-          "top10_12m": 0.1064,
-          "bot10_12m": 0.1779,
-          "all_12m": 0.1177
+          "top10_12m": 0.107,
+          "bot10_12m": 0.1804,
+          "all_12m": 0.1181
         },
         "second": {
-          "ic_1m": -0.0133,
-          "t_1m": -0.72,
-          "ic_12m": -0.0225,
+          "ic_1m": -0.0132,
+          "t_1m": -0.71,
+          "ic_12m": -0.0221,
           "t_12m": -0.42,
           "top10_12m": 0.1088,
-          "bot10_12m": 0.23,
-          "all_12m": 0.1471
+          "bot10_12m": 0.2289,
+          "all_12m": 0.1469
         }
       },
       "money_costs": {
@@ -1708,25 +1714,25 @@
       },
       "money_free": {
         "all": {
-          "gbp_from_10k": 154499,
+          "gbp_from_10k": 153918,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.0968,
+          "cagr": 0.0966,
           "spy_cagr": 0.0986,
           "worst": -0.371,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 38122,
+          "gbp_from_10k": 38016,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.0945,
+          "cagr": 0.0943,
           "spy_cagr": 0.0461,
           "worst": -0.371,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 38984,
+          "gbp_from_10k": 38947,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.0963,
+          "cagr": 0.0962,
           "spy_cagr": 0.1499,
           "worst": -0.3,
           "spy_worst": -0.317
@@ -1747,36 +1753,36 @@
           {
             "ticker": "DTE",
             "in": "1997-02-18",
-            "out": "2026-09-24",
-            "ret": 15.773,
-            "gbp": 16051.287,
+            "out": "2026-09-25",
+            "ret": 15.747,
+            "gbp": 16025.334,
             "biggest_day_move": 0.162,
             "open": true
           },
           {
             "ticker": "ED",
             "in": "1997-02-18",
-            "out": "2026-09-24",
-            "ret": 11.587,
-            "gbp": 11791.538,
+            "out": "2026-09-25",
+            "ret": 11.56,
+            "gbp": 11764.268,
             "biggest_day_move": 0.18,
             "open": true
           },
           {
             "ticker": "SO",
             "in": "2004-09-08",
-            "out": "2026-09-24",
-            "ret": 6.222,
-            "gbp": 10974.443,
+            "out": "2026-09-25",
+            "ret": 6.197,
+            "gbp": 10929.968,
             "biggest_day_move": 0.188,
             "open": true
           },
           {
             "ticker": "KO",
             "in": "2017-11-06",
-            "out": "2026-09-24",
-            "ret": 1.565,
-            "gbp": 10276.173,
+            "out": "2026-09-25",
+            "ret": 1.547,
+            "gbp": 10159.021,
             "biggest_day_move": 0.107,
             "open": true
           }
@@ -1794,9 +1800,9 @@
           {
             "ticker": "PEP",
             "in": "2023-10-24",
-            "out": "2026-09-24",
-            "ret": -0.115,
-            "gbp": -1057.687,
+            "out": "2026-09-25",
+            "ret": -0.116,
+            "gbp": -1067.151,
             "biggest_day_move": 0.075,
             "open": true
           },
@@ -1805,13 +1811,13 @@
             "in": "2023-10-24",
             "out": "2024-01-05",
             "ret": -0.757,
-            "gbp": -6954.164,
+            "gbp": -6954.167,
             "biggest_day_move": 0.689,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 97366,
-        "share_of_gain_from_best_3": 0.51,
+        "net_trading_gain_gbp": 96941,
+        "share_of_gain_from_best_3": 0.52,
         "suspect_price_jumps": [
           "PARA 2023-10-24"
         ],
@@ -1826,43 +1832,43 @@
             "in": "1997-02-18",
             "out": "2023-10-24",
             "ret": 21.771,
-            "gbp": 22666.335,
+            "gbp": 22666.336,
             "biggest_day_move": 0.155,
             "open": false
           },
           {
             "ticker": "JNJ",
             "in": "2008-01-16",
-            "out": "2026-09-24",
-            "ret": 5.867,
-            "gbp": 18109.356,
+            "out": "2026-09-25",
+            "ret": 5.865,
+            "gbp": 18038.579,
             "biggest_day_move": 0.122,
             "open": true
           },
           {
             "ticker": "KO",
-            "in": "2005-09-26",
-            "out": "2026-09-24",
-            "ret": 6.869,
-            "gbp": 17295.17,
+            "in": "2005-10-03",
+            "out": "2026-09-25",
+            "ret": 6.663,
+            "gbp": 17093.211,
             "biggest_day_move": 0.139,
             "open": true
           },
           {
             "ticker": "RSG",
             "in": "2019-07-11",
-            "out": "2026-09-24",
-            "ret": 1.697,
-            "gbp": 16676.381,
+            "out": "2026-09-25",
+            "ret": 1.681,
+            "gbp": 16468.782,
             "biggest_day_move": 0.147,
             "open": true
           },
           {
             "ticker": "DTE",
             "in": "1997-02-18",
-            "out": "2026-09-24",
-            "ret": 15.773,
-            "gbp": 16421.531,
+            "out": "2026-09-25",
+            "ret": 15.747,
+            "gbp": 16394.978,
             "biggest_day_move": 0.162,
             "open": true
           }
@@ -1891,12 +1897,12 @@
             "in": "2023-10-24",
             "out": "2024-01-05",
             "ret": -0.757,
-            "gbp": -8744.111,
+            "gbp": -8710.14,
             "biggest_day_move": 0.689,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 139535,
+        "net_trading_gain_gbp": 138883,
         "share_of_gain_from_best_3": 0.42,
         "suspect_price_jumps": [
           "PARA 2023-10-24"
@@ -1913,80 +1919,80 @@
         "all": {
           "ic_1m": -0.0124,
           "t_1m": -1.12,
-          "ic_12m": -0.0001,
-          "t_12m": 0.06,
-          "top10_12m": 0.1373,
-          "bot10_12m": 0.1621,
-          "all_12m": 0.1317
+          "ic_12m": -0.0004,
+          "t_12m": 0.05,
+          "top10_12m": 0.1362,
+          "bot10_12m": 0.1637,
+          "all_12m": 0.1319
         },
         "first": {
-          "ic_1m": -0.0184,
+          "ic_1m": -0.0181,
           "t_1m": -1.15,
-          "ic_12m": -0.0029,
-          "t_12m": -0.09,
-          "top10_12m": 0.1121,
-          "bot10_12m": 0.1642,
-          "all_12m": 0.1177
+          "ic_12m": -0.0034,
+          "t_12m": -0.1,
+          "top10_12m": 0.1103,
+          "bot10_12m": 0.1678,
+          "all_12m": 0.1181
         },
         "second": {
-          "ic_1m": -0.0069,
-          "t_1m": -0.45,
-          "ic_12m": 0.0026,
-          "t_12m": -0.09,
-          "top10_12m": 0.1641,
-          "bot10_12m": 0.1597,
-          "all_12m": 0.1471
+          "ic_1m": -0.007,
+          "t_1m": -0.46,
+          "ic_12m": 0.0027,
+          "t_12m": -0.1,
+          "top10_12m": 0.1639,
+          "bot10_12m": 0.1591,
+          "all_12m": 0.1469
         }
       },
       "money_costs": {
         "all": {
-          "gbp_from_10k": 262940,
+          "gbp_from_10k": 342290,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.1166,
+          "cagr": 0.1266,
           "spy_cagr": 0.0986,
-          "worst": -0.727,
+          "worst": -0.682,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 10495,
+          "gbp_from_10k": 11951,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.0033,
+          "cagr": 0.0121,
           "spy_cagr": 0.0461,
-          "worst": -0.727,
+          "worst": -0.682,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 242015,
+          "gbp_from_10k": 273936,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.2402,
+          "cagr": 0.2506,
           "spy_cagr": 0.1499,
-          "worst": -0.352,
+          "worst": -0.35,
           "spy_worst": -0.317
         }
       },
       "money_free": {
         "all": {
-          "gbp_from_10k": 1098782,
+          "gbp_from_10k": 865688,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.1718,
+          "cagr": 0.1625,
           "spy_cagr": 0.0986,
-          "worst": -0.673,
+          "worst": -0.666,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 28470,
+          "gbp_from_10k": 23077,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.0732,
+          "cagr": 0.0581,
           "spy_cagr": 0.0461,
-          "worst": -0.673,
+          "worst": -0.666,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 372193,
+          "gbp_from_10k": 359829,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.2768,
+          "cagr": 0.2739,
           "spy_cagr": 0.1499,
-          "worst": -0.33,
+          "worst": -0.359,
           "spy_worst": -0.317
         }
       },
@@ -1996,27 +2002,27 @@
           {
             "ticker": "STX",
             "in": "2025-08-26",
-            "out": "2026-09-24",
-            "ret": 4.547,
-            "gbp": 57912.297,
+            "out": "2026-09-25",
+            "ret": 4.599,
+            "gbp": 76225.44,
             "biggest_day_move": 0.191,
             "open": true
           },
           {
             "ticker": "MU",
             "in": "2025-11-19",
-            "out": "2026-09-24",
-            "ret": 3.75,
-            "gbp": 47796.971,
+            "out": "2026-09-25",
+            "ret": 3.795,
+            "gbp": 62962.572,
             "biggest_day_move": 0.193,
             "open": true
           },
           {
             "ticker": "WDC",
             "in": "2025-11-19",
-            "out": "2026-09-24",
-            "ret": 1.963,
-            "gbp": 25025.076,
+            "out": "2026-09-25",
+            "ret": 1.972,
+            "gbp": 32722.145,
             "biggest_day_move": 0.168,
             "open": true
           },
@@ -2025,7 +2031,7 @@
             "in": "2023-05-17",
             "out": "2025-03-19",
             "ret": 2.897,
-            "gbp": 18315.593,
+            "gbp": 23792.988,
             "biggest_day_move": 0.244,
             "open": false
           },
@@ -2034,7 +2040,7 @@
             "in": "2024-11-19",
             "out": "2026-02-10",
             "ret": 1.215,
-            "gbp": 13332.355,
+            "gbp": 17339.115,
             "biggest_day_move": 0.24,
             "open": false
           }
@@ -2045,7 +2051,7 @@
             "in": "2024-04-03",
             "out": "2024-08-12",
             "ret": -0.467,
-            "gbp": -4338.151,
+            "gbp": -5640.89,
             "biggest_day_move": 0.301,
             "open": false
           },
@@ -2054,7 +2060,7 @@
             "in": "2026-01-27",
             "out": "2026-07-14",
             "ret": -0.334,
-            "gbp": -5281.065,
+            "gbp": -6874.567,
             "biggest_day_move": 0.163,
             "open": false
           },
@@ -2063,23 +2069,23 @@
             "in": "2024-12-26",
             "out": "2025-03-19",
             "ret": -0.481,
-            "gbp": -5358.723,
+            "gbp": -6969.992,
             "biggest_day_move": 0.182,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 275008,
+        "net_trading_gain_gbp": 359977,
         "share_of_gain_from_best_3": 0.48,
         "suspect_price_jumps": [
           "EP 2000-11-14",
-          "EP 2003-09-03",
-          "EP 2006-08-10",
+          "EP 2004-04-07",
+          "EP 2006-09-15",
           "EP 2009-04-09",
           "EP 2010-02-02",
-          "TMUS 2011-03-21"
+          "TMUS 2010-08-16"
         ],
-        "trades_per_year": 19.4,
-        "median_hold_days": 235,
+        "trades_per_year": 19.2,
+        "median_hold_days": 239,
         "still_held": 7
       },
       "turnover_free": {
@@ -2087,27 +2093,27 @@
           {
             "ticker": "STX",
             "in": "2025-08-26",
-            "out": "2026-09-24",
-            "ret": 4.547,
-            "gbp": 242221.376,
+            "out": "2026-09-25",
+            "ret": 4.599,
+            "gbp": 193034.021,
             "biggest_day_move": 0.191,
             "open": true
           },
           {
             "ticker": "MU",
             "in": "2025-11-19",
-            "out": "2026-09-24",
-            "ret": 3.75,
-            "gbp": 203263.952,
+            "out": "2026-09-25",
+            "ret": 3.795,
+            "gbp": 162075.355,
             "biggest_day_move": 0.193,
             "open": true
           },
           {
             "ticker": "WDC",
             "in": "2025-11-19",
-            "out": "2026-09-24",
-            "ret": 1.963,
-            "gbp": 106422.977,
+            "out": "2026-09-25",
+            "ret": 1.972,
+            "gbp": 84231.841,
             "biggest_day_move": 0.168,
             "open": true
           },
@@ -2116,7 +2122,7 @@
             "in": "2023-05-17",
             "out": "2025-03-19",
             "ret": 2.897,
-            "gbp": 73196.183,
+            "gbp": 57667.116,
             "biggest_day_move": 0.244,
             "open": false
           },
@@ -2125,7 +2131,7 @@
             "in": "2024-08-12",
             "out": "2026-09-23",
             "ret": 1.477,
-            "gbp": 56964.1,
+            "gbp": 44883.535,
             "biggest_day_move": 0.124,
             "open": false
           }
@@ -2136,7 +2142,7 @@
             "in": "2024-04-03",
             "out": "2024-08-12",
             "ret": -0.467,
-            "gbp": -17654.083,
+            "gbp": -13910.299,
             "biggest_day_move": 0.301,
             "open": false
           },
@@ -2145,7 +2151,7 @@
             "in": "2024-12-26",
             "out": "2025-03-19",
             "ret": -0.481,
-            "gbp": -21501.6,
+            "gbp": -16940.906,
             "biggest_day_move": 0.182,
             "open": false
           },
@@ -2154,24 +2160,23 @@
             "in": "2026-01-27",
             "out": "2026-07-14",
             "ret": -0.334,
-            "gbp": -22511.968,
+            "gbp": -17736.514,
             "biggest_day_move": 0.163,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 1052763,
+        "net_trading_gain_gbp": 845944,
         "share_of_gain_from_best_3": 0.52,
         "suspect_price_jumps": [
           "EP 2000-11-14",
-          "EP 2003-09-03",
-          "EP 2006-09-08",
-          "EP 2008-02-22",
+          "EP 2004-04-07",
+          "EP 2006-08-10",
           "EP 2009-04-09",
           "EP 2010-02-02",
           "TMUS 2010-08-16"
         ],
-        "trades_per_year": 19.4,
-        "median_hold_days": 239,
+        "trades_per_year": 19.7,
+        "median_hold_days": 231,
         "still_held": 7
       },
       "predicts": false,
@@ -2182,52 +2187,52 @@
         "all": {
           "ic_1m": -0.0058,
           "t_1m": -0.63,
-          "ic_12m": -0.0018,
-          "t_12m": -0.06,
-          "top10_12m": 0.1177,
-          "bot10_12m": 0.158,
-          "all_12m": 0.1317
+          "ic_12m": -0.0014,
+          "t_12m": -0.04,
+          "top10_12m": 0.1179,
+          "bot10_12m": 0.163,
+          "all_12m": 0.1319
         },
         "first": {
-          "ic_1m": -0.0048,
+          "ic_1m": -0.0049,
           "t_1m": -0.38,
-          "ic_12m": 0.0023,
-          "t_12m": 0.0,
-          "top10_12m": 0.0996,
-          "bot10_12m": 0.1606,
-          "all_12m": 0.1177
+          "ic_12m": 0.0028,
+          "t_12m": -0.01,
+          "top10_12m": 0.0999,
+          "bot10_12m": 0.1705,
+          "all_12m": 0.1182
         },
         "second": {
           "ic_1m": -0.0071,
           "t_1m": -0.55,
-          "ic_12m": -0.0065,
-          "t_12m": -0.07,
+          "ic_12m": -0.0062,
+          "t_12m": -0.06,
           "top10_12m": 0.137,
-          "bot10_12m": 0.1557,
-          "all_12m": 0.147
+          "bot10_12m": 0.1552,
+          "all_12m": 0.1469
         }
       },
       "money_costs": {
         "all": {
-          "gbp_from_10k": 48429,
+          "gbp_from_10k": 50325,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.0547,
+          "cagr": 0.056,
           "spy_cagr": 0.0986,
-          "worst": -0.676,
+          "worst": -0.67,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 11036,
+          "gbp_from_10k": 11419,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.0067,
+          "cagr": 0.009,
           "spy_cagr": 0.0461,
-          "worst": -0.676,
+          "worst": -0.67,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 41930,
+          "gbp_from_10k": 42140,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.1017,
+          "cagr": 0.1021,
           "spy_cagr": 0.1499,
           "worst": -0.327,
           "spy_worst": -0.317
@@ -2235,25 +2240,25 @@
       },
       "money_free": {
         "all": {
-          "gbp_from_10k": 139191,
+          "gbp_from_10k": 142756,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.0929,
+          "cagr": 0.0939,
           "spy_cagr": 0.0986,
-          "worst": -0.608,
+          "worst": -0.606,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 19142,
+          "gbp_from_10k": 19673,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.0448,
+          "cagr": 0.0467,
           "spy_cagr": 0.0461,
-          "worst": -0.608,
+          "worst": -0.606,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 69465,
+          "gbp_from_10k": 69378,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.1399,
+          "cagr": 0.1398,
           "spy_cagr": 0.1499,
           "worst": -0.309,
           "spy_worst": -0.317
@@ -2265,9 +2270,9 @@
           {
             "ticker": "STX",
             "in": "2026-03-04",
-            "out": "2026-09-24",
-            "ret": 1.43,
-            "gbp": 6334.231,
+            "out": "2026-09-25",
+            "ret": 1.453,
+            "gbp": 6686.988,
             "biggest_day_move": 0.139,
             "open": true
           },
@@ -2276,7 +2281,7 @@
             "in": "2016-08-01",
             "out": "2018-01-19",
             "ret": 3.086,
-            "gbp": 5156.347,
+            "gbp": 5332.262,
             "biggest_day_move": 0.298,
             "open": false
           },
@@ -2285,7 +2290,7 @@
             "in": "2023-07-10",
             "out": "2025-06-23",
             "ret": 1.837,
-            "gbp": 4808.066,
+            "gbp": 4991.122,
             "biggest_day_move": 0.125,
             "open": false
           },
@@ -2294,7 +2299,7 @@
             "in": "2018-02-26",
             "out": "2021-06-14",
             "ret": 1.841,
-            "gbp": 4491.358,
+            "gbp": 4649.003,
             "biggest_day_move": 0.173,
             "open": false
           },
@@ -2303,7 +2308,7 @@
             "in": "2023-09-05",
             "out": "2025-03-12",
             "ret": 1.385,
-            "gbp": 3624.523,
+            "gbp": 3762.951,
             "biggest_day_move": 0.204,
             "open": false
           }
@@ -2314,7 +2319,7 @@
             "in": "2021-09-15",
             "out": "2022-03-08",
             "ret": -0.369,
-            "gbp": -1290.825,
+            "gbp": -1338.414,
             "biggest_day_move": 0.071,
             "open": false
           },
@@ -2323,7 +2328,7 @@
             "in": "2000-03-29",
             "out": "2000-11-14",
             "ret": -0.702,
-            "gbp": -1751.182,
+            "gbp": -1751.183,
             "biggest_day_move": 1.078,
             "open": false
           },
@@ -2332,12 +2337,12 @@
             "in": "2022-12-29",
             "out": "2024-04-03",
             "ret": -0.953,
-            "gbp": -2460.136,
+            "gbp": -2552.817,
             "biggest_day_move": 0.689,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 45589,
+        "net_trading_gain_gbp": 47599,
         "share_of_gain_from_best_3": 0.36,
         "suspect_price_jumps": [
           "AAPL 2000-03-29",
@@ -2352,9 +2357,9 @@
           {
             "ticker": "STX",
             "in": "2026-03-04",
-            "out": "2026-09-24",
-            "ret": 1.43,
-            "gbp": 18206.068,
+            "out": "2026-09-25",
+            "ret": 1.453,
+            "gbp": 18971.394,
             "biggest_day_move": 0.139,
             "open": true
           },
@@ -2363,7 +2368,7 @@
             "in": "2023-07-10",
             "out": "2025-06-23",
             "ret": 1.837,
-            "gbp": 12939.518,
+            "gbp": 13270.96,
             "biggest_day_move": 0.125,
             "open": false
           },
@@ -2372,7 +2377,7 @@
             "in": "2016-08-01",
             "out": "2018-01-19",
             "ret": 3.086,
-            "gbp": 11086.866,
+            "gbp": 11370.853,
             "biggest_day_move": 0.298,
             "open": false
           },
@@ -2381,7 +2386,7 @@
             "in": "2018-02-26",
             "out": "2021-06-14",
             "ret": 1.841,
-            "gbp": 10195.114,
+            "gbp": 10456.262,
             "biggest_day_move": 0.173,
             "open": false
           },
@@ -2390,7 +2395,7 @@
             "in": "2023-09-05",
             "out": "2025-03-12",
             "ret": 1.385,
-            "gbp": 9820.228,
+            "gbp": 10071.772,
             "biggest_day_move": 0.204,
             "open": false
           }
@@ -2399,9 +2404,9 @@
           {
             "ticker": "HII",
             "in": "2025-12-26",
-            "out": "2026-09-24",
-            "ret": -0.228,
-            "gbp": -2858.674,
+            "out": "2026-09-25",
+            "ret": -0.239,
+            "gbp": -3078.405,
             "biggest_day_move": 0.141,
             "open": true
           },
@@ -2410,7 +2415,7 @@
             "in": "2021-09-15",
             "out": "2022-03-08",
             "ret": -0.369,
-            "gbp": -3253.475,
+            "gbp": -3336.81,
             "biggest_day_move": 0.071,
             "open": false
           },
@@ -2419,12 +2424,12 @@
             "in": "2022-12-29",
             "out": "2024-04-03",
             "ret": -0.953,
-            "gbp": -6480.297,
+            "gbp": -6646.288,
             "biggest_day_move": 0.689,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 105159,
+        "net_trading_gain_gbp": 108402,
         "share_of_gain_from_best_3": 0.4,
         "suspect_price_jumps": [
           "AAPL 2000-03-29",
@@ -2440,82 +2445,82 @@
     "random": {
       "prediction": {
         "all": {
-          "ic_1m": -0.0007,
-          "t_1m": -0.21,
-          "ic_12m": 0.0017,
-          "t_12m": 0.09,
-          "top10_12m": 0.1328,
-          "bot10_12m": 0.1347,
-          "all_12m": 0.1319
+          "ic_1m": 0.0007,
+          "t_1m": 0.23,
+          "ic_12m": -0.0078,
+          "t_12m": -0.77,
+          "top10_12m": 0.1265,
+          "bot10_12m": 0.1356,
+          "all_12m": 0.132
         },
         "first": {
-          "ic_1m": -0.0025,
-          "t_1m": -0.52,
-          "ic_12m": -0.0005,
-          "t_12m": -0.22,
-          "top10_12m": 0.1146,
-          "bot10_12m": 0.1217,
-          "all_12m": 0.1178
+          "ic_1m": -0.0028,
+          "t_1m": -0.62,
+          "ic_12m": -0.0132,
+          "t_12m": -0.77,
+          "top10_12m": 0.1096,
+          "bot10_12m": 0.1242,
+          "all_12m": 0.1181
         },
         "second": {
-          "ic_1m": 0.0015,
-          "t_1m": 0.39,
-          "ic_12m": 0.0044,
-          "t_12m": 0.54,
-          "top10_12m": 0.153,
-          "bot10_12m": 0.149,
-          "all_12m": 0.1473
+          "ic_1m": 0.0045,
+          "t_1m": 1.22,
+          "ic_12m": -0.0022,
+          "t_12m": 0.06,
+          "top10_12m": 0.1448,
+          "bot10_12m": 0.1485,
+          "all_12m": 0.1472
         }
       },
       "money_costs": {
         "all": {
-          "gbp_from_10k": 143580,
+          "gbp_from_10k": 128631,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.0941,
+          "cagr": 0.09,
           "spy_cagr": 0.0986,
-          "worst": -0.539,
+          "worst": -0.547,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 18607,
+          "gbp_from_10k": 16001,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.0428,
+          "cagr": 0.0322,
           "spy_cagr": 0.0461,
-          "worst": -0.539,
+          "worst": -0.547,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 73335,
+          "gbp_from_10k": 76181,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.1441,
+          "cagr": 0.147,
           "spy_cagr": 0.1499,
-          "worst": -0.311,
+          "worst": -0.32,
           "spy_worst": -0.317
         }
       },
       "money_free": {
         "all": {
-          "gbp_from_10k": 181636,
+          "gbp_from_10k": 168845,
           "spy_gbp_from_10k": 162403,
-          "cagr": 0.1028,
+          "cagr": 0.1001,
           "spy_cagr": 0.0986,
-          "worst": -0.53,
+          "worst": -0.547,
           "spy_worst": -0.547
         },
         "first": {
-          "gbp_from_10k": 21153,
+          "gbp_from_10k": 18748,
           "spy_gbp_from_10k": 19499,
-          "cagr": 0.0519,
+          "cagr": 0.0433,
           "spy_cagr": 0.0461,
-          "worst": -0.53,
+          "worst": -0.547,
           "spy_worst": -0.547
         },
         "second": {
-          "gbp_from_10k": 81610,
+          "gbp_from_10k": 85344,
           "spy_gbp_from_10k": 78990,
-          "cagr": 0.1524,
+          "cagr": 0.1559,
           "spy_cagr": 0.1499,
-          "worst": -0.311,
+          "worst": -0.319,
           "spy_worst": -0.317
         }
       },
@@ -2523,170 +2528,170 @@
       "turnover": {
         "best_trades": [
           {
-            "ticker": "PAYC",
-            "in": "2026-03-04",
-            "out": "2026-09-24",
-            "ret": 0.677,
-            "gbp": 8413.98,
-            "biggest_day_move": 0.236,
-            "open": true
-          },
-          {
-            "ticker": "FTNT",
-            "in": "2020-09-02",
-            "out": "2021-04-01",
-            "ret": 0.406,
-            "gbp": 2563.626,
-            "biggest_day_move": 0.099,
+            "ticker": "BG",
+            "in": "2025-10-22",
+            "out": "2026-07-14",
+            "ret": 0.245,
+            "gbp": 2701.967,
+            "biggest_day_move": 0.054,
             "open": false
           },
           {
-            "ticker": "MS",
-            "in": "2024-10-08",
-            "out": "2025-02-26",
-            "ret": 0.237,
-            "gbp": 2511.869,
-            "biggest_day_move": 0.116,
+            "ticker": "MPC",
+            "in": "2026-06-05",
+            "out": "2026-07-28",
+            "ret": 0.168,
+            "gbp": 2045.296,
+            "biggest_day_move": 0.054,
             "open": false
           },
           {
-            "ticker": "VLO",
-            "in": "2023-10-10",
-            "out": "2024-03-26",
-            "ret": 0.305,
-            "gbp": 2474.726,
-            "biggest_day_move": 0.052,
+            "ticker": "KKR",
+            "in": "2025-04-16",
+            "out": "2025-05-15",
+            "ret": 0.233,
+            "gbp": 1997.271,
+            "biggest_day_move": 0.062,
             "open": false
           },
           {
-            "ticker": "TSLA",
-            "in": "2025-05-01",
-            "out": "2025-06-23",
-            "ret": 0.243,
-            "gbp": 2470.19,
-            "biggest_day_move": 0.166,
+            "ticker": "EXR",
+            "in": "2021-05-14",
+            "out": "2021-07-13",
+            "ret": 0.194,
+            "gbp": 1229.195,
+            "biggest_day_move": 0.027,
+            "open": false
+          },
+          {
+            "ticker": "ZBRA",
+            "in": "2023-06-01",
+            "out": "2023-07-17",
+            "ret": 0.163,
+            "gbp": 1086.332,
+            "biggest_day_move": 0.044,
             "open": false
           }
         ],
         "worst_trades": [
           {
-            "ticker": "NCLH",
-            "in": "2024-06-28",
-            "out": "2024-08-12",
-            "ret": -0.184,
-            "gbp": -1897.484,
-            "biggest_day_move": 0.089,
+            "ticker": "CNP",
+            "in": "2019-07-18",
+            "out": "2020-02-28",
+            "ret": -0.187,
+            "gbp": -852.209,
+            "biggest_day_move": 0.052,
             "open": false
           },
           {
-            "ticker": "XYL",
-            "in": "2024-08-26",
-            "out": "2025-04-09",
-            "ret": -0.182,
-            "gbp": -1902.06,
-            "biggest_day_move": 0.074,
+            "ticker": "IEX",
+            "in": "2021-12-31",
+            "out": "2022-06-24",
+            "ret": -0.21,
+            "gbp": -1516.913,
+            "biggest_day_move": 0.047,
             "open": false
           },
           {
-            "ticker": "IP",
-            "in": "2025-09-10",
-            "out": "2026-04-16",
-            "ret": -0.204,
-            "gbp": -2427.474,
-            "biggest_day_move": 0.145,
+            "ticker": "TECH",
+            "in": "2026-03-04",
+            "out": "2026-05-21",
+            "ret": -0.18,
+            "gbp": -2073.76,
+            "biggest_day_move": 0.196,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 16263,
-        "share_of_gain_from_best_3": 0.83,
+        "net_trading_gain_gbp": 10266,
+        "share_of_gain_from_best_3": 0.66,
         "suspect_price_jumps": [],
-        "trades_per_year": 4.3,
-        "median_hold_days": 86,
-        "still_held": 2
+        "trades_per_year": 4.4,
+        "median_hold_days": 101,
+        "still_held": 1
       },
       "turnover_free": {
         "best_trades": [
           {
-            "ticker": "PAYC",
-            "in": "2026-03-04",
-            "out": "2026-09-24",
-            "ret": 0.677,
-            "gbp": 10726.569,
-            "biggest_day_move": 0.236,
-            "open": true
-          },
-          {
-            "ticker": "MS",
-            "in": "2024-10-08",
-            "out": "2025-02-26",
-            "ret": 0.237,
-            "gbp": 3142.091,
-            "biggest_day_move": 0.116,
+            "ticker": "BG",
+            "in": "2025-10-22",
+            "out": "2026-07-14",
+            "ret": 0.245,
+            "gbp": 3560.623,
+            "biggest_day_move": 0.054,
             "open": false
           },
           {
-            "ticker": "TSLA",
-            "in": "2025-05-01",
-            "out": "2025-06-23",
-            "ret": 0.243,
-            "gbp": 3119.792,
-            "biggest_day_move": 0.166,
+            "ticker": "MPC",
+            "in": "2026-06-05",
+            "out": "2026-07-28",
+            "ret": 0.168,
+            "gbp": 2703.998,
+            "biggest_day_move": 0.054,
             "open": false
           },
           {
-            "ticker": "FTNT",
-            "in": "2020-09-02",
-            "out": "2021-04-01",
-            "ret": 0.406,
-            "gbp": 3102.904,
-            "biggest_day_move": 0.099,
+            "ticker": "KKR",
+            "in": "2025-04-16",
+            "out": "2025-05-15",
+            "ret": 0.233,
+            "gbp": 2625.71,
+            "biggest_day_move": 0.062,
             "open": false
           },
           {
-            "ticker": "VLO",
-            "in": "2023-10-10",
-            "out": "2024-03-26",
-            "ret": 0.305,
-            "gbp": 3063.161,
-            "biggest_day_move": 0.052,
+            "ticker": "EXR",
+            "in": "2021-05-14",
+            "out": "2021-07-13",
+            "ret": 0.194,
+            "gbp": 1583.815,
+            "biggest_day_move": 0.027,
+            "open": false
+          },
+          {
+            "ticker": "ZBRA",
+            "in": "2023-06-01",
+            "out": "2023-07-17",
+            "ret": 0.163,
+            "gbp": 1421.065,
+            "biggest_day_move": 0.044,
             "open": false
           }
         ],
         "worst_trades": [
           {
-            "ticker": "NCLH",
-            "in": "2024-06-28",
-            "out": "2024-08-12",
-            "ret": -0.184,
-            "gbp": -2362.951,
-            "biggest_day_move": 0.089,
+            "ticker": "CNP",
+            "in": "2019-07-18",
+            "out": "2020-02-28",
+            "ret": -0.187,
+            "gbp": -1083.443,
+            "biggest_day_move": 0.052,
             "open": false
           },
           {
-            "ticker": "XYL",
-            "in": "2024-08-26",
-            "out": "2025-04-09",
-            "ret": -0.182,
-            "gbp": -2373.687,
-            "biggest_day_move": 0.074,
+            "ticker": "IEX",
+            "in": "2021-12-31",
+            "out": "2022-06-24",
+            "ret": -0.21,
+            "gbp": -1967.415,
+            "biggest_day_move": 0.047,
             "open": false
           },
           {
-            "ticker": "IP",
-            "in": "2025-09-10",
-            "out": "2026-04-16",
-            "ret": -0.204,
-            "gbp": -3087.74,
-            "biggest_day_move": 0.145,
+            "ticker": "TECH",
+            "in": "2026-03-04",
+            "out": "2026-05-21",
+            "ret": -0.18,
+            "gbp": -2736.46,
+            "biggest_day_move": 0.196,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 19653,
-        "share_of_gain_from_best_3": 0.86,
+        "net_trading_gain_gbp": 13111,
+        "share_of_gain_from_best_3": 0.68,
         "suspect_price_jumps": [],
-        "trades_per_year": 4.3,
-        "median_hold_days": 86,
-        "still_held": 2
+        "trades_per_year": 4.4,
+        "median_hold_days": 101,
+        "still_held": 1
       },
       "predicts": false,
       "passes": false
@@ -2779,45 +2784,45 @@
           {
             "ticker": "SHW",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 16.433,
-            "gbp": 16577.149,
+            "out": "2026-09-25",
+            "ret": 16.957,
+            "gbp": 17106.691,
             "biggest_day_move": 0.23,
             "open": true
           },
           {
             "ticker": "UNH",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 14.038,
-            "gbp": 14161.179,
+            "out": "2026-09-25",
+            "ret": 14.133,
+            "gbp": 14257.259,
             "biggest_day_move": 0.288,
             "open": true
           },
           {
             "ticker": "FAST",
             "in": "2010-07-15",
-            "out": "2026-09-24",
-            "ret": 11.27,
-            "gbp": 11166.111,
+            "out": "2026-09-25",
+            "ret": 11.24,
+            "gbp": 11136.052,
             "biggest_day_move": 0.172,
             "open": true
           },
           {
             "ticker": "SBUX",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 9.442,
-            "gbp": 9524.774,
+            "out": "2026-09-25",
+            "ret": 9.592,
+            "gbp": 9676.279,
             "biggest_day_move": 0.245,
             "open": true
           },
           {
             "ticker": "TPR",
             "in": "2010-09-10",
-            "out": "2026-09-24",
-            "ret": 3.422,
-            "gbp": 3478.093,
+            "out": "2026-09-25",
+            "ret": 3.483,
+            "gbp": 3540.925,
             "biggest_day_move": 0.414,
             "open": true
           }
@@ -2826,18 +2831,18 @@
           {
             "ticker": "EL",
             "in": "2013-02-21",
-            "out": "2026-09-24",
-            "ret": 0.823,
-            "gbp": 1322.518,
+            "out": "2026-09-25",
+            "ret": 0.781,
+            "gbp": 1256.423,
             "biggest_day_move": 0.264,
             "open": true
           },
           {
             "ticker": "RHI",
             "in": "2011-03-10",
-            "out": "2026-09-24",
-            "ret": 0.79,
-            "gbp": 990.186,
+            "out": "2026-09-25",
+            "ret": 0.826,
+            "gbp": 1035.48,
             "biggest_day_move": 0.278,
             "open": true
           },
@@ -2851,7 +2856,7 @@
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 62246,
+        "net_trading_gain_gbp": 63068,
         "share_of_gain_from_best_3": 0.67,
         "suspect_price_jumps": [
           "NFLX 2011-01-04"
@@ -2865,45 +2870,45 @@
           {
             "ticker": "SHW",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 16.433,
-            "gbp": 16961.233,
+            "out": "2026-09-25",
+            "ret": 16.957,
+            "gbp": 17503.043,
             "biggest_day_move": 0.23,
             "open": true
           },
           {
             "ticker": "UNH",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 14.038,
-            "gbp": 14489.286,
+            "out": "2026-09-25",
+            "ret": 14.133,
+            "gbp": 14587.592,
             "biggest_day_move": 0.288,
             "open": true
           },
           {
             "ticker": "FAST",
             "in": "2010-07-15",
-            "out": "2026-09-24",
-            "ret": 11.27,
-            "gbp": 11621.733,
+            "out": "2026-09-25",
+            "ret": 11.24,
+            "gbp": 11590.447,
             "biggest_day_move": 0.172,
             "open": true
           },
           {
             "ticker": "SBUX",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 9.442,
-            "gbp": 9745.458,
+            "out": "2026-09-25",
+            "ret": 9.592,
+            "gbp": 9900.473,
             "biggest_day_move": 0.245,
             "open": true
           },
           {
             "ticker": "TPR",
             "in": "2010-09-10",
-            "out": "2026-09-24",
-            "ret": 3.422,
-            "gbp": 3631.245,
+            "out": "2026-09-25",
+            "ret": 3.483,
+            "gbp": 3696.844,
             "biggest_day_move": 0.414,
             "open": true
           }
@@ -2912,18 +2917,18 @@
           {
             "ticker": "EL",
             "in": "2013-02-21",
-            "out": "2026-09-24",
-            "ret": 0.823,
-            "gbp": 1389.985,
+            "out": "2026-09-25",
+            "ret": 0.781,
+            "gbp": 1320.518,
             "biggest_day_move": 0.264,
             "open": true
           },
           {
             "ticker": "RHI",
             "in": "2011-03-10",
-            "out": "2026-09-24",
-            "ret": 0.79,
-            "gbp": 1038.532,
+            "out": "2026-09-25",
+            "ret": 0.826,
+            "gbp": 1086.038,
             "biggest_day_move": 0.278,
             "open": true
           },
@@ -2937,7 +2942,7 @@
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 64021,
+        "net_trading_gain_gbp": 64862,
         "share_of_gain_from_best_3": 0.67,
         "suspect_price_jumps": [
           "NFLX 2011-01-04"
@@ -2997,7 +3002,7 @@
           "spy_worst": -0.153
         },
         "second": {
-          "gbp_from_10k": 58520,
+          "gbp_from_10k": 58521,
           "spy_gbp_from_10k": 32002,
           "cagr": 0.2373,
           "spy_cagr": 0.1505,
@@ -3037,27 +3042,27 @@
           {
             "ticker": "NVDA",
             "in": "2018-03-15",
-            "out": "2026-09-24",
-            "ret": 35.425,
-            "gbp": 107690.783,
+            "out": "2026-09-25",
+            "ret": 35.574,
+            "gbp": 108142.87,
             "biggest_day_move": 0.244,
             "open": true
           },
           {
             "ticker": "MA",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 23.575,
-            "gbp": 23782.623,
+            "out": "2026-09-25",
+            "ret": 23.791,
+            "gbp": 24000.276,
             "biggest_day_move": 0.166,
             "open": true
           },
           {
             "ticker": "PM",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 7.09,
-            "gbp": 7152.279,
+            "out": "2026-09-25",
+            "ret": 7.046,
+            "gbp": 7107.754,
             "biggest_day_move": 0.184,
             "open": true
           },
@@ -3073,9 +3078,9 @@
           {
             "ticker": "CHRW",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 2.949,
-            "gbp": 2974.701,
+            "out": "2026-09-25",
+            "ret": 2.965,
+            "gbp": 2991.287,
             "biggest_day_move": 0.197,
             "open": true
           }
@@ -3095,7 +3100,7 @@
             "in": "2017-12-08",
             "out": "2020-03-11",
             "ret": -0.358,
-            "gbp": -1035.73,
+            "gbp": -1035.731,
             "biggest_day_move": 0.074,
             "open": false
           },
@@ -3104,12 +3109,12 @@
             "in": "2023-03-10",
             "out": "2024-03-08",
             "ret": -0.255,
-            "gbp": -1226.258,
+            "gbp": -1226.259,
             "biggest_day_move": 0.135,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 155364,
+        "net_trading_gain_gbp": 155870,
         "share_of_gain_from_best_3": 0.89,
         "suspect_price_jumps": [],
         "trades_per_year": 1.8,
@@ -3121,36 +3126,36 @@
           {
             "ticker": "NVDA",
             "in": "2018-03-15",
-            "out": "2026-09-24",
-            "ret": 35.425,
-            "gbp": 121724.634,
+            "out": "2026-09-25",
+            "ret": 35.574,
+            "gbp": 122235.624,
             "biggest_day_move": 0.244,
             "open": true
           },
           {
             "ticker": "MA",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 23.575,
-            "gbp": 24333.653,
+            "out": "2026-09-25",
+            "ret": 23.791,
+            "gbp": 24556.349,
             "biggest_day_move": 0.166,
             "open": true
           },
           {
             "ticker": "PM",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 7.09,
-            "gbp": 7317.993,
+            "out": "2026-09-25",
+            "ret": 7.046,
+            "gbp": 7272.436,
             "biggest_day_move": 0.184,
             "open": true
           },
           {
             "ticker": "WAT",
             "in": "2010-04-06",
-            "out": "2026-09-24",
-            "ret": 5.373,
-            "gbp": 5670.634,
+            "out": "2026-09-25",
+            "ret": 5.393,
+            "gbp": 5691.334,
             "biggest_day_move": 0.198,
             "open": true
           },
@@ -3159,7 +3164,7 @@
             "in": "2010-03-15",
             "out": "2017-08-09",
             "ret": 3.988,
-            "gbp": 4116.823,
+            "gbp": 4116.824,
             "biggest_day_move": 0.125,
             "open": false
           }
@@ -3179,7 +3184,7 @@
             "in": "2017-12-08",
             "out": "2020-03-11",
             "ret": -0.358,
-            "gbp": -1161.657,
+            "gbp": -1161.658,
             "biggest_day_move": 0.074,
             "open": false
           },
@@ -3193,7 +3198,7 @@
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 174015,
+        "net_trading_gain_gbp": 174620,
         "share_of_gain_from_best_3": 0.88,
         "suspect_price_jumps": [],
         "trades_per_year": 1.6,
@@ -3215,7 +3220,7 @@
           "all_12m": 0.145
         },
         "first": {
-          "ic_1m": 0.011,
+          "ic_1m": 0.0111,
           "t_1m": 1.01,
           "ic_12m": 0.0234,
           "t_12m": 0.56,
@@ -3291,18 +3296,18 @@
           {
             "ticker": "AMZN",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 37.104,
-            "gbp": 37430.711,
+            "out": "2026-09-25",
+            "ret": 37.08,
+            "gbp": 37406.109,
             "biggest_day_move": 0.163,
             "open": true
           },
           {
             "ticker": "FANG",
             "in": "2021-06-17",
-            "out": "2026-09-24",
-            "ret": 1.697,
-            "gbp": 14272.292,
+            "out": "2026-09-25",
+            "ret": 1.67,
+            "gbp": 14049.686,
             "biggest_day_move": 0.145,
             "open": true
           },
@@ -3311,16 +3316,16 @@
             "in": "2024-03-01",
             "out": "2025-02-24",
             "ret": 0.937,
-            "gbp": 12543.165,
+            "gbp": 12543.168,
             "biggest_day_move": 0.23,
             "open": false
           },
           {
             "ticker": "LYV",
             "in": "2023-02-09",
-            "out": "2026-09-24",
-            "ret": 1.13,
-            "gbp": 11031.083,
+            "out": "2026-09-25",
+            "ret": 1.132,
+            "gbp": 11049.356,
             "biggest_day_move": 0.15,
             "open": true
           },
@@ -3329,7 +3334,7 @@
             "in": "2020-11-24",
             "out": "2023-02-09",
             "ret": 1.528,
-            "gbp": 10433.647,
+            "gbp": 10433.649,
             "biggest_day_move": 0.131,
             "open": false
           }
@@ -3340,7 +3345,7 @@
             "in": "2023-03-03",
             "out": "2024-03-01",
             "ret": -0.184,
-            "gbp": -1744.867,
+            "gbp": -1744.866,
             "biggest_day_move": 0.188,
             "open": false
           },
@@ -3356,14 +3361,14 @@
           {
             "ticker": "PARA",
             "in": "2025-02-24",
-            "out": "2026-09-24",
+            "out": "2026-09-25",
             "ret": -0.997,
-            "gbp": -16209.549,
+            "gbp": -16215.049,
             "biggest_day_move": 0.508,
             "open": true
           }
         ],
-        "net_trading_gain_gbp": 140046,
+        "net_trading_gain_gbp": 139425,
         "share_of_gain_from_best_3": 0.46,
         "suspect_price_jumps": [
           "NBR 2010-03-15",
@@ -3379,18 +3384,18 @@
           {
             "ticker": "AMZN",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 37.104,
-            "gbp": 38297.96,
+            "out": "2026-09-25",
+            "ret": 37.08,
+            "gbp": 38272.788,
             "biggest_day_move": 0.163,
             "open": true
           },
           {
             "ticker": "FANG",
             "in": "2021-06-17",
-            "out": "2026-09-24",
-            "ret": 1.697,
-            "gbp": 16628.283,
+            "out": "2026-09-25",
+            "ret": 1.67,
+            "gbp": 16368.931,
             "biggest_day_move": 0.145,
             "open": true
           },
@@ -3399,7 +3404,7 @@
             "in": "2021-04-07",
             "out": "2022-03-04",
             "ret": 1.775,
-            "gbp": 15884.929,
+            "gbp": 15884.931,
             "biggest_day_move": 0.137,
             "open": false
           },
@@ -3408,16 +3413,16 @@
             "in": "2024-03-01",
             "out": "2025-02-24",
             "ret": 0.937,
-            "gbp": 15161.668,
+            "gbp": 15161.671,
             "biggest_day_move": 0.23,
             "open": false
           },
           {
             "ticker": "LYV",
             "in": "2023-02-09",
-            "out": "2026-09-24",
-            "ret": 1.13,
-            "gbp": 13435.081,
+            "out": "2026-09-25",
+            "ret": 1.132,
+            "gbp": 13457.336,
             "biggest_day_move": 0.15,
             "open": true
           }
@@ -3428,7 +3433,7 @@
             "in": "2018-03-08",
             "out": "2020-03-18",
             "ret": -0.454,
-            "gbp": -2073.55,
+            "gbp": -2073.551,
             "biggest_day_move": 0.414,
             "open": false
           },
@@ -3437,21 +3442,21 @@
             "in": "2023-03-03",
             "out": "2024-03-01",
             "ret": -0.184,
-            "gbp": -2132.255,
+            "gbp": -2132.254,
             "biggest_day_move": 0.188,
             "open": false
           },
           {
             "ticker": "PARA",
             "in": "2025-02-24",
-            "out": "2026-09-24",
+            "out": "2026-09-25",
             "ret": -0.997,
-            "gbp": -19753.135,
+            "gbp": -19759.838,
             "biggest_day_move": 0.508,
             "open": true
           }
         ],
-        "net_trading_gain_gbp": 161839,
+        "net_trading_gain_gbp": 161161,
         "share_of_gain_from_best_3": 0.44,
         "suspect_price_jumps": [
           "NBR 2010-03-15",
@@ -3523,23 +3528,23 @@
       },
       "money_free": {
         "all": {
-          "gbp_from_10k": 127211,
+          "gbp_from_10k": 126817,
           "spy_gbp_from_10k": 92861,
-          "cagr": 0.166,
+          "cagr": 0.1658,
           "spy_cagr": 0.1441,
           "worst": -0.359,
           "spy_worst": -0.291
         },
         "first": {
-          "gbp_from_10k": 32944,
+          "gbp_from_10k": 32848,
           "spy_gbp_from_10k": 28727,
-          "cagr": 0.1558,
+          "cagr": 0.1554,
           "spy_cagr": 0.1368,
-          "worst": -0.294,
+          "worst": -0.306,
           "spy_worst": -0.153
         },
         "second": {
-          "gbp_from_10k": 38161,
+          "gbp_from_10k": 38154,
           "spy_gbp_from_10k": 32002,
           "cagr": 0.1751,
           "spy_cagr": 0.1505,
@@ -3555,7 +3560,7 @@
             "in": "2021-03-16",
             "out": "2026-03-02",
             "ret": 7.635,
-            "gbp": 31401.907,
+            "gbp": 31401.923,
             "biggest_day_move": 0.155,
             "open": false
           },
@@ -3564,34 +3569,34 @@
             "in": "2022-03-04",
             "out": "2026-02-13",
             "ret": 4.792,
-            "gbp": 22691.571,
+            "gbp": 22691.582,
             "biggest_day_move": 0.125,
             "open": false
           },
           {
-            "ticker": "CTVA",
-            "in": "2020-03-11",
-            "out": "2026-09-24",
-            "ret": 2.422,
-            "gbp": 5563.074,
-            "biggest_day_move": 0.197,
+            "ticker": "WDC",
+            "in": "2026-02-13",
+            "out": "2026-09-25",
+            "ret": 0.624,
+            "gbp": 5590.255,
+            "biggest_day_move": 0.161,
             "open": true
           },
           {
-            "ticker": "WDC",
-            "in": "2026-02-13",
-            "out": "2026-09-24",
-            "ret": 0.619,
-            "gbp": 5546.3,
-            "biggest_day_move": 0.161,
+            "ticker": "CTVA",
+            "in": "2020-03-11",
+            "out": "2026-09-25",
+            "ret": 2.389,
+            "gbp": 5488.219,
+            "biggest_day_move": 0.197,
             "open": true
           },
           {
             "ticker": "DD",
             "in": "2020-03-11",
-            "out": "2026-09-24",
-            "ret": 2.221,
-            "gbp": 5100.954,
+            "out": "2026-09-25",
+            "ret": 2.242,
+            "gbp": 5149.866,
             "biggest_day_move": 0.163,
             "open": true
           }
@@ -3600,18 +3605,18 @@
           {
             "ticker": "BBWI",
             "in": "2023-03-03",
-            "out": "2026-09-24",
-            "ret": -0.525,
-            "gbp": -2721.159,
+            "out": "2026-09-25",
+            "ret": -0.541,
+            "gbp": -2801.136,
             "biggest_day_move": 0.33,
             "open": true
           },
           {
             "ticker": "DXC",
             "in": "2022-03-04",
-            "out": "2026-09-24",
-            "ret": -0.641,
-            "gbp": -3034.768,
+            "out": "2026-09-25",
+            "ret": -0.645,
+            "gbp": -3054.502,
             "biggest_day_move": 0.417,
             "open": true
           },
@@ -3620,12 +3625,12 @@
             "in": "2023-09-08",
             "out": "2025-05-06",
             "ret": -0.998,
-            "gbp": -4749.764,
+            "gbp": -4749.768,
             "biggest_day_move": 0.976,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 88020,
+        "net_trading_gain_gbp": 87822,
         "share_of_gain_from_best_3": 0.68,
         "suspect_price_jumps": [
           "DVN 2019-03-14",
@@ -3642,7 +3647,7 @@
             "in": "2021-03-16",
             "out": "2026-03-02",
             "ret": 7.635,
-            "gbp": 40024.578,
+            "gbp": 39895.576,
             "biggest_day_move": 0.155,
             "open": false
           },
@@ -3651,34 +3656,34 @@
             "in": "2022-03-04",
             "out": "2026-02-13",
             "ret": 4.792,
-            "gbp": 28923.656,
+            "gbp": 28835.655,
             "biggest_day_move": 0.125,
             "open": false
           },
           {
             "ticker": "WDC",
             "in": "2026-02-13",
-            "out": "2026-09-24",
-            "ret": 0.619,
-            "gbp": 7208.654,
+            "out": "2026-09-25",
+            "ret": 0.624,
+            "gbp": 7243.284,
             "biggest_day_move": 0.161,
             "open": true
           },
           {
             "ticker": "CTVA",
             "in": "2020-03-11",
-            "out": "2026-09-24",
-            "ret": 2.422,
-            "gbp": 6990.143,
+            "out": "2026-09-25",
+            "ret": 2.389,
+            "gbp": 6873.375,
             "biggest_day_move": 0.197,
             "open": true
           },
           {
             "ticker": "DD",
             "in": "2020-03-11",
-            "out": "2026-09-24",
-            "ret": 2.221,
-            "gbp": 6409.477,
+            "out": "2026-09-25",
+            "ret": 2.242,
+            "gbp": 6449.625,
             "biggest_day_move": 0.163,
             "open": true
           }
@@ -3687,18 +3692,18 @@
           {
             "ticker": "BBWI",
             "in": "2023-03-03",
-            "out": "2026-09-24",
-            "ret": -0.525,
-            "gbp": -3494.97,
+            "out": "2026-09-25",
+            "ret": -0.541,
+            "gbp": -3586.636,
             "biggest_day_move": 0.33,
             "open": true
           },
           {
             "ticker": "DXC",
             "in": "2022-03-04",
-            "out": "2026-09-24",
-            "ret": -0.641,
-            "gbp": -3868.246,
+            "out": "2026-09-25",
+            "ret": -0.645,
+            "gbp": -3881.553,
             "biggest_day_move": 0.417,
             "open": true
           },
@@ -3707,19 +3712,19 @@
             "in": "2023-09-08",
             "out": "2025-05-06",
             "ret": -0.998,
-            "gbp": -6157.608,
+            "gbp": -6138.789,
             "biggest_day_move": 0.976,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 108708,
+        "net_trading_gain_gbp": 108021,
         "share_of_gain_from_best_3": 0.7,
         "suspect_price_jumps": [
           "DVN 2019-03-14",
           "PARA 2023-09-08"
         ],
-        "trades_per_year": 7.1,
-        "median_hold_days": 721,
+        "trades_per_year": 7.0,
+        "median_hold_days": 724,
         "still_held": 10
       },
       "predicts": false,
@@ -3813,18 +3818,18 @@
           {
             "ticker": "PHM",
             "in": "2014-03-05",
-            "out": "2026-09-24",
-            "ret": 5.712,
-            "gbp": 8750.361,
+            "out": "2026-09-25",
+            "ret": 5.79,
+            "gbp": 8870.143,
             "biggest_day_move": 0.268,
             "open": true
           },
           {
             "ticker": "UNM",
             "in": "2021-03-09",
-            "out": "2026-09-24",
-            "ret": 2.829,
-            "gbp": 7558.709,
+            "out": "2026-09-25",
+            "ret": 2.837,
+            "gbp": 7578.193,
             "biggest_day_move": 0.152,
             "open": true
           },
@@ -3833,25 +3838,25 @@
             "in": "2010-03-15",
             "out": "2025-02-24",
             "ret": 3.674,
-            "gbp": 3706.626,
+            "gbp": 3706.631,
             "biggest_day_move": 0.176,
             "open": false
           },
           {
             "ticker": "SYF",
             "in": "2016-03-14",
-            "out": "2026-09-24",
-            "ret": 2.182,
-            "gbp": 3432.17,
+            "out": "2026-09-25",
+            "ret": 2.253,
+            "gbp": 3543.344,
             "biggest_day_move": 0.352,
             "open": true
           },
           {
             "ticker": "AN",
             "in": "2013-11-13",
-            "out": "2026-09-24",
-            "ret": 2.282,
-            "gbp": 3320.454,
+            "out": "2026-09-25",
+            "ret": 2.374,
+            "gbp": 3454.226,
             "biggest_day_move": 0.236,
             "open": true
           }
@@ -3860,18 +3865,18 @@
           {
             "ticker": "CPB",
             "in": "2021-03-16",
-            "out": "2026-09-24",
-            "ret": -0.497,
-            "gbp": -1364.038,
+            "out": "2026-09-25",
+            "ret": -0.51,
+            "gbp": -1400.52,
             "biggest_day_move": 0.098,
             "open": true
           },
           {
             "ticker": "CHTR",
             "in": "2026-03-02",
-            "out": "2026-09-24",
-            "ret": -0.5,
-            "gbp": -2396.498,
+            "out": "2026-09-25",
+            "ret": -0.515,
+            "gbp": -2467.93,
             "biggest_day_move": 0.342,
             "open": true
           },
@@ -3880,12 +3885,12 @@
             "in": "2025-02-24",
             "out": "2026-03-16",
             "ret": -0.618,
-            "gbp": -2852.312,
+            "gbp": -2852.314,
             "biggest_day_move": 0.87,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 36617,
+        "net_trading_gain_gbp": 36728,
         "share_of_gain_from_best_3": 0.55,
         "suspect_price_jumps": [
           "FMC 2025-02-24"
@@ -3899,19 +3904,28 @@
           {
             "ticker": "PHM",
             "in": "2014-03-05",
-            "out": "2026-09-24",
-            "ret": 5.712,
-            "gbp": 9188.305,
+            "out": "2026-09-25",
+            "ret": 5.79,
+            "gbp": 9314.081,
             "biggest_day_move": 0.268,
             "open": true
           },
           {
             "ticker": "UNM",
             "in": "2021-03-09",
-            "out": "2026-09-24",
-            "ret": 2.829,
-            "gbp": 8339.252,
+            "out": "2026-09-25",
+            "ret": 2.837,
+            "gbp": 8360.746,
             "biggest_day_move": 0.152,
+            "open": true
+          },
+          {
+            "ticker": "SYF",
+            "in": "2016-03-14",
+            "out": "2026-09-25",
+            "ret": 2.253,
+            "gbp": 3913.504,
+            "biggest_day_move": 0.352,
             "open": true
           },
           {
@@ -3919,25 +3933,16 @@
             "in": "2010-03-15",
             "out": "2025-02-24",
             "ret": 3.674,
-            "gbp": 3792.506,
+            "gbp": 3792.512,
             "biggest_day_move": 0.176,
             "open": false
           },
           {
-            "ticker": "SYF",
-            "in": "2016-03-14",
-            "out": "2026-09-24",
-            "ret": 2.182,
-            "gbp": 3790.717,
-            "biggest_day_move": 0.352,
-            "open": true
-          },
-          {
             "ticker": "AN",
             "in": "2013-11-13",
-            "out": "2026-09-24",
-            "ret": 2.282,
-            "gbp": 3449.022,
+            "out": "2026-09-25",
+            "ret": 2.374,
+            "gbp": 3587.974,
             "biggest_day_move": 0.236,
             "open": true
           }
@@ -3946,18 +3951,18 @@
           {
             "ticker": "CPB",
             "in": "2021-03-16",
-            "out": "2026-09-24",
-            "ret": -0.497,
-            "gbp": -1509.328,
+            "out": "2026-09-25",
+            "ret": -0.51,
+            "gbp": -1549.695,
             "biggest_day_move": 0.098,
             "open": true
           },
           {
             "ticker": "CHTR",
             "in": "2026-03-02",
-            "out": "2026-09-24",
-            "ret": -0.5,
-            "gbp": -2785.332,
+            "out": "2026-09-25",
+            "ret": -0.515,
+            "gbp": -2868.353,
             "biggest_day_move": 0.342,
             "open": true
           },
@@ -3966,12 +3971,12 @@
             "in": "2025-02-24",
             "out": "2026-03-16",
             "ret": -0.618,
-            "gbp": -3182.888,
+            "gbp": -3182.89,
             "biggest_day_move": 0.87,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 39722,
+        "net_trading_gain_gbp": 39865,
         "share_of_gain_from_best_3": 0.54,
         "suspect_price_jumps": [
           "FMC 2025-02-24"
@@ -4071,9 +4076,9 @@
           {
             "ticker": "APA",
             "in": "2025-03-10",
-            "out": "2026-09-24",
-            "ret": 1.469,
-            "gbp": 5051.223,
+            "out": "2026-09-25",
+            "ret": 1.396,
+            "gbp": 4800.598,
             "biggest_day_move": 0.197,
             "open": true
           },
@@ -4082,16 +4087,16 @@
             "in": "2013-03-14",
             "out": "2025-03-10",
             "ret": 3.171,
-            "gbp": 4425.978,
+            "gbp": 4425.979,
             "biggest_day_move": 0.187,
             "open": false
           },
           {
             "ticker": "VZ",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 2.967,
-            "gbp": 2992.983,
+            "out": "2026-09-25",
+            "ret": 2.951,
+            "gbp": 2976.477,
             "biggest_day_move": 0.118,
             "open": true
           },
@@ -4100,18 +4105,18 @@
             "in": "2010-03-15",
             "out": "2021-03-16",
             "ret": 2.786,
-            "gbp": 2810.749,
+            "gbp": 2810.754,
             "biggest_day_move": 0.278,
             "open": false
           },
           {
-            "ticker": "AJG",
-            "in": "2019-03-14",
-            "out": "2022-09-23",
-            "ret": 1.279,
-            "gbp": 2561.564,
-            "biggest_day_move": 0.18,
-            "open": false
+            "ticker": "SYF",
+            "in": "2021-03-02",
+            "out": "2026-09-25",
+            "ret": 1.08,
+            "gbp": 2626.508,
+            "biggest_day_move": 0.188,
+            "open": true
           }
         ],
         "worst_trades": [
@@ -4120,7 +4125,7 @@
             "in": "2010-03-15",
             "out": "2011-03-17",
             "ret": -0.094,
-            "gbp": -94.878,
+            "gbp": -94.877,
             "biggest_day_move": 0.147,
             "open": false
           },
@@ -4129,21 +4134,21 @@
             "in": "2010-03-15",
             "out": "2013-03-14",
             "ret": -0.272,
-            "gbp": -274.388,
+            "gbp": -274.387,
             "biggest_day_move": 0.255,
             "open": false
           },
           {
             "ticker": "LUMN",
             "in": "2021-03-02",
-            "out": "2026-09-24",
-            "ret": -0.473,
-            "gbp": -1150.269,
+            "out": "2026-09-25",
+            "ret": -0.487,
+            "gbp": -1184.123,
             "biggest_day_move": 0.931,
             "open": true
           }
         ],
-        "net_trading_gain_gbp": 32398,
+        "net_trading_gain_gbp": 32267,
         "share_of_gain_from_best_3": 0.38,
         "suspect_price_jumps": [
           "GNW 2012-08-13",
@@ -4158,18 +4163,18 @@
           {
             "ticker": "APA",
             "in": "2025-03-10",
-            "out": "2026-09-24",
-            "ret": 1.469,
-            "gbp": 6596.095,
+            "out": "2026-09-25",
+            "ret": 1.396,
+            "gbp": 6268.818,
             "biggest_day_move": 0.197,
             "open": true
           },
           {
             "ticker": "UAL",
             "in": "2024-03-08",
-            "out": "2026-09-24",
-            "ret": 1.574,
-            "gbp": 5417.949,
+            "out": "2026-09-25",
+            "ret": 1.633,
+            "gbp": 5620.707,
             "biggest_day_move": 0.261,
             "open": true
           },
@@ -4178,7 +4183,7 @@
             "in": "2022-12-12",
             "out": "2026-03-16",
             "ret": 1.441,
-            "gbp": 4677.304,
+            "gbp": 4677.307,
             "biggest_day_move": 0.289,
             "open": false
           },
@@ -4187,7 +4192,7 @@
             "in": "2013-03-14",
             "out": "2025-03-10",
             "ret": 3.171,
-            "gbp": 4603.105,
+            "gbp": 4603.106,
             "biggest_day_move": 0.187,
             "open": false
           },
@@ -4196,7 +4201,7 @@
             "in": "2019-03-14",
             "out": "2022-09-23",
             "ret": 1.279,
-            "gbp": 3134.598,
+            "gbp": 3134.599,
             "biggest_day_move": 0.18,
             "open": false
           }
@@ -4207,7 +4212,7 @@
             "in": "2023-03-03",
             "out": "2024-03-08",
             "ret": -0.071,
-            "gbp": -240.129,
+            "gbp": -240.128,
             "biggest_day_move": 0.11,
             "open": false
           },
@@ -4223,15 +4228,15 @@
           {
             "ticker": "LUMN",
             "in": "2021-03-02",
-            "out": "2026-09-24",
-            "ret": -0.473,
-            "gbp": -1416.705,
+            "out": "2026-09-25",
+            "ret": -0.487,
+            "gbp": -1458.401,
             "biggest_day_move": 0.931,
             "open": true
           }
         ],
-        "net_trading_gain_gbp": 51170,
-        "share_of_gain_from_best_3": 0.33,
+        "net_trading_gain_gbp": 51097,
+        "share_of_gain_from_best_3": 0.32,
         "suspect_price_jumps": [
           "LUMN 2021-03-02"
         ],
@@ -4330,45 +4335,45 @@
           {
             "ticker": "HIG",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 5.507,
-            "gbp": 5555.848,
+            "out": "2026-09-25",
+            "ret": 5.42,
+            "gbp": 5467.49,
             "biggest_day_move": 0.277,
             "open": true
           },
           {
             "ticker": "RF",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 4.96,
-            "gbp": 5003.619,
+            "out": "2026-09-25",
+            "ret": 5.041,
+            "gbp": 5085.258,
             "biggest_day_move": 0.24,
             "open": true
           },
           {
             "ticker": "CNX",
             "in": "2015-10-05",
-            "out": "2026-09-24",
-            "ret": 2.715,
-            "gbp": 4547.78,
+            "out": "2026-09-25",
+            "ret": 2.673,
+            "gbp": 4478.346,
             "biggest_day_move": 0.282,
             "open": true
           },
           {
             "ticker": "C",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 3.652,
-            "gbp": 3683.707,
+            "out": "2026-09-25",
+            "ret": 3.722,
+            "gbp": 3755.196,
             "biggest_day_move": 0.239,
             "open": true
           },
           {
             "ticker": "KEY",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 3.575,
-            "gbp": 3606.322,
+            "out": "2026-09-25",
+            "ret": 3.664,
+            "gbp": 3696.503,
             "biggest_day_move": 0.376,
             "open": true
           }
@@ -4377,32 +4382,32 @@
           {
             "ticker": "GNW",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": -0.403,
-            "gbp": -406.744,
+            "out": "2026-09-25",
+            "ret": -0.409,
+            "gbp": -412.749,
             "biggest_day_move": 0.625,
             "open": true
           },
           {
             "ticker": "PCG",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": -0.611,
-            "gbp": -616.067,
+            "out": "2026-09-25",
+            "ret": -0.607,
+            "gbp": -611.885,
             "biggest_day_move": 1.099,
             "open": true
           },
           {
             "ticker": "KHC",
             "in": "2018-03-15",
-            "out": "2026-09-24",
-            "ret": -0.444,
-            "gbp": -1186.686,
+            "out": "2026-09-25",
+            "ret": -0.449,
+            "gbp": -1199.054,
             "biggest_day_move": 0.379,
             "open": true
           }
         ],
-        "net_trading_gain_gbp": 32800,
+        "net_trading_gain_gbp": 32884,
         "share_of_gain_from_best_3": 0.46,
         "suspect_price_jumps": [
           "PCG 2010-03-15",
@@ -4417,45 +4422,45 @@
           {
             "ticker": "HIG",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 5.507,
-            "gbp": 5684.573,
+            "out": "2026-09-25",
+            "ret": 5.42,
+            "gbp": 5594.169,
             "biggest_day_move": 0.277,
             "open": true
           },
           {
             "ticker": "RF",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 4.96,
-            "gbp": 5119.55,
+            "out": "2026-09-25",
+            "ret": 5.041,
+            "gbp": 5203.081,
             "biggest_day_move": 0.24,
             "open": true
           },
           {
             "ticker": "CNX",
             "in": "2015-10-05",
-            "out": "2026-09-24",
-            "ret": 2.715,
-            "gbp": 4473.398,
+            "out": "2026-09-25",
+            "ret": 2.673,
+            "gbp": 4405.099,
             "biggest_day_move": 0.282,
             "open": true
           },
           {
             "ticker": "C",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 3.652,
-            "gbp": 3769.057,
+            "out": "2026-09-25",
+            "ret": 3.722,
+            "gbp": 3842.202,
             "biggest_day_move": 0.239,
             "open": true
           },
           {
             "ticker": "KEY",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 3.575,
-            "gbp": 3689.878,
+            "out": "2026-09-25",
+            "ret": 3.664,
+            "gbp": 3782.149,
             "biggest_day_move": 0.376,
             "open": true
           }
@@ -4473,23 +4478,23 @@
           {
             "ticker": "GNW",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": -0.403,
-            "gbp": -416.168,
+            "out": "2026-09-25",
+            "ret": -0.409,
+            "gbp": -422.312,
             "biggest_day_move": 0.625,
             "open": true
           },
           {
             "ticker": "PCG",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": -0.611,
-            "gbp": -630.34,
+            "out": "2026-09-25",
+            "ret": -0.607,
+            "gbp": -626.062,
             "biggest_day_move": 1.099,
             "open": true
           }
         ],
-        "net_trading_gain_gbp": 33660,
+        "net_trading_gain_gbp": 33834,
         "share_of_gain_from_best_3": 0.45,
         "suspect_price_jumps": [
           "PCG 2010-03-15",
@@ -4560,7 +4565,7 @@
       },
       "money_free": {
         "all": {
-          "gbp_from_10k": 77653,
+          "gbp_from_10k": 77654,
           "spy_gbp_from_10k": 92861,
           "cagr": 0.1318,
           "spy_cagr": 0.1441,
@@ -4588,47 +4593,47 @@
       "turnover": {
         "best_trades": [
           {
-            "ticker": "GWW",
+            "ticker": "UNH",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 14.475,
-            "gbp": 14602.355,
-            "biggest_day_move": 0.185,
+            "out": "2026-09-25",
+            "ret": 14.133,
+            "gbp": 14257.259,
+            "biggest_day_move": 0.288,
             "open": true
           },
           {
-            "ticker": "UNH",
+            "ticker": "GWW",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 14.038,
-            "gbp": 14161.179,
-            "biggest_day_move": 0.288,
+            "out": "2026-09-25",
+            "ret": 14.083,
+            "gbp": 14206.579,
+            "biggest_day_move": 0.185,
             "open": true
           },
           {
             "ticker": "WMT",
             "in": "2010-04-20",
-            "out": "2026-09-24",
-            "ret": 7.321,
-            "gbp": 7508.066,
+            "out": "2026-09-25",
+            "ret": 7.293,
+            "gbp": 7479.713,
             "biggest_day_move": 0.128,
             "open": true
           },
           {
             "ticker": "HPQ",
             "in": "2014-03-12",
-            "out": "2026-09-24",
-            "ret": 2.578,
-            "gbp": 5474.279,
+            "out": "2026-09-25",
+            "ret": 2.504,
+            "gbp": 5317.383,
             "biggest_day_move": 0.209,
             "open": true
           },
           {
             "ticker": "GPC",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 4.19,
-            "gbp": 4227.228,
+            "out": "2026-09-25",
+            "ret": 4.227,
+            "gbp": 4264.252,
             "biggest_day_move": 0.265,
             "open": true
           }
@@ -4639,16 +4644,16 @@
             "in": "2010-03-15",
             "out": "2016-03-07",
             "ret": 1.6,
-            "gbp": 1613.855,
+            "gbp": 1613.856,
             "biggest_day_move": 0.084,
             "open": false
           },
           {
             "ticker": "NKE",
             "in": "2010-08-05",
-            "out": "2026-09-24",
+            "out": "2026-09-25",
             "ret": 1.422,
-            "gbp": 1412.212,
+            "gbp": 1412.211,
             "biggest_day_move": 0.25,
             "open": true
           },
@@ -4657,12 +4662,12 @@
             "in": "2010-07-08",
             "out": "2021-11-01",
             "ret": 1.246,
-            "gbp": 1179.687,
+            "gbp": 1179.688,
             "biggest_day_move": 0.252,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 61616,
+        "net_trading_gain_gbp": 61221,
         "share_of_gain_from_best_3": 0.59,
         "suspect_price_jumps": [],
         "trades_per_year": 0.9,
@@ -4672,47 +4677,47 @@
       "turnover_free": {
         "best_trades": [
           {
-            "ticker": "GWW",
+            "ticker": "UNH",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 14.475,
-            "gbp": 14940.683,
-            "biggest_day_move": 0.185,
+            "out": "2026-09-25",
+            "ret": 14.133,
+            "gbp": 14587.592,
+            "biggest_day_move": 0.288,
             "open": true
           },
           {
-            "ticker": "UNH",
+            "ticker": "GWW",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 14.038,
-            "gbp": 14489.286,
-            "biggest_day_move": 0.288,
+            "out": "2026-09-25",
+            "ret": 14.083,
+            "gbp": 14535.737,
+            "biggest_day_move": 0.185,
             "open": true
           },
           {
             "ticker": "WMT",
             "in": "2010-04-20",
-            "out": "2026-09-24",
-            "ret": 7.321,
-            "gbp": 7809.022,
+            "out": "2026-09-25",
+            "ret": 7.293,
+            "gbp": 7779.533,
             "biggest_day_move": 0.128,
             "open": true
           },
           {
             "ticker": "HPQ",
             "in": "2014-03-12",
-            "out": "2026-09-24",
-            "ret": 2.578,
-            "gbp": 5748.515,
+            "out": "2026-09-25",
+            "ret": 2.504,
+            "gbp": 5583.758,
             "biggest_day_move": 0.209,
             "open": true
           },
           {
             "ticker": "GPC",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 4.19,
-            "gbp": 4325.17,
+            "out": "2026-09-25",
+            "ret": 4.227,
+            "gbp": 4363.052,
             "biggest_day_move": 0.265,
             "open": true
           }
@@ -4723,16 +4728,16 @@
             "in": "2010-03-15",
             "out": "2016-03-07",
             "ret": 1.6,
-            "gbp": 1651.247,
+            "gbp": 1651.248,
             "biggest_day_move": 0.084,
             "open": false
           },
           {
             "ticker": "NKE",
             "in": "2010-08-05",
-            "out": "2026-09-24",
+            "out": "2026-09-25",
             "ret": 1.422,
-            "gbp": 1483.945,
+            "gbp": 1483.944,
             "biggest_day_move": 0.25,
             "open": true
           },
@@ -4741,13 +4746,13 @@
             "in": "2010-07-08",
             "out": "2021-11-01",
             "ret": 1.246,
-            "gbp": 1236.041,
+            "gbp": 1236.042,
             "biggest_day_move": 0.252,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 63647,
-        "share_of_gain_from_best_3": 0.59,
+        "net_trading_gain_gbp": 63240,
+        "share_of_gain_from_best_3": 0.58,
         "suspect_price_jumps": [],
         "trades_per_year": 0.9,
         "median_hold_days": 2181,
@@ -4760,24 +4765,24 @@
       "prediction": {
         "all": {
           "ic_1m": 0.0132,
-          "t_1m": 1.06,
+          "t_1m": 1.07,
           "ic_12m": 0.0489,
           "t_12m": 1.04,
           "top10_12m": 0.1617,
-          "bot10_12m": 0.1486,
+          "bot10_12m": 0.1487,
           "all_12m": 0.1526
         },
         "first": {
           "ic_1m": 0.0228,
-          "t_1m": 1.35,
-          "ic_12m": 0.0671,
+          "t_1m": 1.36,
+          "ic_12m": 0.0672,
           "t_12m": 1.02,
-          "top10_12m": 0.1773,
-          "bot10_12m": 0.1178,
+          "top10_12m": 0.1772,
+          "bot10_12m": 0.118,
           "all_12m": 0.1624
         },
         "second": {
-          "ic_1m": 0.0037,
+          "ic_1m": 0.0038,
           "t_1m": 0.21,
           "ic_12m": 0.028,
           "t_12m": 0.42,
@@ -4788,25 +4793,25 @@
       },
       "money_costs": {
         "all": {
-          "gbp_from_10k": 45383,
+          "gbp_from_10k": 45228,
           "spy_gbp_from_10k": 92861,
-          "cagr": 0.0956,
+          "cagr": 0.0954,
           "spy_cagr": 0.1441,
           "worst": -0.376,
           "spy_worst": -0.291
         },
         "first": {
-          "gbp_from_10k": 29094,
+          "gbp_from_10k": 29017,
           "spy_gbp_from_10k": 28727,
-          "cagr": 0.1385,
+          "cagr": 0.1381,
           "spy_cagr": 0.1368,
           "worst": -0.229,
           "spy_worst": -0.153
         },
         "second": {
-          "gbp_from_10k": 15574,
+          "gbp_from_10k": 15562,
           "spy_gbp_from_10k": 32002,
-          "cagr": 0.0548,
+          "cagr": 0.0547,
           "spy_cagr": 0.1505,
           "worst": -0.376,
           "spy_worst": -0.291
@@ -4814,25 +4819,25 @@
       },
       "money_free": {
         "all": {
-          "gbp_from_10k": 61683,
+          "gbp_from_10k": 70858,
           "spy_gbp_from_10k": 92861,
-          "cagr": 0.1161,
+          "cagr": 0.1255,
           "spy_cagr": 0.1441,
           "worst": -0.3,
           "spy_worst": -0.291
         },
         "first": {
-          "gbp_from_10k": 34914,
+          "gbp_from_10k": 34664,
           "spy_gbp_from_10k": 28727,
-          "cagr": 0.164,
+          "cagr": 0.163,
           "spy_cagr": 0.1368,
-          "worst": -0.23,
+          "worst": -0.229,
           "spy_worst": -0.153
         },
         "second": {
-          "gbp_from_10k": 17767,
+          "gbp_from_10k": 20558,
           "spy_gbp_from_10k": 32002,
-          "cagr": 0.0717,
+          "cagr": 0.0907,
           "spy_cagr": 0.1505,
           "worst": -0.3,
           "spy_worst": -0.291
@@ -4844,9 +4849,9 @@
           {
             "ticker": "FAST",
             "in": "2010-06-02",
-            "out": "2026-09-24",
-            "ret": 10.794,
-            "gbp": 10106.076,
+            "out": "2026-09-25",
+            "ret": 10.765,
+            "gbp": 10051.544,
             "biggest_day_move": 0.172,
             "open": true
           },
@@ -4855,16 +4860,16 @@
             "in": "2010-06-30",
             "out": "2022-11-28",
             "ret": 11.222,
-            "gbp": 9709.075,
+            "gbp": 9681.399,
             "biggest_day_move": 0.23,
             "open": false
           },
           {
             "ticker": "SBUX",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 9.442,
-            "gbp": 9524.774,
+            "out": "2026-09-25",
+            "ret": 9.592,
+            "gbp": 9676.279,
             "biggest_day_move": 0.245,
             "open": true
           },
@@ -4873,27 +4878,27 @@
             "in": "2012-09-04",
             "out": "2021-04-14",
             "ret": 2.947,
-            "gbp": 3828.313,
+            "gbp": 3817.886,
             "biggest_day_move": 0.252,
             "open": false
           },
           {
-            "ticker": "EL",
-            "in": "2011-12-08",
-            "out": "2023-08-31",
-            "ret": 2.283,
-            "gbp": 2509.6,
-            "biggest_day_move": 0.21,
-            "open": false
+            "ticker": "TROW",
+            "in": "2010-03-15",
+            "out": "2026-09-25",
+            "ret": 2.485,
+            "gbp": 2506.797,
+            "biggest_day_move": 0.182,
+            "open": true
           }
         ],
         "worst_trades": [
           {
             "ticker": "UNH",
             "in": "2022-11-28",
-            "out": "2026-09-24",
-            "ret": -0.24,
-            "gbp": -969.923,
+            "out": "2026-09-25",
+            "ret": -0.235,
+            "gbp": -947.98,
             "biggest_day_move": 0.288,
             "open": true
           },
@@ -4902,7 +4907,7 @@
             "in": "2021-04-14",
             "out": "2022-02-17",
             "ret": -0.394,
-            "gbp": -1875.311,
+            "gbp": -1870.557,
             "biggest_day_move": 0.171,
             "open": false
           },
@@ -4911,13 +4916,13 @@
             "in": "2022-03-11",
             "out": "2025-11-17",
             "ret": -0.732,
-            "gbp": -2961.084,
+            "gbp": -2952.801,
             "biggest_day_move": 0.111,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 33469,
-        "share_of_gain_from_best_3": 0.88,
+        "net_trading_gain_gbp": 33679,
+        "share_of_gain_from_best_3": 0.87,
         "suspect_price_jumps": [
           "NFLX 2011-04-07"
         ],
@@ -4930,18 +4935,18 @@
           {
             "ticker": "UNH",
             "in": "2011-11-23",
-            "out": "2026-09-24",
-            "ret": 9.989,
-            "gbp": 11076.129,
+            "out": "2026-09-25",
+            "ret": 10.058,
+            "gbp": 11123.441,
             "biggest_day_move": 0.288,
             "open": true
           },
           {
             "ticker": "FAST",
             "in": "2010-06-02",
-            "out": "2026-09-24",
-            "ret": 10.794,
-            "gbp": 10552.593,
+            "out": "2026-09-25",
+            "ret": 10.765,
+            "gbp": 10499.486,
             "biggest_day_move": 0.172,
             "open": true
           },
@@ -4950,27 +4955,27 @@
             "in": "2010-06-30",
             "out": "2022-11-28",
             "ret": 11.222,
-            "gbp": 10256.449,
+            "gbp": 10230.231,
             "biggest_day_move": 0.23,
             "open": false
           },
           {
             "ticker": "SBUX",
             "in": "2010-03-15",
-            "out": "2026-09-24",
-            "ret": 9.442,
-            "gbp": 9745.458,
+            "out": "2026-09-25",
+            "ret": 9.592,
+            "gbp": 9900.473,
             "biggest_day_move": 0.245,
             "open": true
           },
           {
-            "ticker": "EL",
-            "in": "2011-12-08",
-            "out": "2023-08-31",
-            "ret": 2.283,
-            "gbp": 2700.177,
-            "biggest_day_move": 0.21,
-            "open": false
+            "ticker": "NVDA",
+            "in": "2024-04-08",
+            "out": "2026-09-25",
+            "ret": 1.59,
+            "gbp": 9388.797,
+            "biggest_day_move": 0.204,
+            "open": true
           }
         ],
         "worst_trades": [
@@ -4979,37 +4984,37 @@
             "in": "2017-12-01",
             "out": "2019-09-11",
             "ret": -0.292,
-            "gbp": -929.744,
+            "gbp": -922.973,
             "biggest_day_move": 0.37,
+            "open": false
+          },
+          {
+            "ticker": "NFLX",
+            "in": "2011-04-07",
+            "out": "2011-11-23",
+            "ret": -0.707,
+            "gbp": -923.258,
+            "biggest_day_move": 0.536,
             "open": false
           },
           {
             "ticker": "ELV",
             "in": "2022-11-28",
-            "out": "2026-09-24",
-            "ret": -0.176,
-            "gbp": -1017.469,
+            "out": "2026-09-25",
+            "ret": -0.178,
+            "gbp": -1023.96,
             "biggest_day_move": 0.167,
             "open": true
-          },
-          {
-            "ticker": "BLDR",
-            "in": "2024-01-25",
-            "out": "2025-04-07",
-            "ret": -0.3,
-            "gbp": -1750.501,
-            "biggest_day_move": 0.235,
-            "open": false
           }
         ],
-        "net_trading_gain_gbp": 47068,
-        "share_of_gain_from_best_3": 0.68,
+        "net_trading_gain_gbp": 57470,
+        "share_of_gain_from_best_3": 0.55,
         "suspect_price_jumps": [
           "NFLX 2011-04-07"
         ],
-        "trades_per_year": 2.5,
-        "median_hold_days": 644,
-        "still_held": 8
+        "trades_per_year": 2.4,
+        "median_hold_days": 750,
+        "still_held": 7
       },
       "predicts": false,
       "passes": false
@@ -5017,7 +5022,7 @@
     "value_momentum": {
       "prediction": {
         "all": {
-          "ic_1m": 0.0037,
+          "ic_1m": 0.0036,
           "t_1m": 0.39,
           "ic_12m": 0.0095,
           "t_12m": 0.35,
@@ -5026,11 +5031,11 @@
           "all_12m": 0.1448
         },
         "first": {
-          "ic_1m": 0.0006,
+          "ic_1m": 0.0005,
           "t_1m": 0.04,
           "ic_12m": 0.012,
           "t_12m": 0.35,
-          "top10_12m": 0.1307,
+          "top10_12m": 0.1309,
           "bot10_12m": 0.1513,
           "all_12m": 0.1509
         },
@@ -5102,9 +5107,9 @@
           {
             "ticker": "WDC",
             "in": "2025-08-29",
-            "out": "2026-09-24",
-            "ret": 4.686,
-            "gbp": 12884.508,
+            "out": "2026-09-25",
+            "ret": 4.703,
+            "gbp": 12931.897,
             "biggest_day_move": 0.168,
             "open": true
           },
@@ -5113,7 +5118,7 @@
             "in": "2024-02-23",
             "out": "2026-06-03",
             "ret": 1.688,
-            "gbp": 3630.386,
+            "gbp": 3630.39,
             "biggest_day_move": 0.262,
             "open": false
           },
@@ -5122,16 +5127,16 @@
             "in": "2020-03-18",
             "out": "2025-08-29",
             "ret": 3.798,
-            "gbp": 2634.555,
+            "gbp": 2634.557,
             "biggest_day_move": 0.213,
             "open": false
           },
           {
             "ticker": "SYF",
             "in": "2024-04-15",
-            "out": "2026-09-24",
-            "ret": 0.846,
-            "gbp": 1974.08,
+            "out": "2026-09-25",
+            "ret": 0.887,
+            "gbp": 2069.79,
             "biggest_day_move": 0.188,
             "open": true
           },
@@ -5140,7 +5145,7 @@
             "in": "2019-06-03",
             "out": "2023-04-24",
             "ret": 1.572,
-            "gbp": 1790.013,
+            "gbp": 1790.015,
             "biggest_day_move": 0.18,
             "open": false
           }
@@ -5151,7 +5156,7 @@
             "in": "2020-01-21",
             "out": "2020-05-21",
             "ret": -0.483,
-            "gbp": -655.949,
+            "gbp": -655.95,
             "biggest_day_move": 0.352,
             "open": false
           },
@@ -5160,7 +5165,7 @@
             "in": "2015-02-09",
             "out": "2015-09-21",
             "ret": -0.444,
-            "gbp": -663.416,
+            "gbp": -663.417,
             "biggest_day_move": 0.222,
             "open": false
           },
@@ -5169,13 +5174,13 @@
             "in": "2019-01-30",
             "out": "2020-04-30",
             "ret": -0.662,
-            "gbp": -799.884,
+            "gbp": -799.885,
             "biggest_day_move": 0.435,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 35721,
-        "share_of_gain_from_best_3": 0.54,
+        "net_trading_gain_gbp": 35897,
+        "share_of_gain_from_best_3": 0.53,
         "suspect_price_jumps": [],
         "trades_per_year": 9.1,
         "median_hold_days": 452,
@@ -5188,16 +5193,16 @@
             "in": "2022-05-31",
             "out": "2026-06-03",
             "ret": 2.216,
-            "gbp": 4521.853,
+            "gbp": 4521.858,
             "biggest_day_move": 0.262,
             "open": false
           },
           {
             "ticker": "SYF",
             "in": "2024-04-15",
-            "out": "2026-09-24",
-            "ret": 0.846,
-            "gbp": 2317.886,
+            "out": "2026-09-25",
+            "ret": 0.887,
+            "gbp": 2430.265,
             "biggest_day_move": 0.188,
             "open": true
           },
@@ -5206,27 +5211,27 @@
             "in": "2016-03-07",
             "out": "2020-01-21",
             "ret": 1.437,
-            "gbp": 2097.937,
+            "gbp": 2097.939,
             "biggest_day_move": 0.172,
             "open": false
           },
           {
             "ticker": "PHM",
             "in": "2023-04-24",
-            "out": "2026-09-24",
-            "ret": 0.907,
-            "gbp": 1858.392,
+            "out": "2026-09-25",
+            "ret": 0.929,
+            "gbp": 1903.919,
             "biggest_day_move": 0.115,
             "open": true
           },
           {
-            "ticker": "AJG",
-            "in": "2020-03-04",
-            "out": "2023-04-24",
-            "ret": 1.043,
-            "gbp": 1676.982,
-            "biggest_day_move": 0.18,
-            "open": false
+            "ticker": "UAL",
+            "in": "2025-03-31",
+            "out": "2026-09-25",
+            "ret": 0.651,
+            "gbp": 1677.656,
+            "biggest_day_move": 0.261,
+            "open": true
           }
         ],
         "worst_trades": [
@@ -5235,7 +5240,7 @@
             "in": "2020-01-21",
             "out": "2020-05-21",
             "ret": -0.483,
-            "gbp": -890.741,
+            "gbp": -890.742,
             "biggest_day_move": 0.352,
             "open": false
           },
@@ -5253,12 +5258,12 @@
             "in": "2019-01-30",
             "out": "2020-04-30",
             "ret": -0.662,
-            "gbp": -1026.07,
+            "gbp": -1026.071,
             "biggest_day_move": 0.435,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 23554,
+        "net_trading_gain_gbp": 23748,
         "share_of_gain_from_best_3": 0.38,
         "suspect_price_jumps": [],
         "trades_per_year": 9.6,
@@ -5394,7 +5399,7 @@
             "in": "2007-11-14",
             "out": "2008-02-20",
             "ret": 0.501,
-            "gbp": 422.058,
+            "gbp": 422.057,
             "biggest_day_move": 0.112,
             "open": false
           }
@@ -5442,9 +5447,9 @@
           {
             "ticker": "DELL",
             "in": "2026-04-28",
-            "out": "2026-09-24",
-            "ret": 1.663,
-            "gbp": 22438.331,
+            "out": "2026-09-25",
+            "ret": 1.738,
+            "gbp": 23455.185,
             "biggest_day_move": 0.328,
             "open": true
           },
@@ -5453,7 +5458,7 @@
             "in": "2026-02-06",
             "out": "2026-08-14",
             "ret": 1.273,
-            "gbp": 16434.909,
+            "gbp": 16434.911,
             "biggest_day_move": 0.139,
             "open": false
           },
@@ -5462,7 +5467,7 @@
             "in": "2025-11-17",
             "out": "2026-05-19",
             "ret": 0.922,
-            "gbp": 10528.885,
+            "gbp": 10528.887,
             "biggest_day_move": 0.241,
             "open": false
           },
@@ -5471,7 +5476,7 @@
             "in": "2024-05-06",
             "out": "2025-02-07",
             "ret": 1.02,
-            "gbp": 8722.264,
+            "gbp": 8722.266,
             "biggest_day_move": 0.124,
             "open": false
           },
@@ -5500,7 +5505,7 @@
             "in": "2026-05-27",
             "out": "2026-08-28",
             "ret": -0.256,
-            "gbp": -3939.572,
+            "gbp": -3939.573,
             "biggest_day_move": 0.107,
             "open": false
           },
@@ -5509,18 +5514,814 @@
             "in": "2025-05-28",
             "out": "2026-05-27",
             "ret": -0.549,
-            "gbp": -6383.295,
+            "gbp": -6383.296,
             "biggest_day_move": 0.143,
             "open": false
           }
         ],
-        "net_trading_gain_gbp": 159255,
-        "share_of_gain_from_best_3": 0.31,
+        "net_trading_gain_gbp": 159782,
+        "share_of_gain_from_best_3": 0.32,
         "suspect_price_jumps": [
           "HBAN 2008-08-04"
         ],
         "trades_per_year": 41.9,
         "median_hold_days": 123,
+        "still_held": 8
+      },
+      "predicts": false,
+      "passes": false
+    },
+    "rise_weak_peers": {
+      "prediction": {
+        "all": {
+          "ic_1m": 0.0078,
+          "t_1m": 1.01,
+          "ic_12m": 0.0369,
+          "t_12m": 1.36,
+          "top10_12m": 0.1754,
+          "bot10_12m": 0.1294,
+          "all_12m": 0.1319
+        },
+        "first": {
+          "ic_1m": -0.0042,
+          "t_1m": -0.37,
+          "ic_12m": 0.0405,
+          "t_12m": 1.1,
+          "top10_12m": 0.1689,
+          "bot10_12m": 0.1162,
+          "all_12m": 0.1182
+        },
+        "second": {
+          "ic_1m": 0.0195,
+          "t_1m": 1.89,
+          "ic_12m": 0.0324,
+          "t_12m": 0.82,
+          "top10_12m": 0.1826,
+          "bot10_12m": 0.1436,
+          "all_12m": 0.1468
+        }
+      },
+      "money_costs": {
+        "all": {
+          "gbp_from_10k": 62000,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.0635,
+          "spy_cagr": 0.0986,
+          "worst": -0.837,
+          "spy_worst": -0.547
+        },
+        "first": {
+          "gbp_from_10k": 10817,
+          "spy_gbp_from_10k": 19499,
+          "cagr": 0.0053,
+          "spy_cagr": 0.0461,
+          "worst": -0.837,
+          "spy_worst": -0.547
+        },
+        "second": {
+          "gbp_from_10k": 53132,
+          "spy_gbp_from_10k": 78990,
+          "cagr": 0.1195,
+          "spy_cagr": 0.1499,
+          "worst": -0.588,
+          "spy_worst": -0.317
+        }
+      },
+      "money_free": {
+        "all": {
+          "gbp_from_10k": 416546,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.1341,
+          "spy_cagr": 0.0986,
+          "worst": -0.81,
+          "spy_worst": -0.547
+        },
+        "first": {
+          "gbp_from_10k": 34220,
+          "spy_gbp_from_10k": 19499,
+          "cagr": 0.0866,
+          "spy_cagr": 0.0461,
+          "worst": -0.81,
+          "spy_worst": -0.547
+        },
+        "second": {
+          "gbp_from_10k": 112872,
+          "spy_gbp_from_10k": 78990,
+          "cagr": 0.1779,
+          "spy_cagr": 0.1499,
+          "worst": -0.534,
+          "spy_worst": -0.317
+        }
+      },
+      "period": "1997\u20132026; 2011",
+      "turnover": {
+        "best_trades": [
+          {
+            "ticker": "WBD",
+            "in": "2025-03-05",
+            "out": "2026-09-25",
+            "ret": 1.7,
+            "gbp": 5919.454,
+            "biggest_day_move": 0.289,
+            "open": true
+          },
+          {
+            "ticker": "ALB",
+            "in": "2025-09-03",
+            "out": "2026-03-04",
+            "ret": 1.119,
+            "gbp": 4098.628,
+            "biggest_day_move": 0.13,
+            "open": false
+          },
+          {
+            "ticker": "HII",
+            "in": "2025-05-01",
+            "out": "2026-03-04",
+            "ret": 0.957,
+            "gbp": 2943.376,
+            "biggest_day_move": 0.118,
+            "open": false
+          },
+          {
+            "ticker": "NFLX",
+            "in": "2012-12-26",
+            "out": "2013-08-22",
+            "ret": 1.976,
+            "gbp": 2894.694,
+            "biggest_day_move": 0.422,
+            "open": false
+          },
+          {
+            "ticker": "WELL",
+            "in": "2023-10-03",
+            "out": "2025-05-01",
+            "ret": 0.963,
+            "gbp": 2862.729,
+            "biggest_day_move": 0.07,
+            "open": false
+          }
+        ],
+        "worst_trades": [
+          {
+            "ticker": "THC",
+            "in": "2007-12-24",
+            "out": "2008-11-20",
+            "ret": -0.801,
+            "gbp": -1715.09,
+            "biggest_day_move": 0.579,
+            "open": false
+          },
+          {
+            "ticker": "FMCC",
+            "in": "2008-04-28",
+            "out": "2010-01-26",
+            "ret": -0.955,
+            "gbp": -1949.788,
+            "biggest_day_move": 4.795,
+            "open": false
+          },
+          {
+            "ticker": "PCG",
+            "in": "2018-12-03",
+            "out": "2019-10-25",
+            "ret": -0.816,
+            "gbp": -2275.254,
+            "biggest_day_move": 1.099,
+            "open": false
+          }
+        ],
+        "net_trading_gain_gbp": 87006,
+        "share_of_gain_from_best_3": 0.15,
+        "suspect_price_jumps": [
+          "PTC 1998-05-19",
+          "EP 2000-12-13",
+          "MBI 2008-02-29",
+          "THC 2007-12-24",
+          "MTG 2008-08-20",
+          "FHN 2008-08-13",
+          "LNC 2009-01-28",
+          "FMCC 2008-04-28",
+          "PCG 2018-12-03",
+          "OKE 2018-05-30"
+        ],
+        "trades_per_year": 28.8,
+        "median_hold_days": 195,
+        "still_held": 9
+      },
+      "turnover_free": {
+        "best_trades": [
+          {
+            "ticker": "WBD",
+            "in": "2025-03-05",
+            "out": "2026-09-25",
+            "ret": 1.7,
+            "gbp": 37631.332,
+            "biggest_day_move": 0.289,
+            "open": true
+          },
+          {
+            "ticker": "ALB",
+            "in": "2025-09-03",
+            "out": "2026-03-04",
+            "ret": 1.119,
+            "gbp": 27478.789,
+            "biggest_day_move": 0.13,
+            "open": false
+          },
+          {
+            "ticker": "IRM",
+            "in": "2023-10-03",
+            "out": "2024-10-29",
+            "ret": 1.301,
+            "gbp": 22061.806,
+            "biggest_day_move": 0.068,
+            "open": false
+          },
+          {
+            "ticker": "HII",
+            "in": "2025-05-01",
+            "out": "2026-03-04",
+            "ret": 0.957,
+            "gbp": 19132.215,
+            "biggest_day_move": 0.118,
+            "open": false
+          },
+          {
+            "ticker": "APA",
+            "in": "2025-09-03",
+            "out": "2026-04-09",
+            "ret": 0.754,
+            "gbp": 18511.596,
+            "biggest_day_move": 0.109,
+            "open": false
+          }
+        ],
+        "worst_trades": [
+          {
+            "ticker": "MRNA",
+            "in": "2024-05-30",
+            "out": "2024-09-10",
+            "ret": -0.477,
+            "gbp": -10089.251,
+            "biggest_day_move": 0.266,
+            "open": false
+          },
+          {
+            "ticker": "LULU",
+            "in": "2025-02-04",
+            "out": "2025-06-23",
+            "ret": -0.458,
+            "gbp": -10319.469,
+            "biggest_day_move": 0.247,
+            "open": false
+          },
+          {
+            "ticker": "PCG",
+            "in": "2018-12-03",
+            "out": "2019-10-25",
+            "ret": -0.816,
+            "gbp": -10840.438,
+            "biggest_day_move": 1.099,
+            "open": false
+          }
+        ],
+        "net_trading_gain_gbp": 392874,
+        "share_of_gain_from_best_3": 0.22,
+        "suspect_price_jumps": [
+          "PTC 1998-05-19",
+          "EP 2000-12-13",
+          "MBI 2008-02-29",
+          "THC 2007-12-24",
+          "FHN 2008-08-13",
+          "LNC 2009-01-28",
+          "FMCC 2008-04-28",
+          "PCG 2018-12-03",
+          "OKE 2018-05-30"
+        ],
+        "trades_per_year": 29.0,
+        "median_hold_days": 199,
+        "still_held": 9
+      },
+      "predicts": false,
+      "passes": false
+    },
+    "rise3m_weak_peers": {
+      "prediction": {
+        "all": {
+          "ic_1m": -0.0018,
+          "t_1m": -0.21,
+          "ic_12m": 0.0287,
+          "t_12m": 1.04,
+          "top10_12m": 0.1519,
+          "bot10_12m": 0.1557,
+          "all_12m": 0.1319
+        },
+        "first": {
+          "ic_1m": -0.009,
+          "t_1m": -0.73,
+          "ic_12m": 0.0317,
+          "t_12m": 0.58,
+          "top10_12m": 0.1397,
+          "bot10_12m": 0.1519,
+          "all_12m": 0.1182
+        },
+        "second": {
+          "ic_1m": 0.0058,
+          "t_1m": 0.47,
+          "ic_12m": 0.0254,
+          "t_12m": 0.74,
+          "top10_12m": 0.1654,
+          "bot10_12m": 0.1596,
+          "all_12m": 0.1468
+        }
+      },
+      "money_costs": {
+        "all": {
+          "gbp_from_10k": 58,
+          "spy_gbp_from_10k": 162403,
+          "cagr": -0.1595,
+          "spy_cagr": 0.0986,
+          "worst": -0.998,
+          "spy_worst": -0.547
+        },
+        "first": {
+          "gbp_from_10k": 148,
+          "spy_gbp_from_10k": 19499,
+          "cagr": -0.2477,
+          "spy_cagr": 0.0461,
+          "worst": -0.99,
+          "spy_worst": -0.547
+        },
+        "second": {
+          "gbp_from_10k": 3701,
+          "spy_gbp_from_10k": 78990,
+          "cagr": -0.065,
+          "spy_cagr": 0.1499,
+          "worst": -0.892,
+          "spy_worst": -0.317
+        }
+      },
+      "money_free": {
+        "all": {
+          "gbp_from_10k": 259099,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.1161,
+          "spy_cagr": 0.0986,
+          "worst": -0.631,
+          "spy_worst": -0.547
+        },
+        "first": {
+          "gbp_from_10k": 35540,
+          "spy_gbp_from_10k": 19499,
+          "cagr": 0.0894,
+          "spy_cagr": 0.0461,
+          "worst": -0.631,
+          "spy_worst": -0.547
+        },
+        "second": {
+          "gbp_from_10k": 67026,
+          "spy_gbp_from_10k": 78990,
+          "cagr": 0.1372,
+          "spy_cagr": 0.1499,
+          "worst": -0.428,
+          "spy_worst": -0.317
+        }
+      },
+      "period": "1997\u20132026; 2011",
+      "turnover": {
+        "best_trades": [
+          {
+            "ticker": "MU",
+            "in": "1998-10-16",
+            "out": "1999-01-13",
+            "ret": 1.23,
+            "gbp": 1498.631,
+            "biggest_day_move": 0.128,
+            "open": false
+          },
+          {
+            "ticker": "UNH",
+            "in": "2000-01-18",
+            "out": "2001-01-12",
+            "ret": 0.838,
+            "gbp": 1070.786,
+            "biggest_day_move": 0.088,
+            "open": false
+          },
+          {
+            "ticker": "LOW",
+            "in": "1997-12-23",
+            "out": "1998-07-16",
+            "ret": 0.832,
+            "gbp": 909.69,
+            "biggest_day_move": 0.056,
+            "open": false
+          },
+          {
+            "ticker": "EXC",
+            "in": "2000-02-15",
+            "out": "2000-12-13",
+            "ret": 0.647,
+            "gbp": 783.332,
+            "biggest_day_move": 0.076,
+            "open": false
+          },
+          {
+            "ticker": "INTC",
+            "in": "1998-08-13",
+            "out": "1999-01-13",
+            "ret": 0.631,
+            "gbp": 780.057,
+            "biggest_day_move": 0.082,
+            "open": false
+          }
+        ],
+        "worst_trades": [
+          {
+            "ticker": "CAR",
+            "in": "2001-08-17",
+            "out": "2001-10-05",
+            "ret": -0.351,
+            "gbp": -455.623,
+            "biggest_day_move": 0.233,
+            "open": false
+          },
+          {
+            "ticker": "SANM",
+            "in": "2002-01-09",
+            "out": "2002-02-14",
+            "ret": -0.423,
+            "gbp": -468.646,
+            "biggest_day_move": 0.122,
+            "open": false
+          },
+          {
+            "ticker": "EIX",
+            "in": "1999-11-04",
+            "out": "2000-03-22",
+            "ret": -0.449,
+            "gbp": -600.244,
+            "biggest_day_move": 0.429,
+            "open": false
+          }
+        ],
+        "net_trading_gain_gbp": 9608,
+        "share_of_gain_from_best_3": 0.36,
+        "suspect_price_jumps": [
+          "FHN 2008-09-18",
+          "EP 2009-03-12"
+        ],
+        "trades_per_year": 21.8,
+        "median_hold_days": 123,
+        "still_held": 0
+      },
+      "turnover_free": {
+        "best_trades": [
+          {
+            "ticker": "RCL",
+            "in": "2022-10-11",
+            "out": "2023-07-31",
+            "ret": 1.681,
+            "gbp": 22287.885,
+            "biggest_day_move": 0.115,
+            "open": false
+          },
+          {
+            "ticker": "AMD",
+            "in": "2025-06-23",
+            "out": "2025-11-05",
+            "ret": 0.978,
+            "gbp": 21926.86,
+            "biggest_day_move": 0.237,
+            "open": false
+          },
+          {
+            "ticker": "T",
+            "in": "2023-10-31",
+            "out": "2025-04-02",
+            "ret": 0.965,
+            "gbp": 17286.828,
+            "biggest_day_move": 0.063,
+            "open": false
+          },
+          {
+            "ticker": "META",
+            "in": "2023-02-21",
+            "out": "2023-10-03",
+            "ret": 0.749,
+            "gbp": 12848.04,
+            "biggest_day_move": 0.139,
+            "open": false
+          },
+          {
+            "ticker": "DLR",
+            "in": "2023-07-31",
+            "out": "2024-10-29",
+            "ret": 0.531,
+            "gbp": 11002.717,
+            "biggest_day_move": 0.096,
+            "open": false
+          }
+        ],
+        "worst_trades": [
+          {
+            "ticker": "HAL",
+            "in": "2019-12-31",
+            "out": "2020-03-13",
+            "ret": -0.705,
+            "gbp": -8596.015,
+            "biggest_day_move": 0.604,
+            "open": false
+          },
+          {
+            "ticker": "MRNA",
+            "in": "2024-05-30",
+            "out": "2024-08-19",
+            "ret": -0.406,
+            "gbp": -8786.998,
+            "biggest_day_move": 0.266,
+            "open": false
+          },
+          {
+            "ticker": "APA",
+            "in": "2020-01-23",
+            "out": "2020-03-27",
+            "ret": -0.839,
+            "gbp": -10070.174,
+            "biggest_day_move": 1.168,
+            "open": false
+          }
+        ],
+        "net_trading_gain_gbp": 226206,
+        "share_of_gain_from_best_3": 0.27,
+        "suspect_price_jumps": [
+          "EP 2009-05-01",
+          "HAL 2019-12-31",
+          "APA 2020-01-23"
+        ],
+        "trades_per_year": 43.4,
+        "median_hold_days": 130,
+        "still_held": 9
+      },
+      "predicts": false,
+      "passes": false
+    },
+    "rise_weak_sector_LABELS": {
+      "prediction": {
+        "all": {
+          "ic_1m": 0.0038,
+          "t_1m": 0.52,
+          "ic_12m": 0.0381,
+          "t_12m": 1.58,
+          "top10_12m": 0.1897,
+          "bot10_12m": 0.1435,
+          "all_12m": 0.1459
+        },
+        "first": {
+          "ic_1m": -0.0049,
+          "t_1m": -0.46,
+          "ic_12m": 0.0354,
+          "t_12m": 1.09,
+          "top10_12m": 0.1809,
+          "bot10_12m": 0.1291,
+          "all_12m": 0.1299
+        },
+        "second": {
+          "ic_1m": 0.0123,
+          "t_1m": 1.27,
+          "ic_12m": 0.0404,
+          "t_12m": 1.08,
+          "top10_12m": 0.1991,
+          "bot10_12m": 0.1593,
+          "all_12m": 0.1635
+        }
+      },
+      "money_costs": {
+        "all": {
+          "gbp_from_10k": 221289,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.1102,
+          "spy_cagr": 0.0986,
+          "worst": -0.678,
+          "spy_worst": -0.547
+        },
+        "first": {
+          "gbp_from_10k": 17688,
+          "spy_gbp_from_10k": 19499,
+          "cagr": 0.0392,
+          "spy_cagr": 0.0461,
+          "worst": -0.678,
+          "spy_worst": -0.547
+        },
+        "second": {
+          "gbp_from_10k": 118831,
+          "spy_gbp_from_10k": 78990,
+          "cagr": 0.182,
+          "spy_cagr": 0.1499,
+          "worst": -0.334,
+          "spy_worst": -0.317
+        }
+      },
+      "money_free": {
+        "all": {
+          "gbp_from_10k": 796743,
+          "spy_gbp_from_10k": 162403,
+          "cagr": 0.1592,
+          "spy_cagr": 0.0986,
+          "worst": -0.658,
+          "spy_worst": -0.547
+        },
+        "first": {
+          "gbp_from_10k": 39540,
+          "spy_gbp_from_10k": 19499,
+          "cagr": 0.0972,
+          "spy_cagr": 0.0461,
+          "worst": -0.658,
+          "spy_worst": -0.547
+        },
+        "second": {
+          "gbp_from_10k": 191451,
+          "spy_gbp_from_10k": 78990,
+          "cagr": 0.2207,
+          "spy_cagr": 0.1499,
+          "worst": -0.333,
+          "spy_worst": -0.317
+        }
+      },
+      "period": "1997\u20132026; 2011",
+      "turnover": {
+        "best_trades": [
+          {
+            "ticker": "CEG",
+            "in": "2023-07-17",
+            "out": "2025-02-11",
+            "ret": 2.299,
+            "gbp": 32266.3,
+            "biggest_day_move": 0.263,
+            "open": false
+          },
+          {
+            "ticker": "META",
+            "in": "2023-01-06",
+            "out": "2023-11-14",
+            "ret": 1.587,
+            "gbp": 18300.933,
+            "biggest_day_move": 0.233,
+            "open": false
+          },
+          {
+            "ticker": "NRG",
+            "in": "2023-11-14",
+            "out": "2025-02-11",
+            "ret": 1.273,
+            "gbp": 17730.967,
+            "biggest_day_move": 0.153,
+            "open": false
+          },
+          {
+            "ticker": "MGM",
+            "in": "2020-04-20",
+            "out": "2021-03-11",
+            "ret": 1.898,
+            "gbp": 12067.147,
+            "biggest_day_move": 0.15,
+            "open": false
+          },
+          {
+            "ticker": "DVN",
+            "in": "2020-04-20",
+            "out": "2021-04-01",
+            "ret": 1.729,
+            "gbp": 10994.501,
+            "biggest_day_move": 0.16,
+            "open": false
+          }
+        ],
+        "worst_trades": [
+          {
+            "ticker": "MOS",
+            "in": "2025-05-15",
+            "out": "2025-11-26",
+            "ret": -0.291,
+            "gbp": -5756.109,
+            "biggest_day_move": 0.154,
+            "open": false
+          },
+          {
+            "ticker": "GNRC",
+            "in": "2021-10-27",
+            "out": "2022-02-07",
+            "ret": -0.427,
+            "gbp": -6099.234,
+            "biggest_day_move": 0.067,
+            "open": false
+          },
+          {
+            "ticker": "TSLA",
+            "in": "2022-04-05",
+            "out": "2022-11-08",
+            "ret": -0.474,
+            "gbp": -6365.676,
+            "biggest_day_move": 0.139,
+            "open": false
+          }
+        ],
+        "net_trading_gain_gbp": 249665,
+        "share_of_gain_from_best_3": 0.27,
+        "suspect_price_jumps": [
+          "STT 2008-02-22",
+          "OKE 2019-12-23"
+        ],
+        "trades_per_year": 22.6,
+        "median_hold_days": 242,
+        "still_held": 9
+      },
+      "turnover_free": {
+        "best_trades": [
+          {
+            "ticker": "CEG",
+            "in": "2023-07-17",
+            "out": "2025-02-11",
+            "ret": 2.299,
+            "gbp": 104350.464,
+            "biggest_day_move": 0.263,
+            "open": false
+          },
+          {
+            "ticker": "NEM",
+            "in": "2025-05-08",
+            "out": "2026-09-25",
+            "ret": 1.339,
+            "gbp": 85677.105,
+            "biggest_day_move": 0.13,
+            "open": true
+          },
+          {
+            "ticker": "NRG",
+            "in": "2023-11-14",
+            "out": "2025-02-11",
+            "ret": 1.273,
+            "gbp": 57852.052,
+            "biggest_day_move": 0.153,
+            "open": false
+          },
+          {
+            "ticker": "META",
+            "in": "2023-01-06",
+            "out": "2023-11-14",
+            "ret": 1.587,
+            "gbp": 57829.2,
+            "biggest_day_move": 0.233,
+            "open": false
+          },
+          {
+            "ticker": "APA",
+            "in": "2025-12-04",
+            "out": "2026-04-30",
+            "ret": 0.55,
+            "gbp": 38885.442,
+            "biggest_day_move": 0.109,
+            "open": false
+          }
+        ],
+        "worst_trades": [
+          {
+            "ticker": "GNRC",
+            "in": "2021-10-27",
+            "out": "2022-02-07",
+            "ret": -0.427,
+            "gbp": -18661.315,
+            "biggest_day_move": 0.067,
+            "open": false
+          },
+          {
+            "ticker": "MOS",
+            "in": "2025-05-15",
+            "out": "2025-11-26",
+            "ret": -0.291,
+            "gbp": -19119.578,
+            "biggest_day_move": 0.154,
+            "open": false
+          },
+          {
+            "ticker": "TSLA",
+            "in": "2022-04-05",
+            "out": "2022-11-08",
+            "ret": -0.474,
+            "gbp": -19724.89,
+            "biggest_day_move": 0.139,
+            "open": false
+          }
+        ],
+        "net_trading_gain_gbp": 740694,
+        "share_of_gain_from_best_3": 0.33,
+        "suspect_price_jumps": [
+          "STT 2008-02-22",
+          "OKE 2019-12-23"
+        ],
+        "trades_per_year": 22.7,
+        "median_hold_days": 239,
         "still_held": 8
       },
       "predicts": false,
