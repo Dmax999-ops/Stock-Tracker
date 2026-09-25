@@ -8,6 +8,11 @@ name: Factor screen
 
 on:
   workflow_dispatch:
+    inputs:
+      pot:
+        description: 'Pot size in GBP (e.g. 10000 or 100000)'
+        required: false
+        default: '10000'
   schedule:
     - cron: '0 8 1 * *'        # monthly, 1st at 08:00 UTC
 
@@ -47,23 +52,12 @@ jobs:
 
       - name: Run the factor screen
         if: always()
+        env:
+          POT_GBP: ${{ github.event.inputs.pot || '10000' }}
         run: python scripts/factor_screen.py
 
       - name: Commit
         if: always()
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          # add each file on its own: one missing file must not stop the other
-          for f in docs/FACTORS.md data/factor_screen.json data/fundamentals.parquet data/fundamentals_manifest.json; do
-            if [ -f "$f" ]; then git add "$f"; fi
-          done
-          if git diff --staged --quiet; then echo "no changes to commit"; exit 0; fi
-          git commit -m "factor screen $(date -u +%Y-%m-%d)"
-          for i in 1 2 3; do
-            git fetch origin main
-            git rebase --autostash origin/main || git rebase --abort || true
-            if git push origin HEAD:main; then echo "pushed on attempt $i"; exit 0; fi
-            echo "push rejected, retrying ($i/3)"; sleep 5
-          done
-          echo "could not push after 3 attempts"; exit 1
+          bash scripts/commit_push.sh "factor screen $(date -u +%Y-%m-%d)" \
+            docs/FACTORS*.md data/factor_screen*.json data/fundamentals.parquet data/fundamentals_manifest.json
