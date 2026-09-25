@@ -37,15 +37,6 @@ jobs:
       - name: Commit
         if: always()
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A docs/ data/
-          if git diff --staged --quiet; then echo "no changes to commit"; exit 0; fi
-          git commit -m "daily plan $(date -u +%Y-%m-%d)"
-          for i in 1 2 3; do
-            git fetch origin main
-            git rebase --autostash origin/main || git rebase --abort || true
-            if git push origin HEAD:main; then echo "pushed on attempt $i"; exit 0; fi
-            echo "push rejected, retrying ($i/3)"; sleep 5
-          done
-          echo "could not push after 3 attempts"; exit 1
+          bash scripts/commit_push.sh "daily plan $(date -u +%Y-%m-%d)" \
+            docs/PLAN.md docs/plan.json docs/plan_state.json docs/plan_error.json \
+            data/live_prices.csv
