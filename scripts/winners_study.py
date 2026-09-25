@@ -238,7 +238,10 @@ def combos(S: pd.DataFrame, feats: list[str], top_n=12) -> list[dict]:
                     "test_p_lose": float(g["loser"].mean() / bl_t) if len(g) else None,
                     "test_excess_12m": float(g["fwd_12m"].mean() - test["fwd_12m"].mean()) if len(g) else None,
                     "test_n": int(m.sum()),
+                    # held up = more winners than average, clearly more winners than
+                    # losers, AND a higher average return -- on years it never saw
                     "holds": bool(len(g) >= 100 and g["winner"].mean() / bw_t > 1.2
+                                  and (g["winner"].mean() / bw_t) > 1.2 * (g["loser"].mean() / bl_t)
                                   and g["fwd_12m"].mean() > test["fwd_12m"].mean())})
     return out
 
