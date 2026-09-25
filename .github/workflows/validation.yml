@@ -1,0 +1,54 @@
+name: Validation
+
+# Can we trust the live strategy? Trading delay, every check day, double costs,
+# every 5-year period, 2,000 simulated 10-year futures, and whether re-selecting
+# the strategy each year works on unseen years.
+# Results: docs/VALIDATION.md (docs/VALIDATION_100k.md)
+
+on:
+  workflow_dispatch:
+    inputs:
+      pot:
+        description: 'Pot size in GBP (e.g. 10000 or 100000)'
+        required: false
+        default: '10000'
+  schedule:
+    - cron: '0 16 1 * *'       # monthly, 1st at 16:00 UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt requests lxml pyyaml pyarrow
+
+      - name: Rebuild price panel if absent
+        run: |
+          if [ ! -f data/prices.parquet ]; then
+            python scripts/fetch_universe.py --config config/universe.yml --out data/
+          fi
+
+      - name: Run the validation
+        if: always()
+        env:
+          POT_GBP: ${{ github.event.inputs.pot || '10000' }}
+        run: python scripts/validation.py
+
+      - name: Commit
+        if: always()
+        run: |
+          bash scripts/commit_push.sh "validation $(date -u +%Y-%m-%d)" \
+            docs/VALIDATION*.md data/validation*.json
