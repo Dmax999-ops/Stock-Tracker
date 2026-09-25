@@ -361,7 +361,8 @@ SLOTS, ENTER_PCT, EXIT_PCT, CONFIRM_CHECKS, CHECK_EVERY = 10, 0.95, 0.50, 3, 5
 EXIT_CONFIRM = CONFIRM_CHECKS
 
 
-def commit_portfolio(sig, Cff, spy, member, start_i, costs=True) -> tuple[pd.Series, dict]:
+def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
+                     bond=None) -> tuple[pd.Series, dict]:
     """
     No calendar. Idle money is in an S&P 500 tracker. Every week the evidence
     is checked; a trade happens only when ENTER or EXIT fires (see top).
@@ -373,6 +374,9 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True) -> tuple[pd.Ser
     fee = DEAL if costs else 0.0
     fxc = bp.fx_cost if costs else (lambda v: 0.0)
     index_units = (START - fee) / Y[start_i]          # start fully in the tracker
+    bond_units = 0.0
+    B = None if bond is None else np.asarray(bond, float)
+    SW = None if switch is None else np.asarray(switch, bool)
     pos, strikes, opened = {}, {}, {}
     streak = np.zeros(X.shape[1], int)            # weeks in a row in the top 5%
     marks, trades, holds = {}, 0, []
@@ -387,9 +391,39 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True) -> tuple[pd.Ser
                      "ret": float(px / e_px - 1), "gbp": 0.0, "shares": 0.0,
                      "biggest_day_move": float(np.expm1(day)), "open": False, "_e": e_px, "_x": px})
     for i in range(start_i, len(idx), CHECK_EVERY):
+        # MARKET SWITCH (optional): S&P 500 below its 200-day for 3 closes ->
+        # everything into a bond fund; back to the tracker when it recovers.
+        if SW is not None:
+            if not SW[i]:
+                if pos or index_units > 0:
+                    cash = 0.0
+                    for k in list(pos):
+                        px = X[i, k] if np.isfinite(X[i, k]) else Cff.iloc[:i + 1, k].dropna().iloc[-1]
+                        sh = pos[k]
+                        close(k, i, px)
+                        book[-1]["gbp"] = float(sh * (px - book[-1]["_e"]))
+                        gross = pos.pop(k) * px
+                        cash += max(gross - fxc(gross) - fee, 0)
+                        trades += 1
+                        holds.append(i - opened.pop(k))
+                        strikes.pop(k, None)
+                    if index_units > 0:
+                        cash += max(index_units * Y[i] - fee, 0)
+                        index_units = 0.0
+                        trades += 1
+                    bond_units += max(cash - fee, 0) / B[i]
+                    trades += 1
+                marks[idx[i]] = bond_units * B[i]
+                continue
+            if bond_units > 0:
+                index_units += max(bond_units * B[i] - 2 * fee, 0) / Y[i]
+                bond_units = 0.0
+                trades += 2
         ok = member[i] & np.isfinite(S[i]) & np.isfinite(X[i])
         ref = np.sort(S[i, ok])
         if len(ref) < 50:
+            marks[idx[i]] = index_units * Y[i] + sum(
+                p * X[i, k] for k, p in pos.items() if np.isfinite(X[i, k]))
             continue
         pct = lambda v: np.searchsorted(ref, v) / len(ref)     # noqa: E731
         top = np.zeros(X.shape[1], bool)
@@ -479,6 +513,10 @@ def money(eq: pd.Series, spy: pd.Series, split=SPLIT) -> dict:
 # report
 # ---------------------------------------------------------------------------
 
+def _d(x) -> str:
+    return "—" if not x else f"{x['cagr'] - x['spy_cagr']:+.1%}/yr"
+
+
 def write_md(out: dict, path: Path):
     L = ["# What predicts which stocks do best? — every score tested side by side\n",
          f"_Generated {out['generated'][:16].replace('T', ' ')} UTC. {out['data']}, "
@@ -516,6 +554,38 @@ def write_md(out: dict, path: Path):
                  f"{m['worst']:.0%} | {m['spy_worst']:.0%} | {r['turnover']['trades_per_year']} | "
                  f"{r['turnover']['median_hold_days'] or '—'} days | {d[0]} | {d[1]} | "
                  f"{'**PASSES**' if r['passes'] else 'no'} |")
+    L.append("\n## 2b. The same stock picks + the MARKET SWITCH\n")
+    L.append("Identical rules, plus the one timing rule that held up on 1927–1999 data it had "
+             "never seen: when the S&P 500 closes below its 200-day average 3 days running, "
+             "everything moves to a bond fund; it goes back in after 3 closes above. "
+             "**Beats buy-and-hold** means: +1%/yr or more in BOTH halves after HL costs, AND a "
+             "smaller worst fall than the S&P 500. Compare every row with the first two: a "
+             "score only adds value if it beats 'random picks + switch'.\n")
+    L.append(f"| Score | £ after HL costs | S&P 500 £ | Yearly | S&P yearly | Worst fall | S&P worst | "
+             f"First half vs S&P | Second half vs S&P | Trades / yr | Beats buy-and-hold? | Picks add value vs random + switch? |")
+    L.append("|---|---|---|---|---|---|---|---|---|---|---|---|")
+    rnd = out["scores"].get("random", {}).get("money_switch", {}).get("all", {}).get("cagr")
+    so = out.get("switch_only", {}).get("money", {})
+    if so:
+        a0 = so["all"]
+        L.append(f"| *S&P tracker + switch, no stocks* | £{a0['gbp_from_10k']:,} | £{a0['spy_gbp_from_10k']:,} | "
+                 f"{a0['cagr']:+.1%} | {a0['spy_cagr']:+.1%} | {a0['worst']:.0%} | {a0['spy_worst']:.0%} | "
+                 f"{_d(so.get('first'))} | {_d(so.get('second'))} | "
+                 f"{out['switch_only']['turnover']['trades_per_year']} | — | — |")
+    for name, r in sorted(out["scores"].items(),
+                          key=lambda kv: -kv[1].get("money_switch", {}).get("all", {}).get("gbp_from_10k", 0)):
+        m = r.get("money_switch")
+        if not m:
+            continue
+        a1 = m["all"]
+        adds = "—" if rnd is None or name == "random" else (
+            ("yes, " if a1["cagr"] - rnd >= MARGIN else "no, ") + format(a1["cagr"] - rnd, "+.1%") + "/yr")
+        L.append(f"| {name} ({r['period']}) | £{a1['gbp_from_10k']:,} | £{a1['spy_gbp_from_10k']:,} | "
+                 f"{a1['cagr']:+.1%} | {a1['spy_cagr']:+.1%} | {a1['worst']:.0%} | {a1['spy_worst']:.0%} | "
+                 f"{_d(m.get('first'))} | {_d(m.get('second'))} | "
+                 f"{r['turnover_switch']['trades_per_year']} | "
+                 f"{'**YES**' if r.get('beats_with_switch') else 'no'} | "
+                 f"{adds} |")
     L.append("\n## 3a. Sanity check of the 'no costs' column\n")
     L.append("Several scores that predict nothing show millions of pounds with no costs. That "
              "is not believable, so here is where each no-cost result came from. A one-day price "
@@ -569,6 +639,7 @@ def main() -> int:
     ap.add_argument("--spy-csv", default="")
     ap.add_argument("--fundamentals", default="data/fundamentals.parquet")
     ap.add_argument("--labels", default=bp.dp.CONSTITUENTS)
+    ap.add_argument("--etfs", default="data/etf_prices.csv")
     ap.add_argument("--earnings", default="data/earnings_dates.csv")
     ap.add_argument("--no-membership", action="store_true", help="test data only")
     a = ap.parse_args()
@@ -616,6 +687,21 @@ def main() -> int:
             sigs.update(build_group_signals(C, lab))
         except Exception as e:                                     # noqa: BLE001
             print("group signals failed:", e, flush=True)
+        # the market switch -- the one timing rule proven on 1927-1999 data it never
+        # saw -- and a bond fund to wait in while it is off
+        try:
+            E = pd.read_csv(a.etfs, index_col=0, parse_dates=True)
+            bond = E["VFITX"].reindex(C.index).ffill()
+        except Exception:                                          # noqa: BLE001
+            bond = None
+        if bond is None or bond.isna().mean() > 0.5:
+            bond = pd.Series(1.02 ** (np.arange(len(C)) / 252), index=C.index)   # 2% cash
+        bond = bond.bfill()
+        switch = bp.market_state(spy).shift(1).fillna(True).astype(bool)
+        blank = pd.DataFrame(np.nan, index=C.index, columns=C.columns)
+        eq0, t0 = commit_portfolio(blank, Cff, spy, member, dates[0], True, switch.values, bond.values)
+        out["switch_only"] = {"money": money(eq0, spy), "turnover": {"trades_per_year": t0["trades_per_year"]}}
+        print("tracker + switch only:", json.dumps(out["switch_only"]["money"]["all"]), flush=True)
         for name, sig in sigs.items():
             # each score is tested from the first date it has enough stocks to rank,
             # and its halves are split at the middle of ITS OWN history
@@ -630,6 +716,11 @@ def main() -> int:
             eq_c, turn = commit_portfolio(sig, Cff, spy, member, d_sig[0], True)
             eq_f, turn_f = commit_portfolio(sig, Cff, spy, member, d_sig[0], False)
             mc, mf = money(eq_c, spy, split), money(eq_f, spy, split)
+            eq_s, turn_s = commit_portfolio(sig, Cff, spy, member, d_sig[0], True,
+                                            switch.values, bond.values)
+            ms = money(eq_s, spy, split)
+            beats_s = all(ms.get(h) and ms[h]["cagr"] >= ms[h]["spy_cagr"] + MARGIN
+                          for h in ("first", "second")) and ms["all"]["worst"] > ms["all"]["spy_worst"]
             predicts = (pr["all"]["t_1m"] >= T_ALL
                         and all(pr.get(h, {}).get("t_1m", 0) >= T_HALF
                                 for h in ("first", "second")))
@@ -640,12 +731,16 @@ def main() -> int:
                                    "period": f"{C.index[d_sig[0]].year}–{C.index[-1].year}; "
                                              f"{split.year}",
                                    "turnover": turn, "turnover_free": turn_f,
+                                   "money_switch": ms, "turnover_switch": turn_s,
+                                   "beats_with_switch": bool(beats_s),
                                    "predicts": bool(predicts), "passes": bool(passes)}
             print(f"  {name:18} trades/yr={turn['trades_per_year']:5} hold={turn['median_hold_days'] or '-'}d t={pr['all']['t_1m']:+5.1f}  top10={pr['all']['top10_12m']:+.1%} "
                   f"bot10={pr['all']['bot10_12m']:+.1%}  GBP {mc['all']['gbp_from_10k']:>9,} "
                   f"(no costs {mf['all']['gbp_from_10k']:,}; S&P {mc['all']['spy_gbp_from_10k']:,})",
                   flush=True)
         winners = [k for k, v in out["scores"].items() if v["passes"]]
+        sw = [k for k, v in out["scores"].items() if v.get("beats_with_switch")]
+        out["beats_with_switch"] = sw
         pred = [k for k, v in out["scores"].items() if v["predicts"]]
         if winners:
             out["verdict"] = (f"{', '.join(winners)} predicted AND made more money than the "
@@ -657,6 +752,9 @@ def main() -> int:
         else:
             out["verdict"] = ("No score cleared the bar. None told you reliably, in advance, "
                               "which S&P 500 stocks would do best.")
+        if sw:
+            out["verdict"] += (f" WITH THE MARKET SWITCH, these beat buy-and-hold in both halves after "
+                               f"costs with a smaller worst fall: {', '.join(sw)}.")
         Path(a.out).parent.mkdir(parents=True, exist_ok=True)
         Path(a.out).write_text(json.dumps(out, indent=2, default=str))
         Path(a.md).parent.mkdir(parents=True, exist_ok=True)
