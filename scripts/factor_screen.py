@@ -112,6 +112,76 @@ def build_signals(C: pd.DataFrame, seed: int = 7) -> dict[str, pd.DataFrame]:
     }
 
 
+PEERS = 20
+
+
+def peer_momentum(C: pd.DataFrame, every: int = 21) -> pd.DataFrame:
+    """
+    Each stock's PEER GROUP's return over the past year -- with peers found from
+    the data, not from industry labels: the 20 stocks whose daily moves were most
+    closely correlated with it over the past year. Recomputed monthly, using only
+    past prices, for every stock including ones later delisted -- so no
+    survivorship bias from using today's industry lists.
+    """
+    Cf = C.ffill(limit=10)
+    R = Cf.pct_change(fill_method=None).to_numpy(float)
+    r12 = (Cf.shift(21) / Cf.shift(252) - 1).to_numpy(float)
+    out = np.full(C.shape, np.nan)
+    for i in range(252, len(C), every):
+        W = R[i - 251:i + 1]
+        ok = np.isfinite(W).all(axis=0) & np.isfinite(r12[i])
+        k = np.where(ok)[0]
+        if len(k) < 60:
+            continue
+        Z = W[:, k]
+        Z = (Z - Z.mean(0)) / Z.std(0).clip(1e-12)
+        corr = Z.T @ Z / len(Z)
+        np.fill_diagonal(corr, -np.inf)
+        top = np.argpartition(-corr, PEERS, axis=1)[:, :PEERS]
+        pm = r12[i, k][top].mean(axis=1)
+        out[i:i + every, k] = pm
+    return pd.DataFrame(out, index=C.index, columns=C.columns)
+
+
+def build_group_signals(C: pd.DataFrame, labels: pd.Series | None) -> dict[str, pd.DataFrame]:
+    """
+    THE WINNERS STUDY'S BEST FINDING, TESTED AS A STOCK PICKER.
+
+    Among every pattern pair searched on 1997-2011, the one that held up best on
+    2012-now was: a stock rising strongly off its 12-month low WHILE ITS SECTOR IS
+    STILL WEAK. On the unseen years it was 2.2 times as likely as average to be a
+    top-5% winner, LESS likely than average to be a bottom-5% loser, and beat the
+    average stock by 13.7% over the next 12 months. Two related pairs (3-month
+    and 1-month risers in weak sectors) also held up.
+
+    That study used today's sector labels, which exist only for today's index
+    members -- so it could only ever pick survivors. Here the same idea is scored
+    two ways: with those labels, and with a peer group found from the price data
+    (no survivorship). The score is high only when BOTH conditions are strong:
+        min( rank of rise off the 12-month low , rank of peer-group WEAKNESS )
+    """
+    Cf = C.ffill(limit=10)
+    rk = lambda D: D.rank(axis=1, pct=True)                     # noqa: E731
+    lo = Cf.rolling(252, min_periods=200).min()
+    off_low = rk(Cf / lo - 1)
+    ret3 = rk(Cf / Cf.shift(63) - 1)
+    out = {}
+    pm = peer_momentum(C)
+    weak = 1 - rk(pm)
+    out["rise_weak_peers"] = np.minimum(off_low, weak).where(pm.notna())
+    out["rise3m_weak_peers"] = np.minimum(ret3, weak).where(pm.notna())
+    if labels is not None and len(labels):
+        sec = labels.reindex(C.columns)
+        r12 = Cf.shift(21) / Cf.shift(252) - 1
+        sm = pd.DataFrame(np.nan, index=C.index, columns=C.columns)
+        for _, cols in sec.groupby(sec).groups.items():
+            cols = list(cols)
+            if len(cols) >= 5:
+                sm[cols] = np.repeat(r12[cols].mean(axis=1).to_numpy()[:, None], len(cols), axis=1)
+        out["rise_weak_sector_LABELS"] = np.minimum(off_low, 1 - rk(sm)).where(sm.notna())
+    return out
+
+
 def _asof_panel(F: pd.DataFrame, item: str, index, columns, stale_days=550) -> pd.DataFrame:
     """Latest annual value of one item that had been FILED by each date."""
     f = F[F["item"] == item].sort_values(["ticker", "filed", "end"])
@@ -497,6 +567,7 @@ def main() -> int:
     ap.add_argument("--md", default="docs/FACTORS.md")
     ap.add_argument("--spy-csv", default="")
     ap.add_argument("--fundamentals", default="data/fundamentals.parquet")
+    ap.add_argument("--labels", default=bp.dp.CONSTITUENTS)
     ap.add_argument("--earnings", default="data/earnings_dates.csv")
     ap.add_argument("--no-membership", action="store_true", help="test data only")
     a = ap.parse_args()
@@ -532,6 +603,14 @@ def main() -> int:
         except Exception as e:                                     # noqa: BLE001
             out["fundamentals"] = f"not available: {type(e).__name__}: {e}"
         print("fundamentals:", out["fundamentals"], flush=True)
+        try:
+            lab = bp.dp.load_constituents(a.labels).set_index("yf")["GICS Sector"]
+        except Exception:                                          # noqa: BLE001
+            lab = None
+        try:
+            sigs.update(build_group_signals(C, lab))
+        except Exception as e:                                     # noqa: BLE001
+            print("group signals failed:", e, flush=True)
         for name, sig in sigs.items():
             # each score is tested from the first date it has enough stocks to rank,
             # and its halves are split at the middle of ITS OWN history
