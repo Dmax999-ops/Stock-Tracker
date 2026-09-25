@@ -51,8 +51,8 @@ THE TESTS
      The gap between "top 5%" and "bottom half" is deliberate: a stock that
      slips from 3rd to 40th is not sold. That band is what stops the
      churning that cost the monthly plan more than its whole starting pot.
-     Costs: GBP 11.95 a deal and 1% FX each way on US shares; GBP 11.95 a
-     deal (no FX) to move in or out of a UK-listed S&P 500 tracker.
+     Costs (HL 2026): GBP 6.95 a deal, FX on US shares tiered 1% -> 0.25% by
+     trade size; GBP 6.95 (no FX) to move in or out of a UK-listed S&P 500 tracker.
 
 THE BAR -- stricter than usual, because ten scores are tested at once and one
 in ten will look good by luck: t >= 3 overall AND t >= 2 in BOTH halves, AND
@@ -77,8 +77,8 @@ _spec.loader.exec_module(bp)
 
 SPLIT = pd.Timestamp("2013-01-01")
 TOP_N = 20
-DEAL, FX = 11.95, 0.01
-START = 10_000.0
+DEAL, FX = bp.DEAL, 0.01          # HL 2026: GBP 6.95 a deal; FX tiered, see bp.fx_cost
+START = bp.START_GBP
 T_ALL, T_HALF, MARGIN = 3.0, 2.0, 0.01
 
 
@@ -371,7 +371,7 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True) -> tuple[pd.Ser
     Y = spy.to_numpy(float)
     idx = Cff.index
     fee = DEAL if costs else 0.0
-    fx = FX if costs else 0.0
+    fxc = bp.fx_cost if costs else (lambda v: 0.0)
     index_units = (START - fee) / Y[start_i]          # start fully in the tracker
     pos, strikes, opened = {}, {}, {}
     streak = np.zeros(X.shape[1], int)            # weeks in a row in the top 5%
@@ -405,7 +405,8 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True) -> tuple[pd.Ser
                 sh = pos[k]
                 close(k, i, px)
                 book[-1]["gbp"] = float(sh * (px - book[-1]["_e"]))
-                amt = pos.pop(k) * px * (1 - fx) - fee
+                gross = pos.pop(k) * px
+                amt = gross - fxc(gross) - fee
                 index_units += max(amt - fee, 0) / Y[i]          # back into the tracker
                 trades += 1
                 holds.append(i - opened.pop(k))
@@ -423,7 +424,7 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True) -> tuple[pd.Ser
                 if index_units * Y[i] < need or per <= 2 * fee:
                     break
                 index_units -= need / Y[i]
-                pos[k] = (per - fee) * (1 - fx) / X[i, k]
+                pos[k] = (per - fee - fxc(per - fee)) / X[i, k]
                 entry[k] = (i, X[i, k])
                 opened[k] = i
                 strikes[k] = 0
@@ -466,8 +467,8 @@ def money(eq: pd.Series, spy: pd.Series, split=SPLIT) -> dict:
         yrs = (e.index[-1] - e.index[0]).days / 365.25
         ce = (e.iloc[-1] / e.iloc[0]) ** (1 / yrs) - 1
         cs = (s.iloc[-1] / s.iloc[0]) ** (1 / yrs) - 1
-        res[name] = {"gbp_from_10k": round(10_000 * float(e.iloc[-1] / e.iloc[0])),
-                     "spy_gbp_from_10k": round(10_000 * float(s.iloc[-1] / s.iloc[0])),
+        res[name] = {"gbp_from_10k": round(START * float(e.iloc[-1] / e.iloc[0])),
+                     "spy_gbp_from_10k": round(START * float(s.iloc[-1] / s.iloc[0])),
                      "cagr": round(float(ce), 4), "spy_cagr": round(float(cs), 4),
                      "worst": round(float((e / e.cummax() - 1).min()), 3),
                      "spy_worst": round(float((s / s.cummax() - 1).min()), 3)}
@@ -496,7 +497,7 @@ def write_md(out: dict, path: Path):
         L.append(f"| {name} ({r['period']}) | {a['ic_1m']:+.3f} | {a['t_1m']:+.1f} | {h1:+.1f} | {h2:+.1f} | "
                  f"{a['top10_12m']:+.1%} | {a['bot10_12m']:+.1%} | {a['all_12m']:+.1%} | "
                  f"{'**PREDICTS**' if r['predicts'] else 'no'} |")
-    L += ["\n## 2. £10,000 run by commit rules — no calendar, trade only on strong evidence\n",
+    L += [f"\n## 2. £{START:,.0f} run by commit rules — no calendar, trade only on strong evidence\n",
           f"Money waits in an S&P 500 tracker. A stock is bought only when it has been in the top "
           f"{1 - ENTER_PCT:.0%} on the score for {CONFIRM_CHECKS} weekly checks in a row (up to "
           f"{SLOTS} stocks), and sold only when it has "
@@ -571,7 +572,11 @@ def main() -> int:
     ap.add_argument("--earnings", default="data/earnings_dates.csv")
     ap.add_argument("--no-membership", action="store_true", help="test data only")
     a = ap.parse_args()
-    out = {"generated": pd.Timestamp.now("UTC").isoformat()}
+    if START != 10_000:                       # a different pot writes its own report
+        tag = f"_{int(START / 1000)}k"
+        a.out = a.out.replace(".json", f"{tag}.json")
+        a.md = a.md.replace(".md", f"{tag}.md")
+    out = {"generated": pd.Timestamp.now("UTC").isoformat(), "pot_gbp": START}
     try:
         C, info = bp.load_panel(a.prices, a.delisted)
         C = C.loc[:, C.notna().sum() > 260]
