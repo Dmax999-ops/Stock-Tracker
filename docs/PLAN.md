@@ -1,6 +1,6 @@
 # Daily plan — 2026-09-25
 
-_Generated 2026-09-26 11:08 UTC from closing prices of 2026-09-25. Tested rules, not personal financial advice._
+_Generated 2026-09-26 11:12 UTC from closing prices of 2026-09-25. Tested rules, not personal financial advice._
 
 ## Market: **RISK ON — invested**
 
@@ -16,41 +16,43 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 
 **No trades. HOLD everything.**
 
-### Holdings (£100,000 pot, as the rules would hold it today)
+### Holdings (£10,000 pot, as the rules would hold it today)
 
 | Stock | Bought | Gain since | Value | Share of pot | Weeks weak (3 = SELL) |
 |---|---|---|---|---|---|
-| **MU** | 2026-04-17 | +138% | £18,003 | 18% | 0 |
-| **SNDK** | 2026-04-17 | +93% | £14,610 | 15% | 0 |
-| **STX** | 2026-04-17 | +68% | £12,687 | 13% | 0 |
-| **BE** | 2026-04-17 | +39% | £10,512 | 11% | 0 |
-| **WDC** | 2026-04-17 | +23% | £9,286 | 9% | 0 |
-| **LITE** | 2026-04-17 | +5% | £7,971 | 8% | 0 |
-| **TER** | 2026-04-17 | +5% | £7,933 | 8% | 0 |
-| **GLW** | 2026-04-17 | -4% | £7,241 | 7% | 0 |
-| **COHR** | 2026-04-17 | -14% | £6,489 | 6% | 0 |
-| S&P 500 tracker (e.g. Vanguard S&P 500 UCITS ETF) | | | £5,267 | 5% | |
+| **MU** | 2026-04-17 | +138% | £1,722 | 17% | 0 |
+| **SNDK** | 2026-04-17 | +93% | £1,397 | 14% | 0 |
+| **MRNA** | 2026-09-11 | +38% | £1,263 | 13% | 0 |
+| **STX** | 2026-04-17 | +68% | £1,213 | 12% | 0 |
+| **BE** | 2026-04-17 | +39% | £1,005 | 10% | 0 |
+| **WDC** | 2026-04-17 | +23% | £888 | 9% | 0 |
+| **LITE** | 2026-04-17 | +5% | £762 | 8% | 0 |
+| **TER** | 2026-04-17 | +5% | £759 | 8% | 0 |
+| **COHR** | 2026-04-17 | -14% | £621 | 6% | 0 |
+| S&P 500 tracker (e.g. Vanguard S&P 500 UCITS ETF) | | | £369 | 4% | |
 
-**Starting from scratch at Trading 212:** put in £100,142 so that exactly £100,000 is invested (£142 of charges):
+**Starting from scratch at Trading 212:** put in £10,014 so that exactly £10,000 is invested (£14 of charges):
 
 | Buy | Invest | Charges |
 |---|---|---|
-| MU | £18,003 | £27.00 |
-| SNDK | £14,610 | £21.91 |
-| STX | £12,687 | £19.03 |
-| BE | £10,512 | £15.77 |
-| WDC | £9,286 | £13.93 |
-| LITE | £7,971 | £11.96 |
-| TER | £7,933 | £11.90 |
-| GLW | £7,241 | £10.86 |
-| COHR | £6,489 | £9.73 |
-| S&P 500 tracker | £5,267 | £0.00 |
+| MU | £1,722 | £2.58 |
+| SNDK | £1,397 | £2.10 |
+| MRNA | £1,263 | £1.89 |
+| STX | £1,213 | £1.82 |
+| BE | £1,005 | £1.51 |
+| WDC | £888 | £1.33 |
+| LITE | £762 | £1.14 |
+| TER | £759 | £1.14 |
+| COHR | £621 | £0.93 |
+| S&P 500 tracker | £369 | £0.00 |
 
 **On deck** (in the top 5%, not yet confirmed — a BUY if still there at 3 weekly checks): RVTY (2 of 3), P (2 of 3), DDOG (1 of 3), VEEV (1 of 3)
 
-**Recent actions:** 2026-04-17 BUY WDC; 2026-04-17 BUY COHR; 2026-04-17 BUY BE; 2026-04-17 BUY TER; 2026-04-17 BUY STX; 2026-04-17 BUY MU; 2026-04-17 BUY GLW; 2026-09-11 SELL CIEN
+**Recent actions:** 2026-04-17 BUY WDC; 2026-04-17 BUY COHR; 2026-04-17 BUY BE; 2026-04-17 BUY TER; 2026-04-17 BUY STX; 2026-04-17 BUY MU; 2026-09-11 SELL CIEN; 2026-09-11 BUY MRNA
 
 **Live record starts today** (2026-09-25). From tomorrow this line shows the strategy's real, forward performance.
+
+**Trust checks (validation of 2026-09-26, £10,000 pot): 5 of 5 passed.** Cleared for consideration — watch the live record.
 
 ## 🧪 Paper test — starts Monday 2026-09-28
 
