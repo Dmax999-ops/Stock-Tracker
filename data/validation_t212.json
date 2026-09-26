@@ -1,0 +1,299 @@
+{
+  "generated": "2026-09-26T11:06:27.373285+00:00",
+  "pot_gbp": 10000.0,
+  "broker": "Trading 212",
+  "from": "1997-02-03",
+  "to": "2026-09-25",
+  "base": {
+    "gbp": 1603502,
+    "spy_gbp": 162403,
+    "cagr": 0.1869,
+    "spy_cagr": 0.0986,
+    "worst": -0.308,
+    "first": 0.1048,
+    "second": 0.0744,
+    "beats": true
+  },
+  "variants": [
+    [
+      "Trade 1 day after the signal",
+      {
+        "gbp": 1395350,
+        "spy_gbp": 162403,
+        "cagr": 0.1813,
+        "spy_cagr": 0.0986,
+        "worst": -0.302,
+        "first": 0.1157,
+        "second": 0.05149999999999999,
+        "beats": true
+      }
+    ],
+    [
+      "Trade 2 days after the signal",
+      {
+        "gbp": 1984210,
+        "spy_gbp": 162403,
+        "cagr": 0.1954,
+        "spy_cagr": 0.0986,
+        "worst": -0.302,
+        "first": 0.1245,
+        "second": 0.07119999999999999,
+        "beats": true
+      }
+    ],
+    [
+      "Check every Monday, trade next day",
+      {
+        "gbp": 1284222,
+        "spy_gbp": 163606,
+        "cagr": 0.1781,
+        "spy_cagr": 0.0989,
+        "worst": -0.326,
+        "first": 0.1174,
+        "second": 0.04250000000000001,
+        "beats": true
+      }
+    ],
+    [
+      "Check every Tuesday, trade next day",
+      {
+        "gbp": 1132051,
+        "spy_gbp": 162580,
+        "cagr": 0.1731,
+        "spy_cagr": 0.0987,
+        "worst": -0.303,
+        "first": 0.10439999999999999,
+        "second": 0.0461,
+        "beats": true
+      }
+    ],
+    [
+      "Check every Wednesday, trade next day",
+      {
+        "gbp": 2164184,
+        "spy_gbp": 164495,
+        "cagr": 0.199,
+        "spy_cagr": 0.0991,
+        "worst": -0.298,
+        "first": 0.1179,
+        "second": 0.0812,
+        "beats": true
+      }
+    ],
+    [
+      "Check every Thursday, trade next day",
+      {
+        "gbp": 1298660,
+        "spy_gbp": 163275,
+        "cagr": 0.1785,
+        "spy_cagr": 0.0988,
+        "worst": -0.312,
+        "first": 0.0975,
+        "second": 0.06039999999999998,
+        "beats": true
+      }
+    ],
+    [
+      "Check every Friday, trade next day",
+      {
+        "gbp": 1083128,
+        "spy_gbp": 161961,
+        "cagr": 0.1713,
+        "spy_cagr": 0.0985,
+        "worst": -0.323,
+        "first": 0.1001,
+        "second": 0.04879999999999998,
+        "beats": true
+      }
+    ],
+    [
+      "Check DAILY (15-day confirmation), trade next day",
+      {
+        "gbp": 1791035,
+        "spy_gbp": 163151,
+        "cagr": 0.1913,
+        "spy_cagr": 0.0988,
+        "worst": -0.327,
+        "first": 0.1364,
+        "second": 0.04630000000000001,
+        "beats": true
+      }
+    ],
+    [
+      "Double costs, trade next day",
+      {
+        "gbp": 1117260,
+        "spy_gbp": 162403,
+        "cagr": 0.1725,
+        "spy_cagr": 0.0986,
+        "worst": -0.322,
+        "first": 0.1109,
+        "second": 0.038500000000000006,
+        "beats": true
+      }
+    ]
+  ],
+  "rolling5": {
+    "windows": 95,
+    "beat": 64,
+    "share": 0.6736842105263158,
+    "worst_gap": -0.0985303355759779
+  },
+  "bootstrap": {
+    "p_trail_10y": 0.132,
+    "median_strategy_10y": 4.467097479156637,
+    "median_sp500_10y": 2.454275462786397,
+    "p_loses_money_10y": 0.0
+  },
+  "n_candidates": 21,
+  "selector": {
+    "years": [
+      {
+        "year": 2006,
+        "picked": "mom_12_1",
+        "ret": -0.07014922631058718,
+        "sp500": 0.14670564564881095
+      },
+      {
+        "year": 2007,
+        "picked": "mom_12_1",
+        "ret": 0.0494447663805746,
+        "sp500": 0.07348335552658258
+      },
+      {
+        "year": 2008,
+        "picked": "rise_weak_peers",
+        "ret": 0.08756271818941076,
+        "sp500": -0.40359259329082864
+      },
+      {
+        "year": 2009,
+        "picked": "rise_weak_peers",
+        "ret": 0.47304174337257177,
+        "sp500": 0.32417362300461794
+      },
+      {
+        "year": 2010,
+        "picked": "rise_weak_peers",
+        "ret": 0.15833128939744623,
+        "sp500": 0.1396513972246478
+      },
+      {
+        "year": 2011,
+        "picked": "rise_weak_peers",
+        "ret": -0.09607368562594276,
+        "sp500": 0.027232749173103254
+      },
+      {
+        "year": 2012,
+        "picked": "rise_weak_peers",
+        "ret": 0.2180594186892093,
+        "sp500": 0.1454916764892098
+      },
+      {
+        "year": 2013,
+        "picked": "reversal_1m",
+        "ret": 0.5737891380212468,
+        "sp500": 0.3292379628141806
+      },
+      {
+        "year": 2014,
+        "picked": "reversal_1m",
+        "ret": -0.01756790574933198,
+        "sp500": 0.15219231191905558
+      },
+      {
+        "year": 2015,
+        "picked": "rise_weak_peers",
+        "ret": -0.1062661426730691,
+        "sp500": 0.0057700562534570565
+      },
+      {
+        "year": 2016,
+        "picked": "reversal_1m",
+        "ret": 0.07716284454901158,
+        "sp500": 0.11419539870430051
+      },
+      {
+        "year": 2017,
+        "picked": "rise_weak_peers",
+        "ret": 0.2561905827654569,
+        "sp500": 0.21469594081029242
+      },
+      {
+        "year": 2018,
+        "picked": "mom_3",
+        "ret": 0.0800670810535611,
+        "sp500": -0.06158846912774418
+      },
+      {
+        "year": 2019,
+        "picked": "mom_3",
+        "ret": 0.17773602588866222,
+        "sp500": 0.33217448803890237
+      },
+      {
+        "year": 2020,
+        "picked": "mom_3",
+        "ret": 0.0012810140236036993,
+        "sp500": 0.17790377151862025
+      },
+      {
+        "year": 2021,
+        "picked": "mom_12_1",
+        "ret": 0.2980032991260142,
+        "sp500": 0.29320236389478715
+      },
+      {
+        "year": 2022,
+        "picked": "mom_12_1",
+        "ret": -0.1869896783673458,
+        "sp500": -0.17959255762881388
+      },
+      {
+        "year": 2023,
+        "picked": "mom_12_1",
+        "ret": 0.23108107624209695,
+        "sp500": 0.26208804972249466
+      },
+      {
+        "year": 2024,
+        "picked": "mom_12_1",
+        "ret": 0.5344590215750733,
+        "sp500": 0.27767199778859264
+      },
+      {
+        "year": 2025,
+        "picked": "mom_12_1",
+        "ret": 0.05208394524195259,
+        "sp500": 0.16143363310305547
+      },
+      {
+        "year": 2026,
+        "picked": "mom_12_1",
+        "ret": 0.23914296165577587,
+        "sp500": 0.12095592870855887
+      }
+    ],
+    "cagr": 0.12711230063744083,
+    "spy_cagr": 0.10979228262959362,
+    "gbp": 123398.81190368,
+    "spy_gbp": 89140.63213445361,
+    "years_ahead": 10,
+    "n": 21,
+    "fixed_main": null
+  },
+  "fixed_same_years": {
+    "gbp": 227789.0240185357,
+    "cagr": 0.16049805991882615,
+    "ahead": 12
+  },
+  "checks": {
+    "survives a trading delay": true,
+    "not tied to one check day": true,
+    "survives double costs": true,
+    "beats S&P in 60%+ of 5-year periods": true,
+    "under 25% chance of trailing over 10 years": true
+  },
+  "verdict": "**5 of 5 trust checks passed.**\n\n- \u2705 survives a trading delay\n- \u2705 not tied to one check day\n- \u2705 survives double costs\n- \u2705 beats S&P in 60%+ of 5-year periods\n- \u2705 under 25% chance of trailing over 10 years\n- \u2705 re-selecting each year beat the S&P on unseen years (+12.7% vs +11.0%/yr)\n\nPassing these makes it a candidate for real money; the final check is the live forward record in data/strategy_log.jsonl, which no backtest can fake."
+}
