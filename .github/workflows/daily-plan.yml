@@ -38,6 +38,7 @@ jobs:
         env:
           STRATEGY_POT: ${{ vars.STRATEGY_POT || '10000' }}
           BROKER: ${{ vars.STRATEGY_BROKER || 't212' }}
+          ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
         run: python scripts/daily_plan.py
 
       - name: Commit
@@ -45,7 +46,7 @@ jobs:
         run: |
           bash scripts/commit_push.sh "daily plan $(date -u +%Y-%m-%d)" \
             docs/PLAN.md docs/plan.json docs/plan_state.json docs/plan_error.json \
-            data/live_prices.csv data/strategy_log.jsonl data/paper_test.csv data/paper_trades.csv
+            data/live_prices.csv data/strategy_log.jsonl data/paper_test.csv data/paper_trades.csv data/gbpusd.csv
 
       - name: Check email settings (shows yes/no only, never the values)
         if: always()
