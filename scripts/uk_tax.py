@@ -19,9 +19,14 @@ Rules used (2026/27, HMRC):
   * Dealing charges and currency-exchange fees are allowable costs: they are
     added to the purchase cost and taken off the sale proceeds.
 
+  * Currency: every purchase cost and sale proceed is converted to pounds at the
+    pound/dollar rate on the day of that trade (HMRC's rule), so a gain or loss
+    from the pound moving against the dollar is part of each share's gain.
+
 This is an estimate to plan with, not tax advice. It ignores dividends (a
-GBP 500 allowance applies; an accumulating S&P 500 tracker avoids payouts) and
-currency gains/losses on the dollars themselves.
+GBP 500 allowance applies; an accumulating S&P 500 tracker avoids payouts).
+Trading 212 converts pounds to dollars at each trade, so no dollar cash is held
+and no separate currency gain arises.
 """
 from __future__ import annotations
 
