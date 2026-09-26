@@ -162,5 +162,18 @@ def markdown(res: dict, log_rows: list[dict], spy_now: float | None = None) -> l
     else:
         L.append(f"\n**Live record starts today** ({res['as_of']}). From tomorrow this line shows "
                  "the strategy's real, forward performance.")
+    # standing verdict from the latest monthly validation run for this pot
+    try:
+        tag = bp.out_tag(res["pot"])
+        v = json.loads(Path(f"data/validation{tag}.json").read_text())
+        ok = sum(v.get("checks", {}).values())
+        n = len(v.get("checks", {}))
+        L.append(f"\n**Trust checks (validation of {v['generated'][:10]}, £{res['pot']:,.0f} pot): "
+                 f"{ok} of {n} passed.** "
+                 + ("Cleared for consideration — watch the live record." if n and ok == n else
+                    "⚠ NOT cleared at this pot size — do not trade real money on it yet. "
+                    "See docs/VALIDATION" + tag + ".md"))
+    except Exception:                                              # noqa: BLE001
+        pass
     L.append("")
     return L
