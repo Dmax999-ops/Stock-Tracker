@@ -70,14 +70,31 @@ START_GBP = float(os.environ.get("POT_GBP", "10000") or 10000)
 # Hargreaves Lansdown, 2026 tariff: GBP 6.95 an online deal (0-19 deals a month);
 # FX on US shares tiered by the size of each trade: 1% on the first GBP 5,000,
 # 0.75% on the next 5,000, 0.5% on the next 10,000, 0.25% above 20,000.
-DEAL = 6.95
+# Which broker's charges to model: BROKER=hl (default), t212 or ibkr.
+#   hl    Hargreaves Lansdown: GBP 6.95 a deal; FX 1% / 0.75% / 0.5% / 0.25% tiers
+#   t212  Trading 212: no dealing charge; 0.15% FX
+#   ibkr  Interactive Brokers UK: about GBP 1 a US deal; about 0.03% FX
+BROKER = (os.environ.get("BROKER", "hl") or "hl").strip().lower()
+DEAL = {"hl": 6.95, "t212": 0.0, "ibkr": 1.0}.get(BROKER, 6.95)
 FX = 0.01                                  # kept for the report text
+BROKER_NAME = {"hl": "Hargreaves Lansdown", "t212": "Trading 212",
+               "ibkr": "Interactive Brokers"}.get(BROKER, "Hargreaves Lansdown")
 
 
 def fx_cost(v: float) -> float:
     v = max(float(v), 0.0)
+    if BROKER == "t212":
+        return v * 0.0015
+    if BROKER == "ibkr":
+        return v * 0.0003
     return (min(v, 5000) * 0.01 + min(max(v - 5000, 0), 5000) * 0.0075
             + min(max(v - 10000, 0), 10000) * 0.005 + max(v - 20000, 0) * 0.0025)
+
+
+def out_tag(pot: float) -> str:
+    """Suffix for report files, so each pot/broker combination keeps its own page."""
+    t = "" if pot == 10_000 else f"_{int(pot / 1000)}k"
+    return t + ("" if BROKER == "hl" else f"_{BROKER}")
 CASH = 0.02
 WINDOW = 320                       # trading days of history run() sees
 SPLIT = pd.Timestamp("2013-01-01")
