@@ -43,7 +43,8 @@ TRADES: dict = {}            # every trade of every account, for the tax tracker
 SETUP: dict = {}             # what each account bought on day one
 
 
-def accounts(P: pd.DataFrame, sp500: list[str], bond: pd.Series | None) -> pd.DataFrame:
+def accounts(P: pd.DataFrame, sp500: list[str], bond: pd.Series | None,
+             usd_per_gbp: pd.Series | None = None) -> pd.DataFrame:
     """
     Daily value of every account from START to the latest close.
 
@@ -51,18 +52,15 @@ def accounts(P: pd.DataFrame, sp500: list[str], bond: pd.Series | None) -> pd.Da
     strategy's rules, so all six accounts hold exactly the same stocks. Each
     account then pays its own broker's charges on every one of those trades.
     """
-    spy = P["SPY"].dropna()
-    if spy.index[-1] < START:
+    if P["SPY"].dropna().index[-1] < START:
         return pd.DataFrame()
-    cols = [c for c in sp500 if c in P.columns and c != "SPY"]
-    C = P[cols].reindex(spy.index)
-    Cff = C.ffill()
-    X = Cff
-    sig = Cff / Cff.rolling(200, min_periods=200).mean() - 1
-    if bond is None or bond.reindex(spy.index).notna().mean() < 0.5:
-        bond = pd.Series(1.02 ** (np.arange(len(spy)) / 252), index=spy.index)
-    bond = bond.reindex(spy.index).ffill().bfill()
-    switch = bp.market_state(spy).shift(1).fillna(True).astype(bool).values
+    # decisions on US-dollar prices; every value and every trade in pounds at that day's rate
+    D = strat.prepare(P, sp500, bond, usd_per_gbp)
+    Cff, sig, bond = D["Cff"], D["sig"], D["bond"]
+    X, Y = D["X"], D["Y"]          # stock prices and the S&P 500 in pounds
+    spy = Y                        # the tracker is valued in pounds too
+    C = Cff
+    switch = D["switch"].values
     checks = strat.week_ends(spy.index)
     anchor = pd.Timestamp(strat.REPLAY_FROM)
     r0 = next(i for i in checks if spy.index[i] >= anchor and i >= 220)
@@ -72,12 +70,12 @@ def accounts(P: pd.DataFrame, sp500: list[str], bond: pd.Series | None) -> pd.Da
     fs.START = 100_000
     # the portfolio the rules hold at the start day's close ...
     n0 = s_i + 1
-    _, t0 = fs.commit_portfolio(sig.iloc[:n0], Cff.iloc[:n0], spy.iloc[:n0], member[:n0], r0, True,
+    _, t0 = fs.commit_portfolio(sig.iloc[:n0], X.iloc[:n0], Y.iloc[:n0], member[:n0], r0, True,
                                 switch[:n0], bond.values[:n0], check_idx=[c for c in checks if c < n0],
                                 return_state=True)
     st0 = t0["state"]
     # ... and every decision the rules take after it
-    _, t1 = fs.commit_portfolio(sig, Cff, spy, member, r0, True, switch, bond.values,
+    _, t1 = fs.commit_portfolio(sig, X, Y, member, r0, True, switch, bond.values,
                                 check_idx=checks, return_state=True)
     acts = [a for a in t1["state"]["all_actions"] if pd.Timestamp(a[0]) > d0]
     tot0 = sum(h["value"] for h in st0["holdings"]) + st0["tracker_value"] + st0["bond_value"]
@@ -158,8 +156,8 @@ def accounts(P: pd.DataFrame, sp500: list[str], bond: pd.Series | None) -> pd.Da
                             total = tr * spy.iloc[i] + bd * bond.iloc[i] + cash + sum(
                                 u * px(t) for t, u in sh.items())
                             per = total / fs.SLOTS
-                            if tr * spy.iloc[i] >= per + deal:
-                                u = (per + deal) / spy.iloc[i]
+                            if tr * spy.iloc[i] >= (per + deal) * (1 - 1e-9):
+                                u = min((per + deal) / spy.iloc[i], tr)
                                 tr -= u
                                 log.append({"date": ds, "asset": TR, "side": "SELL", "qty": u, "gbp": per})
                                 q = max(per - deal - fx(per - deal), 0) / px(tk)
@@ -187,9 +185,9 @@ def _gbp(v: float) -> str:
     return f"£{v:,.0f}" if v >= 0 else f"−£{-v:,.0f}"
 
 
-def update(P, sp500, bond) -> list[str]:
+def update(P, sp500, bond, usd_per_gbp=None) -> list[str]:
     """Recompute, append new days to the CSV (never rewrite old ones), return markdown."""
-    A = accounts(P, sp500, bond)
+    A = accounts(P, sp500, bond, usd_per_gbp)
     if A.empty:
         return [f"## 🧪 Paper test — starts Monday {START.date()}\n",
                 "Six pretend accounts (£10k and £100k × Hargreaves Lansdown, Trading 212, "
@@ -212,7 +210,8 @@ def update(P, sp500, bond) -> list[str]:
                           + [("S&P 500 tracker", float(last[f"S&P 500 tracker £{pot:,.0f}"]), None)]
                      for pot in POTS}}
     L = [f"## 🧪 Paper test — day {days} of about 65 (started {START.date()}, ends {END.date()})\n",
-         "Pretend money, real prices, rules fixed in advance. Values after each broker's charges.\n",
+         "Pretend money, real prices, rules fixed in advance. Values after each broker's charges, "
+         "in pounds at each day's pound/dollar rate (the S&P 500 tracker too).\n",
          "| Account | Started | Now | Change | vs S&P 500 tracker (same money) |",
          "|---|---|---|---|---|"]
     for pot in POTS:
@@ -220,7 +219,7 @@ def update(P, sp500, bond) -> list[str]:
         for b, (bname, _) in BROKERS.items():
             v = last[f"{bname} £{pot:,.0f}"]
             L.append(f"| {bname} | £{pot:,.0f} | £{v:,.0f} | {v / pot - 1:+.1%} | "
-                     f"{(v - spy_now) / pot:+.1%} (£{v - spy_now:+,.0f}) |")
+                     f"{(v - spy_now) / pot:+.1%} ({'+' if v >= spy_now else ''}{_gbp(v - spy_now)}) |")
         L.append(f"| *S&P 500 tracker* | £{pot:,.0f} | £{spy_now:,.0f} | {spy_now / pot - 1:+.1%} | — |")
     L.append(f"\nDaily history: data/paper_test.csv\n")
     # ---- UK tax on each account (general investment account; an ISA pays none) --
