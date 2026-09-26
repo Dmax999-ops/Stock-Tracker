@@ -37,6 +37,7 @@ jobs:
       - name: Build today's plan
         env:
           STRATEGY_POT: ${{ vars.STRATEGY_POT || '10000' }}
+          BROKER: ${{ vars.STRATEGY_BROKER || 't212' }}
         run: python scripts/daily_plan.py
 
       - name: Commit
@@ -44,20 +45,32 @@ jobs:
         run: |
           bash scripts/commit_push.sh "daily plan $(date -u +%Y-%m-%d)" \
             docs/PLAN.md docs/plan.json docs/plan_state.json docs/plan_error.json \
-            data/live_prices.csv data/strategy_log.jsonl data/paper_test.csv
+            data/live_prices.csv data/strategy_log.jsonl data/paper_test.csv data/paper_trades.csv
+
+      - name: Check email settings (shows yes/no only, never the values)
+        if: always()
+        env:
+          U: ${{ secrets.MAIL_USERNAME }}
+          P: ${{ secrets.MAIL_PASSWORD }}
+          T: ${{ secrets.MAIL_TO }}
+        run: |
+          for n in U:MAIL_USERNAME P:MAIL_PASSWORD T:MAIL_TO; do
+            v="${n%%:*}"; name="${n#*:}"
+            if [ -n "${!v}" ]; then echo "$name: set"; else echo "::warning::$name is NOT set - emails are switched off until it is"; fi
+          done
+          echo "Emails enabled: $MAIL_ON"
 
       - name: Prepare email subjects
         id: subj
         if: always()
         run: |
           echo "today=$(date -u +'%a %d %b %Y')" >> "$GITHUB_OUTPUT"
-          if [ -f docs/ACTION.md ]; then
-            echo "action=$(head -n 1 docs/ACTION.md | cut -c1-150)" >> "$GITHUB_OUTPUT"
-            tail -n +3 docs/ACTION.md > docs/ACTION_BODY.md
+          if [ -f docs/ACTION_SUBJECT.txt ]; then
+            echo "action=$(head -n 1 docs/ACTION_SUBJECT.txt | cut -c1-150)" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Email - ACTION NEEDED (only when there is something to do)
-        if: always() && env.MAIL_ON == 'true' && hashFiles('docs/ACTION.md') != ''
+        if: always() && env.MAIL_ON == 'true' && hashFiles('docs/ACTION.html') != ''
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -68,11 +81,11 @@ jobs:
           subject: ${{ steps.subj.outputs.action }}
           to: ${{ secrets.MAIL_TO }}
           from: Stock Tracker <${{ secrets.MAIL_USERNAME }}>
-          body: file://docs/ACTION_BODY.md
-          convert_markdown: true
+          body: file://docs/ACTION.md
+          html_body: file://docs/ACTION.html
 
       - name: Email - daily summary
-        if: always() && env.MAIL_ON == 'true' && hashFiles('docs/EMAIL.md') != ''
+        if: always() && env.MAIL_ON == 'true' && hashFiles('docs/EMAIL.html') != ''
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -84,4 +97,4 @@ jobs:
           to: ${{ secrets.MAIL_TO }}
           from: Stock Tracker <${{ secrets.MAIL_USERNAME }}>
           body: file://docs/EMAIL.md
-          convert_markdown: true
+          html_body: file://docs/EMAIL.html
