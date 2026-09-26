@@ -166,7 +166,7 @@ def markdown(res: dict, log_rows: list[dict], spy_now: float | None = None) -> l
     try:
         tag = bp.out_tag(res["pot"])
         v = json.loads(Path(f"data/validation{tag}.json").read_text())
-        ok = sum(v.get("checks", {}).values())
+        ok = sum(1 for x in v.get("checks", {}).values() if x is True or str(x) == "True")
         n = len(v.get("checks", {}))
         L.append(f"\n**Trust checks (validation of {v['generated'][:10]}, £{res['pot']:,.0f} pot): "
                  f"{ok} of {n} passed.** "
