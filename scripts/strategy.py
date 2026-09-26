@@ -38,6 +38,9 @@ _spec = importlib.util.spec_from_file_location("fs", HERE / "factor_screen.py")
 fs = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(fs)
 bp = fs.bp
+_spec = importlib.util.spec_from_file_location("fx", HERE / "fx.py")
+FX = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(FX)
 
 SCORE = "trend_200"
 REPLAY_FROM = "2024-01-05"   # fixed anchor, so the replay is identical every day
@@ -53,7 +56,7 @@ def week_ends(idx: pd.DatetimeIndex) -> list[int]:
     return ends
 
 
-def trade_costs(trades: list[tuple]) -> list[dict]:
+def trade_costs(trades: list[tuple], rate: float = 1.0, px_usd: dict | None = None) -> list[dict]:
     """
     Exactly what each instruction costs at your broker, so the amounts add up.
       BUY  : sell (slot + one deal) of the S&P 500 tracker -> cash = slot
@@ -67,48 +70,76 @@ def trade_costs(trades: list[tuple]) -> list[dict]:
     for a, tk, g in trades:
         if a == "BUY":
             fx = bp.fx_cost(g - deal)
+            usd = (g - deal - fx) * rate
+            p = (px_usd or {}).get(tk)
             out.append({"action": a, "ticker": tk, "sell_tracker": g + deal, "cash": g,
                         "deal": deal, "fx": fx, "into_shares": g - deal - fx,
+                        "usd": usd, "rate": rate, "price_usd": p,
+                        "shares": usd / p if p else None,
                         "total_cost": 2 * deal + fx})
         elif a == "SELL":
             fx = bp.fx_cost(g)
             proceeds = g - fx - deal
             out.append({"action": a, "ticker": tk, "value": g, "fx": fx, "deal": deal,
-                        "proceeds": proceeds, "into_tracker": proceeds - deal,
+                        "usd": g * rate, "rate": rate, "proceeds": proceeds, "into_tracker": proceeds - deal,
                         "total_cost": 2 * deal + fx})
         else:
             out.append({"action": a, "ticker": tk, "value": g})
     return out
 
 
-def setup_list(hold, tracker, bonds, pot) -> dict:
-    """Starting from scratch: what to buy so that exactly `pot` is invested after charges."""
-    rows = [(h["ticker"], h["value"], fs.DEAL + bp.fx_cost(h["value"])) for h in hold]
+def setup_list(hold, tracker, bonds, pot, rate: float = 1.0) -> dict:
+    """
+    Starting from scratch: what to buy so that exactly `pot` is invested after charges.
+    rows: (name, pounds invested, charges, dollars that buys at today's rate,
+           share price in dollars, about how many shares)
+    """
+    rows = [(h["ticker"], h["value"], fs.DEAL + bp.fx_cost(h["value"]), h["value"] * rate,
+             h.get("price_usd"), h["value"] * rate / h["price_usd"] if h.get("price_usd") else None)
+            for h in hold]
     if tracker > 1:
-        rows.append(("S&P 500 tracker", tracker, fs.DEAL))
+        rows.append(("S&P 500 tracker", tracker, fs.DEAL, None, None, None))
     if bonds > 1:
-        rows.append(("Bond fund", bonds, fs.DEAL))
+        rows.append(("Bond fund", bonds, fs.DEAL, None, None, None))
     return {"rows": rows, "invested": pot, "charges": sum(r[2] for r in rows),
-            "deposit": pot + sum(r[2] for r in rows)}
+            "deposit": pot + sum(r[2] for r in rows), "usd_per_gbp": rate}
 
 
-def live(P: pd.DataFrame, sp500: list[str], pot: float, bond: pd.Series | None = None) -> dict:
-    """P: daily closes incl. SPY. sp500: today's S&P 500 tickers (Yahoo symbols)."""
+def prepare(P: pd.DataFrame, sp500: list[str], bond: pd.Series | None, usd_per_gbp: pd.Series | None):
+    """
+    The rules are decided on the US-dollar prices (a stock's trend is the same
+    whatever currency you count it in). Every value, cost and gain is then
+    counted in pounds: US prices are divided by the pound/dollar rate of each
+    day. The bond fund is taken as a pound-hedged fund, so no currency effect.
+    """
     spy = P["SPY"].dropna()
     cols = [c for c in sp500 if c in P.columns and c != "SPY"]
-    C = P[cols].reindex(spy.index)
-    Cff = C.ffill()
-    member = np.ones(C.shape, bool)
+    Cff = P[cols].reindex(spy.index).ffill()
     sig = Cff / Cff.rolling(200, min_periods=200).mean() - 1
     if bond is None or bond.reindex(spy.index).notna().mean() < 0.5:
         bond = pd.Series(1.02 ** (np.arange(len(spy)) / 252), index=spy.index)
     bond = bond.reindex(spy.index).ffill().bfill()
     switch = bp.market_state(spy).shift(1).fillna(True).astype(bool)
+    if usd_per_gbp is None:
+        fxr = pd.Series(1.0, index=spy.index)
+    else:
+        fxr = FX.on(spy.index, usd_per_gbp)
+    return {"spy": spy, "Cff": Cff, "sig": sig, "bond": bond, "switch": switch, "fx": fxr,
+            "X": FX.to_gbp(Cff, fxr), "Y": FX.to_gbp(spy, fxr)}
+
+
+def live(P: pd.DataFrame, sp500: list[str], pot: float, bond: pd.Series | None = None,
+         usd_per_gbp: pd.Series | None = None) -> dict:
+    """P: daily closes (US$) incl. SPY. sp500: today's S&P 500 tickers. usd_per_gbp: daily rate."""
+    D = prepare(P, sp500, bond, usd_per_gbp)
+    spy, Cff, sig, bond, switch = D["spy"], D["Cff"], D["sig"], D["bond"], D["switch"]
+    X, Y, fxr = D["X"], D["Y"], D["fx"]
+    member = np.ones(Cff.shape, bool)
     fs.START = pot
     checks = week_ends(spy.index)
     anchor = pd.Timestamp(REPLAY_FROM)
     start = next(i for i in checks if spy.index[i] >= anchor and i >= 220)
-    eq, t = fs.commit_portfolio(sig, Cff, spy, member, start, True, switch.values, bond.values,
+    eq, t = fs.commit_portfolio(sig, X, Y, member, start, True, switch.values, bond.values,
                                 check_idx=checks, return_state=True)
     st = t["state"]
     last_check = st["as_of_check"]
@@ -121,8 +152,10 @@ def live(P: pd.DataFrame, sp500: list[str], pot: float, bond: pd.Series | None =
     for h in hold:
         h["weight"] = h["value"] / total if total else 0
         h["value"] *= f
-        h["gain"] = h["price"] / h["bought_at"] - 1
+        h["gain"] = h["price"] / h["bought_at"] - 1              # in pounds, currency included
+        h["price_usd"] = float(Cff[h["ticker"]].iloc[-1])
         h["score"] = float(sig[h["ticker"]].iloc[-1])
+    rate = float(fxr.iloc[-1])
     return {
         "score": SCORE, "pot": pot, "as_of": today, "last_check": last_check,
         "is_check_day": last_check == today,
@@ -131,14 +164,17 @@ def live(P: pd.DataFrame, sp500: list[str], pot: float, bond: pd.Series | None =
         "holdings": hold, "tracker_value": st["tracker_value"] * f, "bond_value": st["bond_value"] * f,
         "total_value": pot, "replay_total": total,
         "this_week": [(d, a, tk, g * f) for d, a, tk, g in this_week],
-        "this_week_detail": trade_costs([(a, tk, g * f) for d, a, tk, g in this_week]),
-        "setup": setup_list(hold, st["tracker_value"] * f, st["bond_value"] * f, pot),
+        "this_week_detail": trade_costs([(a, tk, g * f) for d, a, tk, g in this_week], rate,
+                                        {c: float(Cff[c].iloc[-1]) for c in Cff.columns}),
+        "setup": setup_list(hold, st["tracker_value"] * f, st["bond_value"] * f, pot, rate),
+        "usd_per_gbp": rate, "fx_source": FX.SOURCE or "not converted",
+        "fx_date": str(usd_per_gbp.index[-1].date()) if usd_per_gbp is not None and len(usd_per_gbp) else None,
         "broker": bp.BROKER_NAME, "deal": fs.DEAL, "recent": st["actions"][-15:],
         "on_deck": st["on_deck"],
         "replay_from": str(spy.index[start].date()),
-        "replay_vs_spy": float(eq.iloc[-1] / pot - 1) - float(spy.iloc[-1] / spy.iloc[start] - 1) if len(eq) else None,
+        "replay_vs_spy": float(eq.iloc[-1] / pot - 1) - float(Y.iloc[-1] / Y.iloc[start] - 1) if len(eq) else None,
         "replay_value_start": pot, "replay_value_now": float(eq.iloc[-1]) if len(eq) else pot,
-        "spy_since_replay": float(spy.iloc[-1] / spy.iloc[start] - 1),
+        "spy_since_replay": float(Y.iloc[-1] / Y.iloc[start] - 1),
     }
 
 
@@ -146,10 +182,12 @@ def log_day(res: dict, path="data/strategy_log.jsonl"):
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
     rows = [json.loads(l) for l in p.read_text().splitlines() if l.strip()] if p.exists() else []
+    rows = [r for r in rows if r.get("basis") == "gbp"]      # older rows were counted in dollars
     if rows and rows[-1]["as_of"] == res["as_of"]:
         rows = rows[:-1]
     rows.append({"as_of": res["as_of"], "value": round(res["replay_total"], 2),
-                 "market_on": res["market_on"],
+                 "market_on": res["market_on"], "basis": "gbp",
+                 "usd_per_gbp": round(res.get("usd_per_gbp", 1.0), 5),
                  "holdings": [h["ticker"] for h in res["holdings"]]})
     p.write_text("\n".join(json.dumps(r) for r in rows) + "\n")
     return rows
@@ -163,7 +201,10 @@ def markdown(res: dict, log_rows: list[dict], spy_now: float | None = None) -> l
          "on the last trading day of each week; nothing happens between checks except the "
          "market switch._\n",
          f"**Market switch: {'ON — invested' if res['market_on'] else 'OFF — everything in bonds'}** "
-         f"(S&P 500 {res['spy_vs_200d']:+.1%} vs its 200-day average)\n"]
+         f"(S&P 500 {res['spy_vs_200d']:+.1%} vs its 200-day average)\n",
+         f"**Exchange rate: £1 = ${res.get('usd_per_gbp', 1):.4f}** ({res.get('fx_source', '')}, "
+         f"rate of {res.get('fx_date') or res['as_of']}). All £ figures convert US prices at each day's rate, "
+         "so gains include the pound's moves against the dollar.\n"]
     wk = res["this_week"]
     if res["is_check_day"]:
         L.append("### Today is a check day. Actions:\n")
@@ -194,8 +235,10 @@ def markdown(res: dict, log_rows: list[dict], spy_now: float | None = None) -> l
     if su:
         L += [f"\n**Starting from scratch at {res.get('broker', '')}:** put in £{su['deposit']:,.0f} so that "
               f"exactly £{su['invested']:,.0f} is invested (£{su['charges']:,.0f} of charges):\n",
-              "| Buy | Invest | Charges |", "|---|---|---|"]
-        L += [f"| {n} | £{a:,.0f} | £{c:,.2f} |" for n, a, c in su["rows"]]
+              "| Buy | Invest | Charges | In dollars | Share price | ≈ Shares |", "|---|---|---|---|---|---|"]
+        for n, a, c, usd, p, q in su["rows"]:
+            L.append(f"| {n} | £{a:,.0f} | £{c:,.2f} | "
+                     + (f"${usd:,.0f} | ${p:,.2f} | {q:,.2f} |" if p else "— | — | — |"))
     if res["on_deck"]:
         L.append("\n**On deck** (in the top 5%, not yet confirmed — a BUY if still there at "
                  "3 weekly checks): " + ", ".join(f"{d['ticker']} ({d['weeks_in_top']} of 3)"
