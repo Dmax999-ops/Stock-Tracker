@@ -1,6 +1,6 @@
 # Can we trust it? — validation of the live strategy
 
-_Generated 2026-09-26 20:59 UTC. £10,000 pot, Trading 212 costs, 1997-02-03 → 2026-09-25. Strategy: S&P 500 stocks furthest above their 200-day average, commit rules, market switch._
+_Generated 2026-09-26 21:04 UTC. £10,000 pot, Trading 212 costs, 1997-02-03 → 2026-09-25. Strategy: S&P 500 stocks furthest above their 200-day average, commit rules, market switch._
 
 **Baseline (as tested before):** £1,623,606 vs £162,403 in the S&P 500 (+18.7%/yr vs +9.9%/yr; worst fall -31%).
 
@@ -8,15 +8,15 @@ _Generated 2026-09-26 20:59 UTC. £10,000 pot, Trading 212 costs, 1997-02-03 →
 
 | Test | £ | Yearly | vs S&P, first half | vs S&P, second half | Worst fall | Still beats S&P in both halves? |
 |---|---|---|---|---|---|---|
-| Trade 1 day after the signal | £1,586,862 | +18.6% | +12.1%/yr | +5.7%/yr | -30% | **yes** |
-| Trade 2 days after the signal | £2,116,442 | +19.8% | +13.0%/yr | +7.1%/yr | -30% | **yes** |
-| Check every Monday, trade next day | £1,170,055 | +17.4% | +11.2%/yr | +4.1%/yr | -33% | **yes** |
-| Check every Tuesday, trade next day | £1,144,713 | +17.3% | +10.1%/yr | +5.1%/yr | -30% | **yes** |
-| Check every Wednesday, trade next day | £2,330,115 | +20.2% | +12.4%/yr | +8.1%/yr | -30% | **yes** |
-| Check every Thursday, trade next day | £1,464,564 | +18.3% | +10.6%/yr | +6.1%/yr | -31% | **yes** |
-| Check every Friday, trade next day | £1,392,296 | +18.1% | +10.5%/yr | +6.5%/yr | -32% | **yes** |
+| Trade 1 day after the signal | £1,586,865 | +18.6% | +12.1%/yr | +5.7%/yr | -30% | **yes** |
+| Trade 2 days after the signal | £2,116,449 | +19.8% | +13.0%/yr | +7.1%/yr | -30% | **yes** |
+| Check every Monday, trade next day | £1,170,056 | +17.4% | +11.2%/yr | +4.1%/yr | -33% | **yes** |
+| Check every Tuesday, trade next day | £1,144,711 | +17.3% | +10.1%/yr | +5.1%/yr | -30% | **yes** |
+| Check every Wednesday, trade next day | £2,330,114 | +20.2% | +12.4%/yr | +8.1%/yr | -30% | **yes** |
+| Check every Thursday, trade next day | £1,464,563 | +18.3% | +10.6%/yr | +6.1%/yr | -31% | **yes** |
+| Check every Friday, trade next day | £1,392,300 | +18.1% | +10.5%/yr | +6.5%/yr | -32% | **yes** |
 | Check DAILY (15-day confirmation), trade next day | £1,701,770 | +18.9% | +13.3%/yr | +4.6%/yr | -33% | **yes** |
-| Double costs, trade next day | £1,179,514 | +17.5% | +11.5%/yr | +3.8%/yr | -32% | **yes** |
+| Double costs, trade next day | £1,179,517 | +17.5% | +11.5%/yr | +3.8%/yr | -32% | **yes** |
 
 ## 4. Any 5 years
 
