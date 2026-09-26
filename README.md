@@ -18,6 +18,8 @@ S&P 500 stocks trading furthest above their own 200-day average, held under comm
 | **Market switch** | S&P 500 below its 200-day average for 3 closes → everything into a bond fund. Back into an S&P 500 tracker after 3 closes above. |
 | **Idle money** | Waits in an S&P 500 tracker. |
 
+The rules decide on US-dollar prices. Every £ figure (holdings, trade amounts, paper-test values, UK tax) converts those prices at the pound/dollar rate of each day, using the latest rate when the plan runs (Yahoo Finance, with the European Central Bank as backup; kept in `data/gbpusd.csv`). The bond fund is taken as pound-hedged.
+
 ## Why these rules
 
 | Test | Page |
