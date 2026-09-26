@@ -160,7 +160,7 @@ def write_md(out, path):
     pot = out["pot_gbp"]
     b = out["base"]
     L = ["# Can we trust it? — validation of the live strategy\n",
-         f"_Generated {out['generated'][:16].replace('T', ' ')} UTC. £{pot:,.0f} pot, HL costs, "
+         f"_Generated {out['generated'][:16].replace('T', ' ')} UTC. £{pot:,.0f} pot, {out.get('broker', 'HL')} costs, "
          f"{out['from']} → {out['to']}. Strategy: S&P 500 stocks furthest above their 200-day "
          f"average, commit rules, market switch._\n",
          f"**Baseline (as tested before):** £{b['gbp']:,} vs £{b['spy_gbp']:,} in the S&P 500 "
@@ -214,10 +214,11 @@ def main() -> int:
     ap.add_argument("--spy-csv", default="")
     ap.add_argument("--no-membership", action="store_true")
     a = ap.parse_args()
-    if fs.START != 10_000:
-        tag = f"_{int(fs.START / 1000)}k"
+    tag = bp.out_tag(fs.START)
+    if tag:
         a.out, a.md = a.out.replace(".json", f"{tag}.json"), a.md.replace(".md", f"{tag}.md")
-    out = {"generated": pd.Timestamp.now("UTC").isoformat(), "pot_gbp": fs.START}
+    out = {"generated": pd.Timestamp.now("UTC").isoformat(), "pot_gbp": fs.START,
+           "broker": bp.BROKER_NAME}
     try:
         C, info = bp.load_panel(a.prices, a.delisted)
         C = C.loc[:, C.notna().sum() > 260]
