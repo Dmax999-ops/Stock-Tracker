@@ -1,0 +1,43 @@
+name: Clean up old experiments
+
+# One-off. Deletes the retired experiment scripts and their result files.
+# (GitHub does not let a workflow delete other workflow files - those 12 are
+# deleted by hand, see the instructions in the chat.) Safe to run twice.
+# Delete this file afterwards.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove retired files
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for f in \
+            scripts/alert.py scripts/asymmetric.py scripts/confirmation.py scripts/daily_signals.py \
+            scripts/gated_exit.py scripts/momentum_control.py scripts/portfolio_sim.py scripts/rotation.py \
+            scripts/test_divergence.py scripts/test_ear.py scripts/test_exits.py scripts/test_lowerlow.py \
+            scripts/test_setups.py scripts/train_states.py scripts/trend_rules.py scripts/validate_harness.py \
+            data/asymmetric_calibration.json data/asymmetric_evidence.json data/confirmation_calibration.json \
+            data/confirmation_evidence.json data/divergence_evidence.json data/ear_evidence.json \
+            data/exit_evidence.json data/gated_exit_calibration.json data/gated_exit_evidence.json \
+            data/harness_check.json data/lowerlow_evidence.json data/momentum_control.json \
+            data/portfolio_calibration.json data/portfolio_evidence.json data/setup_evidence.json \
+            data/signal_history.csv data/state_evidence.json data/trend_evidence.json \
+            data/rotation_evidence.json data/rotation_calibration.json docs/signals.json; do
+            if [ -e "$f" ]; then git rm -q "$f" && echo "deleted $f"; else echo "already gone: $f"; fi
+          done
+          if git diff --staged --quiet; then echo "nothing to delete"; exit 0; fi
+          git commit -q -m "Clean up old experiments"
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main && git rebase -q origin/main && git push -q origin HEAD:main && { echo "pushed"; exit 0; }
+            sleep 10
+          done
+          exit 1
