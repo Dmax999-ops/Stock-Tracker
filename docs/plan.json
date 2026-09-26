@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-26T11:12:30.758819+00:00",
+  "generated": "2026-09-26T21:06:53.863435+00:00",
   "as_of": "2026-09-25",
   "holding_ranks": [
     {
@@ -126,9 +126,9 @@
   "market": {
     "on": true,
     "spy": 771.3499755859375,
-    "ma200": 714.8377185058594,
-    "vs200": 0.07905606491806139,
-    "ret_12m": 0.1793554072975252
+    "ma200": 714.8377172851563,
+    "vs200": 0.0790560667607274,
+    "ret_12m": 0.17935551735461797
   },
   "rebalance_day": false,
   "holdings": [
@@ -567,7 +567,7 @@
   "top_industries": [
     [
       "Technology Hardware, Storage & Peripherals",
-      1.4681389667876652
+      1.4681389917370011
     ],
     [
       "Oil & Gas Refining & Marketing",
@@ -575,11 +575,11 @@
     ],
     [
       "Biotechnology",
-      0.6896455682732329
+      0.689645576268206
     ],
     [
       "Semiconductors",
-      0.6162257091131499
+      0.6162257151303021
     ],
     [
       "Communications Equipment",
@@ -587,43 +587,43 @@
     ],
     [
       "Semiconductor Materials & Equipment",
-      0.5413270333257343
+      0.5413270169514114
     ],
     [
       "Systems Software",
-      0.5008802081151186
+      0.5008802016236684
     ],
     [
       "Life Sciences Tools & Services",
-      0.46583530727223443
+      0.465835315253025
     ],
     [
       "Electrical Components & Equipment",
-      0.40306501859261673
+      0.4030650023593992
     ],
     [
       "Electronic Components",
-      0.37733948024511754
+      0.37733948017101354
     ],
     [
       "Managed Health Care",
-      0.3701071932417185
+      0.37010723823891495
     ],
     [
       "Electronic Manufacturing Services",
-      0.25043113655610955
+      0.25043114716173365
     ],
     [
       "Electronic Equipment & Instruments",
-      0.23582363311374246
+      0.23582362948475938
     ],
     [
       "Pharmaceuticals",
-      0.2237425428131414
+      0.22374254127043242
     ],
     [
       "SECTOR:Materials",
-      0.19696904923903194
+      0.1969690766194841
     ]
   ],
   "universe": "S&P 500 only",
@@ -635,9 +635,9 @@
   "themes_total": 33,
   "themes": [
     {
-      "score": 1.9333931594645841,
+      "score": 1.933393158949852,
       "n": 24,
-      "mom": 1.5231199815206762,
+      "mom": 1.5231200552217943,
       "leaders": "Sandisk, Lumentum, Micron Technology, Western Digital",
       "labels": "Semiconductors (6), Semiconductor Materials & Equipment (4), Technology Hardware, Storage & Peripherals (4)",
       "pct": 1.0,
@@ -647,7 +647,7 @@
     {
       "score": 1.672719222375715,
       "n": 14,
-      "mom": 0.4819305583128254,
+      "mom": 0.48193062583831503,
       "leaders": "Merck & Co., Johnson & Johnson, Viatris, Bristol Myers Squibb",
       "labels": "Biotechnology (7), Pharmaceuticals (6), Health Care Services (1)",
       "pct": 0.9696969696969697,
@@ -665,9 +665,9 @@
       "of": 33
     },
     {
-      "score": 1.2440118360882915,
+      "score": 1.2440114692376,
       "n": 18,
-      "mom": 0.3627857832429707,
+      "mom": 0.3627856854370285,
       "leaders": "Valero Energy, Phillips 66, Marathon Petroleum, APA Corporation",
       "labels": "Oil & Gas Exploration & Production (6), Oil & Gas Refining & Marketing (3), Agricultural Products & Services (2)",
       "pct": 0.9090909090909091,
@@ -675,7 +675,7 @@
       "of": 33
     },
     {
-      "score": 1.159848322532509,
+      "score": 1.159848398974085,
       "n": 10,
       "mom": 0.2800648516476595,
       "leaders": "J.B. Hunt, FedEx, Expeditors International, Henry Schein",
@@ -685,7 +685,7 @@
       "of": 33
     },
     {
-      "score": 1.1316946085968431,
+      "score": 1.131694422520452,
       "n": 17,
       "mom": 0.14319653934079213,
       "leaders": "State Street Corporation, BNY Mellon, Franklin Resources, Northern Trust",
@@ -695,9 +695,9 @@
       "of": 33
     },
     {
-      "score": 1.1241926555423007,
+      "score": 1.1241928298629729,
       "n": 6,
-      "mom": 0.2376504973899265,
+      "mom": 0.23765048181605286,
       "leaders": "Invesco, Morgan Stanley, Interactive Brokers, Goldman Sachs",
       "labels": "Investment Banking & Brokerage (4), Financial Exchanges & Data (1), Asset Management & Custody Banks (1)",
       "pct": 0.8181818181818182,
@@ -705,9 +705,9 @@
       "of": 33
     },
     {
-      "score": 1.0756663200700853,
+      "score": 1.075666587187232,
       "n": 14,
-      "mom": 0.43650836298950324,
+      "mom": 0.436508463735199,
       "leaders": "Illumina, Inc., Charles River Laboratories, Warner Bros. Discovery, Quest Diagnostics",
       "labels": "Life Sciences Tools & Services (9), Health Care Services (2), Health Care Equipment (1)",
       "pct": 0.7878787878787878,
@@ -715,9 +715,9 @@
       "of": 33
     },
     {
-      "score": 1.0516134976077725,
+      "score": 1.0516131425838084,
       "n": 10,
-      "mom": 0.2042032676004637,
+      "mom": 0.20420321045679257,
       "leaders": "Cardinal Health, Principal Financial Group, RTX Corporation, Howmet Aerospace",
       "labels": "Life & Health Insurance (4), Aerospace & Defense (3), Multi-Sector Holdings (1)",
       "pct": 0.7575757575757576,
@@ -745,7 +745,7 @@
       "of": 33
     },
     {
-      "score": 0.8374826185821552,
+      "score": 0.837482919158148,
       "n": 9,
       "mom": 0.14975405797915897,
       "leaders": "Targa Resources, Schlumberger, Oneok, Kinder Morgan",
@@ -755,9 +755,9 @@
       "of": 33
     },
     {
-      "score": 0.8141339616011312,
+      "score": 0.8141342309394953,
       "n": 21,
-      "mom": 0.4687681769222678,
+      "mom": 0.46876822828007114,
       "leaders": "Keysight Technologies, Comfort Systems USA, Caterpillar Inc., Vertiv",
       "labels": "Semiconductors (6), Construction & Engineering (3), Construction Machinery & Heavy Transportation Equipment (2)",
       "pct": 0.6363636363636364,
@@ -765,9 +765,9 @@
       "of": 33
     },
     {
-      "score": 0.7669183903505716,
+      "score": 0.7669190079397076,
       "n": 7,
-      "mom": 0.23771773413267483,
+      "mom": 0.23771785216459151,
       "leaders": "Centene Corporation, Humana, CVS Health, Elevance Health",
       "labels": "Managed Health Care (4), Health Care Services (3)",
       "pct": 0.6060606060606061,
@@ -775,9 +775,9 @@
       "of": 33
     },
     {
-      "score": 0.6875915861553581,
+      "score": 0.6875921092956855,
       "n": 6,
-      "mom": 0.10049596870893818,
+      "mom": 0.10049609281558058,
       "leaders": "Debenhams Group, Albemarle Corporation, Corteva, Air Products",
       "labels": "Industrial Gases (2), Fertilizers & Agricultural Chemicals (2), Specialty Chemicals (1)",
       "pct": 0.5757575757575758,
@@ -1229,180 +1229,223 @@
     "last_check": "2026-09-25",
     "is_check_day": true,
     "market_on": true,
-    "spy_vs_200d": 0.07905606491806139,
+    "spy_vs_200d": 0.0790560667607274,
     "holdings": [
       {
         "ticker": "MU",
-        "shares": 4.82566950110714,
+        "shares": 6.179328737406875,
         "bought": "2026-04-17",
-        "bought_at": 455.0000305175781,
-        "price": 1082.280029296875,
-        "value": 1721.877521937289,
+        "bought_at": 336.38609140269773,
+        "price": 817.0348760735773,
+        "value": 1800.2750744791315,
         "weeks_weak": 0,
-        "weight": 0.17218775219372887,
-        "gain": 1.378637267487091,
+        "weight": 0.18002750744791315,
+        "gain": 1.4288604581319646,
+        "price_usd": 1082.280029296875,
         "score": 0.6373996144882315
       },
       {
         "ticker": "SNDK",
-        "shares": 2.3840430336411527,
+        "shares": 3.052796223532003,
         "bought": "2026-04-17",
-        "bought_at": 920.989990234375,
-        "price": 1777.800048828125,
-        "value": 1397.3398394500612,
+        "bought_at": 680.8971478167433,
+        "price": 1342.09687258255,
+        "value": 1460.9611029176529,
         "weeks_weak": 0,
-        "weight": 0.1397339839450061,
-        "gain": 0.9303141919878062,
+        "weight": 0.1460961102917653,
+        "gain": 0.9710713679531553,
+        "price_usd": 1777.800048828125,
         "score": 0.6046407423029181
       },
       {
-        "ticker": "MRNA",
-        "shares": 19.26464261201465,
-        "bought": "2026-09-11",
-        "bought_at": 143.97000122070312,
-        "price": 198.8800048828125,
-        "value": 1263.1563675569787,
-        "weeks_weak": 0,
-        "weight": 0.12631563675569787,
-        "gain": 0.38139892475192405,
-        "score": 2.09512561044089
-      },
-      {
         "ticker": "STX",
-        "shares": 4.014617216703202,
+        "shares": 5.140766380948997,
         "bought": "2026-04-17",
-        "bought_at": 546.9213256835938,
-        "price": 916.8300170898438,
-        "value": 1213.4950344161828,
+        "bought_at": 404.34442793818306,
+        "price": 692.1333473003216,
+        "value": 1268.7457938388804,
         "weeks_weak": 0,
-        "weight": 0.12134950344161828,
-        "gain": 0.6763471710376319,
-        "score": 0.445550454683286
+        "weight": 0.12687457938388805,
+        "gain": 0.711742018629069,
+        "price_usd": 916.8300170898438,
+        "score": 0.4455504550310603
       },
       {
         "ticker": "BE",
-        "shares": 10.563262598981002,
+        "shares": 13.526386778805083,
         "bought": "2026-04-17",
-        "bought_at": 207.86000061035156,
-        "price": 288.70001220703125,
-        "value": 1005.4255461008803,
+        "bought_at": 153.67298565835424,
+        "price": 217.94542291356413,
+        "value": 1051.202845051081,
         "weeks_weak": 0,
-        "weight": 0.10054255461008803,
-        "gain": 0.3889156709290118,
+        "weight": 0.10512028450510813,
+        "gain": 0.41824161208203736,
+        "price_usd": 288.70001220703125,
         "score": 0.4224748106604812
       },
       {
         "ticker": "WDC",
-        "shares": 5.897555370889834,
+        "shares": 7.5518916857913325,
         "bought": "2026-04-17",
-        "bought_at": 372.3033752441406,
-        "price": 456.80999755859375,
-        "value": 888.203876582694,
+        "bought_at": 275.2476237681703,
+        "price": 344.8550187024452,
+        "value": 928.64404099341,
         "weeks_weak": 0,
-        "weight": 0.0888203876582694,
-        "gain": 0.22698322909116064,
-        "score": 0.162171346845005
+        "weight": 0.092864404099341,
+        "gain": 0.2528900848673714,
+        "price_usd": 456.80999755859375,
+        "score": 0.16217134391250432
       },
       {
         "ticker": "LITE",
-        "shares": 2.455825329431133,
+        "shares": 3.144714330047648,
         "bought": "2026-04-17",
-        "bought_at": 894.0700073242188,
-        "price": 941.6500244140625,
-        "value": 762.4160556456955,
+        "bought_at": 660.9949341367268,
+        "price": 710.8704680632935,
+        "value": 797.1290663097633,
         "weeks_weak": 0,
-        "weight": 0.07624160556456955,
-        "gain": 0.053217328285333876,
+        "weight": 0.07971290663097633,
+        "gain": 0.07545524383133917,
+        "price_usd": 941.6500244140625,
         "score": 0.29129540407153254
       },
       {
         "ticker": "TER",
-        "shares": 5.776730510228613,
+        "shares": 7.397173975946973,
         "bought": "2026-04-17",
-        "bought_at": 380.09039306640625,
-        "price": 398.3800048828125,
-        "value": 758.7254947288878,
+        "bought_at": 281.00464423679614,
+        "price": 300.7450466688193,
+        "value": 793.2704731492577,
         "weeks_weak": 0,
-        "weight": 0.07587254947288878,
-        "gain": 0.04811911100634125,
-        "score": 0.20907459138102769
+        "weight": 0.07932704731492578,
+        "gain": 0.0702493814137406,
+        "price_usd": 398.3800048828125,
+        "score": 0.2090745883014482
+      },
+      {
+        "ticker": "GLW",
+        "shares": 17.162710060793422,
+        "bought": "2026-04-17",
+        "bought_at": 121.11375383641315,
+        "price": 118.32617021222983,
+        "value": 724.1418499302948,
+        "weeks_weak": 0,
+        "weight": 0.07241418499302948,
+        "gain": -0.02301624329098484,
+        "price_usd": 156.74000549316406,
+        "score": 0.056006084510179965
       },
       {
         "ticker": "COHR",
-        "shares": 6.363920468922419,
+        "shares": 8.149077890054835,
         "bought": "2026-04-17",
-        "bought_at": 345.0199890136719,
-        "price": 295.8299865722656,
-        "value": 620.6860354332401,
+        "bought_at": 255.07674236436566,
+        "price": 223.32798340088243,
+        "value": 648.9460396756542,
         "weeks_weak": 0,
-        "weight": 0.062068603543324004,
-        "gain": -0.1425714567495886,
+        "weight": 0.06489460396756543,
+        "gain": -0.12446747856820106,
+        "price_usd": 295.8299865722656,
         "score": 0.03380325385530569
       }
     ],
-    "tracker_value": 368.6742281480918,
+    "tracker_value": 526.6837136548731,
     "bond_value": 0.0,
     "total_value": 10000.0,
-    "replay_total": 30331.575053951397,
+    "replay_total": 28044.198138142056,
     "this_week": [],
     "this_week_detail": [],
     "setup": {
       "rows": [
         [
           "MU",
-          1721.877521937289,
-          2.5828162829059336
+          1800.2750744791315,
+          2.7004126117186975,
+          2384.7228770859065,
+          1082.280029296875,
+          2.203425003263887
         ],
         [
           "SNDK",
-          1397.3398394500612,
-          2.0960097591750917
-        ],
-        [
-          "MRNA",
-          1263.1563675569787,
-          1.894734551335468
+          1460.9611029176529,
+          2.1914416543764794,
+          1935.252792225875,
+          1777.800048828125,
+          1.0885660586529617
         ],
         [
           "STX",
-          1213.4950344161828,
-          1.8202425516242742
+          1268.7457938388804,
+          1.9031186907583206,
+          1680.6360109437653,
+          916.8300170898438,
+          1.8330944445714774
         ],
         [
           "BE",
-          1005.4255461008803,
-          1.5081383191513205
+          1051.202845051081,
+          1.5768042675766216,
+          1392.4691335163866,
+          288.70001220703125,
+          4.8232389145790036
         ],
         [
           "WDC",
-          888.203876582694,
-          1.332305814874041
+          928.64404099341,
+          1.3929660614901151,
+          1230.1223966383134,
+          456.80999755859375,
+          2.6928534909758164
         ],
         [
           "LITE",
-          762.4160556456955,
-          1.1436240834685432
+          797.1290663097633,
+          1.195693599464645,
+          1055.9119255533838,
+          941.6500244140625,
+          1.1213422165102371
         ],
         [
           "TER",
-          758.7254947288878,
-          1.1380882420933318
+          793.2704731492577,
+          1.1899057097238865,
+          1050.8006647723682,
+          398.3800048828125,
+          2.6376842509489697
+        ],
+        [
+          "GLW",
+          724.1418499302948,
+          1.0862127748954422,
+          959.229875625377,
+          156.74000549316406,
+          6.1198790481554
         ],
         [
           "COHR",
-          620.6860354332401,
-          0.9310290531498602
+          648.9460396756542,
+          0.9734190595134814,
+          859.6222259293243,
+          295.8299865722656,
+          2.9057981440273464
         ],
         [
           "S&P 500 tracker",
-          368.6742281480918,
-          0.0
+          526.6837136548731,
+          0.0,
+          null,
+          null,
+          null
         ]
       ],
       "invested": 10000.0,
-      "charges": 14.446988657777863,
-      "deposit": 10014.446988657777
+      "charges": 14.20997442951769,
+      "deposit": 10014.209974429517,
+      "usd_per_gbp": 1.324643611907959
     },
+    "usd_per_gbp": 1.324643611907959,
+    "fx_source": "Yahoo Finance",
+    "fx_date": "2026-09-26",
     "broker": "Trading 212",
     "deal": 0.0,
     "recent": [
@@ -1410,91 +1453,91 @@
         "2026-03-27",
         "SELL (market switch off)",
         "WDC",
-        2120
+        2007
       ],
       [
         "2026-03-27",
         "SELL (market switch off)",
         "CIEN",
-        2598
+        2459
       ],
       [
         "2026-03-27",
         "MOVE ALL TO BONDS",
         "",
-        21654
+        20500
       ],
       [
         "2026-04-17",
         "MOVE BONDS BACK TO S&P TRACKER",
         "",
-        21990
+        20818
       ],
       [
         "2026-04-17",
         "BUY",
         "SNDK",
-        2199
+        2082
       ],
       [
         "2026-04-17",
         "BUY",
         "LITE",
-        2199
+        2082
       ],
       [
         "2026-04-17",
         "BUY",
         "CIEN",
-        2199
+        2082
       ],
       [
         "2026-04-17",
         "BUY",
         "WDC",
-        2199
+        2082
       ],
       [
         "2026-04-17",
         "BUY",
         "COHR",
-        2199
+        2082
       ],
       [
         "2026-04-17",
         "BUY",
         "BE",
-        2199
+        2082
       ],
       [
         "2026-04-17",
         "BUY",
         "TER",
-        2199
+        2082
       ],
       [
         "2026-04-17",
         "BUY",
         "STX",
-        2199
+        2082
       ],
       [
         "2026-04-17",
         "BUY",
         "MU",
-        2199
+        2082
+      ],
+      [
+        "2026-04-17",
+        "BUY",
+        "GLW",
+        2082
       ],
       [
         "2026-09-11",
         "SELL",
         "CIEN",
-        1512
-      ],
-      [
-        "2026-09-11",
-        "BUY",
-        "MRNA",
-        2778
+        1434
       ]
     ],
     "on_deck": [
@@ -1516,45 +1559,46 @@
       }
     ],
     "replay_from": "2024-01-05",
-    "replay_vs_spy": 1.3307461394959892,
+    "replay_vs_spy": 1.1742819206263142,
     "replay_value_start": 10000.0,
-    "replay_value_now": 30331.575053951397,
-    "spy_since_replay": 0.7024113658991504
+    "replay_value_now": 28044.198138142056,
+    "spy_since_replay": 0.6301378931878914
   },
   "strategy_md": [
     "## \u25b6 THE STRATEGY \u2014 what to do\n",
     "_Momentum stocks held under commit rules, with the market switch. The only stock picker to beat the S&P 500 in both halves of 1997\u20132026 after HL costs and survive the stress tests (20 of 20 variations at a \u00a3100k pot; 15 of 20 at \u00a310k). Rules are checked on the last trading day of each week; nothing happens between checks except the market switch._\n",
     "**Market switch: ON \u2014 invested** (S&P 500 +7.9% vs its 200-day average)\n",
+    "**Exchange rate: \u00a31 = $1.3246** (Yahoo Finance, rate of 2026-09-26). All \u00a3 figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.\n",
     "### Today is a check day. Actions:\n",
     "**No trades. HOLD everything.**\n",
     "### Holdings (\u00a310,000 pot, as the rules would hold it today)\n",
     "| Stock | Bought | Gain since | Value | Share of pot | Weeks weak (3 = SELL) |",
     "|---|---|---|---|---|---|",
-    "| **MU** | 2026-04-17 | +138% | \u00a31,722 | 17% | 0 |",
-    "| **SNDK** | 2026-04-17 | +93% | \u00a31,397 | 14% | 0 |",
-    "| **MRNA** | 2026-09-11 | +38% | \u00a31,263 | 13% | 0 |",
-    "| **STX** | 2026-04-17 | +68% | \u00a31,213 | 12% | 0 |",
-    "| **BE** | 2026-04-17 | +39% | \u00a31,005 | 10% | 0 |",
-    "| **WDC** | 2026-04-17 | +23% | \u00a3888 | 9% | 0 |",
-    "| **LITE** | 2026-04-17 | +5% | \u00a3762 | 8% | 0 |",
-    "| **TER** | 2026-04-17 | +5% | \u00a3759 | 8% | 0 |",
-    "| **COHR** | 2026-04-17 | -14% | \u00a3621 | 6% | 0 |",
-    "| S&P 500 tracker (e.g. Vanguard S&P 500 UCITS ETF) | | | \u00a3369 | 4% | |",
+    "| **MU** | 2026-04-17 | +143% | \u00a31,800 | 18% | 0 |",
+    "| **SNDK** | 2026-04-17 | +97% | \u00a31,461 | 15% | 0 |",
+    "| **STX** | 2026-04-17 | +71% | \u00a31,269 | 13% | 0 |",
+    "| **BE** | 2026-04-17 | +42% | \u00a31,051 | 11% | 0 |",
+    "| **WDC** | 2026-04-17 | +25% | \u00a3929 | 9% | 0 |",
+    "| **LITE** | 2026-04-17 | +8% | \u00a3797 | 8% | 0 |",
+    "| **TER** | 2026-04-17 | +7% | \u00a3793 | 8% | 0 |",
+    "| **GLW** | 2026-04-17 | -2% | \u00a3724 | 7% | 0 |",
+    "| **COHR** | 2026-04-17 | -12% | \u00a3649 | 6% | 0 |",
+    "| S&P 500 tracker (e.g. Vanguard S&P 500 UCITS ETF) | | | \u00a3527 | 5% | |",
     "\n**Starting from scratch at Trading 212:** put in \u00a310,014 so that exactly \u00a310,000 is invested (\u00a314 of charges):\n",
-    "| Buy | Invest | Charges |",
-    "|---|---|---|",
-    "| MU | \u00a31,722 | \u00a32.58 |",
-    "| SNDK | \u00a31,397 | \u00a32.10 |",
-    "| MRNA | \u00a31,263 | \u00a31.89 |",
-    "| STX | \u00a31,213 | \u00a31.82 |",
-    "| BE | \u00a31,005 | \u00a31.51 |",
-    "| WDC | \u00a3888 | \u00a31.33 |",
-    "| LITE | \u00a3762 | \u00a31.14 |",
-    "| TER | \u00a3759 | \u00a31.14 |",
-    "| COHR | \u00a3621 | \u00a30.93 |",
-    "| S&P 500 tracker | \u00a3369 | \u00a30.00 |",
+    "| Buy | Invest | Charges | In dollars | Share price | \u2248 Shares |",
+    "|---|---|---|---|---|---|",
+    "| MU | \u00a31,800 | \u00a32.70 | $2,385 | $1,082.28 | 2.20 |",
+    "| SNDK | \u00a31,461 | \u00a32.19 | $1,935 | $1,777.80 | 1.09 |",
+    "| STX | \u00a31,269 | \u00a31.90 | $1,681 | $916.83 | 1.83 |",
+    "| BE | \u00a31,051 | \u00a31.58 | $1,392 | $288.70 | 4.82 |",
+    "| WDC | \u00a3929 | \u00a31.39 | $1,230 | $456.81 | 2.69 |",
+    "| LITE | \u00a3797 | \u00a31.20 | $1,056 | $941.65 | 1.12 |",
+    "| TER | \u00a3793 | \u00a31.19 | $1,051 | $398.38 | 2.64 |",
+    "| GLW | \u00a3724 | \u00a31.09 | $959 | $156.74 | 6.12 |",
+    "| COHR | \u00a3649 | \u00a30.97 | $860 | $295.83 | 2.91 |",
+    "| S&P 500 tracker | \u00a3527 | \u00a30.00 | \u2014 | \u2014 | \u2014 |",
     "\n**On deck** (in the top 5%, not yet confirmed \u2014 a BUY if still there at 3 weekly checks): RVTY (2 of 3), P (2 of 3), DDOG (1 of 3), VEEV (1 of 3)",
-    "\n**Recent actions:** 2026-04-17 BUY WDC; 2026-04-17 BUY COHR; 2026-04-17 BUY BE; 2026-04-17 BUY TER; 2026-04-17 BUY STX; 2026-04-17 BUY MU; 2026-09-11 SELL CIEN; 2026-09-11 BUY MRNA",
+    "\n**Recent actions:** 2026-04-17 BUY WDC; 2026-04-17 BUY COHR; 2026-04-17 BUY BE; 2026-04-17 BUY TER; 2026-04-17 BUY STX; 2026-04-17 BUY MU; 2026-04-17 BUY GLW; 2026-09-11 SELL CIEN",
     "\n**Live record starts today** (2026-09-25). From tomorrow this line shows the strategy's real, forward performance.",
     "\n**Trust checks (validation of 2026-09-26, \u00a310,000 pot): 5 of 5 passed.** Cleared for consideration \u2014 watch the live record.",
     ""

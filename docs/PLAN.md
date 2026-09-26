@@ -1,6 +1,6 @@
 # Daily plan — 2026-09-25
 
-_Generated 2026-09-26 11:12 UTC from closing prices of 2026-09-25. Tested rules, not personal financial advice._
+_Generated 2026-09-26 21:06 UTC from closing prices of 2026-09-25. Tested rules, not personal financial advice._
 
 ## Market: **RISK ON — invested**
 
@@ -12,6 +12,8 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 
 **Market switch: ON — invested** (S&P 500 +7.9% vs its 200-day average)
 
+**Exchange rate: £1 = $1.3246** (Yahoo Finance, rate of 2026-09-26). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
+
 ### Today is a check day. Actions:
 
 **No trades. HOLD everything.**
@@ -20,35 +22,35 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 
 | Stock | Bought | Gain since | Value | Share of pot | Weeks weak (3 = SELL) |
 |---|---|---|---|---|---|
-| **MU** | 2026-04-17 | +138% | £1,722 | 17% | 0 |
-| **SNDK** | 2026-04-17 | +93% | £1,397 | 14% | 0 |
-| **MRNA** | 2026-09-11 | +38% | £1,263 | 13% | 0 |
-| **STX** | 2026-04-17 | +68% | £1,213 | 12% | 0 |
-| **BE** | 2026-04-17 | +39% | £1,005 | 10% | 0 |
-| **WDC** | 2026-04-17 | +23% | £888 | 9% | 0 |
-| **LITE** | 2026-04-17 | +5% | £762 | 8% | 0 |
-| **TER** | 2026-04-17 | +5% | £759 | 8% | 0 |
-| **COHR** | 2026-04-17 | -14% | £621 | 6% | 0 |
-| S&P 500 tracker (e.g. Vanguard S&P 500 UCITS ETF) | | | £369 | 4% | |
+| **MU** | 2026-04-17 | +143% | £1,800 | 18% | 0 |
+| **SNDK** | 2026-04-17 | +97% | £1,461 | 15% | 0 |
+| **STX** | 2026-04-17 | +71% | £1,269 | 13% | 0 |
+| **BE** | 2026-04-17 | +42% | £1,051 | 11% | 0 |
+| **WDC** | 2026-04-17 | +25% | £929 | 9% | 0 |
+| **LITE** | 2026-04-17 | +8% | £797 | 8% | 0 |
+| **TER** | 2026-04-17 | +7% | £793 | 8% | 0 |
+| **GLW** | 2026-04-17 | -2% | £724 | 7% | 0 |
+| **COHR** | 2026-04-17 | -12% | £649 | 6% | 0 |
+| S&P 500 tracker (e.g. Vanguard S&P 500 UCITS ETF) | | | £527 | 5% | |
 
 **Starting from scratch at Trading 212:** put in £10,014 so that exactly £10,000 is invested (£14 of charges):
 
-| Buy | Invest | Charges |
-|---|---|---|
-| MU | £1,722 | £2.58 |
-| SNDK | £1,397 | £2.10 |
-| MRNA | £1,263 | £1.89 |
-| STX | £1,213 | £1.82 |
-| BE | £1,005 | £1.51 |
-| WDC | £888 | £1.33 |
-| LITE | £762 | £1.14 |
-| TER | £759 | £1.14 |
-| COHR | £621 | £0.93 |
-| S&P 500 tracker | £369 | £0.00 |
+| Buy | Invest | Charges | In dollars | Share price | ≈ Shares |
+|---|---|---|---|---|---|
+| MU | £1,800 | £2.70 | $2,385 | $1,082.28 | 2.20 |
+| SNDK | £1,461 | £2.19 | $1,935 | $1,777.80 | 1.09 |
+| STX | £1,269 | £1.90 | $1,681 | $916.83 | 1.83 |
+| BE | £1,051 | £1.58 | $1,392 | $288.70 | 4.82 |
+| WDC | £929 | £1.39 | $1,230 | $456.81 | 2.69 |
+| LITE | £797 | £1.20 | $1,056 | $941.65 | 1.12 |
+| TER | £793 | £1.19 | $1,051 | $398.38 | 2.64 |
+| GLW | £724 | £1.09 | $959 | $156.74 | 6.12 |
+| COHR | £649 | £0.97 | $860 | $295.83 | 2.91 |
+| S&P 500 tracker | £527 | £0.00 | — | — | — |
 
 **On deck** (in the top 5%, not yet confirmed — a BUY if still there at 3 weekly checks): RVTY (2 of 3), P (2 of 3), DDOG (1 of 3), VEEV (1 of 3)
 
-**Recent actions:** 2026-04-17 BUY WDC; 2026-04-17 BUY COHR; 2026-04-17 BUY BE; 2026-04-17 BUY TER; 2026-04-17 BUY STX; 2026-04-17 BUY MU; 2026-09-11 SELL CIEN; 2026-09-11 BUY MRNA
+**Recent actions:** 2026-04-17 BUY WDC; 2026-04-17 BUY COHR; 2026-04-17 BUY BE; 2026-04-17 BUY TER; 2026-04-17 BUY STX; 2026-04-17 BUY MU; 2026-04-17 BUY GLW; 2026-09-11 SELL CIEN
 
 **Live record starts today** (2026-09-25). From tomorrow this line shows the strategy's real, forward performance.
 
@@ -101,4 +103,4 @@ Technology Hardware, Storage & Peripherals +147%, Oil & Gas Refining & Marketing
 
 
 ---
-_Costs (Hargreaves Lansdown, 2026): £6.95 a deal; FX on US shares 1% on the first £5,000 of each trade, then 0.75%, 0.5% and 0.25%. Tested rules, not personal financial advice. SELL on a single holding is insurance, not a forecast._
+_Costs (Trading 212: no dealing charge; 0.15% currency exchange on US shares). Tested rules, not personal financial advice. SELL on a single holding is insurance, not a forecast._
