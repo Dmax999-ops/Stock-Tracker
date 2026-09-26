@@ -362,7 +362,8 @@ EXIT_CONFIRM = CONFIRM_CHECKS
 
 
 def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
-                     bond=None, check_idx=None, return_state=False) -> tuple[pd.Series, dict]:
+                     bond=None, check_idx=None, return_state=False,
+                     mark_all=False) -> tuple[pd.Series, dict]:
     """
     No calendar. Idle money is in an S&P 500 tracker. Every week the evidence
     is checked; a trade happens only when ENTER or EXIT fires (see top).
@@ -393,7 +394,13 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
                      "biggest_day_move": float(np.expm1(day)), "open": False, "_e": e_px, "_x": px})
     steps = (range(start_i, len(idx), CHECK_EVERY) if check_idx is None
              else [int(i) for i in check_idx if i >= start_i])
-    for i in steps:
+    check_set = set(steps)
+    loop = range(start_i, len(idx)) if mark_all else steps
+    for i in loop:
+        if i not in check_set:                     # value only -- rules act on check days
+            marks[idx[i]] = (index_units * Y[i] + (bond_units * B[i] if B is not None else 0)
+                             + sum(p * X[i, k] for k, p in pos.items() if np.isfinite(X[i, k])))
+            continue
         # MARKET SWITCH (optional): S&P 500 below its 200-day for 3 closes ->
         # everything into a bond fund; back to the tracker when it recovers.
         if SW is not None:
@@ -477,7 +484,7 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
     last = len(idx) - 1
     state = None
     if return_state:
-        li = steps[-1] if len(steps) else last
+        li = max(check_set) if check_set else last
         state = {
             "as_of_check": str(idx[li].date()),
             "holdings": [{"ticker": cols[k], "shares": float(u), "bought": str(idx[opened[k]].date()),
@@ -489,6 +496,7 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
             "on_deck": [{"ticker": cols[k], "weeks_in_top": int(streak[k])}
                         for k in np.argsort(-streak) if 0 < streak[k] < CONFIRM_CHECKS and k not in pos][:10],
             "actions": actions[-40:],
+            "all_actions": list(actions),
         }
     for k in list(pos):                            # still held: mark at today's price
         sh = pos[k]
