@@ -675,8 +675,12 @@ def _tail(plan: dict, L: list, path: Path):
     L.append("\n## Strongest official industries today\n")
     L.append(", ".join((f"{k[7:]} (sector)" if k.startswith("SECTOR:") else k) + f" {v:+.0%}"
                        for k, v in plan["top_industries"][:10]))
-    L.append("\n\n---\n_Costs (Hargreaves Lansdown, 2026): £6.95 a deal; FX on US shares 1% on the "
-             "first £5,000 of each trade, then 0.75%, 0.5% and 0.25%. Tested rules, not personal "
+    br = str((plan.get("strategy") or {}).get("broker", ""))
+    cost = ("Trading 212: no dealing charge; 0.15% currency exchange on US shares" if "212" in br else
+            "Interactive Brokers: about £1 a deal; about 0.03% currency exchange" if "Interactive" in br else
+            "Hargreaves Lansdown, 2026: £6.95 a deal; FX on US shares 1% on the first £5,000 of each "
+            "trade, then 0.75%, 0.5% and 0.25%")
+    L.append(f"\n\n---\n_Costs ({cost}). Tested rules, not personal "
              "financial advice. SELL on a single holding is insurance, not a forecast._")
     path.write_text("\n".join(L) + "\n")
 
@@ -771,14 +775,18 @@ def _todo(plan: dict) -> list[dict]:
                                       f"→ you receive £{t['cash']:,.0f}" + (f" (after a £{t['deal']:.2f} deal charge)" if t['deal'] else " (no dealing charge)"),
                                       f"Buy {tk} with that £{t['cash']:,.0f} → about £{t['into_shares']:,.0f} "
                                       f"ends up in {tk} shares (" + (f"£{t['deal']:.2f} deal + " if t['deal'] else "")
-                                      + f"£{t['fx']:,.2f} currency exchange)"],
+                                      + f"£{t['fx']:,.2f} currency exchange)"
+                                      + (f" = about ${t['usd']:,.0f} at £1 = ${t['rate']:.4f}"
+                                         + (f", roughly {t['shares']:,.2f} shares at ${t['price_usd']:,.2f}"
+                                            if t.get('shares') else "") if t.get('usd') else "")],
                             "amount": f"Buy {tk} with £{t['cash']:,.0f}",
                             "cost": f"£{t['total_cost']:,.2f} in {br} charges",
                             "why": "3 weekly checks in a row in the top 5% of the S&P 500 "
                                    "(furthest above its 200-day average)."})
             elif a == "SELL":
                 out.append({"kind": "SELL", "title": f"SELL all of your {tk}",
-                            "steps": [f"Sell all your {tk} shares (worth about £{t['value']:,.0f}) "
+                            "steps": [f"Sell all your {tk} shares (worth about £{t['value']:,.0f}"
+                                      + (f" = ${t['usd']:,.0f} at £1 = ${t['rate']:.4f}" if t.get('usd') else "") + ") "
                                       f"→ you receive about £{t['proceeds']:,.0f} (£{t['fx']:,.2f} currency exchange"
                                       + (f" + £{t['deal']:.2f} deal)" if t['deal'] else ")"),
                                       f"Buy £{t['proceeds']:,.0f} of your S&P 500 tracker "
@@ -823,6 +831,10 @@ def phone_html(plan: dict, todo: list[dict], action_only: bool = False) -> str:
              f'font-weight:700;margin-bottom:14px">Market switch: {pill[2]}'
              f'<div style="font-weight:400;font-size:14px;color:#1f2328">S&amp;P 500 '
              f'{plan["market"]["vs200"]:+.1%} vs its 200-day average</div></div>')
+    if res.get("usd_per_gbp"):
+        B.append(f'<div style="font-size:14px;color:#57606a;margin:-6px 0 12px">Exchange rate used: '
+                 f'<b style="color:#1f2328">£1 = ${res["usd_per_gbp"]:.4f}</b> '
+                 f'({esc(str(res.get("fx_source", "")))}). All £ amounts use it.</div>')
 
     def h2(t):
         B.append(f'<div style="font-size:18px;font-weight:700;margin:20px 0 8px">{t}</div>')
@@ -856,11 +868,18 @@ def phone_html(plan: dict, todo: list[dict], action_only: bool = False) -> str:
         B.append(f'<table style="width:100%;border-collapse:collapse;font-size:15px"><tr>'
                  f'<th style="{th}">Buy</th><th style="{th};text-align:right">Invest</th>'
                  f'<th style="{th};text-align:right">Charges</th></tr>')
-        for name, amt, ch in setup["rows"]:
-            B.append(f'<tr><td style="{td}"><b>{esc(name)}</b></td><td style="{td};text-align:right">£{amt:,.0f}</td>'
+        for row in setup["rows"]:
+            name, amt, ch = row[:3]
+            usd, p, q = (list(row[3:6]) + [None] * 3)[:3]
+            sub = (f'<div style="color:#57606a;font-size:12px">≈ ${usd:,.0f} · {q:,.2f} shares at ${p:,.2f}</div>'
+                   if p and q else "")
+            B.append(f'<tr><td style="{td}"><b>{esc(name)}</b>{sub}</td><td style="{td};text-align:right">£{amt:,.0f}</td>'
                      f'<td style="{td};text-align:right">£{ch:,.2f}</td></tr>')
         B.append("</table><div style='font-size:13px;color:#57606a'>Buy on the first day of the test, at "
-                 "any time the market is open. Amounts are worked out from Friday's close.</div>")
+                 "any time the market is open. Amounts are worked out from Friday's close; "
+                 "the share count moves with the price and the exchange rate on the day, so buy by £ amount"
+                 + (" (Trading 212 allows fractions of a share)." if "212" in str(res.get("broker")) else ".")
+                 + "</div>")
     if action_only:
         B.append(f'<p style="font-size:14px;color:#57606a">Trades are for the day after this email, '
                  f'at any time the market is open.</p>')
@@ -1136,7 +1155,8 @@ def main() -> int:
             spec.loader.exec_module(strat)
             pot = float(os.environ.get("STRATEGY_POT", "10000") or 10000)
             sp = load_constituents(a.constituents)["yf"].tolist()
-            res = strat.live(P, sp, pot, P["VFITX"] if "VFITX" in P else None)
+            usd_per_gbp = strat.FX.load()          # latest pound/dollar rate, every run
+            res = strat.live(P, sp, pot, P["VFITX"] if "VFITX" in P else None, usd_per_gbp)
             rows = strat.log_day(res)
             plan["strategy"] = res
             plan["strategy_md"] = strat.markdown(res, rows)
@@ -1144,7 +1164,7 @@ def main() -> int:
                 spec2 = importlib.util.spec_from_file_location("paper_test", Path(__file__).parent / "paper_test.py")
                 pt = importlib.util.module_from_spec(spec2)
                 spec2.loader.exec_module(pt)
-                plan["paper_md"] = pt.update(P, sp, P["VFITX"] if "VFITX" in P else None)
+                plan["paper_md"] = pt.update(P, sp, P["VFITX"] if "VFITX" in P else None, usd_per_gbp)
                 plan["paper_rows"] = pt.LAST
             except Exception:                                      # noqa: BLE001
                 import traceback
