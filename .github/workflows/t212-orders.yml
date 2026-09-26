@@ -1,0 +1,71 @@
+name: T212 orders (dry run)
+
+# Works out the exact Trading 212 orders that would bring the account in line
+# with the strategy, and emails them. DRY RUN: nothing is ever sent to
+# Trading 212 -- scripts/t212_orders.py contains no order-placing code.
+#
+# Optional repository secrets (read-only Trading 212 API key):
+#   T212_API_KEY, T212_API_SECRET
+# Without them it shows a pretend new account holding the set-up deposit.
+
+on:
+  schedule:
+    - cron: '45 14 * * 1-5'     # 14:45 UTC: after the US open all year round
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: t212-orders
+  cancel-in-progress: false
+
+jobs:
+  orders:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      MAIL_ON: ${{ secrets.MAIL_USERNAME != '' && secrets.MAIL_PASSWORD != '' && secrets.MAIL_TO != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt requests pyyaml
+
+      - name: Work out orders (dry run)
+        env:
+          T212_API_KEY: ${{ secrets.T212_API_KEY }}
+          T212_API_SECRET: ${{ secrets.T212_API_SECRET }}
+        run: |
+          if [ -n "$T212_API_KEY" ]; then echo "Trading 212 key: set"; else echo "Trading 212 key: not set (pretend new account)"; fi
+          python scripts/t212_orders.py
+
+      - name: Commit
+        if: always()
+        run: bash scripts/commit_push.sh "t212 orders $(date -u +%Y-%m-%d)" docs/ORDERS.md data/orders_log.jsonl
+
+      - name: Email subject
+        id: subj
+        if: always()
+        run: |
+          if [ -f docs/ORDERS_SUBJECT.txt ]; then
+            echo "s=$(head -n 1 docs/ORDERS_SUBJECT.txt | cut -c1-150)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Email - orders (only when they change, or a check fails)
+        if: always() && env.MAIL_ON == 'true' && hashFiles('docs/ORDERS_EMAIL.html') != ''
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: ${{ steps.subj.outputs.s }}
+          to: ${{ secrets.MAIL_TO }}
+          from: Stock Tracker <${{ secrets.MAIL_USERNAME }}>
+          body: file://docs/ORDERS_EMAIL.md
+          html_body: file://docs/ORDERS_EMAIL.html
