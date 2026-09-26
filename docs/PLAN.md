@@ -1,6 +1,6 @@
 # Daily plan — 2026-09-25
 
-_Generated 2026-09-26 10:02 UTC from closing prices of 2026-09-25. Tested rules, not personal financial advice._
+_Generated 2026-09-26 10:37 UTC from closing prices of 2026-09-25. Tested rules, not personal financial advice._
 
 ## Market: **RISK ON — invested**
 
@@ -31,7 +31,7 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 | **COHR** | 2026-04-17 | -14% | £6,211 | 6% | 0 |
 | S&P 500 tracker (e.g. Vanguard S&P 500 UCITS ETF) | | | £3,674 | 4% | |
 
-**On deck** (in the top 5%, not yet confirmed — a BUY if still there at 3 weekly checks): RVTY (2 of 3), P (2 of 3), VEEV (1 of 3), DDOG (1 of 3)
+**On deck** (in the top 5%, not yet confirmed — a BUY if still there at 3 weekly checks): RVTY (2 of 3), P (2 of 3), DDOG (1 of 3), VEEV (1 of 3)
 
 **Recent actions:** 2026-04-17 BUY WDC; 2026-04-17 BUY COHR; 2026-04-17 BUY BE; 2026-04-17 BUY TER; 2026-04-17 BUY STX; 2026-04-17 BUY MU; 2026-09-11 SELL CIEN; 2026-09-11 BUY MRNA
 
