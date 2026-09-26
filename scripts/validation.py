@@ -307,6 +307,7 @@ def main() -> int:
         checks = {"survives a trading delay": ok_delay, "not tied to one check day": ok_days,
                   "survives double costs": ok_cost, "beats S&P in 60%+ of 5-year periods": ok_roll,
                   "under 25% chance of trailing over 10 years": ok_boot}
+        checks = {k: bool(v) for k, v in checks.items()}
         out["checks"] = checks
         passed = sum(checks.values())
         lines = [f"- {'✅' if v else '❌'} {k}" for k, v in checks.items()]
