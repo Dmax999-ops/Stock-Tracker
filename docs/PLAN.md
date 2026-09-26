@@ -1,6 +1,6 @@
 # Daily plan — 2026-09-25
 
-_Generated 2026-09-26 09:52 UTC from closing prices of 2026-09-25. Tested rules, not personal financial advice._
+_Generated 2026-09-26 10:02 UTC from closing prices of 2026-09-25. Tested rules, not personal financial advice._
 
 ## Market: **RISK ON — invested**
 
@@ -37,6 +37,8 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 
 **Live record starts today** (2026-09-25). From tomorrow this line shows the strategy's real, forward performance.
 
+**Trust checks (validation of 2026-09-25, £100,000 pot): 5 of 5 passed.** Cleared for consideration — watch the live record.
+
 ## 🧪 Paper test — starts Monday 2026-09-28
 
 Six pretend accounts (£10k and £100k × Hargreaves Lansdown, Trading 212, Interactive Brokers) will be invested in the strategy at Monday's close and tracked every day for three months against the S&P 500.
@@ -60,10 +62,6 @@ Six pretend accounts (£10k and £100k × Hargreaves Lansdown, Trading 212, Inte
 | **HOLD** | SPCX — SpaceX | too little price history to judge -- no signal | Aerospace & Defense (#70 of 84) | — (moves on its own) | insufficient |
 | **HOLD** | TEM — Tempus AI | uptrend, but neither its industry nor its theme is in the top fifth | Health Care Services (#30 of 84) | Illumina, Inc.… (#8 of 33) | up |
 | **HOLD** | ZOO.L — ZOO Digital | uptrend, but neither its industry nor its theme is in the top fifth | Movies & Entertainment (#69 of 84) | IQE, Dell Technologies… (#17 of 33) | up |
-
-## Changes since the last run
-
-- TEM: BUY → **HOLD**
 
 ## Top themes today — found from how stocks trade, not from labels
 
