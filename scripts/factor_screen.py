@@ -470,9 +470,11 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
             for k in cand:
                 per = total / SLOTS
                 need = per + fee                                   # sell tracker, buy stock
-                if index_units * Y[i] < need or per <= 2 * fee:
+                # tolerance: with no dealing charge the last slot needs exactly what is
+                # left in the tracker, and rounding in the 12th decimal must not skip it
+                if index_units * Y[i] < need * (1 - 1e-9) or per <= 2 * fee:
                     break
-                index_units -= need / Y[i]
+                index_units = max(index_units - need / Y[i], 0.0)
                 pos[k] = (per - fee - fxc(per - fee)) / X[i, k]
                 actions.append((str(idx[i].date()), "BUY", cols[k], round(per)))
                 entry[k] = (i, X[i, k])
