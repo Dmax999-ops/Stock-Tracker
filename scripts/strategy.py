@@ -53,6 +53,45 @@ def week_ends(idx: pd.DatetimeIndex) -> list[int]:
     return ends
 
 
+def trade_costs(trades: list[tuple]) -> list[dict]:
+    """
+    Exactly what each instruction costs at your broker, so the amounts add up.
+      BUY  : sell (slot + one deal) of the S&P 500 tracker -> cash = slot
+             -> buy the stock: one deal + FX on the pounds converted to dollars
+      SELL : sell all shares: FX on the dollars converted back + one deal
+             -> buy the tracker with what is left: one deal
+    The UK-listed tracker needs no currency exchange.
+    """
+    deal = fs.DEAL
+    out = []
+    for a, tk, g in trades:
+        if a == "BUY":
+            fx = bp.fx_cost(g - deal)
+            out.append({"action": a, "ticker": tk, "sell_tracker": g + deal, "cash": g,
+                        "deal": deal, "fx": fx, "into_shares": g - deal - fx,
+                        "total_cost": 2 * deal + fx})
+        elif a == "SELL":
+            fx = bp.fx_cost(g)
+            proceeds = g - fx - deal
+            out.append({"action": a, "ticker": tk, "value": g, "fx": fx, "deal": deal,
+                        "proceeds": proceeds, "into_tracker": proceeds - deal,
+                        "total_cost": 2 * deal + fx})
+        else:
+            out.append({"action": a, "ticker": tk, "value": g})
+    return out
+
+
+def setup_list(hold, tracker, bonds, pot) -> dict:
+    """Starting from scratch: what to buy so that exactly `pot` is invested after charges."""
+    rows = [(h["ticker"], h["value"], fs.DEAL + bp.fx_cost(h["value"])) for h in hold]
+    if tracker > 1:
+        rows.append(("S&P 500 tracker", tracker, fs.DEAL))
+    if bonds > 1:
+        rows.append(("Bond fund", bonds, fs.DEAL))
+    return {"rows": rows, "invested": pot, "charges": sum(r[2] for r in rows),
+            "deposit": pot + sum(r[2] for r in rows)}
+
+
 def live(P: pd.DataFrame, sp500: list[str], pot: float, bond: pd.Series | None = None) -> dict:
     """P: daily closes incl. SPY. sp500: today's S&P 500 tickers (Yahoo symbols)."""
     spy = P["SPY"].dropna()
@@ -91,7 +130,10 @@ def live(P: pd.DataFrame, sp500: list[str], pot: float, bond: pd.Series | None =
         "spy_vs_200d": float(spy.iloc[-1] / spy.rolling(200).mean().iloc[-1] - 1),
         "holdings": hold, "tracker_value": st["tracker_value"] * f, "bond_value": st["bond_value"] * f,
         "total_value": pot, "replay_total": total,
-        "this_week": [(d, a, tk, g * f) for d, a, tk, g in this_week], "recent": st["actions"][-15:],
+        "this_week": [(d, a, tk, g * f) for d, a, tk, g in this_week],
+        "this_week_detail": trade_costs([(a, tk, g * f) for d, a, tk, g in this_week]),
+        "setup": setup_list(hold, st["tracker_value"] * f, st["bond_value"] * f, pot),
+        "broker": bp.BROKER_NAME, "deal": fs.DEAL, "recent": st["actions"][-15:],
         "on_deck": st["on_deck"],
         "replay_from": str(spy.index[start].date()),
         "replay_vs_spy": float(eq.iloc[-1] / pot - 1) - float(spy.iloc[-1] / spy.iloc[start] - 1) if len(eq) else None,
@@ -148,6 +190,12 @@ def markdown(res: dict, log_rows: list[dict], spy_now: float | None = None) -> l
     if res["bond_value"] > 1:
         L.append(f"| Bond fund | | | £{res['bond_value']:,.0f} | "
                  f"{res['bond_value'] / res['total_value']:.0%} | |")
+    su = res.get("setup")
+    if su:
+        L += [f"\n**Starting from scratch at {res.get('broker', '')}:** put in £{su['deposit']:,.0f} so that "
+              f"exactly £{su['invested']:,.0f} is invested (£{su['charges']:,.0f} of charges):\n",
+              "| Buy | Invest | Charges |", "|---|---|---|"]
+        L += [f"| {n} | £{a:,.0f} | £{c:,.2f} |" for n, a, c in su["rows"]]
     if res["on_deck"]:
         L.append("\n**On deck** (in the top 5%, not yet confirmed — a BUY if still there at "
                  "3 weekly checks): " + ", ".join(f"{d['ticker']} ({d['weeks_in_top']} of 3)"
