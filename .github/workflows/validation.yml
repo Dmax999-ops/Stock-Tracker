@@ -12,6 +12,10 @@ on:
         description: 'Pot size in GBP (e.g. 10000 or 100000)'
         required: false
         default: '10000'
+      broker:
+        description: 'Broker charges to model: hl (Hargreaves Lansdown), t212 (Trading 212) or ibkr (Interactive Brokers)'
+        required: false
+        default: 'hl'
   schedule:
     - cron: '0 16 1 * *'       # monthly, 1st at 16:00 UTC
 
@@ -44,7 +48,8 @@ jobs:
       - name: Run the validation
         if: always()
         env:
-          POT_GBP: ${{ github.event.inputs.pot || '10000' }}
+          POT_GBP: ${{ github.event.inputs.pot || vars.STRATEGY_POT || '10000' }}
+          BROKER: ${{ github.event.inputs.broker || 'hl' }}
         run: python scripts/validation.py
 
       - name: Commit
