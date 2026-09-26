@@ -592,6 +592,8 @@ def write_markdown(plan: dict, path: Path):
              + "\n")
     if plan.get("strategy_md"):
         L.extend(plan["strategy_md"])
+    if plan.get("paper_md"):
+        L.extend(plan["paper_md"])
     elif plan.get("strategy_error"):
         L.append("## ▶ THE STRATEGY — could not be calculated today\n\n```\n"
                  + "\n".join(plan["strategy_error"]) + "\n```\n")
@@ -677,6 +679,50 @@ def _tail(plan: dict, L: list, path: Path):
              "first £5,000 of each trade, then 0.75%, 0.5% and 0.25%. Tested rules, not personal "
              "financial advice. SELL on a single holding is insurance, not a forecast._")
     path.write_text("\n".join(L) + "\n")
+
+
+PLAN_URL = "https://github.com/Dmax999-ops/Stock-Tracker/blob/main/docs/PLAN.md"
+
+
+def write_emails(plan: dict, docs: Path):
+    """
+    docs/EMAIL.md  -- the short daily summary (sent every weeknight)
+    docs/ACTION.md -- written ONLY when you need to do something: a strategy
+                      BUY/SELL, the market switch flipping, or one of your own
+                      holdings changing to BUY or SELL. Its first line is the
+                      email subject.
+    Neither is committed to the repo; the workflow emails them and discards them.
+    """
+    for f in ("EMAIL.md", "ACTION.md"):
+        (docs / f).unlink(missing_ok=True)
+    res = plan.get("strategy") or {}
+    todo = []
+    if res.get("is_check_day"):
+        todo += [f"**{a}** {t} (about £{g:,.0f})".replace("  ", " ") for _, a, t, g in res.get("this_week", [])]
+    for c in plan.get("changes", []):
+        if c.startswith("MARKET SWITCH"):
+            todo.insert(0, c)
+        elif not c.startswith("Model:"):
+            todo.append(f"Your holding {c}")
+    E = [f"**Market switch:** {'ON — invested' if (res.get('market_on', plan['market']['on'])) else 'OFF — bonds'}",
+         ""]
+    if todo:
+        E += ["**Action needed:**", ""] + [f"- {t}" for t in todo] + [""]
+    else:
+        E += ["**No action needed today.**", ""]
+    if res:
+        E += [f"**Strategy holdings:** " + ", ".join(h["ticker"] for h in res.get("holdings", [])), ""]
+    sells = [h for h in plan.get("holdings", []) if h["action"] == "SELL"]
+    if sells:
+        E += ["**Your holdings flagged SELL:** " + ", ".join(h["ticker"] for h in sells), ""]
+    if plan.get("paper_md"):
+        E += [l for l in plan["paper_md"] if l.startswith("|") or l.startswith("## ")] + [""]
+    E += [f"Full plan: {PLAN_URL}"]
+    (docs / "EMAIL.md").write_text("\n".join(E) + "\n")
+    if todo:
+        subj = "ACTION NEEDED: " + "; ".join(t.replace("**", "") for t in todo)[:120]
+        (docs / "ACTION.md").write_text(subj + "\n\n" + "\n".join(f"- {t}" for t in todo)
+                                         + f"\n\nFull plan: {PLAN_URL}\n")
 
 
 def run(P: pd.DataFrame, univ: pd.DataFrame, holdings: list[dict], state_path: Path,
@@ -842,12 +888,22 @@ def main() -> int:
             rows = strat.log_day(res)
             plan["strategy"] = res
             plan["strategy_md"] = strat.markdown(res, rows)
+            try:
+                spec2 = importlib.util.spec_from_file_location("paper_test", Path(__file__).parent / "paper_test.py")
+                pt = importlib.util.module_from_spec(spec2)
+                spec2.loader.exec_module(pt)
+                plan["paper_md"] = pt.update(P, sp, P["VFITX"] if "VFITX" in P else None)
+            except Exception:                                      # noqa: BLE001
+                import traceback
+                plan["paper_md"] = ["## 🧪 Paper test — could not be updated today\n", "```",
+                                    *traceback.format_exc().splitlines()[-5:], "```\n"]
         except Exception as e:                                     # noqa: BLE001
             import traceback
             plan["strategy_error"] = traceback.format_exc().splitlines()[-6:]
             print("strategy failed:", e, file=sys.stderr)
         (docs / "plan.json").write_text(json.dumps(plan, indent=2, default=str))
         write_markdown(plan, docs / "PLAN.md")
+        write_emails(plan, docs)
         print((docs / "PLAN.md").read_text())
         return 0
     except Exception as exc:                                       # noqa: BLE001
