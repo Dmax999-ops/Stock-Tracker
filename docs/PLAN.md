@@ -1,6 +1,6 @@
 # Daily plan — 2026-09-25
 
-_Generated 2026-09-27 21:18 UTC from closing prices of 2026-09-25. Tested rules, not personal financial advice._
+_Generated 2026-09-27 23:00 UTC from closing prices of 2026-09-25. Tested rules, not personal financial advice._
 
 ## Market: **RISK ON — invested**
 
@@ -12,22 +12,22 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 
 **Market switch: ON — invested** (S&P 500 +7.9% vs its 200-day average)
 
-**Exchange rate: £1 = $1.3233** (Yahoo Finance, rate of 2026-09-27). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
+**Exchange rate: £1 = $1.3227** (Yahoo Finance, rate of 2026-09-28). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
 
 ### Today is a check day. Actions:
 
 | Action | Stock | Amount |
 |---|---|---|
-| **BUY** | MRNA | £1,002 |
-| **BUY** | DELL | £1,002 |
-| **BUY** | HPE | £1,002 |
-| **BUY** | AMD | £1,002 |
-| **BUY** | ILMN | £1,002 |
-| **BUY** | CRWD | £1,002 |
-| **BUY** | MU | £1,002 |
-| **BUY** | MRVL | £1,002 |
-| **BUY** | SNDK | £1,002 |
-| **BUY** | INTC | £1,002 |
+| **BUY** | MRNA | £1,001 |
+| **BUY** | DELL | £1,001 |
+| **BUY** | HPE | £1,001 |
+| **BUY** | AMD | £1,001 |
+| **BUY** | ILMN | £1,001 |
+| **BUY** | CRWD | £1,001 |
+| **BUY** | MU | £1,001 |
+| **BUY** | MRVL | £1,001 |
+| **BUY** | SNDK | £1,001 |
+| **BUY** | INTC | £1,001 |
 
 _Buys are paid for by selling the same amount of your S&P 500 tracker; sales go back into the tracker._
 
@@ -52,14 +52,14 @@ _Buys are paid for by selling the same amount of your S&P 500 tracker; sales go 
 |---|---|---|---|---|---|
 | MRNA | £1,000 | £1.50 | $1,323 | $198.88 | 6.65 |
 | DELL | £1,000 | £1.50 | $1,323 | $562.89 | 2.35 |
-| HPE | £1,000 | £1.50 | $1,323 | $62.94 | 21.03 |
+| HPE | £1,000 | £1.50 | $1,323 | $62.94 | 21.01 |
 | AMD | £1,000 | £1.50 | $1,323 | $630.63 | 2.10 |
 | ILMN | £1,000 | £1.50 | $1,323 | $270.00 | 4.90 |
 | CRWD | £1,000 | £1.50 | $1,323 | $252.13 | 5.25 |
 | MU | £1,000 | £1.50 | $1,323 | $1,082.28 | 1.22 |
 | MRVL | £1,000 | £1.50 | $1,323 | $261.94 | 5.05 |
 | SNDK | £1,000 | £1.50 | $1,323 | $1,777.80 | 0.74 |
-| INTC | £1,000 | £1.50 | $1,323 | $123.00 | 10.76 |
+| INTC | £1,000 | £1.50 | $1,323 | $123.00 | 10.75 |
 
 **On deck** (in the top 5%, not yet confirmed — a BUY if still there at 3 weekly checks): RVTY (2 of 3), P (2 of 3), VEEV (1 of 3), DDOG (1 of 3)
 
