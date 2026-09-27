@@ -835,6 +835,16 @@ def phone_html(plan: dict, todo: list[dict], action_only: bool = False) -> str:
         B.append(f'<div style="font-size:14px;color:#57606a;margin:-6px 0 12px">Exchange rate used: '
                  f'<b style="color:#1f2328">£1 = ${res["usd_per_gbp"]:.4f}</b> '
                  f'({esc(str(res.get("fx_source", "")))}). All £ amounts use it.</div>')
+    import os as _os
+    _live = _os.environ.get("T212_MODE", "dry-run").strip().lower() == "live"
+    _inv = _os.environ.get("T212_INVEST_CASH", "on").strip().lower() not in ("off", "no", "false", "0")
+    B.append('<div style="display:flex;gap:8px;flex-wrap:wrap;margin:-4px 0 12px">'
+             f'<span style="background:{"#dafbe1" if _live else "#eaeef2"};color:{"#1a7f37" if _live else "#57606a"};'
+             f'border-radius:12px;padding:3px 10px;font-weight:700;font-size:14px">Trading 212 bot: '
+             f'{"ON" if _live else "OFF (dry run)"}</span>'
+             f'<span style="background:{"#dafbe1" if _inv else "#fff8c5"};color:{"#1a7f37" if _inv else "#9a6700"};'
+             f'border-radius:12px;padding:3px 10px;font-weight:700;font-size:14px">New money: '
+             f'{"INVESTED" if _inv else "HELD"}</span></div>')
 
     def h2(t):
         B.append(f'<div style="font-size:18px;font-weight:700;margin:20px 0 8px">{t}</div>')
