@@ -432,6 +432,7 @@ def execute(api: T212, plan: dict, cfg: dict, approved: set[str]) -> tuple[bool,
                             + ", ".join(extra) + ". The new list comes at the next run.")
     if len(W0["orders"]) > max_n:
         return False, log, f"Not sent: {len(W0['orders'])} orders is more than the limit of {max_n}"
+    refused: list = []
     for name, pick in phases:
         acct = read_account(api, plan)                    # fresh every phase
         W = work_out(plan, acct, cfg)
@@ -447,9 +448,15 @@ def execute(api: T212, plan: dict, cfg: dict, approved: set[str]) -> tuple[bool,
         for o in todo:
             o["all"] = o["side"] == "SELL" and abs(o["qty"]) >= (acct["positions"].get(o["ticker"], {}).get("avail", 0) - 1e-9)
             if not send(api, o, log):
-                return False, log, f"Stopped: Trading 212 refused {o['side']} {o['name']} -- see the details"
+                if o["side"] == "SELL":          # a failed sale changes the cash: stop here
+                    return False, log, f"Stopped: Trading 212 refused SELL {o['name']} -- see the details"
+                refused.append(o["name"])        # a failed buy: carry on with the others
+
         if todo and not wait_for_fills(api):
             return False, log, f"Stopped after '{name}': orders were still waiting after 3 minutes"
+    if refused:
+        return False, log, ("Trading 212 refused to buy " + ", ".join(refused) + " (see the details). "
+                            "Every other order was placed; the money for these stays as cash.")
     return True, log, "All orders placed and filled."
 
 
