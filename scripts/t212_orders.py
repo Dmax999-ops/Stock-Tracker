@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-TRADING 212 ORDER BOT -- DRY RUN.
+TRADING 212 ORDER BOT.
 
 Every weekday shortly after the US market opens it:
   1. reads last night's plan (docs/plan.json -- what the strategy holds)
@@ -13,8 +13,19 @@ Every weekday shortly after the US market opens it:
   5. writes docs/ORDERS.md, logs to data/orders_log.jsonl, and emails you
      when there is anything to do
 
-It NEVER sends an order: there is no order-placing code in this file. The API
-key it needs only has to be allowed to READ the account.
+Two modes, chosen by the repository variable T212_MODE:
+  dry-run (default) : works out and emails the orders. Nothing is ever sent.
+  live              : the same, then the workflow PAUSES until you press
+                      "Approve" in GitHub (the t212-live environment). Only then
+                      is this script run again with --execute, which:
+                        * refuses outside US market hours (9:35-15:50 New York)
+                        * re-reads the account and re-works the orders from scratch
+                        * refuses any order that was not in the list you approved
+                        * sends SELLS first, waits for them to fill, re-reads the
+                          account, sends stock BUYS, waits, then puts spare cash
+                          in the tracker
+                        * stops at the first problem and emails you what happened
+To switch trading off at any moment: set T212_MODE to dry-run (or delete it).
 
 How the orders are worked out (no rebalancing, just the strategy's own moves):
   * market switch OFF   -> sell every stock and the tracker, buy the bond fund
@@ -44,7 +55,7 @@ CFG = Path("config/t212.yml")
 
 
 # ---------------------------------------------------------------------------
-# Trading 212 API -- read only
+# Trading 212 API
 # ---------------------------------------------------------------------------
 
 class T212:
@@ -68,6 +79,20 @@ class T212:
             time.sleep(wait)
             return r.json()
         raise RuntimeError(f"Trading 212 rate limit on {path}")
+
+    def market_order(self, ticker: str, qty: float) -> tuple[bool, dict | str]:
+        """One market order. qty > 0 buys, qty < 0 sells. Never retried blindly (not idempotent)."""
+        for attempt in range(3):
+            r = self.s.post(self.base + "/equity/orders/market", timeout=60,
+                            json={"ticker": ticker, "quantity": qty, "extendedHours": False})
+            if r.status_code == 429:
+                time.sleep(15)
+                continue                                   # rate limited: nothing was placed
+            time.sleep(1.5)
+            if r.ok:
+                return True, r.json()
+            return False, f"{r.status_code}: {r.text[:300]}"
+        return False, "rate limited three times"
 
 
 def floor_to(x: float, d: int = 2) -> float:
@@ -186,7 +211,11 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
     stocks_held = {k: v for k, v in stocks_held.items() if k.endswith("_US_EQ")}
     tr_val = (P.get(tr_tk) or {}).get("value", 0.0)
     bd_val = (P.get(bd_tk) or {}).get("value", 0.0)
-    cash = acct["cash"]
+    # T212_INVEST_CASH (repository variable): 'on' = any cash in the account is invested,
+    # 'off' = cash already in the account is left alone (held as cash)
+    invest_cash = str(cfg.get("invest_cash", "on")).strip().lower() not in ("off", "no", "false", "0")
+    reserved = 0.0 if invest_cash else acct["cash"]
+    cash = acct["cash"] - reserved
     total = cash + tr_val + bd_val + sum(v["value"] for v in stocks_held.values())
 
     sells, buys, notes = [], [], []
@@ -230,6 +259,11 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
         if cash > minimum:
             buy_fund(bd_tk, bd_px, cash, "Bond fund", "Market switch OFF: money waits in bonds")
     else:
+        # NEW MONEY: cash already in an account that holds strategy stocks (a deposit,
+        # e.g. the next weekly instalment) is split across the strategy's stocks in the
+        # same proportions as the plan -- not parked in the tracker
+        new_money = (cash if stocks_held and cash >= float(cfg.get("new_money_min", 100)) else 0.0)
+        cash -= new_money
         if bd_val > minimum:
             cash += sell_all(bd_tk, P[bd_tk], "Market switch back ON: leave bonds", "Bond fund")
         for tk, pos in stocks_held.items():
@@ -265,9 +299,32 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
                    f"The strategy holds it ({h['value'] / pot:.0%} of the pot) and this account doesn't yet")
             if target[tk] * scale >= minimum:
                 cash -= buy_stock(tk, h, target[tk] * scale, why)
+        if new_money > minimum:
+            cash += new_money
+            skip_weak = int(cfg.get("new_money_skip_weak", 2))
+            for tk, h in want.items():
+                amt = new_money * h["value"] / pot
+                if int(h.get("weeks_weak", 0)) >= skip_weak:
+                    notes.append(f"{h['ticker']}: no new money -- weak {h['weeks_weak']} of 3 weeks, may be sold "
+                                 "at the next check (its share goes into the tracker)")
+                    continue
+                if amt >= minimum:
+                    cash -= buy_stock(tk, h, amt, f"New money: split like the strategy ({h['value'] / pot:.0%} "
+                                                  "of the pot)")
         if cash > minimum:
             cash -= buy_fund(tr_tk, tr_px, cash, "S&P 500 tracker",
                              "The rest waits in the tracker" if not stocks_held else "Spare cash goes into the tracker")
+        # one order per stock: merge a catch-up buy and a new-money buy of the same stock
+        merged = {}
+        for o in buys:
+            m = merged.get(o["ticker"])
+            if m is None:
+                merged[o["ticker"]] = dict(o)
+            else:
+                m["qty"] = round(m["qty"] + o["qty"], 2)
+                m["gbp"] += o["gbp"]
+                m["why"] += "; " + o["why"]
+        buys[:] = list(merged.values())
 
     # never sell and buy the tracker in the same run: keep only the difference
     trs = [o for o in sells if o["ticker"] == tr_tk]
@@ -280,6 +337,8 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
         if abs(q) * px >= minimum:
             o = dict(trs[0] if q < 0 else trb[0], qty=round(q, 2), gbp=abs(q) * px)
             (sells if q < 0 else buys).append(o)
+    if reserved > 1:
+        notes.append(f"£{reserved:,.0f} of cash left uninvested: new-money investing is OFF (T212_INVEST_CASH)")
     orders = sells + buys
     # ---- safety checks ------------------------------------------------------
     as_of = pd.Timestamp(plan.get("as_of", "1970-01-01"))
@@ -300,6 +359,9 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
          all(o["gbp"] <= mx + 1 for o in orders if o["ticker"].endswith("_US_EQ")),
          "applies to single stocks; whole-account moves into the tracker or bonds are allowed"),
         ("Buys covered by cash + sales", spend <= raise_ + 1, f"buys £{spend:,.0f} vs £{raise_:,.0f}"),
+        ("Bond fund chosen for when the market switch is OFF",
+         True if bd_tk else (None if res.get("market_on", True) else False),
+         "set 'bond' in config/t212.yml before going live" if not bd_tk else bd_tk),
         ("Reading the real account", True if acct["real"] else None,
          "yes" if acct["real"] else "no API key yet -- shown as a new account holding the set-up deposit"),
     ]
@@ -308,18 +370,127 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# live trading (only with --execute, only after your approval in GitHub)
+# ---------------------------------------------------------------------------
+
+def market_open_now() -> tuple[bool, str]:
+    ny = pd.Timestamp.now("America/New_York")
+    ok = ny.weekday() < 5 and (9, 35) <= (ny.hour, ny.minute) <= (15, 50)
+    return ok, ny.strftime("%a %H:%M New York time")
+
+
+def wait_for_fills(api: T212, timeout: int = 180) -> bool:
+    """True once no orders are waiting (all filled or cancelled)."""
+    end = time.time() + timeout
+    while time.time() < end:
+        if not api.get("/equity/orders", wait=5.5):
+            return True
+    return False
+
+
+def send(api: T212, o: dict, log: list) -> bool:
+    """Send one order; if Trading 212 rejects the number of decimals, try fewer."""
+    q = float(o["qty"])
+    tries = [q] if o["side"] == "SELL" and o.get("all") else []
+    tries += [round(q, 2), (math.floor if q > 0 else math.ceil)(q * 10) / 10, float(int(q))]
+    seen = set()
+    for qq in tries:
+        if qq == 0 or qq in seen:
+            continue
+        seen.add(qq)
+        ok, res = api.market_order(o["ticker"], qq)
+        log.append({"side": o["side"], "ticker": o["ticker"], "qty": qq, "gbp": o["gbp"], "ok": ok,
+                    "result": res if isinstance(res, str) else res.get("status")})
+        if ok:
+            return True
+        if "precision" not in str(res).lower() and "quantity" not in str(res).lower():
+            return False                                   # a real refusal: stop, don't guess
+    return False
+
+
+def execute(api: T212, plan: dict, cfg: dict, approved: set[str]) -> tuple[bool, list, str]:
+    log: list = []
+    ok, when = market_open_now()
+    if not ok:
+        return False, log, (f"Not sent: the US market isn't open ({when}). Nothing was traded. "
+                            "The orders will be worked out again at the next run.")
+    phases = [("SELL", lambda o: o["side"] == "SELL"),
+              ("BUY shares", lambda o: o["side"] == "BUY" and o["ticker"].endswith("_US_EQ")),
+              ("BUY funds", lambda o: o["side"] == "BUY" and not o["ticker"].endswith("_US_EQ"))]
+    max_n = int(cfg.get("max_orders_per_run", 15))
+
+    def unapproved(orders, tracker):
+        return [f"{o['side']}:{o['ticker']}" for o in orders
+                if f"{o['side']}:{o['ticker']}" not in approved and o["ticker"] != tracker]
+    # check the WHOLE list before sending anything, so a run never stops half-way by design
+    W0 = work_out(plan, read_account(api, plan), cfg)
+    if not W0["orders"]:
+        return True, log, "Nothing to do: the account already matches the strategy."
+    extra = unapproved(W0["orders"], W0["tracker"])
+    if extra:
+        return False, log, ("Not sent: the orders have changed since you approved them -- "
+                            + ", ".join(extra) + ". The new list comes at the next run.")
+    if len(W0["orders"]) > max_n:
+        return False, log, f"Not sent: {len(W0['orders'])} orders is more than the limit of {max_n}"
+    for name, pick in phases:
+        acct = read_account(api, plan)                    # fresh every phase
+        W = work_out(plan, acct, cfg)
+        bad = [c for c, r, _ in W["checks"] if r is False]
+        if bad:
+            return False, log, f"Stopped before '{name}': safety check failed -- " + "; ".join(bad)
+        todo = [o for o in W["orders"] if pick(o)]
+        if len(log) + len(todo) > max_n:
+            return False, log, f"Stopped: more than {max_n} orders in one run"
+        extra = unapproved(todo, W["tracker"])
+        if extra:
+            return False, log, "Stopped: orders you did not approve appeared -- " + ", ".join(extra)
+        for o in todo:
+            o["all"] = o["side"] == "SELL" and abs(o["qty"]) >= (acct["positions"].get(o["ticker"], {}).get("avail", 0) - 1e-9)
+            if not send(api, o, log):
+                return False, log, f"Stopped: Trading 212 refused {o['side']} {o['name']} -- see the details"
+        if todo and not wait_for_fills(api):
+            return False, log, f"Stopped after '{name}': orders were still waiting after 3 minutes"
+    return True, log, "All orders placed and filled."
+
+
+def exec_report(done: bool, log: list, msg: str) -> tuple[str, str, str]:
+    import html as _h
+    e = _h.escape
+    now = pd.Timestamp.now("Europe/London").strftime("%a %d %b %Y %H:%M")
+    rows = [f"| {x['side']} | `{x['ticker']}` | {abs(x['qty']):,.2f} | ≈ £{x['gbp']:,.0f} | "
+            f"{'✅ ' + str(x['result']) if x['ok'] else '❌ ' + str(x['result'])} |" for x in log]
+    md = (f"# Trading 212 — orders {'placed' if done else 'STOPPED'}\n\n_{now} UK time_\n\n**{msg}**\n\n"
+          + ("| Order | Ticker | Shares | Value | Result |\n|---|---|---|---|---|\n" + "\n".join(rows) + "\n"
+             if rows else "No orders were sent.\n"))
+    col = "#1a7f37" if done else "#cf222e"
+    html = (f'<div style="font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:600px;margin:0 auto;'
+            f'padding:8px;font-size:16px;line-height:1.45"><div style="font-size:22px;font-weight:700;color:{col}">'
+            f'Trading 212 — orders {"placed" if done else "STOPPED"}</div><div style="color:#57606a">{e(now)} UK time</div>'
+            f'<p><b>{e(msg)}</b></p>'
+            + "".join(f'<div style="border-left:6px solid {"#1a7f37" if x["ok"] else "#cf222e"};background:#f6f8fa;'
+                      f'padding:8px 10px;margin:0 0 8px"><b>{x["side"]} {e(x["ticker"])}</b> · {abs(x["qty"]):,.2f} shares '
+                      f'≈ £{x["gbp"]:,.0f}<div style="font-size:13px;color:#57606a">{e(str(x["result"]))}</div></div>'
+                      for x in log) + "</div>")
+    subj = (f"T212: {sum(x['ok'] for x in log)} orders placed" if done else "T212: trading STOPPED - check")
+    return md, html, subj
+
+
+# ---------------------------------------------------------------------------
 # report + email
 # ---------------------------------------------------------------------------
 
-def report(plan: dict, acct: dict, W: dict) -> tuple[str, str, str]:
+def report(plan: dict, acct: dict, W: dict, live: bool = False, run_url: str = "") -> tuple[str, str, str]:
     now = pd.Timestamp.now("Europe/London").strftime("%a %d %b %Y %H:%M")
     n = len(W["orders"])
     ok = all(c[1] is not False for c in W["checks"])
     subj = (f"T212 dry run: {n} order{'s' if n != 1 else ''} worked out - nothing sent"
             if n else "T212 dry run: no orders")
+    if live and n:
+        subj = f"T212: {n} order{'s' if n != 1 else ''} waiting for your approval"
     L = [f"# Trading 212 orders — DRY RUN\n",
          f"_{now} UK time. Plan of {W['as_of']}. Exchange rate £1 = ${W['rate']:.4f}. "
-         "**Nothing has been sent to Trading 212.**_\n",
+         + ("**Nothing is sent until you approve the run in GitHub.**_\n" if live and n else
+            "**Nothing has been sent to Trading 212.**_\n"),
          f"**Account:** {'your real account' if acct['real'] else 'pretend new account (no API key yet)'} — "
          f"worth £{W['total']:,.0f}, £{acct['cash']:,.0f} cash.\n"]
     if n:
@@ -344,8 +515,14 @@ def report(plan: dict, acct: dict, W: dict) -> tuple[str, str, str]:
     B = [f'<div style="{f}color:#1f2328;max-width:600px;margin:0 auto;padding:8px;font-size:16px;line-height:1.45">',
          '<div style="font-size:22px;font-weight:700">Trading 212 orders — dry run</div>',
          f'<div style="color:#57606a;margin-bottom:10px">{e(now)} · plan of {e(W["as_of"])} · £1 = ${W["rate"]:.4f}</div>',
-         '<div style="background:#fff8c5;border-radius:8px;padding:10px 12px;font-weight:700;margin-bottom:12px">'
-         'Nothing has been sent to Trading 212.</div>']
+         ('<div style="background:#fff8c5;border-radius:8px;padding:10px 12px;font-weight:700;margin-bottom:12px">'
+          'Nothing has been sent to Trading 212.</div>' if not (live and n) else
+          '<div style="background:#ddf4ff;border-radius:8px;padding:10px 12px;margin-bottom:12px"><b>Nothing is sent '
+          'until you approve.</b> To place these orders, open the run and click <b>Review deployments → '
+          f't212-live → Approve and deploy</b> while the US market is open (14:35–20:50 UK time).'
+          + (f'<a href="{e(run_url)}" style="display:block;text-align:center;background:#0969da;color:#fff;'
+             'text-decoration:none;border-radius:8px;padding:10px;margin-top:8px;font-weight:600">Open the run to approve</a>'
+             if run_url else "") + '</div>')]
     for o in W["orders"]:
         col = "#1a7f37" if o["side"] == "BUY" else "#cf222e"
         B.append(f'<div style="border-left:6px solid {col};background:#f6f8fa;border-radius:6px;padding:10px 12px;margin:0 0 10px">'
@@ -368,10 +545,43 @@ def report(plan: dict, acct: dict, W: dict) -> tuple[str, str, str]:
     return md, "".join(B), subj
 
 
+def gh_output(**kv):
+    """Pass values to the next workflow job (never money figures)."""
+    f = os.environ.get("GITHUB_OUTPUT")
+    if f:
+        with open(f, "a") as fh:
+            for k, v in kv.items():
+                fh.write(f"{k}={v}\n")
+
+
 def main() -> int:
     import yaml
     cfg = yaml.safe_load(CFG.read_text()) if CFG.exists() else {}
+    cfg["invest_cash"] = os.environ.get("T212_INVEST_CASH", "on") or "on"
     plan = json.loads((DOCS / "plan.json").read_text())
+    live = os.environ.get("T212_MODE", "dry-run").strip().lower() == "live"
+    if "--execute" in sys.argv:
+        for f in ("EXEC_EMAIL.html", "EXEC_EMAIL.md", "EXEC_SUBJECT.txt"):
+            (DOCS / f).unlink(missing_ok=True)
+        key, sec = os.environ.get("T212_API_KEY", ""), os.environ.get("T212_API_SECRET", "")
+        if not live:
+            print("T212_MODE is not 'live' -- nothing sent.")
+            return 0
+        if not (key and sec and plan.get("strategy")):
+            print("No API key or no strategy -- nothing sent.")
+            return 1
+        approved = {x for x in os.environ.get("APPROVED", "").split(",") if x}
+        done, log, msg = execute(T212(key, sec), plan, cfg, approved)
+        md, html, subj = exec_report(done, log, msg)
+        (DOCS / "EXEC_EMAIL.md").write_text(md)
+        (DOCS / "EXEC_EMAIL.html").write_text(html)
+        (DOCS / "EXEC_SUBJECT.txt").write_text(subj + "\n")
+        with LOG.open("a") as fh:
+            fh.write(json.dumps({"run": pd.Timestamp.now("UTC").isoformat(), "executed": done,
+                                 "sent": [{"side": x["side"], "ticker": x["ticker"], "ok": x["ok"]} for x in log],
+                                 "message": msg}) + "\n")
+        print(f"{'DONE' if done else 'STOPPED'}: {msg} ({sum(x['ok'] for x in log)} orders accepted)")
+        return 0 if done else 1
     for f in ("ORDERS_EMAIL.html", "ORDERS_EMAIL.md", "ORDERS_SUBJECT.txt"):
         (DOCS / f).unlink(missing_ok=True)
     if not plan.get("strategy"):
@@ -381,7 +591,10 @@ def main() -> int:
     api = T212(key, sec) if key and sec else None
     acct = read_account(api, plan)
     W = work_out(plan, acct, cfg)
-    md, html, subj = report(plan, acct, W)
+    run_url = (f"{os.environ.get('GITHUB_SERVER_URL', 'https://github.com')}/"
+               f"{os.environ.get('GITHUB_REPOSITORY', '')}/actions/runs/{os.environ.get('GITHUB_RUN_ID', '')}"
+               if os.environ.get("GITHUB_RUN_ID") else "")
+    md, html, subj = report(plan, acct, W, live and acct["real"], run_url)
     # Your real account (money, share counts) is NEVER written to the repository or
     # the run log: a public repo and its run logs can be read by anyone. It goes
     # only to your email. With no key (pretend account) the full page is published.
@@ -412,8 +625,13 @@ def main() -> int:
                                         {k: (round(v, 4) if isinstance(v, float) else v) for k, v in o.items()}
                                         for o in W["orders"]],
                              "checks_ok": all(c[1] is not False for c in W["checks"])}) + "\n")
-    # email when the orders change, or a safety check fails -- not the same list every day
-    if (W["orders"] and changed) or not all(c[1] is not False for c in W["checks"]):
+    checks_ok = all(c[1] is not False for c in W["checks"])
+    can_trade = live and acct["real"] and checks_ok and bool(W["orders"])
+    gh_output(has_orders=str(bool(W["orders"])).lower(), checks_ok=str(checks_ok).lower(),
+              trade=str(can_trade).lower(),
+              approved=",".join(f"{o['side']}:{o['ticker']}" for o in W["orders"]))
+    # email when the orders change or a check fails; in live mode, whenever orders wait for approval
+    if (W["orders"] and (changed or can_trade)) or not checks_ok:
         (DOCS / "ORDERS_EMAIL.md").write_text(md)
         (DOCS / "ORDERS_EMAIL.html").write_text(html)
         (DOCS / "ORDERS_SUBJECT.txt").write_text(subj + "\n")
