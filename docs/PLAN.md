@@ -1,6 +1,6 @@
 # Daily plan — 2026-09-25
 
-_Generated 2026-09-27 23:25 UTC from closing prices of 2026-09-25. Tested rules, not personal financial advice._
+_Generated 2026-09-27 23:35 UTC from closing prices of 2026-09-25. Tested rules, not personal financial advice._
 
 ## Market: **RISK ON — invested**
 
@@ -12,7 +12,7 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 
 **Market switch: ON — invested** (S&P 500 +7.9% vs its 200-day average)
 
-**Exchange rate: £1 = $1.3229** (Yahoo Finance, rate of 2026-09-28). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
+**Exchange rate: £1 = $1.3227** (Yahoo Finance, rate of 2026-09-28). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
 
 ### Today is a check day. Actions:
 
@@ -59,9 +59,9 @@ _Buys are paid for by selling the same amount of your S&P 500 tracker; sales go 
 | MU | £1,000 | £1.50 | $1,323 | $1,082.28 | 1.22 |
 | MRVL | £1,000 | £1.50 | $1,323 | $261.94 | 5.05 |
 | SNDK | £1,000 | £1.50 | $1,323 | $1,777.80 | 0.74 |
-| INTC | £1,000 | £1.50 | $1,323 | $123.00 | 10.76 |
+| INTC | £1,000 | £1.50 | $1,323 | $123.00 | 10.75 |
 
-**On deck** (in the top 5%, not yet confirmed — a BUY if still there at 3 weekly checks): RVTY (2 of 3), P (2 of 3), VEEV (1 of 3), DDOG (1 of 3)
+**On deck** (in the top 5%, not yet confirmed — a BUY if still there at 3 weekly checks): RVTY (2 of 3), P (2 of 3), DDOG (1 of 3), VEEV (1 of 3)
 
 **Recent actions:** 2026-09-25 BUY HPE; 2026-09-25 BUY AMD; 2026-09-25 BUY ILMN; 2026-09-25 BUY CRWD; 2026-09-25 BUY MU; 2026-09-25 BUY MRVL; 2026-09-25 BUY SNDK; 2026-09-25 BUY INTC
 
