@@ -597,11 +597,12 @@ def write_markdown(plan: dict, path: Path):
     elif plan.get("strategy_error"):
         L.append("## ▶ THE STRATEGY — could not be calculated today\n\n```\n"
                  + "\n".join(plan["strategy_error"]) + "\n```\n")
-    L.append("## 1. Your holdings\n")
-    L.append("| Action | Stock | Why | Industry (rank) | Theme it trades with | Trend |")
-    L.append("|---|---|---|---|---|---|")
     order = {"SELL": 0, "BUY": 1, "HOLD": 2}
-    for h in sorted(plan["holdings"], key=lambda x: (order[x["action"]], x["ticker"])):
+    if plan.get("holdings"):
+        L.append("## 1. Your holdings\n")
+        L.append("| Action | Stock | Why | Industry (rank) | Theme it trades with | Trend |")
+        L.append("|---|---|---|---|---|---|")
+    for h in sorted(plan.get("holdings") or [], key=lambda x: (order[x["action"]], x["ticker"])):
         rk = "" if not h.get("industry_rank") else f" (#{h['industry_rank']} of {h['industries_total']})"
         L.append(f"| **{h['action']}** | {h['ticker']} — {h['name']} | {h['why']} | "
                  f"{h['industry']}{rk} | {theme_txt(h.get('theme'), h.get('theme_rank'), plan.get('themes_total'))} | "
@@ -795,7 +796,7 @@ def _todo(plan: dict) -> list[dict]:
                             "cost": f"£{t['total_cost']:,.2f} in {br} charges",
                             "why": "3 weekly checks in a row in the bottom half of the S&P 500: "
                                    "its trend has turned."})
-    for c in plan.get("changes", []):
+    for c in ([] if True else plan.get("changes", [])):           # own-holdings list no longer emailed
         if c.startswith("MARKET SWITCH") or c.startswith("Model:"):
             continue
         tk = c.split(":")[0].strip()
@@ -979,7 +980,165 @@ def phone_html(plan: dict, todo: list[dict], action_only: bool = False) -> str:
     return "".join(B)
 
 
-def write_emails(plan: dict, docs: Path):
+def read_t212(plan: dict) -> dict | None:
+    """Your real Trading 212 account and what the bot would do at its next run.
+    Used ONLY for the email -- never written to the repository or the run log."""
+    import importlib.util, os
+    key, sec = os.environ.get("T212_API_KEY", ""), os.environ.get("T212_API_SECRET", "")
+    if not (key and sec and plan.get("strategy")):
+        return None
+    try:
+        import yaml
+        spec = importlib.util.spec_from_file_location("t212_orders", Path(__file__).parent / "t212_orders.py")
+        t2 = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(t2)
+        cfg = yaml.safe_load(Path("config/t212.yml").read_text()) if Path("config/t212.yml").exists() else {}
+        cfg["invest_cash"] = os.environ.get("T212_INVEST_CASH", "on") or "on"
+        acct = t2.read_account(t2.T212(key, sec), plan)
+        W = t2.work_out(plan, acct, cfg)
+        return {"ok": True, "cash": acct["cash"], "positions": acct["positions"], "orders": W["orders"],
+                "notes": W["notes"], "checks": W["checks"], "tracker": W["tracker"],
+                "bond": cfg.get("bond", "")}
+    except Exception as e:                                         # noqa: BLE001
+        return {"ok": False, "error": f"{type(e).__name__}"}
+
+
+def account_html(plan: dict, av: dict | None) -> str:
+    """The daily email: your Trading 212 account, what the bot will do, and the strategy."""
+    import html as _h
+    import os
+    esc = _h.escape
+    res = plan.get("strategy") or {}
+    live = os.environ.get("T212_MODE", "dry-run").strip().lower() == "live"
+    inv = os.environ.get("T212_INVEST_CASH", "on").strip().lower() not in ("off", "no", "false", "0")
+    f = "font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;"
+    th = "text-align:left;padding:6px 4px;border-bottom:2px solid #d0d7de;font-size:13px;color:#57606a"
+    td = "padding:7px 4px;border-bottom:1px solid #eaeef2;vertical-align:top"
+    g = lambda v: (f"£{v:,.0f}" if v >= 0 else f"−£{-v:,.0f}")          # noqa: E731
+    B = [f'<div style="{f}color:#1f2328;max-width:600px;margin:0 auto;padding:8px;font-size:16px;line-height:1.45">',
+         '<div style="font-size:22px;font-weight:700;margin:4px 0 2px">Daily report</div>',
+         f'<div style="color:#57606a;margin-bottom:10px">Closing prices of '
+         f'{pd.Timestamp(plan["as_of"]).strftime("%a %d %b %Y")}</div>']
+
+    def pill(text, good, warn=False):
+        bg, fg = ("#dafbe1", "#1a7f37") if good else (("#fff8c5", "#9a6700") if warn else ("#eaeef2", "#57606a"))
+        return (f'<span style="background:{bg};color:{fg};border-radius:12px;padding:3px 10px;'
+                f'font-weight:700;font-size:14px">{text}</span>')
+    B.append('<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">'
+             + pill("Trading: ON" if live else "Trading: OFF", live)
+             + pill("New money: INVESTED" if inv else "New money: HELD", inv, warn=not inv) + "</div>")
+
+    def h2(t):
+        B.append(f'<div style="font-size:18px;font-weight:700;margin:18px 0 8px">{t}</div>')
+
+    # ---- your account ----------------------------------------------------
+    h2("Your Trading 212 account")
+    if not av:
+        B.append('<div style="color:#57606a">Not connected (no API key).</div>')
+    elif not av.get("ok"):
+        B.append(f'<div style="color:#cf222e">Could not read the account today ({esc(av.get("error", ""))}).</div>')
+    else:
+        pos = av["positions"]
+        invested = sum(p["value"] for p in pos.values())
+        cash = av["cash"]
+        pl = sum(p.get("pl", 0) for p in pos.values())
+        B.append(f'<table style="width:100%;border-collapse:collapse;font-size:16px">'
+                 f'<tr><td style="{td}">Total value</td><td style="{td};text-align:right"><b>{g(invested + cash)}</b></td></tr>'
+                 f'<tr><td style="{td}">Invested</td><td style="{td};text-align:right">{g(invested)}</td></tr>'
+                 f'<tr><td style="{td}">Gain on what you hold</td><td style="{td};text-align:right;'
+                 f'color:{"#1a7f37" if pl >= 0 else "#cf222e"}">{g(pl)}</td></tr></table>')
+        if cash >= 1:
+            if cash < 25:
+                msg, col, bg = "left over from rounding — too small to invest", "#57606a", "#f6f8fa"
+            elif not inv:
+                msg, col, bg = "held as cash, as you chose (New money: HELD)", "#9a6700", "#fff8c5"
+            elif live:
+                msg, col, bg = "will be invested at the next run (weekdays 15:45 UK time, after you approve)", "#9a6700", "#fff8c5"
+            else:
+                msg, col, bg = "NOT being invested: trading is OFF (set T212_MODE to live)", "#cf222e", "#ffebe9"
+            B.append(f'<div style="background:{bg};border-radius:8px;padding:10px 12px;margin-top:8px">'
+                     f'<b style="color:{col}">Cash uninvested: {g(cash)}</b>'
+                     f'<div style="font-size:14px">{esc(msg)}</div></div>')
+        else:
+            B.append('<div style="color:#1a7f37;margin-top:6px">✅ No cash uninvested</div>')
+        want = {h["ticker"] for h in res.get("holdings", [])}
+        if pos:
+            B.append(f'<table style="width:100%;border-collapse:collapse;font-size:15px;margin-top:8px"><tr>'
+                     f'<th style="{th}">Holding</th><th style="{th};text-align:right">Value</th>'
+                     f'<th style="{th};text-align:right">Gain</th></tr>')
+            for tk, p in sorted(pos.items(), key=lambda kv: -kv[1]["value"]):
+                sym = tk.split("_")[0]
+                name = ("S&amp;P 500 tracker" if tk == av.get("tracker") else
+                        "Bond fund" if av.get("bond") and tk.startswith(av["bond"]) else esc(sym))
+                tag = ("" if (sym in want or tk == av.get("tracker") or (av.get("bond") and tk.startswith(av["bond"])))
+                       else '<div style="color:#cf222e;font-size:12px">not in the strategy — the bot will sell it</div>')
+                pct = p.get("pl", 0) / p["cost"] if p.get("cost") else 0
+                B.append(f'<tr><td style="{td}"><b>{name}</b>{tag}</td>'
+                         f'<td style="{td};text-align:right">{g(p["value"])}</td>'
+                         f'<td style="{td};text-align:right;color:{"#1a7f37" if p.get("pl", 0) >= 0 else "#cf222e"}">'
+                         f'{g(p.get("pl", 0))}<div style="font-size:12px">{pct:+.1%}</div></td></tr>')
+            B.append("</table>")
+        # ---- what the bot will do next ------------------------------------
+        h2("Next bot run")
+        if av["orders"]:
+            who = ("after you approve it" if live else "only once trading is ON")
+            B.append(f'<div style="font-size:14px;color:#57606a;margin-bottom:6px">Weekdays 15:45 UK time, {who}. '
+                     'Nothing for you to do until then.</div>')
+            for o in av["orders"]:
+                col = "#1a7f37" if o["side"] == "BUY" else "#cf222e"
+                B.append(f'<div style="border-left:5px solid {col};padding:4px 10px;margin:0 0 6px">'
+                         f'<b style="color:{col}">{o["side"]}</b> {esc(o["name"])} ≈ {g(o["gbp"])}'
+                         f'<div style="font-size:12px;color:#57606a">{esc(o["why"])}</div></div>')
+        else:
+            B.append('<div style="color:#1a7f37">✅ Nothing to do — your account matches the strategy.</div>')
+        bad = [c for c, r, _ in av["checks"] if r is False]
+        if bad:
+            B.append('<div style="color:#cf222e;margin-top:6px">⚠ Safety check failing: ' + esc("; ".join(bad)) + "</div>")
+        for n in av["notes"]:
+            B.append(f'<div style="font-size:13px;color:#57606a;margin-top:4px">• {esc(n)}</div>')
+
+    # ---- the strategy ------------------------------------------------------
+    h2("The strategy")
+    on = res.get("market_on", plan["market"]["on"])
+    B.append(f'<div>Market switch: <b style="color:{"#1a7f37" if on else "#cf222e"}">'
+             f'{"ON — invested in stocks" if on else "OFF — everything in bonds"}</b> '
+             f'<span style="color:#57606a;font-size:14px">(S&amp;P 500 {plan["market"]["vs200"]:+.1%} vs its 200-day)</span></div>')
+    if res:
+        B.append(f'<div style="font-size:14px;margin-top:4px">Holds: '
+                 + ", ".join(esc(h["ticker"]) + (f' <span style="color:#cf222e">(weak {h["weeks_weak"]}/3)</span>'
+                                                  if h.get("weeks_weak") else "") for h in res.get("holdings", []))
+                 + "</div>")
+        wk = [(a, t) for _, a, t, _ in res.get("this_week", []) if a in ("BUY", "SELL")]
+        if wk and res.get("is_check_day"):
+            B.append('<div style="font-size:14px;margin-top:4px">Changed at today\'s weekly check: '
+                     + ", ".join(f"{a} {esc(t)}" for a, t in wk) + " — the bot handles it at its next run.</div>")
+        if res.get("on_deck"):
+            B.append('<div style="font-size:14px;margin-top:4px;color:#57606a">Next in line (weeks in the top 5%, 3 needed): '
+                     + ", ".join(f"{esc(d['ticker'])} {d['weeks_in_top']}/3" for d in res["on_deck"][:5]) + "</div>")
+        B.append(f'<div style="font-size:14px;margin-top:4px;color:#57606a">Next weekly check: '
+                 f'{_next_check(plan["as_of"])} close · £1 = ${res.get("usd_per_gbp", 0):.4f}</div>')
+        trust = [l.strip().replace("**", "") for l in plan.get("strategy_md", []) if "Trust checks" in l]
+        if trust:
+            B.append(f'<div style="font-size:13px;color:#57606a;margin-top:4px">{esc(trust[0])}</div>')
+
+    # ---- paper test (pretend money) ------------------------------------------
+    if plan.get("paper_rows"):
+        pr = plan["paper_rows"]
+        h2(f"🧪 Paper test (pretend money) · day {pr['day']}")
+        for pot, rows in pr["pots"].items():
+            B.append(f'<div style="font-weight:600;margin:6px 0 2px">£{pot:,.0f}</div>'
+                     f'<table style="width:100%;border-collapse:collapse;font-size:14px">')
+            for name, now, diff in rows:
+                ds = "" if diff is None else f' <span style="color:{"#1a7f37" if diff >= 0 else "#cf222e"}">({"+" if diff >= 0 else "−"}£{abs(diff):,.0f} vs S&amp;P)</span>'
+                B.append(f'<tr><td style="{td}">{esc(name)}</td><td style="{td};text-align:right">£{now:,.0f}{ds}</td></tr>')
+            B.append("</table>")
+    B.append(f'<a href="{PLAN_URL}" style="display:block;text-align:center;background:#0969da;color:#fff;'
+             f'text-decoration:none;border-radius:8px;padding:12px;margin:20px 0 6px;font-weight:600">Open the full plan</a>'
+             '<div style="font-size:12px;color:#57606a;text-align:center">Tested rules, not personal financial advice.</div></div>')
+    return "".join(B)
+
+
+def write_emails(plan: dict, docs: Path, av: dict | None = None):
     """
     docs/EMAIL.html / EMAIL.md   -- the daily summary, laid out for a phone
     docs/ACTION.html / ACTION.md -- ONLY when there is something to do; ACTION_SUBJECT.txt
@@ -988,14 +1147,22 @@ def write_emails(plan: dict, docs: Path):
     """
     for f in ("EMAIL.md", "EMAIL.html", "ACTION.md", "ACTION.html", "ACTION_SUBJECT.txt"):
         (docs / f).unlink(missing_ok=True)
-    todo = _todo(plan)
-    txt = [f"Daily plan - {plan['as_of']}", ""]
-    txt += ([f"DO: {t['title']} | " + (" / ".join(t.get("steps", [])) or t["amount"]) + f" | {t['why']}"
-             for t in todo] or ["No action today - HOLD everything."])
+    import os
+    live = os.environ.get("T212_MODE", "dry-run").strip().lower() == "live"
+    todo = [t for t in _todo(plan) if not t["title"].startswith("SELL all of your ") or
+            t["title"].split("SELL all of your ")[1].split(" ")[0] in
+            {h["ticker"] for h in (plan.get("strategy") or {}).get("holdings", [])} | set(
+                t2 for _, a, t2, _ in (plan.get("strategy") or {}).get("this_week", []))]
+    txt = [f"Daily report - {plan['as_of']}", ""]
+    if av and av.get("ok"):
+        inv = sum(p["value"] for p in av["positions"].values())
+        txt += [f"Trading 212: total £{inv + av['cash']:,.0f}, invested £{inv:,.0f}, cash uninvested £{av['cash']:,.0f}",
+                "Next bot run: " + (", ".join(f"{o['side']} {o['name']} ~£{o['gbp']:,.0f}" for o in av["orders"])
+                                    or "nothing to do")]
     txt += ["", f"Full plan: {PLAN_URL}"]
     (docs / "EMAIL.md").write_text("\n".join(txt) + "\n")
-    (docs / "EMAIL.html").write_text(phone_html(plan, todo))
-    if todo:
+    (docs / "EMAIL.html").write_text(account_html(plan, av))
+    if todo and not live:
         subj = "ACTION NEEDED: " + "; ".join(t["title"] for t in todo)
         (docs / "ACTION_SUBJECT.txt").write_text(subj[:150] + "\n")
         (docs / "ACTION.md").write_text("\n".join(
@@ -1186,7 +1353,7 @@ def main() -> int:
             print("strategy failed:", e, file=sys.stderr)
         (docs / "plan.json").write_text(json.dumps(plan, indent=2, default=str))
         write_markdown(plan, docs / "PLAN.md")
-        write_emails(plan, docs)
+        write_emails(plan, docs, read_t212(plan))
         print((docs / "PLAN.md").read_text())
         return 0
     except Exception as exc:                                       # noqa: BLE001
