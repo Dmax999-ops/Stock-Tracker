@@ -42,7 +42,7 @@ Six pretend accounts (£10k and £100k × Hargreaves Lansdown, Trading 212, Inte
 |---|---|---|
 | Daily plan | Weeknights 22:15 UTC | The plan, the strategy, the paper test, your holdings, emails |
 | ETF rotation | Weeknights 22:00 UTC | Sector and bond prices used by the tests |
-| T212 orders (dry run) | Weekdays 14:45 UTC | Works out the exact Trading 212 orders (shares, £) and emails them when they change. Sends nothing to Trading 212 |
+| T212 orders | Weekdays 14:45 UTC | Works out the exact Trading 212 orders (shares, £) and emails them. Sends orders only when `T212_MODE` is `live` AND you approve the run in GitHub |
 | Fetch delisted | Every 4 hours | Collects price history of companies that failed (free Alpha Vantage allowance) |
 | Backtest, factor screen, winners study, ensemble, robustness, validation | Monthly, on the 1st | Re-tests everything on the latest data |
 | Century | Monthly, on the 5th | 100-year industry and market history |
@@ -56,6 +56,8 @@ Six pretend accounts (£10k and £100k × Hargreaves Lansdown, Trading 212, Inte
 | Repository variable `STRATEGY_POT` | Pot size for the strategy and the monthly validation (default 10000) |
 | Repository secrets `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_TO` | Turn on the daily and ACTION NEEDED emails |
 | `config/t212.yml` | Trading 212 order bot: tracker fund, bond fund, safety limits |
-| Repository secrets `T212_API_KEY`, `T212_API_SECRET` | Optional read-only Trading 212 key, so the order bot reads your real account |
+| Repository secrets `T212_API_KEY`, `T212_API_SECRET` | Trading 212 API key, so the order bot can read and trade the account |
+| Repository variable `T212_MODE` | `dry-run` (default: never trades) or `live` (trades after your approval) |
+| Environment `t212-live` | You as required reviewer: every trade waits for your Approve |
 
 _Tested rules, not personal financial advice._
