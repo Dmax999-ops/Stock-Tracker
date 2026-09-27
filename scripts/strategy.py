@@ -43,7 +43,7 @@ FX = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(FX)
 
 SCORE = "trend_200"
-REPLAY_FROM = "2024-01-05"   # fixed anchor, so the replay is identical every day
+REPLAY_FROM = "2026-09-11"   # fresh start: streaks count from here, so the first buys are at the 25 Sep 2026 check -- exactly how every backtest began
 
 
 def week_ends(idx: pd.DatetimeIndex) -> list[int]:
@@ -182,11 +182,11 @@ def log_day(res: dict, path="data/strategy_log.jsonl"):
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
     rows = [json.loads(l) for l in p.read_text().splitlines() if l.strip()] if p.exists() else []
-    rows = [r for r in rows if r.get("basis") == "gbp"]      # older rows were counted in dollars
+    rows = [r for r in rows if r.get("basis") == "fresh"]    # earlier rows came from the old 2024 replay
     if rows and rows[-1]["as_of"] == res["as_of"]:
         rows = rows[:-1]
     rows.append({"as_of": res["as_of"], "value": round(res["replay_total"], 2),
-                 "market_on": res["market_on"], "basis": "gbp",
+                 "market_on": res["market_on"], "basis": "fresh",
                  "usd_per_gbp": round(res.get("usd_per_gbp", 1.0), 5),
                  "holdings": [h["ticker"] for h in res["holdings"]]})
     p.write_text("\n".join(json.dumps(r) for r in rows) + "\n")
