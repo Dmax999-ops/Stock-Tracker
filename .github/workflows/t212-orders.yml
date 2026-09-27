@@ -1,12 +1,19 @@
-name: T212 orders (dry run)
+name: T212 orders
 
-# Works out the exact Trading 212 orders that would bring the account in line
-# with the strategy, and emails them. DRY RUN: nothing is ever sent to
-# Trading 212 -- scripts/t212_orders.py contains no order-placing code.
+# Works out the exact Trading 212 orders that bring the account in line with
+# the strategy, and emails them.
 #
-# Optional repository secrets (read-only Trading 212 API key):
-#   T212_API_KEY, T212_API_SECRET
-# Without them it shows a pretend new account holding the set-up deposit.
+# Trading is controlled by the repository variable T212_MODE:
+#   dry-run (or not set) : nothing is ever sent to Trading 212
+#   live                 : the "trade" job waits for YOUR approval (environment
+#                          t212-live, with you as required reviewer). Only after
+#                          you press Approve are orders sent.
+#
+# T212_INVEST_CASH: on (default) = any cash in the account is invested;
+#                   off = cash is held, only the strategy's own trades happen
+#
+# Repository secrets: T212_API_KEY, T212_API_SECRET (Trading 212 API key),
+# plus MAIL_USERNAME / MAIL_PASSWORD / MAIL_TO for the emails.
 
 on:
   schedule:
@@ -16,14 +23,16 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: t212-orders
-  cancel-in-progress: false
-
 jobs:
   orders:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    concurrency:
+      group: t212-orders
+      cancel-in-progress: false
+    outputs:
+      trade: ${{ steps.work.outputs.trade }}
+      approved: ${{ steps.work.outputs.approved }}
     env:
       MAIL_ON: ${{ secrets.MAIL_USERNAME != '' && secrets.MAIL_PASSWORD != '' && secrets.MAIL_TO != '' }}
     steps:
@@ -35,11 +44,15 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt requests pyyaml
 
-      - name: Work out orders (dry run)
+      - name: Work out orders
+        id: work
         env:
           T212_API_KEY: ${{ secrets.T212_API_KEY }}
           T212_API_SECRET: ${{ secrets.T212_API_SECRET }}
+          T212_MODE: ${{ vars.T212_MODE || 'dry-run' }}
+          T212_INVEST_CASH: ${{ vars.T212_INVEST_CASH || 'on' }}
         run: |
+          echo "Mode: $T212_MODE"
           if [ -n "$T212_API_KEY" ]; then echo "Trading 212 key: set"; else echo "Trading 212 key: not set (pretend new account)"; fi
           python scripts/t212_orders.py
 
@@ -55,7 +68,7 @@ jobs:
             echo "s=$(head -n 1 docs/ORDERS_SUBJECT.txt | cut -c1-150)" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Email - orders (only when they change, or a check fails)
+      - name: Email - orders
         if: always() && env.MAIL_ON == 'true' && hashFiles('docs/ORDERS_EMAIL.html') != ''
         uses: dawidd6/action-send-mail@v3
         with:
@@ -69,3 +82,61 @@ jobs:
           from: Stock Tracker <${{ secrets.MAIL_USERNAME }}>
           body: file://docs/ORDERS_EMAIL.md
           html_body: file://docs/ORDERS_EMAIL.html
+
+  trade:
+    # runs ONLY in live mode, only when there are orders and every safety check
+    # passed -- and then WAITS here until you approve it in GitHub
+    needs: orders
+    if: needs.orders.outputs.trade == 'true' && vars.T212_MODE == 'live'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: t212-live
+    concurrency:
+      group: t212-trade
+      cancel-in-progress: false
+    env:
+      MAIL_ON: ${{ secrets.MAIL_USERNAME != '' && secrets.MAIL_PASSWORD != '' && secrets.MAIL_TO != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt requests pyyaml
+
+      - name: Place the approved orders
+        env:
+          T212_API_KEY: ${{ secrets.T212_API_KEY }}
+          T212_API_SECRET: ${{ secrets.T212_API_SECRET }}
+          T212_MODE: ${{ vars.T212_MODE }}
+          T212_INVEST_CASH: ${{ vars.T212_INVEST_CASH || 'on' }}
+          APPROVED: ${{ needs.orders.outputs.approved }}
+        run: python scripts/t212_orders.py --execute
+
+      - name: Commit
+        if: always()
+        run: bash scripts/commit_push.sh "t212 trades $(date -u +%Y-%m-%d)" data/orders_log.jsonl
+
+      - name: Email subject
+        id: subj
+        if: always()
+        run: |
+          if [ -f docs/EXEC_SUBJECT.txt ]; then
+            echo "s=$(head -n 1 docs/EXEC_SUBJECT.txt | cut -c1-150)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Email - what was traded
+        if: always() && env.MAIL_ON == 'true' && hashFiles('docs/EXEC_EMAIL.html') != ''
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: ${{ steps.subj.outputs.s }}
+          to: ${{ secrets.MAIL_TO }}
+          from: Stock Tracker <${{ secrets.MAIL_USERNAME }}>
+          body: file://docs/EXEC_EMAIL.md
+          html_body: file://docs/EXEC_EMAIL.html
