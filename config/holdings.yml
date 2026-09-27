@@ -1,49 +1,9 @@
-# Your holdings. Ticker format is yfinance: LSE listings take a .L suffix.
+# Stocks you own OUTSIDE the strategy, for a BUY / HOLD / SELL opinion in the
+# plan (docs/PLAN.md). Leave the list empty if you don't want this.
+# Ticker format is yfinance: LSE listings take a .L suffix, e.g. FRES.L
 #
-# These are the TEST set. They are never used to select or tune signals — that
-# happens on the universe in config/universe.yml. Keeping them separate is what
-# makes any result here an honest out-of-sample read.
+# holdings:
+#   - ticker: AAPL
+#     name: Apple
 
-holdings:
-  # --- UK (LSE / AIM) ---
-  - ticker: FRES.L
-    name: Fresnillo
-    currency: GBX
-  - ticker: IQE.L
-    name: IQE
-    currency: GBX
-  - ticker: ZOO.L
-    name: ZOO Digital
-    currency: GBX
-  - ticker: LIT.L
-    name: Litigation Capital Management
-    currency: GBX
-  - ticker: DEBS.L
-    name: Debenhams Group
-    currency: GBX
-
-  # --- US ---
-  - ticker: AAPL
-    name: Apple
-  - ticker: AMZN
-    name: Amazon
-  - ticker: GOOG
-    name: Alphabet
-  - ticker: MSFT
-    name: Microsoft
-  - ticker: NVDA
-    name: NVIDIA
-  - ticker: TSLA
-    name: Tesla
-  - ticker: CELH
-    name: Celsius Holdings
-  - ticker: VST
-    name: Vistra
-  - ticker: TEM
-    name: Tempus AI          # listed 2024 — too short for long-horizon signals
-  - ticker: SPCX
-    name: SpaceX             # recent listing — same caveat
-
-# Holdings with under ~2 years of history are classified INSUFFICIENT DATA rather
-# than given a signal. A 200-day moving average on an 18-month-old listing is not
-# a signal, it is a shape.
+holdings: []
