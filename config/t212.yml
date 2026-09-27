@@ -1,7 +1,8 @@
 # Trading 212 order bot -- settings (no secrets in this file).
 #
-# This version is a DRY RUN ONLY: it works out the exact orders and emails
-# them. It contains no code that sends an order, whatever is set here.
+# Trading on or off is NOT set here. It is the repository variable T212_MODE:
+#   dry-run (or not set) : orders are worked out and emailed, never sent
+#   live                 : orders are sent only after you press Approve in GitHub
 
 # The Trading 212 account must be used ONLY for the strategy (a separate
 # Invest account or ISA). Anything else held in it is listed under "ignore"
@@ -12,11 +13,15 @@ ignore: []
 tracker: VUAG
 tracker_yahoo: VUAG.L
 
-# Bond fund used only when the market switch is OFF. Chosen before going live.
-bond: ""
-bond_yahoo: ""
+# Bond fund used only when the market switch is OFF: iShares $ Treasury Bond 7-10yr
+# UCITS ETF, GBP Hedged -- the same kind of bonds as the backtest, priced in pounds
+bond: IGTM
+bond_yahoo: IGTM.L
 
 max_order_share: 0.30   # no single order above 30% of the account
 min_order_gbp: 25       # differences smaller than this are ignored
+new_money_min: 100      # cash of at least this much (a deposit) is split across the strategy's stocks
+new_money_skip_weak: 2  # ...except stocks already this many weeks weak (3 = SELL); their share goes to the tracker
 price_buffer: 0.015     # money held back in case prices rise before orders fill (0.5% on stocks, 1.5% on the last fund purchase)
+max_orders_per_run: 15  # a run with more orders than this stops
 fx_fee: 0.0015          # Trading 212 currency exchange on US shares (0.15%)
