@@ -140,7 +140,9 @@ def read_account(api: T212 | None, plan: dict) -> dict:
         tk = p["instrument"]["ticker"]
         q = float(p.get("quantity") or 0)
         v = float((p.get("walletImpact") or {}).get("currentValue") or 0)
+        wi = p.get("walletImpact") or {}
         P[tk] = {"qty": q, "avail": float(p.get("quantityAvailableForTrading", q) or 0), "value": v,
+                 "cost": float(wi.get("totalCost") or 0), "pl": float(wi.get("unrealizedProfitLoss") or 0),
                  "price_gbp": v / q if q else None, "name": p["instrument"].get("name", tk),
                  "price": float(p.get("currentPrice") or 0), "currency": p["instrument"].get("currency")}
     return {"real": True, "currency": summ.get("currency"), "id": summ.get("id"),
@@ -262,8 +264,6 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
         # NEW MONEY: cash already in an account that holds strategy stocks (a deposit,
         # e.g. the next weekly instalment) is split across the strategy's stocks in the
         # same proportions as the plan -- not parked in the tracker
-        new_money = (cash if stocks_held and cash >= float(cfg.get("new_money_min", 100)) else 0.0)
-        cash -= new_money
         if bd_val > minimum:
             cash += sell_all(bd_tk, P[bd_tk], "Market switch back ON: leave bonds", "Bond fund")
         for tk, pos in stocks_held.items():
@@ -299,8 +299,9 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
                    f"The strategy holds it ({h['value'] / pot:.0%} of the pot) and this account doesn't yet")
             if target[tk] * scale >= minimum:
                 cash -= buy_stock(tk, h, target[tk] * scale, why)
+        # whatever cash is left after any catch-up buys is new money (only once stocks are held)
+        new_money = cash if stocks_held and cash >= float(cfg.get("new_money_min", 100)) else 0.0
         if new_money > minimum:
-            cash += new_money
             skip_weak = int(cfg.get("new_money_skip_weak", 2))
             for tk, h in want.items():
                 amt = new_money * h["value"] / pot
