@@ -479,6 +479,22 @@ def exec_report(done: bool, log: list, msg: str) -> tuple[str, str, str]:
 # report + email
 # ---------------------------------------------------------------------------
 
+def switches() -> tuple[bool, bool]:
+    """(trading on?, new money invested?) from the repository variables."""
+    live = os.environ.get("T212_MODE", "dry-run").strip().lower() == "live"
+    inv = os.environ.get("T212_INVEST_CASH", "on").strip().lower() not in ("off", "no", "false", "0")
+    return live, inv
+
+
+def switch_lines() -> tuple[str, str]:
+    live, inv = switches()
+    t = ("**Trading: ON** — orders are placed after you approve them in GitHub" if live else
+         "**Trading: OFF** — dry run, nothing is sent to Trading 212")
+    m = ("**New money: INVESTED** — cash in the account is put into the strategy" if inv else
+         "**New money: HELD** — cash in the account is left as cash")
+    return t, m
+
+
 def report(plan: dict, acct: dict, W: dict, live: bool = False, run_url: str = "") -> tuple[str, str, str]:
     now = pd.Timestamp.now("Europe/London").strftime("%a %d %b %Y %H:%M")
     n = len(W["orders"])
@@ -487,7 +503,9 @@ def report(plan: dict, acct: dict, W: dict, live: bool = False, run_url: str = "
             if n else "T212 dry run: no orders")
     if live and n:
         subj = f"T212: {n} order{'s' if n != 1 else ''} waiting for your approval"
-    L = [f"# Trading 212 orders — DRY RUN\n",
+    on, inv = switches()
+    t_line, m_line = switch_lines()
+    L = [f"# Trading 212 orders — {'LIVE' if on else 'DRY RUN'}\n", f"{t_line}  \n{m_line}\n",
          f"_{now} UK time. Plan of {W['as_of']}. Exchange rate £1 = ${W['rate']:.4f}. "
          + ("**Nothing is sent until you approve the run in GitHub.**_\n" if live and n else
             "**Nothing has been sent to Trading 212.**_\n"),
@@ -513,7 +531,12 @@ def report(plan: dict, acct: dict, W: dict, live: bool = False, run_url: str = "
     f = "font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;"
     td = "padding:7px 4px;border-bottom:1px solid #eaeef2;vertical-align:top"
     B = [f'<div style="{f}color:#1f2328;max-width:600px;margin:0 auto;padding:8px;font-size:16px;line-height:1.45">',
-         '<div style="font-size:22px;font-weight:700">Trading 212 orders — dry run</div>',
+         f'<div style="font-size:22px;font-weight:700">Trading 212 orders — {"live" if on else "dry run"}</div>',
+         f'<div style="display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px">'
+         f'<span style="background:{"#dafbe1" if on else "#eaeef2"};color:{"#1a7f37" if on else "#57606a"};'
+         f'border-radius:12px;padding:3px 10px;font-weight:700;font-size:14px">Trading: {"ON" if on else "OFF"}</span>'
+         f'<span style="background:{"#dafbe1" if inv else "#fff8c5"};color:{"#1a7f37" if inv else "#9a6700"};'
+         f'border-radius:12px;padding:3px 10px;font-weight:700;font-size:14px">New money: {"INVESTED" if inv else "HELD"}</span></div>',
          f'<div style="color:#57606a;margin-bottom:10px">{e(now)} · plan of {e(W["as_of"])} · £1 = ${W["rate"]:.4f}</div>',
          ('<div style="background:#fff8c5;border-radius:8px;padding:10px 12px;font-weight:700;margin-bottom:12px">'
           'Nothing has been sent to Trading 212.</div>' if not (live and n) else
@@ -585,7 +608,7 @@ def main() -> int:
     for f in ("ORDERS_EMAIL.html", "ORDERS_EMAIL.md", "ORDERS_SUBJECT.txt"):
         (DOCS / f).unlink(missing_ok=True)
     if not plan.get("strategy"):
-        (DOCS / "ORDERS.md").write_text("# Trading 212 orders — DRY RUN\n\nNo strategy in last night's plan; nothing worked out.\n")
+        (DOCS / "ORDERS.md").write_text("# Trading 212 orders\n\nNo strategy in last night's plan; nothing worked out.\n")
         return 0
     key, sec = os.environ.get("T212_API_KEY", ""), os.environ.get("T212_API_SECRET", "")
     api = T212(key, sec) if key and sec else None
@@ -599,7 +622,7 @@ def main() -> int:
     # the run log: a public repo and its run logs can be read by anyone. It goes
     # only to your email. With no key (pretend account) the full page is published.
     if acct["real"]:
-        pub = ("# Trading 212 orders — DRY RUN\n\n"
+        pub = (f"# Trading 212 orders — {'LIVE' if live else 'DRY RUN'}\n\n" + "  \n".join(switch_lines()) + "\n\n"
                f"_{pd.Timestamp.now('Europe/London').strftime('%a %d %b %Y %H:%M')} UK time. Plan of {W['as_of']}._\n\n"
                "Your real account was read. Its figures are sent only by email and are not published here.\n\n"
                + (f"**{len(W['orders'])} order(s) worked out** — see your email.\n" if W["orders"] else
