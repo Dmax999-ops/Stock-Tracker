@@ -39,6 +39,8 @@ jobs:
           STRATEGY_POT: ${{ vars.STRATEGY_POT || '10000' }}
           BROKER: ${{ vars.STRATEGY_BROKER || 't212' }}
           ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
+          T212_MODE: ${{ vars.T212_MODE || 'dry-run' }}
+          T212_INVEST_CASH: ${{ vars.T212_INVEST_CASH || 'on' }}
         run: python scripts/daily_plan.py
 
       - name: Commit
