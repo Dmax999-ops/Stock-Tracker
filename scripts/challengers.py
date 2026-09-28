@@ -52,6 +52,9 @@ CHALLENGERS = [
     ("don't buy over 50% above the 50-day average", "Technical", {"TA_MAX_STRETCH": 0.50}),
     ("only buy within 10% of the 52-week high", "Technical", {"TA_NEAR_HIGH": 0.10}),
     ("trailing stop 25% from the high", "Technical", {"TRAIL_STOP": 0.25}),
+    ("trim any holding above 15% of the account", "Position size", {"TRIM_MAX": 0.15}),
+    ("trim any holding above 20% of the account", "Position size", {"TRIM_MAX": 0.20}),
+    ("trim any holding above 25% of the account", "Position size", {"TRIM_MAX": 0.25}),
 ]
 
 
