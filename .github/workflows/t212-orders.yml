@@ -9,6 +9,9 @@ name: T212 orders
 #                          t212-live, with you as required reviewer). Only after
 #                          you press Approve are orders sent.
 #
+# T212_AUTO_APPROVE: OFF (default) = the trade job waits for YOUR approval
+#                    (environment t212-live, with you as required reviewer);
+#                    ON = orders are placed straight away (environment t212-auto)
 # T212_INVEST_CASH: on (default) = any cash in the account is invested;
 #                   off = cash is held, only the strategy's own trades happen
 #
@@ -22,6 +25,7 @@ on:
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   orders:
@@ -44,6 +48,21 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt requests pyyaml
 
+      - name: Check the approval step is really set up
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AUTO: ${{ vars.T212_AUTO_APPROVE || 'OFF' }}
+        run: |
+          if [ "${AUTO^^}" = "ON" ]; then echo "Automatic trading: ON"; echo "ok=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          r=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/environments/t212-live")
+          if echo "$r" | grep -q '"required_reviewers"'; then
+            echo "Approval step: set up (t212-live needs your approval)"; echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::Environment t212-live has no required reviewer - trading is BLOCKED"; echo "ok=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Work out orders
         id: work
         env:
@@ -51,6 +70,8 @@ jobs:
           T212_API_SECRET: ${{ secrets.T212_API_SECRET }}
           T212_MODE: ${{ vars.T212_MODE || 'dry-run' }}
           T212_INVEST_CASH: ${{ vars.T212_INVEST_CASH || 'on' }}
+          T212_AUTO_APPROVE: ${{ vars.T212_AUTO_APPROVE || 'OFF' }}
+          APPROVAL_GATE_OK: ${{ steps.gate.outputs.ok }}
         run: |
           echo "Mode: $T212_MODE"
           if [ -n "$T212_API_KEY" ]; then echo "Trading 212 key: set"; else echo "Trading 212 key: not set (pretend new account)"; fi
@@ -90,7 +111,8 @@ jobs:
     if: needs.orders.outputs.trade == 'true' && vars.T212_MODE == 'live'
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    environment: t212-live
+    # OFF: t212-live, which waits for your Approve. ON: t212-auto, which runs straight away
+    environment: ${{ vars.T212_AUTO_APPROVE == 'ON' && 't212-auto' || 't212-live' }}
     concurrency:
       group: t212-trade
       cancel-in-progress: false
@@ -111,6 +133,7 @@ jobs:
           T212_API_SECRET: ${{ secrets.T212_API_SECRET }}
           T212_MODE: ${{ vars.T212_MODE }}
           T212_INVEST_CASH: ${{ vars.T212_INVEST_CASH || 'on' }}
+          T212_AUTO_APPROVE: ${{ vars.T212_AUTO_APPROVE || 'OFF' }}
           APPROVED: ${{ needs.orders.outputs.approved }}
         run: python scripts/t212_orders.py --execute
 
