@@ -361,6 +361,10 @@ SLOTS, ENTER_PCT, EXIT_PCT, CONFIRM_CHECKS, CHECK_EVERY = 10, 0.95, 0.50, 3, 5
 EXIT_CONFIRM = CONFIRM_CHECKS
 
 
+TRAIL_STOP = None   # e.g. 0.25: also SELL when a holding is 25% below its highest close since bought
+                    # (checked at the weekly check). None = the tested rules, no trailing stop.
+
+
 def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
                      bond=None, check_idx=None, return_state=False,
                      mark_all=False) -> tuple[pd.Series, dict]:
@@ -448,7 +452,12 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
             alive = np.isfinite(X[i:min(i + 10, len(idx)), k]).any()
             weak = np.isfinite(S[i, k]) and pct(S[i, k]) < EXIT_PCT
             strikes[k] = strikes.get(k, 0) + 1 if weak else 0
-            if not alive or strikes[k] >= EXIT_CONFIRM:
+            stopped = False
+            if TRAIL_STOP:
+                seg = X[entry[k][0]:i + 1, k]
+                hi = np.nanmax(seg) if np.isfinite(seg).any() else np.nan
+                stopped = bool(np.isfinite(hi) and np.isfinite(X[i, k]) and X[i, k] <= hi * (1 - TRAIL_STOP))
+            if not alive or strikes[k] >= EXIT_CONFIRM or stopped:
                 px = X[i, k] if np.isfinite(X[i, k]) else Cff.iloc[:i + 1, k].dropna().iloc[-1]
                 sh = pos[k]
                 close(k, i, px)
