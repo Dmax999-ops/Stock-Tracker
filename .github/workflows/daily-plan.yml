@@ -41,6 +41,7 @@ jobs:
           ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
           T212_MODE: ${{ vars.T212_MODE || 'dry-run' }}
           T212_INVEST_CASH: ${{ vars.T212_INVEST_CASH || 'on' }}
+          T212_AUTO_APPROVE: ${{ vars.T212_AUTO_APPROVE || 'OFF' }}
           T212_API_KEY: ${{ secrets.T212_API_KEY }}
           T212_API_SECRET: ${{ secrets.T212_API_SECRET }}
         run: python scripts/daily_plan.py
