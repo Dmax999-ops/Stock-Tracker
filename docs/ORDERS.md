@@ -1,10 +1,13 @@
-# Trading 212 orders — DRY RUN
+# Trading 212 orders — LIVE
 
-_Sun 27 Sep 2026 00:05 UK time. Plan of 2026-09-25._
+**Trading: ON** — orders are placed after you approve them in GitHub  
+**New money: INVESTED** — cash in the account is put into the strategy
+
+_Mon 28 Sep 2026 15:56 UK time. Plan of 2026-09-25._
 
 Your real account was read. Its figures are sent only by email and are not published here.
 
-**No orders.** The account already matches the strategy.
+**11 order(s) worked out** — see your email.
 
 | Check | Result |
 |---|---|
@@ -15,4 +18,5 @@ Your real account was read. Its figures are sent only by email and are not publi
 | Every ticker found on Trading 212 | ✅ |
 | No stock order above 30% of the account | ✅ |
 | Buys covered by cash + sales | ✅ |
+| Bond fund chosen for when the market switch is OFF | ✅ |
 | Reading the real account | ✅ |
