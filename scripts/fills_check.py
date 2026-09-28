@@ -104,10 +104,52 @@ def add_price_gap(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def fills_html(now, df, fee_us, fee_uk, gap, verdict) -> str:
+    """Phone-friendly email, same look as the daily report."""
+    import html as _h
+    e = _h.escape
+    f = "font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;"
+    th = "text-align:left;padding:6px 4px;border-bottom:2px solid #d0d7de;font-size:13px;color:#57606a"
+    td = "padding:7px 4px;border-bottom:1px solid #eaeef2;vertical-align:top"
+    good = "✅" in verdict
+    pc = lambda v: "—" if not np.isfinite(v) else f"{v:.2%}"          # noqa: E731
+    B = [f'<div style="{f}color:#1f2328;max-width:600px;margin:0 auto;padding:8px;font-size:16px;line-height:1.45">',
+         '<div style="font-size:22px;font-weight:700">Real costs vs the backtest</div>',
+         f'<div style="color:#57606a;margin-bottom:12px">{e(now)} · {len(df)} filled orders</div>',
+         f'<div style="background:{"#dafbe1" if good else "#fff8c5"};color:{"#1a7f37" if good else "#9a6700"};'
+         f'border-radius:8px;padding:10px 12px;font-weight:700;margin-bottom:14px">{e(verdict)}</div>',
+         f'<table style="width:100%;border-collapse:collapse;font-size:15px"><tr><th style="{th}"></th>'
+         f'<th style="{th};text-align:right">Assumed</th><th style="{th};text-align:right">Real</th></tr>',
+         f'<tr><td style="{td}">Charges on US shares</td><td style="{td};text-align:right">0.15%</td>'
+         f'<td style="{td};text-align:right"><b>{pc(fee_us)}</b></td></tr>',
+         f'<tr><td style="{td}">Charges on London funds</td><td style="{td};text-align:right">0%</td>'
+         f'<td style="{td};text-align:right"><b>{pc(fee_uk)}</b></td></tr>',
+         f'<tr><td style="{td}">Price vs the plan\'s price<div style="font-size:12px;color:#57606a">'
+         f'average; + means paid more / got less</div></td><td style="{td};text-align:right">~0%</td>'
+         f'<td style="{td};text-align:right"><b>{"—" if not np.isfinite(gap) else f"{gap:+.2%}"}</b></td></tr></table>',
+         '<div style="font-size:18px;font-weight:700;margin:18px 0 8px">Each trade</div>',
+         f'<table style="width:100%;border-collapse:collapse;font-size:14px"><tr><th style="{th}">Trade</th>'
+         f'<th style="{th};text-align:right">Value</th><th style="{th};text-align:right">Charges</th>'
+         f'<th style="{th};text-align:right">Gap</th></tr>']
+    for _, r in df.sort_values("date").iterrows():
+        col = "#1a7f37" if r["side"] == "BUY" else "#cf222e"
+        g = r["gap"]
+        B.append(f'<tr><td style="{td}"><b style="color:{col}">{e(r["side"])}</b> {e(str(r["ticker"]).split("_")[0])}'
+                 f'<div style="font-size:12px;color:#57606a">{e(r["date"])} · {r["qty"]:.3f} @ {r["price"]:,.2f}</div></td>'
+                 f'<td style="{td};text-align:right">£{r["gbp"]:,.2f}</td>'
+                 f'<td style="{td};text-align:right">£{r["fees"]:,.2f}<div style="font-size:12px;color:#57606a">'
+                 f'{pc(r["fee_pct"])}</div></td>'
+                 f'<td style="{td};text-align:right">{"—" if not np.isfinite(g) else f"{g:+.2%}"}</td></tr>')
+    B.append('</table><div style="font-size:12px;color:#57606a;margin-top:10px">Single trades are noisy because '
+             'prices move during the day; the average over many trades is what counts.</div></div>')
+    return "".join(B)
+
+
 def main() -> int:
     key, sec = os.environ.get("T212_API_KEY", ""), os.environ.get("T212_API_SECRET", "")
     out_md, email = Path("docs/FILLS.md"), Path("docs/FILLS_EMAIL.md")
     email.unlink(missing_ok=True)
+    Path("docs/FILLS_EMAIL.html").unlink(missing_ok=True)
     if not (key and sec):
         out_md.write_text("# Real fills check\n\nNo Trading 212 key -- nothing to check.\n")
         return 0
@@ -150,6 +192,7 @@ def main() -> int:
                  f"£{r['gbp']:,.2f} | £{r['fees']:,.2f} ({r['fee_pct']:.2%}) | "
                  + (f"{r['gap']:+.2%}" if np.isfinite(r['gap']) else "—") + " |")
     email.write_text("\n".join(E) + "\n")
+    Path("docs/FILLS_EMAIL.html").write_text(fills_html(now, df, fee_us, fee_uk, gap, verdict))
     Path("data/fills_summary.json").write_text(json.dumps(
         {"run": now, "orders": int(len(df)), "fee_us": fee_us, "fee_uk": fee_uk, "avg_gap": gap}, default=str))
     print("\n".join(L))
