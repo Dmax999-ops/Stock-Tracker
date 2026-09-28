@@ -361,6 +361,8 @@ SLOTS, ENTER_PCT, EXIT_PCT, CONFIRM_CHECKS, CHECK_EVERY = 10, 0.95, 0.50, 3, 5
 EXIT_CONFIRM = CONFIRM_CHECKS
 
 
+PARTIAL_SLOT = None # e.g. 0.3: if the tracker holds less than a full slot but at least 30% of one,
+                    # buy the next confirmed stock with what is there. None = the tested rules.
 TRAIL_STOP = None   # e.g. 0.25: also SELL when a holding is 25% below its highest close since bought
                     # (checked at the weekly check). None = the tested rules, no trailing stop.
 
@@ -481,7 +483,13 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
                 need = per + fee                                   # sell tracker, buy stock
                 # tolerance: with no dealing charge the last slot needs exactly what is
                 # left in the tracker, and rounding in the 12th decimal must not skip it
-                if index_units * Y[i] < need * (1 - 1e-9) or per <= 2 * fee:
+                if index_units * Y[i] < need * (1 - 1e-9):
+                    avail = index_units * Y[i] - fee
+                    if PARTIAL_SLOT and avail >= per * PARTIAL_SLOT and avail > 2 * fee:
+                        per, need = avail, avail + fee
+                    else:
+                        break
+                if per <= 2 * fee:
                     break
                 index_units = max(index_units - need / Y[i], 0.0)
                 pos[k] = (per - fee - fxc(per - fee)) / X[i, k]
