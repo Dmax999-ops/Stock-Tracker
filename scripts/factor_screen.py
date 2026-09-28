@@ -366,6 +366,13 @@ PARTIAL_SLOT = None # e.g. 0.3: if the tracker holds less than a full slot but a
 CORR_CAP = None     # e.g. (0.6, 3, 126): skip a new stock if it moved together (daily-return
                     # correlation above 0.6 over 126 days) with 3 or more stocks already held.
                     # None = the tested rules.
+# ---- technical-analysis overlays (all off = the tested rules) ----------------
+TA_SUPPORT_WEEKS = None  # e.g. 13: SELL when a holding closes below its lowest close of the
+                         # previous 13 weeks (a break of support)
+TA_WEAK_BELOW_MA = None  # e.g. 50: a check below the 50-day average also counts as a weak week
+TA_MAX_STRETCH = None    # e.g. 0.30: don't BUY a stock more than 30% above its 50-day average
+                         # (overextended); take the next confirmed one
+TA_NEAR_HIGH = None      # e.g. 0.10: only BUY a stock within 10% of its 52-week high
 TRAIL_STOP = None   # e.g. 0.25: also SELL when a holding is 25% below its highest close since bought
                     # (checked at the weekly check). None = the tested rules, no trailing stop.
 
@@ -456,8 +463,15 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
         for k in list(pos):
             alive = np.isfinite(X[i:min(i + 10, len(idx)), k]).any()
             weak = np.isfinite(S[i, k]) and pct(S[i, k]) < EXIT_PCT
+            if TA_WEAK_BELOW_MA and not weak and i >= TA_WEAK_BELOW_MA:
+                ma = np.nanmean(X[i - TA_WEAK_BELOW_MA + 1:i + 1, k])
+                weak = bool(np.isfinite(ma) and np.isfinite(X[i, k]) and X[i, k] < ma)
             strikes[k] = strikes.get(k, 0) + 1 if weak else 0
             stopped = False
+            if TA_SUPPORT_WEEKS and i > TA_SUPPORT_WEEKS * 5 and np.isfinite(X[i, k]):
+                prev = X[i - TA_SUPPORT_WEEKS * 5:i, k]
+                if np.isfinite(prev).sum() > 20 and X[i, k] < np.nanmin(prev):
+                    stopped = True
             if TRAIL_STOP:
                 seg = X[entry[k][0]:i + 1, k]
                 hi = np.nanmax(seg) if np.isfinite(seg).any() else np.nan
@@ -480,6 +494,21 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
             cand = np.where(ok)[0]
             cand = [k for k in cand[np.argsort(-S[i, cand])]
                     if k not in pos and streak[k] >= CONFIRM_CHECKS]
+            if TA_MAX_STRETCH or TA_NEAR_HIGH:
+                def _ta_ok(k):
+                    px = X[i, k]
+                    if not np.isfinite(px):
+                        return False
+                    if TA_MAX_STRETCH and i >= 50:
+                        ma = np.nanmean(X[i - 49:i + 1, k])
+                        if np.isfinite(ma) and px > ma * (1 + TA_MAX_STRETCH):
+                            return False
+                    if TA_NEAR_HIGH and i >= 252:
+                        hi = np.nanmax(X[i - 251:i + 1, k])
+                        if np.isfinite(hi) and px < hi * (1 - TA_NEAR_HIGH):
+                            return False
+                    return True
+                cand = [k for k in cand if _ta_ok(k)]
             if CORR_CAP:
                 thr, max_n, win = CORR_CAP
                 keep = []
