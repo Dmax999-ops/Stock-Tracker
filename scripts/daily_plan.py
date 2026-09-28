@@ -1124,7 +1124,7 @@ def account_html(plan: dict, av: dict | None) -> str:
             B.append(f'<div style="font-size:13px;color:#57606a;margin-top:4px">{esc(trust[0])}</div>')
 
     # ---- paper test (pretend money) ------------------------------------------
-    if plan.get("paper_rows"):
+    if plan.get("paper_rows") and not (av and av.get("ok")):      # real account connected: no pretend money
         pr = plan["paper_rows"]
         h2(f"🧪 Paper test (pretend money) · day {pr['day']}")
         for pot, rows in pr["pots"].items():
