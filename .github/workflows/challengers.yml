@@ -1,0 +1,75 @@
+name: Challengers
+
+# Every month: try to beat the live rules. 14 one-change challengers (sell line,
+# market switch, diversification, technical analysis: support breaks, moving
+# averages, overstretched buys, 52-week highs, trailing stop) on the full
+# history. Emails you ONLY if a challenger passes. Nothing changes by itself.
+# Results: docs/CHALLENGERS.md
+
+on:
+  schedule:
+    - cron: '0 3 3 * *'        # monthly, 3rd at 03:00 UTC (after the monthly re-tests on the 1st)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: challengers
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      MAIL_ON: ${{ secrets.MAIL_USERNAME != '' && secrets.MAIL_PASSWORD != '' && secrets.MAIL_TO != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt requests lxml pyyaml pyarrow
+
+      - name: Rebuild price panel if absent
+        run: |
+          if [ ! -f data/prices.parquet ]; then
+            python scripts/fetch_universe.py --config config/universe.yml --out data/
+          fi
+
+      - name: Run the challengers
+        env:
+          POT_GBP: '10000'
+          BROKER: t212
+        run: python scripts/challengers.py
+
+      - name: Commit
+        if: always()
+        run: |
+          bash scripts/commit_push.sh "challengers $(date -u +%Y-%m-%d)" \
+            docs/CHALLENGERS.md data/challengers.json data/challengers_log.jsonl
+
+      - name: Email subject
+        id: subj
+        if: always()
+        run: |
+          if [ -f docs/CHALLENGERS_SUBJECT.txt ]; then
+            echo "s=$(head -n 1 docs/CHALLENGERS_SUBJECT.txt | cut -c1-150)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Email - only when a challenger passed
+        if: always() && env.MAIL_ON == 'true' && hashFiles('docs/CHALLENGERS_EMAIL.md') != ''
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: ${{ steps.subj.outputs.s }}
+          to: ${{ secrets.MAIL_TO }}
+          from: Stock Tracker <${{ secrets.MAIL_USERNAME }}>
+          body: file://docs/CHALLENGERS_EMAIL.md
+          convert_markdown: true
