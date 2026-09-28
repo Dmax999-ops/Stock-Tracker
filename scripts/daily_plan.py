@@ -1011,6 +1011,7 @@ def account_html(plan: dict, av: dict | None) -> str:
     res = plan.get("strategy") or {}
     live = os.environ.get("T212_MODE", "dry-run").strip().lower() == "live"
     inv = os.environ.get("T212_INVEST_CASH", "on").strip().lower() not in ("off", "no", "false", "0")
+    auto = os.environ.get("T212_AUTO_APPROVE", "off").strip().lower() in ("on", "yes", "true", "1")
     f = "font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;"
     th = "text-align:left;padding:6px 4px;border-bottom:2px solid #d0d7de;font-size:13px;color:#57606a"
     td = "padding:7px 4px;border-bottom:1px solid #eaeef2;vertical-align:top"
@@ -1025,7 +1026,7 @@ def account_html(plan: dict, av: dict | None) -> str:
         return (f'<span style="background:{bg};color:{fg};border-radius:12px;padding:3px 10px;'
                 f'font-weight:700;font-size:14px">{text}</span>')
     B.append('<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">'
-             + pill("Trading: ON" if live else "Trading: OFF", live)
+             + pill(("Trading: ON · automatic" if auto else "Trading: ON · you approve") if live else "Trading: OFF", live)
              + pill("New money: INVESTED" if inv else "New money: HELD", inv, warn=not inv) + "</div>")
 
     def h2(t):
@@ -1053,7 +1054,8 @@ def account_html(plan: dict, av: dict | None) -> str:
             elif not inv:
                 msg, col, bg = "held as cash, as you chose (New money: HELD)", "#9a6700", "#fff8c5"
             elif live:
-                msg, col, bg = "will be invested at the next run (weekdays 15:45 UK time, after you approve)", "#9a6700", "#fff8c5"
+                msg, col, bg = ("will be invested at the next run (weekdays 15:45 UK time"
+                                + (", automatically)" if auto else ", after you approve)")), "#9a6700", "#fff8c5"
             else:
                 msg, col, bg = "NOT being invested: trading is OFF (set T212_MODE to live)", "#cf222e", "#ffebe9"
             B.append(f'<div style="background:{bg};border-radius:8px;padding:10px 12px;margin-top:8px">'
@@ -1081,7 +1083,7 @@ def account_html(plan: dict, av: dict | None) -> str:
         # ---- what the bot will do next ------------------------------------
         h2("Next bot run")
         if av["orders"]:
-            who = ("after you approve it" if live else "only once trading is ON")
+            who = (("automatically" if auto else "after you approve it") if live else "only once trading is ON")
             B.append(f'<div style="font-size:14px;color:#57606a;margin-bottom:6px">Weekdays 15:45 UK time, {who}. '
                      'Nothing for you to do until then.</div>')
             for o in av["orders"]:
