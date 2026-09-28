@@ -363,6 +363,9 @@ EXIT_CONFIRM = CONFIRM_CHECKS
 
 PARTIAL_SLOT = None # e.g. 0.3: if the tracker holds less than a full slot but at least 30% of one,
                     # buy the next confirmed stock with what is there. None = the tested rules.
+CORR_CAP = None     # e.g. (0.6, 3, 126): skip a new stock if it moved together (daily-return
+                    # correlation above 0.6 over 126 days) with 3 or more stocks already held.
+                    # None = the tested rules.
 TRAIL_STOP = None   # e.g. 0.25: also SELL when a holding is 25% below its highest close since bought
                     # (checked at the weekly check). None = the tested rules, no trailing stop.
 
@@ -476,7 +479,26 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
         if free > 0:
             cand = np.where(ok)[0]
             cand = [k for k in cand[np.argsort(-S[i, cand])]
-                    if k not in pos and streak[k] >= CONFIRM_CHECKS][:free]
+                    if k not in pos and streak[k] >= CONFIRM_CHECKS]
+            if CORR_CAP:
+                thr, max_n, win = CORR_CAP
+                keep = []
+                for k in cand:
+                    if len(keep) >= free:
+                        break
+                    lo = max(i - win, 0)
+                    rk = np.diff(np.log(X[lo:i + 1, k]))
+                    n_close = 0
+                    for j in list(pos) + keep:
+                        rj = np.diff(np.log(X[lo:i + 1, j]))
+                        m = np.isfinite(rk) & np.isfinite(rj)
+                        if m.sum() > 40 and np.corrcoef(rk[m], rj[m])[0, 1] > thr:
+                            n_close += 1
+                    if n_close < max_n:
+                        keep.append(k)
+                cand = keep
+            else:
+                cand = cand[:free]
             total = index_units * Y[i] + sum(p * X[i, k] for k, p in pos.items())
             for k in cand:
                 per = total / SLOTS
