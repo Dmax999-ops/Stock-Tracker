@@ -1,0 +1,54 @@
+name: Real fills check
+
+# Weekly: are real Trading 212 trades as cheap as the backtest assumes?
+# Reads your filled orders (key needs "History - Orders"), compares charges
+# and prices with the backtest's assumptions. The repository gets only
+# percentages (docs/FILLS.md); each trade with amounts goes to your email.
+
+on:
+  schedule:
+    - cron: '0 9 * * 6'        # Saturdays 09:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      MAIL_ON: ${{ secrets.MAIL_USERNAME != '' && secrets.MAIL_PASSWORD != '' && secrets.MAIL_TO != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt requests pyyaml
+
+      - name: Check real fills
+        env:
+          T212_API_KEY: ${{ secrets.T212_API_KEY }}
+          T212_API_SECRET: ${{ secrets.T212_API_SECRET }}
+        run: python scripts/fills_check.py
+
+      - name: Commit (percentages only)
+        if: always()
+        run: bash scripts/commit_push.sh "fills check $(date -u +%Y-%m-%d)" docs/FILLS.md
+
+      - name: Email - weekly fills report
+        if: always() && env.MAIL_ON == 'true' && hashFiles('docs/FILLS_EMAIL.md') != ''
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: Trading 212 - real costs vs backtest (weekly)
+          to: ${{ secrets.MAIL_TO }}
+          from: Stock Tracker <${{ secrets.MAIL_USERNAME }}>
+          body: file://docs/FILLS_EMAIL.md
+          convert_markdown: true
