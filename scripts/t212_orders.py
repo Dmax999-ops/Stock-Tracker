@@ -404,7 +404,20 @@ def send(api: T212, o: dict, log: list) -> bool:
                     "result": res if isinstance(res, str) else res.get("status")})
         if ok:
             return True
-        if "precision" not in str(res).lower() and "quantity" not in str(res).lower():
+        low = str(res).lower()
+        if o["side"] == "BUY" and ("insufficient" in low or "funds" in low):
+            # cash not yet updated or the price moved up: try 90%, then 75% of the amount
+            for f in (0.9, 0.75):
+                q2 = math.floor(q * f * 100) / 100
+                if q2 <= 0:
+                    break
+                ok, res = api.market_order(o["ticker"], q2)
+                log.append({"side": o["side"], "ticker": o["ticker"], "qty": q2, "gbp": o["gbp"] * f, "ok": ok,
+                            "result": res if isinstance(res, str) else res.get("status")})
+                if ok:
+                    return True
+            return False
+        if "precision" not in low and "quantity" not in low:
             return False                                   # a real refusal: stop, don't guess
     return False
 
@@ -434,7 +447,9 @@ def execute(api: T212, plan: dict, cfg: dict, approved: set[str]) -> tuple[bool,
     if len(W0["orders"]) > max_n:
         return False, log, f"Not sent: {len(W0['orders'])} orders is more than the limit of {max_n}"
     refused: list = []
-    for name, pick in phases:
+    for n_phase, (name, pick) in enumerate(phases):
+        if n_phase:
+            time.sleep(20)                                 # let Trading 212 update the cash after fills
         acct = read_account(api, plan)                    # fresh every phase
         W = work_out(plan, acct, cfg)
         bad = [c for c, r, _ in W["checks"] if r is False]
@@ -494,10 +509,21 @@ def switches() -> tuple[bool, bool]:
     return live, inv
 
 
+def auto_approve() -> bool:
+    """T212_AUTO_APPROVE: ON = orders are placed without asking; OFF (default) = you approve each run."""
+    return os.environ.get("T212_AUTO_APPROVE", "off").strip().lower() in ("on", "yes", "true", "1")
+
+
+def gate_ok() -> bool:
+    """With approval ON, the t212-live environment must really require your approval (checked by the workflow)."""
+    return auto_approve() or os.environ.get("APPROVAL_GATE_OK", "").strip().lower() == "true"
+
+
 def switch_lines() -> tuple[str, str]:
     live, inv = switches()
-    t = ("**Trading: ON** — orders are placed after you approve them in GitHub" if live else
-         "**Trading: OFF** — dry run, nothing is sent to Trading 212")
+    t = (("**Trading: ON, automatic** — orders are placed without asking you" if auto_approve() else
+          "**Trading: ON, with approval** — orders are placed only after you approve them in GitHub")
+         if live else "**Trading: OFF** — dry run, nothing is sent to Trading 212")
     m = ("**New money: INVESTED** — cash in the account is put into the strategy" if inv else
          "**New money: HELD** — cash in the account is left as cash")
     return t, m
@@ -509,13 +535,16 @@ def report(plan: dict, acct: dict, W: dict, live: bool = False, run_url: str = "
     ok = all(c[1] is not False for c in W["checks"])
     subj = (f"T212 dry run: {n} order{'s' if n != 1 else ''} worked out - nothing sent"
             if n else "T212 dry run: no orders")
+    auto = auto_approve()
     if live and n:
-        subj = f"T212: {n} order{'s' if n != 1 else ''} waiting for your approval"
+        subj = (f"T212: placing {n} order{'s' if n != 1 else ''} now (automatic)" if auto else
+                f"T212: {n} order{'s' if n != 1 else ''} waiting for your approval")
     on, inv = switches()
     t_line, m_line = switch_lines()
     L = [f"# Trading 212 orders — {'LIVE' if on else 'DRY RUN'}\n", f"{t_line}  \n{m_line}\n",
          f"_{now} UK time. Plan of {W['as_of']}. Exchange rate £1 = ${W['rate']:.4f}. "
-         + ("**Nothing is sent until you approve the run in GitHub.**_\n" if live and n else
+         + (("**These orders are being placed now, automatically.**_\n" if auto else
+             "**Nothing is sent until you approve the run in GitHub.**_\n") if live and n else
             "**Nothing has been sent to Trading 212.**_\n"),
          f"**Account:** {'your real account' if acct['real'] else 'pretend new account (no API key yet)'} — "
          f"worth £{W['total']:,.0f}, £{acct['cash']:,.0f} cash.\n"]
@@ -548,6 +577,9 @@ def report(plan: dict, acct: dict, W: dict, live: bool = False, run_url: str = "
          f'<div style="color:#57606a;margin-bottom:10px">{e(now)} · plan of {e(W["as_of"])} · £1 = ${W["rate"]:.4f}</div>',
          ('<div style="background:#fff8c5;border-radius:8px;padding:10px 12px;font-weight:700;margin-bottom:12px">'
           'Nothing has been sent to Trading 212.</div>' if not (live and n) else
+          '<div style="background:#ddf4ff;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-weight:700">'
+          'Automatic trading: these orders are being placed now. A second email confirms what was bought.</div>'
+          if auto else
           '<div style="background:#ddf4ff;border-radius:8px;padding:10px 12px;margin-bottom:12px"><b>Nothing is sent '
           'until you approve.</b> To place these orders, open the run and click <b>Review deployments → '
           f't212-live → Approve and deploy</b> while the US market is open (14:35–20:50 UK time).'
@@ -622,6 +654,10 @@ def main() -> int:
     api = T212(key, sec) if key and sec else None
     acct = read_account(api, plan)
     W = work_out(plan, acct, cfg)
+    if live and not auto_approve() and not gate_ok():
+        W["checks"].append(("Approval step set up (environment t212-live requires your approval)", False,
+                            "no required reviewer found -- trading is blocked until it is set up, "
+                            "or set T212_AUTO_APPROVE to ON"))
     run_url = (f"{os.environ.get('GITHUB_SERVER_URL', 'https://github.com')}/"
                f"{os.environ.get('GITHUB_REPOSITORY', '')}/actions/runs/{os.environ.get('GITHUB_RUN_ID', '')}"
                if os.environ.get("GITHUB_RUN_ID") else "")
