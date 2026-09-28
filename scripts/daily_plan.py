@@ -997,7 +997,7 @@ def read_t212(plan: dict) -> dict | None:
         acct = t2.read_account(t2.T212(key, sec), plan)
         W = t2.work_out(plan, acct, cfg)
         return {"ok": True, "cash": acct["cash"], "positions": acct["positions"], "orders": W["orders"],
-                "notes": W["notes"], "checks": W["checks"], "tracker": W["tracker"],
+                "notes": W["notes"], "checks": W["checks"], "tracker": W["tracker"], "want": W.get("want", {}),
                 "bond": cfg.get("bond", "")}
     except Exception as e:                                         # noqa: BLE001
         return {"ok": False, "error": f"{type(e).__name__}"}
@@ -1063,16 +1063,17 @@ def account_html(plan: dict, av: dict | None) -> str:
                      f'<div style="font-size:14px">{esc(msg)}</div></div>')
         else:
             B.append('<div style="color:#1a7f37;margin-top:6px">✅ No cash uninvested</div>')
-        want = {h["ticker"] for h in res.get("holdings", [])}
+        # Trading 212 ticker -> the strategy's name for it (e.g. SNDK1_US_EQ -> SNDK)
+        want_map = av.get("want") or {}
         if pos:
             B.append(f'<table style="width:100%;border-collapse:collapse;font-size:15px;margin-top:8px"><tr>'
                      f'<th style="{th}">Holding</th><th style="{th};text-align:right">Value</th>'
                      f'<th style="{th};text-align:right">Gain</th></tr>')
             for tk, p in sorted(pos.items(), key=lambda kv: -kv[1]["value"]):
-                sym = tk.split("_")[0]
+                sym = want_map.get(tk, tk.split("_")[0])
                 name = ("S&amp;P 500 tracker" if tk == av.get("tracker") else
                         "Bond fund" if av.get("bond") and tk.startswith(av["bond"]) else esc(sym))
-                tag = ("" if (sym in want or tk == av.get("tracker") or (av.get("bond") and tk.startswith(av["bond"])))
+                tag = ("" if (tk in want_map or tk == av.get("tracker") or (av.get("bond") and tk.startswith(av["bond"])))
                        else '<div style="color:#cf222e;font-size:12px">not in the strategy — the bot will sell it</div>')
                 pct = p.get("pl", 0) / p["cost"] if p.get("cost") else 0
                 B.append(f'<tr><td style="{td}"><b>{name}</b>{tag}</td>'
