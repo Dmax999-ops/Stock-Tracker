@@ -367,6 +367,7 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
          "yes" if acct["real"] else "no API key yet -- shown as a new account holding the set-up deposit"),
     ]
     return {"orders": orders, "notes": notes, "checks": checks, "total": total, "cash_after": cash,
+            "want": {tk: h["ticker"] for tk, h in want.items()},
             "tracker": tr_tk, "tracker_price": tr_px, "rate": rate, "as_of": str(as_of.date())}
 
 
