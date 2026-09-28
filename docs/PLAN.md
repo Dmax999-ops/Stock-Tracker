@@ -1,6 +1,6 @@
 # Daily plan — 2026-09-28
 
-_Generated 2026-09-28 22:23 UTC from closing prices of 2026-09-28. Tested rules, not personal financial advice._
+_Generated 2026-09-28 23:10 UTC from closing prices of 2026-09-28. Tested rules, not personal financial advice._
 
 ## Market: **RISK ON — invested**
 
@@ -12,22 +12,22 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 
 **Market switch: ON — invested** (S&P 500 +7.0% vs its 200-day average)
 
-**Exchange rate: £1 = $1.3258** (Yahoo Finance, rate of 2026-09-28). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
+**Exchange rate: £1 = $1.3254** (Yahoo Finance, rate of 2026-09-29). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
 
 ### Last check: 2026-09-25. Actions from that check (nothing new until the next weekly check):
 
 | Action | Stock | Amount |
 |---|---|---|
-| **BUY** | MRNA | £1,027 |
-| **BUY** | DELL | £1,027 |
-| **BUY** | HPE | £1,027 |
-| **BUY** | AMD | £1,027 |
-| **BUY** | ILMN | £1,027 |
-| **BUY** | CRWD | £1,027 |
-| **BUY** | MU | £1,027 |
-| **BUY** | MRVL | £1,027 |
-| **BUY** | SNDK | £1,027 |
-| **BUY** | INTC | £1,027 |
+| **BUY** | MRNA | £1,026 |
+| **BUY** | DELL | £1,026 |
+| **BUY** | HPE | £1,026 |
+| **BUY** | AMD | £1,026 |
+| **BUY** | ILMN | £1,026 |
+| **BUY** | CRWD | £1,026 |
+| **BUY** | MU | £1,026 |
+| **BUY** | MRVL | £1,026 |
+| **BUY** | SNDK | £1,026 |
+| **BUY** | INTC | £1,026 |
 
 _Buys are paid for by selling the same amount of your S&P 500 tracker; sales go back into the tracker._
 
@@ -52,20 +52,20 @@ _Buys are paid for by selling the same amount of your S&P 500 tracker; sales go 
 |---|---|---|---|---|---|
 | CRWD | £1,050 | £1.57 | $1,392 | $259.25 | 5.37 |
 | ILMN | £1,028 | £1.54 | $1,363 | $271.90 | 5.01 |
-| HPE | £1,016 | £1.52 | $1,347 | $62.63 | 21.51 |
-| MRNA | £1,013 | £1.52 | $1,343 | $197.28 | 6.81 |
+| HPE | £1,016 | £1.52 | $1,347 | $62.63 | 21.50 |
+| MRNA | £1,013 | £1.52 | $1,342 | $197.28 | 6.80 |
 | MU | £994 | £1.49 | $1,318 | $1,053.98 | 1.25 |
 | DELL | £986 | £1.48 | $1,307 | $543.43 | 2.40 |
-| AMD | £984 | £1.48 | $1,305 | $607.87 | 2.15 |
+| AMD | £984 | £1.48 | $1,304 | $607.87 | 2.15 |
 | SNDK | £984 | £1.48 | $1,304 | $1,712.89 | 0.76 |
-| MRVL | £982 | £1.47 | $1,302 | $251.90 | 5.17 |
-| INTC | £963 | £1.44 | $1,277 | $116.03 | 11.01 |
+| MRVL | £982 | £1.47 | $1,301 | $251.90 | 5.17 |
+| INTC | £963 | £1.44 | $1,277 | $116.03 | 11.00 |
 
 **On deck** (in the top 5%, not yet confirmed — a BUY if still there at 3 weekly checks): RVTY (2 of 3), P (2 of 3), VEEV (1 of 3), DDOG (1 of 3)
 
 **Recent actions:** 2026-09-25 BUY HPE; 2026-09-25 BUY AMD; 2026-09-25 BUY ILMN; 2026-09-25 BUY CRWD; 2026-09-25 BUY MU; 2026-09-25 BUY MRVL; 2026-09-25 BUY SNDK; 2026-09-25 BUY INTC
 
-**Live record since 2026-09-25:** £10,000 would now be £9,772 (-2.3%).
+**Live record since 2026-09-25:** £10,000 would now be £9,774 (-2.3%).
 
 **Trust checks (validation of 2026-09-26, £10,000 pot): 5 of 5 passed.** Cleared for consideration — watch the live record.
 
