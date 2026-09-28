@@ -1,0 +1,45 @@
+name: Exit test
+
+# Should the strategy also sell a stock that falls 15-30% from its high?
+# Tests trailing stops on the full history. Results: docs/EXIT_TEST.md
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: exit-test
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt requests lxml pyyaml pyarrow
+
+      - name: Rebuild price panel if absent
+        run: |
+          if [ ! -f data/prices.parquet ]; then
+            python scripts/fetch_universe.py --config config/universe.yml --out data/
+          fi
+
+      - name: Run the test
+        env:
+          POT_GBP: '10000'
+          BROKER: t212
+        run: python scripts/exit_test.py
+
+      - name: Commit
+        if: always()
+        run: |
+          bash scripts/commit_push.sh "exit test $(date -u +%Y-%m-%d)" \
+            docs/EXIT_TEST.md data/exit_test.json
