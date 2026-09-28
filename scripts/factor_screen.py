@@ -373,6 +373,8 @@ TA_WEAK_BELOW_MA = None  # e.g. 50: a check below the 50-day average also counts
 TA_MAX_STRETCH = None    # e.g. 0.30: don't BUY a stock more than 30% above its 50-day average
                          # (overextended); take the next confirmed one
 TA_NEAR_HIGH = None      # e.g. 0.10: only BUY a stock within 10% of its 52-week high
+TRIM_MAX = None     # e.g. 0.20: at each weekly check, cut any holding worth more than 20% of the
+                    # account back to 20%; the excess goes into the tracker
 TRAIL_STOP = None   # e.g. 0.25: also SELL when a holding is 25% below its highest close since bought
                     # (checked at the weekly check). None = the tested rules, no trailing stop.
 
@@ -488,6 +490,19 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
                 trades += 1
                 holds.append(i - opened.pop(k))
                 strikes.pop(k, None)
+        # TRIM (optional): no holding above TRIM_MAX of the account
+        if TRIM_MAX:
+            tot = index_units * Y[i] + sum(p * X[i, k] for k, p in pos.items() if np.isfinite(X[i, k]))
+            for k in list(pos):
+                if not np.isfinite(X[i, k]):
+                    continue
+                v = pos[k] * X[i, k]
+                if tot > 0 and v > TRIM_MAX * tot * 1.02:
+                    gross = v - TRIM_MAX * tot
+                    pos[k] -= gross / X[i, k]
+                    index_units += max(gross - fxc(gross) - 2 * fee, 0) / Y[i]
+                    actions.append((str(idx[i].date()), "TRIM", cols[k], round(gross)))
+                    trades += 1
         # ENTER: top ENTER_PCT, while a slot is free; strongest first
         free = SLOTS - len(pos)
         if free > 0:
