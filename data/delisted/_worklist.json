@@ -1013,20 +1013,22 @@
     "symbol_used": "BXLT"
   },
   "CA": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2023-12-22..2026-09-25",
+    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CA&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
     "gap_days": 1878,
     "index_window": "1996-01-02..2018-10-31",
-    "last_try": "2026-09-28",
-    "status": "recycled"
+    "last_try": "2026-09-29",
+    "status": "error"
   },
   "CAL": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "1999-11-12..2026-09-25",
+    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CAL&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
     "gap_days": 1211,
     "index_window": "1996-01-02..1996-07-19",
-    "last_try": "2026-09-28",
-    "status": "recycled"
+    "last_try": "2026-09-29",
+    "status": "error"
   },
   "CAM": {
     "attempts": 1,
@@ -1059,43 +1061,45 @@
     "symbol_used": "CAR"
   },
   "CBB": {
-    "attempts": 1,
+    "attempts": 2,
+    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CBB&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
     "index_window": "1996-01-02..1998-01-26",
-    "last_try": "2026-09-28",
-    "status": "empty"
+    "last_try": "2026-09-29",
+    "status": "error"
   },
   "CBE": {
-    "attempts": 1,
+    "attempts": 2,
     "index_window": "1996-01-02..2012-11-27",
-    "last_try": "2026-09-28",
+    "last_try": "2026-09-29",
     "status": "empty"
   },
   "CBH": {
-    "attempts": 1,
+    "attempts": 2,
     "data_window": "2017-07-07..2024-08-26",
     "gap_days": 3398,
     "index_window": "2006-06-06..2008-03-18",
-    "last_try": "2026-09-28",
+    "last_try": "2026-09-29",
     "status": "recycled"
   },
   "CBS": {
-    "attempts": 1,
+    "attempts": 2,
+    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CBS&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
     "index_window": "1996-01-02..2019-11-21",
-    "last_try": "2026-09-28",
-    "status": "empty"
+    "last_try": "2026-09-29",
+    "status": "error"
   },
   "CBSS": {
-    "attempts": 1,
+    "attempts": 2,
     "index_window": "2004-12-20..2007-09-04",
-    "last_try": "2026-09-28",
+    "last_try": "2026-09-29",
     "status": "empty"
   },
   "CCB": {
-    "attempts": 1,
-    "data_window": "2018-07-27..2026-09-25",
+    "attempts": 2,
+    "data_window": "2018-07-27..2026-09-28",
     "gap_days": 8212,
     "index_window": "1996-01-02..1996-02-01",
-    "last_try": "2026-09-28",
+    "last_try": "2026-09-29",
     "status": "recycled"
   },
   "CCK": {
@@ -1114,9 +1118,9 @@
     "symbol_used": "CCK"
   },
   "CCTYQ": {
-    "attempts": 1,
+    "attempts": 2,
     "index_window": "1996-01-02..2008-03-18",
-    "last_try": "2026-09-28",
+    "last_try": "2026-09-29",
     "status": "empty"
   },
   "CCU": {
@@ -1135,9 +1139,9 @@
     "symbol_used": "CCU"
   },
   "CDAY": {
-    "attempts": 1,
+    "attempts": 2,
     "index_window": "2021-09-20..2024-02-01",
-    "last_try": "2026-09-28",
+    "last_try": "2026-09-29",
     "status": "empty"
   },
   "CE": {
@@ -1169,5 +1173,84 @@
     "rows": 1046,
     "status": "done",
     "symbol_used": "CELG"
+  },
+  "CEN": {
+    "attempts": 1,
+    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CEN&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
+    "index_window": "1996-01-02..2001-03-30",
+    "last_try": "2026-09-29",
+    "status": "error"
+  },
+  "CEPH": {
+    "attempts": 1,
+    "index_window": "2008-11-17..2011-10-11",
+    "last_try": "2026-09-29",
+    "status": "empty"
+  },
+  "CERN": {
+    "attempts": 1,
+    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CERN&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
+    "index_window": "2010-04-30..2022-05-10",
+    "last_try": "2026-09-29",
+    "status": "error"
+  },
+  "CFC": {
+    "attempts": 1,
+    "index_window": "1997-06-18..2008-06-30",
+    "last_try": "2026-09-29",
+    "status": "empty"
+  },
+  "CFL": {
+    "attempts": 1,
+    "data_window": "2008-11-14..2010-05-12",
+    "gap_days": 3854,
+    "index_window": "1996-01-02..1998-04-27",
+    "last_try": "2026-09-29",
+    "status": "recycled"
+  },
+  "CFN": {
+    "attempts": 1,
+    "data_window": "2009-08-28..2015-03-17",
+    "delisting_date": "2015-03-17",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0028,
+    "first": "2009-08-28",
+    "index_window": "2009-09-01..2015-03-13",
+    "last": "2015-03-17",
+    "last_try": "2026-09-29",
+    "post_exit_only": false,
+    "rows": 291,
+    "status": "done",
+    "symbol_used": "CFN"
+  },
+  "CG": {
+    "attempts": 1,
+    "data_window": "2012-05-11..2026-09-28",
+    "gap_days": 4211,
+    "index_window": "1996-01-02..2000-10-30",
+    "last_try": "2026-09-29",
+    "status": "recycled"
+  },
+  "CGP": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2001-01-29",
+    "last_try": "2026-09-29",
+    "status": "empty"
+  },
+  "CHA": {
+    "attempts": 1,
+    "data_window": "2025-04-25..2026-09-28",
+    "gap_days": 9079,
+    "index_window": "1996-01-02..2000-06-16",
+    "last_try": "2026-09-29",
+    "status": "recycled"
+  },
+  "CHIR": {
+    "attempts": 1,
+    "data_window": "2018-12-21..2024-02-23",
+    "gap_days": 4629,
+    "index_window": "2000-11-24..2006-04-19",
+    "last_try": "2026-09-29",
+    "status": "recycled"
   }
 }
