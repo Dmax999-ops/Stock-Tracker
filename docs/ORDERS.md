@@ -1,9 +1,9 @@
 # Trading 212 orders — LIVE
 
-**Trading: ON** — orders are placed after you approve them in GitHub  
+**Trading: ON, automatic** — orders are placed without asking you  
 **New money: INVESTED** — cash in the account is put into the strategy
 
-_Mon 28 Sep 2026 15:56 UK time. Plan of 2026-09-25._
+_Tue 29 Sep 2026 15:55 UK time. Plan of 2026-09-28._
 
 Your real account was read. Its figures are sent only by email and are not published here.
 
