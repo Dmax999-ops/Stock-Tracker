@@ -1061,37 +1061,37 @@
     "symbol_used": "CAR"
   },
   "CBB": {
-    "attempts": 2,
+    "attempts": 3,
     "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CBB&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
     "index_window": "1996-01-02..1998-01-26",
-    "last_try": "2026-09-29",
-    "status": "error"
+    "last_try": "2026-09-30",
+    "status": "empty"
   },
   "CBE": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "1996-01-02..2012-11-27",
-    "last_try": "2026-09-29",
+    "last_try": "2026-09-30",
     "status": "empty"
   },
   "CBH": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2017-07-07..2024-08-26",
     "gap_days": 3398,
     "index_window": "2006-06-06..2008-03-18",
-    "last_try": "2026-09-29",
+    "last_try": "2026-09-30",
     "status": "recycled"
   },
   "CBS": {
-    "attempts": 2,
+    "attempts": 3,
     "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CBS&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
     "index_window": "1996-01-02..2019-11-21",
-    "last_try": "2026-09-29",
-    "status": "error"
+    "last_try": "2026-09-30",
+    "status": "empty"
   },
   "CBSS": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "2004-12-20..2007-09-04",
-    "last_try": "2026-09-29",
+    "last_try": "2026-09-30",
     "status": "empty"
   },
   "CCB": {
@@ -1099,7 +1099,7 @@
     "data_window": "2018-07-27..2026-09-28",
     "gap_days": 8212,
     "index_window": "1996-01-02..1996-02-01",
-    "last_try": "2026-09-29",
+    "last_try": "2026-09-30",
     "status": "recycled"
   },
   "CCK": {
