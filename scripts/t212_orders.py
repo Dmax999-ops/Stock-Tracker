@@ -65,26 +65,52 @@ class T212:
         tok = base64.b64encode(f"{key}:{secret}".encode()).decode()
         self.s.headers["Authorization"] = f"Basic {tok}"
         self.base = base
+        self._inst = None
 
-    def get(self, path: str, wait: float = 1.2):
-        for attempt in range(4):
-            r = self.s.get(self.base + path, timeout=60)
+    def get(self, path: str, wait: float = 1.2, timeout: int = 60):
+        """GET with retries. Reading is safe to repeat, so slow replies, dropped
+        connections and Trading 212 server errors are retried with growing waits."""
+        import requests
+        last = ""
+        for attempt in range(6):
+            try:
+                r = self.s.get(self.base + path, timeout=timeout)
+            except (requests.Timeout, requests.ConnectionError) as e:
+                last = f"no reply ({type(e).__name__})"
+                time.sleep(15 * (attempt + 1))
+                continue
             if r.status_code == 429:                      # rate limit: wait and retry
                 time.sleep(int(r.headers.get("x-ratelimit-reset-in", 0) or 0) or 10 * (attempt + 1))
+                last = "rate limit"
                 continue
             if r.status_code in (401, 403):
                 raise PermissionError(f"Trading 212 refused {path} ({r.status_code}): check the API key "
                                       "and that it is allowed to read the account")
+            if r.status_code >= 500:                      # Trading 212 having a moment
+                last = f"server error {r.status_code}"
+                time.sleep(15 * (attempt + 1))
+                continue
             r.raise_for_status()
             time.sleep(wait)
             return r.json()
-        raise RuntimeError(f"Trading 212 rate limit on {path}")
+        raise RuntimeError(f"Trading 212 did not answer {path} after 6 tries ({last})")
+
+    def instruments(self):
+        """The full list of tradable instruments -- large and slow, so read once per run."""
+        if self._inst is None:
+            self._inst = self.get("/equity/metadata/instruments", wait=1, timeout=180)
+        return self._inst
 
     def market_order(self, ticker: str, qty: float) -> tuple[bool, dict | str]:
         """One market order. qty > 0 buys, qty < 0 sells. Never retried blindly (not idempotent)."""
+        import requests
         for attempt in range(3):
-            r = self.s.post(self.base + "/equity/orders/market", timeout=60,
-                            json={"ticker": ticker, "quantity": qty, "extendedHours": False})
+            try:
+                r = self.s.post(self.base + "/equity/orders/market", timeout=60,
+                                json={"ticker": ticker, "quantity": qty, "extendedHours": False})
+            except (requests.Timeout, requests.ConnectionError) as e:
+                # the order may or may not have gone through: never resend it blindly
+                return False, f"NO REPLY from Trading 212 ({type(e).__name__}) -- this order may have been placed"
             if r.status_code == 429:
                 time.sleep(15)
                 continue                                   # rate limited: nothing was placed
@@ -134,7 +160,7 @@ def read_account(api: T212 | None, plan: dict) -> dict:
         pend = api.get("/equity/orders", wait=5.5)
     except PermissionError:
         pend = None
-    inst = api.get("/equity/metadata/instruments", wait=1)
+    inst = api.instruments()
     P = {}
     for p in pos:
         tk = p["instrument"]["ticker"]
@@ -405,6 +431,9 @@ def send(api: T212, o: dict, log: list) -> bool:
                     "result": res if isinstance(res, str) else res.get("status")})
         if ok:
             return True
+        if str(res).startswith("NO REPLY"):
+            o["unknown"] = True
+            return False
         low = str(res).lower()
         if o["side"] == "BUY" and ("insufficient" in low or "funds" in low):
             # cash not yet updated or the price moved up: try 90%, then 75% of the amount
@@ -423,8 +452,8 @@ def send(api: T212, o: dict, log: list) -> bool:
     return False
 
 
-def execute(api: T212, plan: dict, cfg: dict, approved: set[str]) -> tuple[bool, list, str]:
-    log: list = []
+def execute(api: T212, plan: dict, cfg: dict, approved: set[str], log: list | None = None) -> tuple[bool, list, str]:
+    log = [] if log is None else log                   # shared with main, so a crash still reports what was sent
     ok, when = market_open_now()
     if not ok:
         return False, log, (f"Not sent: the US market isn't open ({when}). Nothing was traded. "
@@ -465,6 +494,10 @@ def execute(api: T212, plan: dict, cfg: dict, approved: set[str]) -> tuple[bool,
         for o in todo:
             o["all"] = o["side"] == "SELL" and abs(o["qty"]) >= (acct["positions"].get(o["ticker"], {}).get("avail", 0) - 1e-9)
             if not send(api, o, log):
+                if o.get("unknown"):             # we can't tell if it went through: stop, re-check next run
+                    return False, log, (f"Stopped: Trading 212 didn't reply to {o['side']} {o['name']}, so it may or "
+                                        "may not have been placed. Nothing else was sent. The next run reads the "
+                                        "account afresh and works out only what is still needed.")
                 if o["side"] == "SELL":          # a failed sale changes the cash: stop here
                     return False, log, f"Stopped: Trading 212 refused SELL {o['name']} -- see the details"
                 refused.append(o["name"])        # a failed buy: carry on with the others
@@ -635,7 +668,15 @@ def main() -> int:
             print("No API key or no strategy -- nothing sent.")
             return 1
         approved = {x for x in os.environ.get("APPROVED", "").split(",") if x}
-        done, log, msg = execute(T212(key, sec), plan, cfg, approved)
+        log: list = []
+        try:
+            done, log, msg = execute(T212(key, sec), plan, cfg, approved, log)
+        except Exception as e:                                # noqa: BLE001
+            done = False
+            msg = (f"Stopped: Trading 212 stopped answering ({type(e).__name__}). "
+                   + (f"{sum(x['ok'] for x in log)} order(s) had already been placed (listed below). "
+                      if log else "No orders were sent. ")
+                   + "The next run reads the account afresh and works out only what is still needed.")
         md, html, subj = exec_report(done, log, msg)
         (DOCS / "EXEC_EMAIL.md").write_text(md)
         (DOCS / "EXEC_EMAIL.html").write_text(html)
