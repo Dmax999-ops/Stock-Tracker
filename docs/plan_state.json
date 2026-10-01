@@ -1,16 +1,16 @@
 {
-  "as_of": "2026-09-30",
+  "as_of": "2026-10-01",
   "model": [
     "SNDK",
     "MU",
     "LITE",
     "VLO",
-    "ILMN",
     "STT",
-    "MRK",
     "MPC",
+    "ILMN",
     "TRGP",
-    "JNJ"
+    "MRK",
+    "NUE"
   ],
   "method": "risk_adjusted_12_1_themes_v3",
   "market_on": true,
