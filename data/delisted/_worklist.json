@@ -1357,21 +1357,21 @@
     "symbol_used": "CMCSK"
   },
   "CMVT": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "1999-10-27..2007-01-24",
-    "last_try": "2026-10-03",
+    "last_try": "2026-10-04",
     "status": "empty"
   },
   "CMX": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "2004-03-25..2007-03-22",
-    "last_try": "2026-10-03",
+    "last_try": "2026-10-04",
     "status": "empty"
   },
   "CNG": {
-    "attempts": 2,
+    "attempts": 3,
     "index_window": "1996-01-02..2000-01-28",
-    "last_try": "2026-10-03",
+    "last_try": "2026-10-04",
     "status": "empty"
   },
   "CNW": {
@@ -1405,23 +1405,23 @@
     "symbol_used": "CNX"
   },
   "CNXT": {
-    "attempts": 2,
+    "attempts": 3,
     "data_window": "2014-08-01..2026-10-02",
     "gap_days": 4426,
     "index_window": "2000-01-31..2002-06-19",
-    "last_try": "2026-10-03",
+    "last_try": "2026-10-04",
     "status": "recycled"
   },
   "COC.B": {
-    "attempts": 1,
+    "attempts": 2,
     "index_window": "1999-08-09..2002-08-29",
-    "last_try": "2026-10-03",
+    "last_try": "2026-10-04",
     "status": "empty"
   },
   "COG": {
-    "attempts": 1,
+    "attempts": 2,
     "index_window": "2008-06-23..2021-09-20",
-    "last_try": "2026-10-03",
+    "last_try": "2026-10-04",
     "status": "empty"
   },
   "COL": {
@@ -1440,11 +1440,11 @@
     "symbol_used": "COL"
   },
   "COMS": {
-    "attempts": 1,
+    "attempts": 2,
     "data_window": "2020-01-24..2026-10-02",
     "gap_days": 7120,
     "index_window": "1996-01-02..2000-07-27",
-    "last_try": "2026-10-03",
+    "last_try": "2026-10-04",
     "status": "recycled"
   },
   "COTY": {
@@ -1493,15 +1493,15 @@
     "symbol_used": "CPGX"
   },
   "CPNLQ": {
-    "attempts": 1,
+    "attempts": 2,
     "index_window": "2000-12-01..2005-11-28",
-    "last_try": "2026-10-03",
+    "last_try": "2026-10-04",
     "status": "empty"
   },
   "CPQ": {
-    "attempts": 1,
+    "attempts": 2,
     "index_window": "1996-01-02..2002-05-01",
-    "last_try": "2026-10-03",
+    "last_try": "2026-10-04",
     "status": "empty"
   },
   "CPRI": {
@@ -1520,11 +1520,136 @@
     "symbol_used": "CPRI"
   },
   "CR": {
-    "attempts": 1,
+    "attempts": 2,
     "data_window": "2023-04-06..2026-10-02",
     "gap_days": 6685,
     "index_window": "1996-01-02..2004-12-16",
-    "last_try": "2026-10-03",
+    "last_try": "2026-10-04",
     "status": "recycled"
+  },
+  "CRR": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2019-12-20",
+    "delisting_date": "2019-12-20",
+    "fate_heuristic": "wipeout",
+    "final_drawdown": -0.9753,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..1997-05-19",
+    "last": "2019-12-20",
+    "last_try": "2026-10-04",
+    "post_exit_only": true,
+    "rows": 1050,
+    "status": "done",
+    "symbol_used": "CRR"
+  },
+  "CSE": {
+    "attempts": 1,
+    "data_window": "2003-08-15..2014-04-07",
+    "gap_days": 1372,
+    "index_window": "1996-01-22..1999-11-12",
+    "last_try": "2026-10-04",
+    "status": "recycled"
+  },
+  "CSR": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-10-02",
+    "delisting_date": "2011-09-15",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.1898,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..2000-06-15",
+    "last": "2026-10-02",
+    "last_try": "2026-10-04",
+    "post_exit_only": false,
+    "rows": 1404,
+    "status": "done",
+    "symbol_used": "CSR"
+  },
+  "CSRA": {
+    "attempts": 1,
+    "index_window": "2015-11-30..2018-04-02",
+    "last_try": "2026-10-04",
+    "status": "empty"
+  },
+  "CTB": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2021-06-08",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": 0.0,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..2006-07-11",
+    "last": "2021-06-08",
+    "last_try": "2026-10-04",
+    "post_exit_only": false,
+    "rows": 1127,
+    "status": "done",
+    "symbol_used": "CTB"
+  },
+  "CTL": {
+    "attempts": 1,
+    "index_window": "1999-03-25..2020-06-22",
+    "last_try": "2026-10-04",
+    "status": "empty"
+  },
+  "CTLT": {
+    "attempts": 1,
+    "data_window": "2014-08-08..2024-12-18",
+    "delisting_date": "2024-12-18",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.1452,
+    "first": "2014-08-08",
+    "index_window": "2020-09-21..2024-12-18",
+    "last": "2024-12-18",
+    "last_try": "2026-10-04",
+    "post_exit_only": false,
+    "rows": 542,
+    "status": "done",
+    "symbol_used": "CTLT"
+  },
+  "CTX": {
+    "attempts": 1,
+    "data_window": "2012-04-13..2018-08-20",
+    "delisting_date": "2018-08-20",
+    "fate_heuristic": "takeout",
+    "final_drawdown": 0.0,
+    "first": "2012-04-13",
+    "index_window": "1996-01-02..2009-08-18",
+    "last": "2018-08-20",
+    "last_try": "2026-10-04",
+    "post_exit_only": true,
+    "rows": 333,
+    "status": "done",
+    "symbol_used": "CTX"
+  },
+  "CTXS": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2022-11-02",
+    "delisting_date": "2022-11-02",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.2619,
+    "first": "1999-11-12",
+    "index_window": "1999-12-01..2022-09-19",
+    "last": "2022-11-02",
+    "last_try": "2026-10-04",
+    "post_exit_only": false,
+    "rows": 1197,
+    "status": "done",
+    "symbol_used": "CTXS"
+  },
+  "CVC": {
+    "attempts": 1,
+    "data_window": "2016-01-14..2016-06-21",
+    "delisting_date": "2016-06-21",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0003,
+    "first": "2016-01-14",
+    "index_window": "2010-12-20..2016-06-20",
+    "last": "2016-06-21",
+    "last_try": "2026-10-04",
+    "post_exit_only": false,
+    "rows": 24,
+    "status": "done",
+    "symbol_used": "CVC"
   }
 }
