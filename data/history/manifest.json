@@ -1,16 +1,16 @@
 {
-  "generated": "2026-09-24T11:53:57.232788+00:00",
+  "generated": "2026-10-05T06:26:22.447948+00:00",
   "sources": {
     "french": "https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/",
     "fred": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=GS10",
     "shiller": "http://www.econ.yale.edu/~shiller/data/ie_data.xls"
   },
-  "market": "1926-07-31 -> 2026-07-31 (1201 months)",
-  "industries": "['NoDur', 'Durbl', 'Manuf', 'Enrgy', 'HiTec', 'Telcm', 'Shops', 'Hlth', 'Utils', 'Other'] 1926-07-31 -> 2026-07-31",
-  "industries30": "30 industries 1926-07-31 -> 2026-07-31",
-  "industries49": "49 industries 1926-07-31 -> 2026-07-31",
+  "market": "1926-07-31 -> 2026-08-31 (1202 months)",
+  "industries": "['NoDur', 'Durbl', 'Manuf', 'Enrgy', 'HiTec', 'Telcm', 'Shops', 'Hlth', 'Utils', 'Other'] 1926-07-31 -> 2026-08-31",
+  "industries30": "30 industries 1926-07-31 -> 2026-08-31",
+  "industries49": "49 industries 1926-07-31 -> 2026-08-31",
   "shiller": "ok 1871-01-31 -> 2023-09-30",
-  "fred_gs10": "FAILED: ReadTimeout: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=300)",
+  "fred_gs10": "FAILED: ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
   "bond10y": "1871-02-28 -> 2023-09-30 (1832 months)",
   "status": "ok"
 }
