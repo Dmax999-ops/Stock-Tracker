@@ -41,6 +41,7 @@ import argparse
 import csv
 import io
 import json
+import re
 import os
 import sys
 import time
@@ -227,6 +228,10 @@ def main() -> int:
 
     wl_path = out / "_worklist.json"
     wl = json.loads(wl_path.read_text()) if wl_path.exists() else {}
+    # This file is public: never keep the API key inside a saved error message.
+    for v in wl.values():
+        if "error" in v:
+            v["error"] = re.sub(r"apikey=[^&\s]+", "apikey=***", v["error"])
 
     # The first release rejected on overlap and wrongly discarded real companies
     # whose history begins after their index exit. Re-queue anything the old rule
@@ -253,9 +258,15 @@ def main() -> int:
                         listing["delistingDate"].astype(str)))
 
     # Deterministic order, so progress is predictable and resumable.
+    # "empty" (Alpha Vantage has no such symbol) and "recycled" (the symbol now
+    # belongs to a different company) are answers, not failures: asking again
+    # gives the same answer and burns the 25-a-day allowance. Only real errors
+    # (e.g. 503 Service Unavailable) and untried tickers are worth a call.
+    FINAL = ("done", "empty", "recycled")
     todo = [t for t in leavers
-            if wl.get(t, {}).get("status") != "done"
+            if wl.get(t, {}).get("status") not in FINAL
             and wl.get(t, {}).get("attempts", 0) < MAX_ATTEMPTS]
+    todo.sort(key=lambda t: t in wl)              # never-tried tickers first, retries after
     batch = todo[:a.limit]
 
     done = sum(1 for v in wl.values() if v.get("status") == "done")
@@ -289,8 +300,9 @@ def main() -> int:
             break
         except Exception as e:                                   # noqa: BLE001
             rec["status"] = "error"
-            rec["error"] = str(e)[:200]
-            print(f"  {t:8} error: {str(e)[:80]}")
+            msg = re.sub(r"apikey=[^&\s]+", "apikey=***", str(e).replace(key, "***"))
+            rec["error"] = msg[:200]
+            print(f"  {t:8} error: {msg[:80]}")
             continue
 
         if df is None:
