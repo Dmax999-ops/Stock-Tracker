@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-02",
+  "as_of": "2026-10-05",
   "model": [
     "SNDK",
     "MU",
@@ -7,9 +7,9 @@
     "VLO",
     "STT",
     "MPC",
-    "NUE",
     "TRGP",
     "ILMN",
+    "NUE",
     "MRK"
   ],
   "method": "risk_adjusted_12_1_themes_v3",
