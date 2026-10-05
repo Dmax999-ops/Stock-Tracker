@@ -29,7 +29,7 @@ permissions:
 
 jobs:
   orders:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     concurrency:
       group: t212-orders
@@ -109,7 +109,7 @@ jobs:
     # passed -- and then WAITS here until you approve it in GitHub
     needs: orders
     if: needs.orders.outputs.trade == 'true' && vars.T212_MODE == 'live'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     # OFF: t212-live, which waits for your Approve. ON: t212-auto, which runs straight away
     environment: ${{ vars.T212_AUTO_APPROVE == 'ON' && 't212-auto' || 't212-live' }}
