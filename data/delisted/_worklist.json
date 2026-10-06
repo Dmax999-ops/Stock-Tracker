@@ -1015,7 +1015,7 @@
   "CA": {
     "attempts": 3,
     "data_window": "2023-12-22..2026-09-25",
-    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CA&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
+    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CA&datatype=csv&apikey=***",
     "gap_days": 1878,
     "index_window": "1996-01-02..2018-10-31",
     "last_try": "2026-09-29",
@@ -1024,7 +1024,7 @@
   "CAL": {
     "attempts": 3,
     "data_window": "1999-11-12..2026-09-25",
-    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CAL&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
+    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CAL&datatype=csv&apikey=***",
     "gap_days": 1211,
     "index_window": "1996-01-02..1996-07-19",
     "last_try": "2026-09-29",
@@ -1062,7 +1062,7 @@
   },
   "CBB": {
     "attempts": 3,
-    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CBB&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
+    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CBB&datatype=csv&apikey=***",
     "index_window": "1996-01-02..1998-01-26",
     "last_try": "2026-09-30",
     "status": "empty"
@@ -1083,7 +1083,7 @@
   },
   "CBS": {
     "attempts": 3,
-    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CBS&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
+    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CBS&datatype=csv&apikey=***",
     "index_window": "1996-01-02..2019-11-21",
     "last_try": "2026-09-30",
     "status": "empty"
@@ -1177,7 +1177,7 @@
   "CEN": {
     "attempts": 3,
     "data_window": "2013-10-04..2023-10-06",
-    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CEN&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
+    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CEN&datatype=csv&apikey=***",
     "gap_days": 4571,
     "index_window": "1996-01-02..2001-03-30",
     "last_try": "2026-10-02",
@@ -1193,7 +1193,7 @@
     "attempts": 2,
     "data_window": "1999-11-12..2022-09-08",
     "delisting_date": "2022-09-08",
-    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CERN&datatype=csv&apikey=5FELZZUMVY9X4Y8W",
+    "error": "503 Server Error: Service Unavailable for url: https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=CERN&datatype=csv&apikey=***",
     "fate_heuristic": "takeout",
     "final_drawdown": -0.0005,
     "first": "1999-11-12",
@@ -1764,5 +1764,218 @@
     "rows": 935,
     "status": "done",
     "symbol_used": "DFS"
+  },
+  "DGN": {
+    "attempts": 1,
+    "index_window": "1996-01-02..1999-10-12",
+    "last_try": "2026-10-06",
+    "status": "empty"
+  },
+  "DI": {
+    "attempts": 1,
+    "data_window": "2014-01-31..2017-04-17",
+    "gap_days": 5603,
+    "index_window": "1996-01-02..1998-09-29",
+    "last_try": "2026-10-06",
+    "status": "recycled"
+  },
+  "DIGI": {
+    "attempts": 1,
+    "data_window": "2017-10-06..2026-10-05",
+    "gap_days": 6981,
+    "index_window": "1996-01-02..1998-08-26",
+    "last_try": "2026-10-06",
+    "status": "recycled"
+  },
+  "DISCA": {
+    "attempts": 1,
+    "index_window": "2010-03-01..2022-04-04",
+    "last_try": "2026-10-06",
+    "status": "empty"
+  },
+  "DISCK": {
+    "attempts": 1,
+    "data_window": "2008-09-26..2022-09-16",
+    "delisting_date": "2022-09-16",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.63,
+    "first": "2008-09-26",
+    "index_window": "2014-08-07..2022-04-04",
+    "last": "2022-09-16",
+    "last_try": "2026-10-06",
+    "post_exit_only": false,
+    "rows": 723,
+    "status": "done",
+    "symbol_used": "DISCK"
+  },
+  "DISH": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2024-01-09",
+    "delisting_date": "2024-01-09",
+    "fate_heuristic": "wipeout",
+    "final_drawdown": -0.8262,
+    "first": "1999-11-12",
+    "index_window": "2017-03-13..2023-06-19",
+    "last": "2024-01-09",
+    "last_try": "2026-10-06",
+    "post_exit_only": false,
+    "rows": 1262,
+    "status": "done",
+    "symbol_used": "DISH"
+  },
+  "DJ": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2007-12-12",
+    "last_try": "2026-10-06",
+    "status": "empty"
+  },
+  "DLX": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-10-05",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.2709,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..2004-12-16",
+    "last": "2026-10-05",
+    "last_try": "2026-10-06",
+    "post_exit_only": false,
+    "rows": 1405,
+    "status": "done",
+    "symbol_used": "DLX"
+  },
+  "DNR": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2020-07-30",
+    "delisting_date": "2020-07-30",
+    "fate_heuristic": "wipeout",
+    "final_drawdown": -0.9627,
+    "first": "1999-11-12",
+    "index_window": "2009-04-02..2015-03-19",
+    "last": "2020-07-30",
+    "last_try": "2026-10-06",
+    "post_exit_only": false,
+    "rows": 1082,
+    "status": "done",
+    "symbol_used": "DNR"
+  },
+  "DPHIQ": {
+    "attempts": 1,
+    "index_window": "1999-05-28..2005-10-10",
+    "last_try": "2026-10-06",
+    "status": "empty"
+  },
+  "DRE": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2022-10-03",
+    "delisting_date": "2022-10-03",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.2544,
+    "first": "1999-11-12",
+    "index_window": "2017-07-26..2022-09-19",
+    "last": "2022-10-03",
+    "last_try": "2026-10-06",
+    "post_exit_only": false,
+    "rows": 1196,
+    "status": "done",
+    "symbol_used": "DRE"
+  },
+  "DWD": {
+    "attempts": 1,
+    "index_window": "1996-01-02..1997-05-30",
+    "last_try": "2026-10-06",
+    "status": "empty"
+  },
+  "DWDP": {
+    "attempts": 1,
+    "data_window": "2017-08-14..2019-05-31",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.3903,
+    "first": "2017-08-14",
+    "index_window": "2017-09-01..2019-06-01",
+    "last": "2019-05-31",
+    "last_try": "2026-10-06",
+    "post_exit_only": false,
+    "rows": 94,
+    "status": "done",
+    "symbol_used": "DWDP"
+  },
+  "DXC": {
+    "attempts": 1,
+    "data_window": "2017-02-10..2026-10-05",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.4818,
+    "first": "2017-02-10",
+    "index_window": "1996-01-02..2023-10-05",
+    "last": "2026-10-05",
+    "last_try": "2026-10-06",
+    "post_exit_only": false,
+    "rows": 505,
+    "status": "done",
+    "symbol_used": "DXC"
+  },
+  "DYN": {
+    "attempts": 1,
+    "data_window": "2020-09-25..2026-10-05",
+    "gap_days": 3935,
+    "index_window": "2000-10-03..2009-12-17",
+    "last_try": "2026-10-06",
+    "status": "recycled"
+  },
+  "EC": {
+    "attempts": 1,
+    "data_window": "2008-09-26..2026-10-05",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0282,
+    "first": "2008-09-26",
+    "index_window": "1996-01-02..2006-06-05",
+    "last": "2026-10-05",
+    "last_try": "2026-10-06",
+    "post_exit_only": true,
+    "rows": 942,
+    "status": "done",
+    "symbol_used": "EC"
+  },
+  "ECH": {
+    "attempts": 1,
+    "data_window": "2007-11-30..2026-10-05",
+    "gap_days": 3431,
+    "index_window": "1996-01-02..1998-07-09",
+    "last_try": "2026-10-06",
+    "status": "recycled"
+  },
+  "ECO": {
+    "attempts": 1,
+    "data_window": "2023-08-25..2026-10-05",
+    "gap_days": 9353,
+    "index_window": "1996-01-02..1998-01-15",
+    "last_try": "2026-10-06",
+    "status": "recycled"
+  },
+  "EDS": {
+    "attempts": 1,
+    "data_window": "2007-12-14..2015-04-29",
+    "delisting_date": "2015-04-29",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0625,
+    "first": "2007-12-14",
+    "index_window": "1998-08-11..2008-08-25",
+    "last": "2015-04-29",
+    "last_try": "2026-10-06",
+    "post_exit_only": false,
+    "rows": 386,
+    "status": "done",
+    "symbol_used": "EDS"
+  },
+  "EFU": {
+    "attempts": 1,
+    "data_window": "2007-11-02..2026-10-05",
+    "gap_days": 2559,
+    "index_window": "1996-01-02..2000-10-30",
+    "last_try": "2026-10-06",
+    "status": "recycled"
   }
 }
