@@ -59,6 +59,16 @@ CHALLENGERS = [
     ("swap out a holding below the top 30% for a newcomer", "Full slots", {"SWAP_BELOW": 0.70}),
     ("swap out a holding below the top 20% for a newcomer", "Full slots", {"SWAP_BELOW": 0.80}),
     ("swap out a holding below the top 10% for a newcomer", "Full slots", {"SWAP_BELOW": 0.90}),
+    # FAST LANE: the core 10 keep 80-90% of the money under the live rules; a small
+    # second pot of 3 slots buys after ONE week in the top 5% and sells after ONE weak week
+    ("fast lane: 10% of the money, 3 stocks, in and out after 1 week", "Fast risers",
+     {"sleeve": (0.10, {"SLOTS": 3}, 1, 1)}),
+    ("fast lane: 20% of the money, 3 stocks, in and out after 1 week", "Fast risers",
+     {"sleeve": (0.20, {"SLOTS": 3}, 1, 1)}),
+    ("fast lane: 20%, 3 stocks, sold once out of the top 25%", "Fast risers",
+     {"sleeve": (0.20, {"SLOTS": 3, "EXIT_PCT": 0.75}, 1, 1)}),
+    ("core buys after 2 weeks in the top 5% (not 3)", "Fast risers", {"enter_after": 2}),
+    ("core buys after 1 week in the top 5% (not 3)", "Fast risers", {"enter_after": 1}),
 ]
 
 
@@ -90,9 +100,56 @@ def cash_when_weak(bond: np.ndarray) -> np.ndarray:
     return np.cumprod(1 + r) * float(b.iloc[0])
 
 
-def evaluate(sig, Cff, spy, member, bond, idx, first, mid, starts):
+SPECIAL = ("confirm", "cash", "sleeve", "enter_after")
+
+
+def run_one(sig, Cff, spy, member, start, switch, bond, enter=None, exit_=None):
+    """val.run, optionally with a different number of weeks to BUY / to SELL."""
+    orig = fs.commit_portfolio
+    if enter or exit_:
+        def patched(*a, **k):
+            if enter:
+                fs.CONFIRM_CHECKS = enter
+            if exit_:
+                fs.EXIT_CONFIRM = exit_
+            return orig(*a, **k)
+        fs.commit_portfolio = patched
+    try:
+        return val.run(sig, Cff, spy, member, start, switch, bond, delay=1)
+    finally:
+        fs.commit_portfolio = orig
+
+
+def run_variant(st, sig, Cff, spy, member, start, switch, bond):
+    """One run of a challenger: plain, faster entry, or core + fast-lane pot."""
+    if "sleeve" not in st:
+        return run_one(sig, Cff, spy, member, start, switch, bond, enter=st.get("enter_after"))
+    share, over, en, ex = st["sleeve"]
+    try:
+        fs.START = POT * (1 - share)                                  # the core 10, live rules
+        e1, t1 = run_one(sig, Cff, spy, member, start, switch, bond)
+        saved = {a: getattr(fs, a) for a in over}
+        for a, v in over.items():
+            setattr(fs, a, v)
+        try:
+            fs.START = POT * share                                    # the fast lane
+            e2, t2 = run_one(sig, Cff, spy, member, start, switch, bond, enter=en, exit_=ex)
+        finally:
+            for a, v in saved.items():
+                setattr(fs, a, v)
+    finally:
+        fs.START = POT
+    e1, e2 = e1.astype(float), e2.astype(float)
+    eq = e1 + e2.reindex(e1.index).ffill().fillna(POT * share)
+    t = dict(t1)
+    t["trades_per_year"] = round((t1.get("trades_per_year") or 0) + (t2.get("trades_per_year") or 0), 1)
+    return eq, t
+
+
+def evaluate(sig, Cff, spy, member, bond, idx, first, mid, starts, st=None):
+    st = st or {}
     switch = bp.market_state(spy).shift(1).fillna(True).astype(bool).values
-    eq, t = val.run(sig, Cff, spy, member, first, switch, bond, delay=1)
+    eq, t = run_variant(st, sig, Cff, spy, member, first, switch, bond)
     eq = eq.astype(float)
     s = spy.reindex(eq.index)
     halves = {}
@@ -100,8 +157,9 @@ def evaluate(sig, Cff, spy, member, bond, idx, first, mid, starts):
         e, sp_ = eq.loc[a:b], s.loc[a:b]
         halves[lab] = {"strategy": POT * float(e.iloc[-1] / e.iloc[0]), "spy": POT * float(sp_.iloc[-1] / sp_.iloc[0])}
     tens = []
+    st_ = st
     for st in starts:
-        e2, _ = val.run(sig, Cff, spy, member, st, switch, bond, delay=1)
+        e2, _ = run_variant(st_, sig, Cff, spy, member, st, switch, bond)
         e2 = e2.astype(float)
         end = idx[st] + pd.DateOffset(years=10)
         e2 = e2[e2.index <= end]
@@ -127,18 +185,18 @@ def main() -> int:
               and idx[i] <= idx[-1] - pd.DateOffset(years=10)][::EVERY_WEEKS]
     fs.START = POT
     confirm0 = bp.dp.CONFIRM
-    defaults = {a: getattr(fs, a) for _, _, st in CHALLENGERS for a in st if a not in ("confirm", "cash")}
+    defaults = {a: getattr(fs, a) for _, _, st in CHALLENGERS for a in st if a not in SPECIAL}
     out = {"generated": pd.Timestamp.now("UTC").isoformat(), "broker": bp.BROKER_NAME,
            "from": str(idx[first].date()), "to": str(idx[-1].date()), "companies": int(C.shape[1]),
            "results": {}}
     for name, group, st in [(LIVE, "", {})] + CHALLENGERS:
         try:
             for a, v in st.items():
-                if a not in ("confirm", "cash"):
+                if a not in SPECIAL:
                     setattr(fs, a, v)
             bp.dp.CONFIRM = st.get("confirm", confirm0)
             bond = cash_when_weak(bond0) if st.get("cash") else bond0
-            r = evaluate(sig, Cff, spy, member, bond, idx, first, mid, starts)
+            r = evaluate(sig, Cff, spy, member, bond, idx, first, mid, starts, st)
             r["group"] = group
             out["results"][name] = r
             print(name, round(r["ten_median"]), r["halves"], flush=True)
