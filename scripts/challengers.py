@@ -172,6 +172,103 @@ def evaluate(sig, Cff, spy, member, bond, idx, first, mid, starts, st=None):
             "ten_spy_median": POT * float(np.median(g[:, 1])), "ten_beat": float((g[:, 0] > g[:, 1]).mean())}
 
 
+def email_html(out: dict, base: dict, passed: list, streak: dict) -> str:
+    """Phone-friendly email: verdict first, then the passers, near misses and the full list."""
+    import html as _h
+    e = _h.escape
+    F = "font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;"
+    MUT = "color:#57606a"
+    lh, rh = base["halves"]["1997-2011"]["strategy"], base["halves"]["2011-2026"]["strategy"]
+
+    def diff(v, b):
+        d = v - b
+        if abs(d) < 1:
+            return f'<span style="color:#57606a;font-size:13px">same</span>'
+        col = "#1a7f37" if d > 0 else "#cf222e"
+        return f'<span style="color:{col};font-size:13px">{"+" if d > 0 else "−"}{gbp(abs(d))}</span>'
+
+    def why_not(v):
+        bits = []
+        if v["halves"]["1997-2011"]["strategy"] <= lh:
+            bits.append("lost 1997–2011")
+        if v["halves"]["2011-2026"]["strategy"] <= rh:
+            bits.append("lost 2011–2026")
+        if v["ten_median"] <= base["ten_median"]:
+            bits.append("lower typical 10 years")
+        if v["ten_beat"] < base["ten_beat"] - 0.03:
+            bits.append("beat the S&P less often")
+        return ", ".join(bits) or "—"
+
+    def card(name, v, colour, tag):
+        h = v["halves"]
+        cells = [("1997–2011", h["1997-2011"]["strategy"], lh), ("2011–2026", h["2011-2026"]["strategy"], rh),
+                 ("Typical 10 years", v["ten_median"], base["ten_median"])]
+        rows = "".join(f'<tr><td style="padding:4px 0;{MUT}">{lab}</td><td style="padding:4px 0;text-align:right">'
+                       f'<b>{gbp(x)}</b> {diff(x, b)}</td></tr>' for lab, x, b in cells)
+        return (f'<div style="border-left:6px solid {colour};background:#f6f8fa;border-radius:6px;padding:10px 12px;'
+                f'margin:0 0 10px"><div style="font-weight:700">{e(name)}</div>'
+                f'<div style="font-size:13px;{MUT};margin-bottom:4px">{tag}</div>'
+                f'<table style="width:100%;border-collapse:collapse;font-size:15px">{rows}'
+                f'<tr><td style="padding:4px 0;{MUT}">Worst fall</td><td style="padding:4px 0;text-align:right">'
+                f'{v["max_fall"]:.0%} <span style="font-size:13px;{MUT}">(live {base["max_fall"]:.0%})</span></td></tr>'
+                f'</table></div>')
+
+    ready = [n for n in passed if streak.get(n, 0) >= 3]
+    if ready:
+        bg, fg, msg = "#dafbe1", "#1a7f37", (f"{ready[0]} has passed 3 months running. Worth a serious look — "
+                                             "nothing changes unless you decide to switch.")
+    elif passed:
+        bg, fg, msg = "#fff8c5", "#9a6700", (f"{len(passed)} challenger{'s' if len(passed) > 1 else ''} beat the live "
+                                             "rules this month. Not enough yet: it needs 3 months running.")
+    else:
+        bg, fg, msg = "#f6f8fa", "#1f2328", "Nothing beat the live rules this month. Keep them."
+    B = [f'<div style="{F}color:#1f2328;max-width:600px;margin:0 auto;padding:8px;font-size:16px;line-height:1.45">',
+         '<div style="font-size:22px;font-weight:700">Strategy challengers</div>',
+         f'<div style="{MUT};margin-bottom:12px">{e(out["generated"][:10])} · £10,000 from {e(out["from"][:4])} · '
+         f'{out["companies"]} companies incl. failed ones</div>',
+         f'<div style="background:{bg};color:{fg};border-radius:8px;padding:10px 12px;font-weight:700;'
+         f'margin-bottom:16px">{e(msg)}</div>',
+         '<div style="font-size:18px;font-weight:700;margin:0 0 8px">The live rules</div>',
+         f'<table style="width:100%;border-collapse:collapse;font-size:15px;margin-bottom:6px">'
+         f'<tr><td style="padding:4px 0;{MUT}">1997–2011</td><td style="text-align:right"><b>{gbp(lh)}</b></td></tr>'
+         f'<tr><td style="padding:4px 0;{MUT}">2011–2026</td><td style="text-align:right"><b>{gbp(rh)}</b></td></tr>'
+         f'<tr><td style="padding:4px 0;{MUT}">Typical 10 years</td><td style="text-align:right"><b>'
+         f'{gbp(base["ten_median"])}</b> <span style="font-size:13px;{MUT}">(S&amp;P {gbp(base["ten_spy_median"])})'
+         f'</span></td></tr><tr><td style="padding:4px 0;{MUT}">Worst fall</td><td style="text-align:right">'
+         f'{base["max_fall"]:.0%}</td></tr></table>']
+    R = {n: v for n, v in out["results"].items() if n != LIVE and "error" not in v}
+    if passed:
+        B.append('<div style="font-size:18px;font-weight:700;margin:16px 0 8px">Passed this month</div>')
+        for n in passed:
+            k = streak.get(n, 1)
+            B.append(card(n, R[n], "#1a7f37", f"✅ {k} of 3 months running · {e(R[n].get('group', ''))}"))
+    misses = sorted((n for n in R if n not in passed), key=lambda n: -R[n]["ten_median"])[:3]
+    if misses:
+        B.append('<div style="font-size:18px;font-weight:700;margin:16px 0 8px">Closest misses</div>')
+        for n in misses:
+            B.append(card(n, R[n], "#d4a72c", "✗ " + e(why_not(R[n]))))
+    B.append('<div style="font-size:18px;font-weight:700;margin:16px 0 8px">Every challenger</div>'
+             '<table style="width:100%;border-collapse:collapse;font-size:14px">'
+             f'<tr><th style="text-align:left;padding:6px 4px;border-bottom:2px solid #d0d7de;{MUT}">Challenger</th>'
+             f'<th style="text-align:right;padding:6px 4px;border-bottom:2px solid #d0d7de;{MUT}">Typical 10y</th></tr>')
+    for n, v in out["results"].items():
+        if n == LIVE:
+            continue
+        td = "padding:7px 4px;border-bottom:1px solid #eaeef2;vertical-align:top"
+        if "error" in v:
+            B.append(f'<tr><td style="{td}">{e(n)}<div style="font-size:12px;color:#cf222e">error</div></td>'
+                     f'<td style="{td}"></td></tr>')
+            continue
+        res = ("✅ passed" if n in passed else "✗ " + why_not(v))
+        B.append(f'<tr><td style="{td}">{e(n)}<div style="font-size:12px;{MUT}">{e(res)}</div></td>'
+                 f'<td style="{td};text-align:right;white-space:nowrap">{gbp(v["ten_median"])}<br>'
+                 f'{diff(v["ten_median"], base["ten_median"])}</td></tr>')
+    B.append(f'</table><div style="font-size:12px;{MUT};margin-top:12px">A challenger passes only if it beats the live '
+             'rules in both halves of history and on a typical 10-year start. Nothing changes in your account by '
+             'itself. Full table: docs/CHALLENGERS.md.</div></div>')
+    return "".join(B)
+
+
 def main() -> int:
     C, member, spy, bond0 = load()
     Cff = C.ffill()
@@ -227,9 +324,15 @@ def main() -> int:
                  "live_ten_median": round(base["ten_median"])})
     logp.parent.mkdir(parents=True, exist_ok=True)
     logp.write_text("\n".join(json.dumps(r) for r in rows) + "\n")
+    # streaks count MONTHS, not runs: extra manual runs in a month must not
+    # look like extra months of evidence. The last run of each month counts.
+    by_month = {}
+    for r in rows:
+        by_month[r["run"][:7]] = r
+    monthly = [by_month[m] for m in sorted(by_month)]
     streak = {n: 0 for n, _, _ in CHALLENGERS}
     for n in streak:
-        for r in reversed(rows):
+        for r in reversed(monthly):
             if n in r["passed"]:
                 streak[n] += 1
             else:
@@ -268,7 +371,7 @@ def main() -> int:
     Path("data/challengers.json").write_text(json.dumps(out, indent=2, default=str))
 
     # email only when something passed
-    for f in ("CHALLENGERS_EMAIL.md", "CHALLENGERS_SUBJECT.txt"):
+    for f in ("CHALLENGERS_EMAIL.md", "CHALLENGERS_EMAIL.html", "CHALLENGERS_SUBJECT.txt"):
         Path("docs", f).unlink(missing_ok=True)
     if passed:
         ready = [n for n in passed if streak.get(n, 0) >= 3]
@@ -276,6 +379,7 @@ def main() -> int:
             ("Strategy: a change has passed 3 months running - " + ready[0] if ready else
              f"Strategy: {len(passed)} challenger(s) beat the live rules this month") + "\n")
         Path("docs/CHALLENGERS_EMAIL.md").write_text("\n".join(L) + "\n")
+        Path("docs/CHALLENGERS_EMAIL.html").write_text(email_html(out, base, passed, streak))
     print("\n".join(L))
     return 0
 
