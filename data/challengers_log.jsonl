@@ -1,3 +1,4 @@
 {"run": "2026-09-28", "companies": 649, "passed": [], "live_ten_median": 37126}
 {"run": "2026-10-03", "companies": 654, "passed": [], "live_ten_median": 37416}
 {"run": "2026-10-07", "companies": 674, "passed": [], "live_ten_median": 36967}
+{"run": "2026-10-07", "companies": 672, "passed": ["sell on a break of 26-week support"], "live_ten_median": 35574}
