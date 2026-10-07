@@ -72,4 +72,4 @@ jobs:
           to: ${{ secrets.MAIL_TO }}
           from: Stock Tracker <${{ secrets.MAIL_USERNAME }}>
           body: file://docs/CHALLENGERS_EMAIL.md
-          convert_markdown: true
+          html_body: file://docs/CHALLENGERS_EMAIL.html
