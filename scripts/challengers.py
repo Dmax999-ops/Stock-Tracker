@@ -55,6 +55,10 @@ CHALLENGERS = [
     ("trim any holding above 15% of the account", "Position size", {"TRIM_MAX": 0.15}),
     ("trim any holding above 20% of the account", "Position size", {"TRIM_MAX": 0.20}),
     ("trim any holding above 25% of the account", "Position size", {"TRIM_MAX": 0.25}),
+    ("12 slots instead of 10", "Position size", {"SLOTS": 12}),
+    ("swap out a holding below the top 30% for a newcomer", "Full slots", {"SWAP_BELOW": 0.70}),
+    ("swap out a holding below the top 20% for a newcomer", "Full slots", {"SWAP_BELOW": 0.80}),
+    ("swap out a holding below the top 10% for a newcomer", "Full slots", {"SWAP_BELOW": 0.90}),
 ]
 
 
