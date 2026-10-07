@@ -375,6 +375,10 @@ TA_MAX_STRETCH = None    # e.g. 0.30: don't BUY a stock more than 30% above its 
 TA_NEAR_HIGH = None      # e.g. 0.10: only BUY a stock within 10% of its 52-week high
 TRIM_MAX = None     # e.g. 0.20: at each weekly check, cut any holding worth more than 20% of the
                     # account back to 20%; the excess goes into the tracker
+SWAP_BELOW = None   # e.g. 0.80: when every slot is full and a stock has qualified to BUY (top 5% for
+                    # three checks), SELL the weakest holding if it has slipped below the top 20%
+                    # (80th percentile), and buy the newcomer in its place
+SWAP_MAX = 1        # at most this many swaps at one weekly check
 TRAIL_STOP = None   # e.g. 0.25: also SELL when a holding is 25% below its highest close since bought
                     # (checked at the weekly check). None = the tested rules, no trailing stop.
 
@@ -503,6 +507,24 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
                     index_units += max(gross - fxc(gross) - 2 * fee, 0) / Y[i]
                     actions.append((str(idx[i].date()), "TRIM", cols[k], round(gross)))
                     trades += 1
+        # SWAP (optional): slots full, a newcomer qualified -> replace the weakest holding
+        if SWAP_BELOW and len(pos) >= SLOTS:
+            waiting = [k for k in np.where(ok)[0] if k not in pos and streak[k] >= CONFIRM_CHECKS]
+            n_swap = min(len(waiting), SWAP_MAX)
+            held = sorted((pct(S[i, k]) if np.isfinite(S[i, k]) else -1.0, k) for k in pos)
+            for p_k, k in held[:n_swap]:
+                if p_k >= SWAP_BELOW or not np.isfinite(X[i, k]):
+                    break
+                px = X[i, k]
+                sh = pos[k]
+                close(k, i, px)
+                book[-1]["gbp"] = float(sh * (px - book[-1]["_e"]))
+                gross = pos.pop(k) * px
+                actions.append((str(idx[i].date()), "SELL (swap)", cols[k], round(gross)))
+                index_units += max(gross - fxc(gross) - 2 * fee, 0) / Y[i]
+                trades += 1
+                holds.append(i - opened.pop(k))
+                strikes.pop(k, None)
         # ENTER: top ENTER_PCT, while a slot is free; strongest first
         free = SLOTS - len(pos)
         if free > 0:
