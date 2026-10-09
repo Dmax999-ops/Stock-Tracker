@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-08",
+  "as_of": "2026-10-09",
   "model": [
     "SNDK",
     "LITE",
@@ -7,8 +7,8 @@
     "VLO",
     "MPC",
     "STT",
-    "NUE",
     "TRGP",
+    "NUE",
     "ILMN",
     "MRK"
   ],
