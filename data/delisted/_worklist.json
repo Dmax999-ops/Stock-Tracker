@@ -4538,5 +4538,180 @@
     "rows": 1406,
     "status": "done",
     "symbol_used": "PENN"
+  },
+  "PET": {
+    "attempts": 1,
+    "data_window": "2022-08-19..2026-10-16",
+    "gap_days": 8820,
+    "index_window": "1996-01-02..1998-06-26",
+    "last_try": "2026-10-19",
+    "status": "recycled"
+  },
+  "PETM": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2015-03-11",
+    "delisting_date": "2015-03-11",
+    "fate_heuristic": "takeout",
+    "final_drawdown": 0.0,
+    "first": "1999-11-12",
+    "index_window": "2012-10-05..2015-03-11",
+    "last": "2015-03-11",
+    "last_try": "2026-10-19",
+    "post_exit_only": false,
+    "rows": 801,
+    "status": "done",
+    "symbol_used": "PETM"
+  },
+  "PGL": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2007-02-16",
+    "last_try": "2026-10-19",
+    "status": "empty"
+  },
+  "PHA": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2003-04-07",
+    "last_try": "2026-10-19",
+    "status": "empty"
+  },
+  "PHB": {
+    "attempts": 1,
+    "index_window": "1996-01-02..1999-10-01",
+    "last_try": "2026-10-19",
+    "status": "empty"
+  },
+  "PKI": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2023-05-17",
+    "last_try": "2026-10-19",
+    "status": "empty"
+  },
+  "PMCS": {
+    "attempts": 1,
+    "index_window": "2001-08-03..2007-06-26",
+    "last_try": "2026-10-19",
+    "status": "empty"
+  },
+  "PMI": {
+    "attempts": 1,
+    "data_window": "2025-09-05..2026-10-16",
+    "gap_days": 10690,
+    "index_window": "1996-01-02..1996-05-30",
+    "last_try": "2026-10-19",
+    "status": "recycled"
+  },
+  "PNU": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2000-03-29",
+    "last_try": "2026-10-19",
+    "status": "empty"
+  },
+  "PPW": {
+    "attempts": 1,
+    "index_window": "1996-01-02..1999-11-29",
+    "last_try": "2026-10-19",
+    "status": "empty"
+  },
+  "PRD": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2000-12-11",
+    "last_try": "2026-10-19",
+    "status": "empty"
+  },
+  "PRGO": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-10-16",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.3519,
+    "first": "1999-11-12",
+    "index_window": "2011-12-19..2021-08-30",
+    "last": "2026-10-16",
+    "last_try": "2026-10-19",
+    "post_exit_only": false,
+    "rows": 1406,
+    "status": "done",
+    "symbol_used": "PRGO"
+  },
+  "PSFT": {
+    "attempts": 1,
+    "data_window": "2008-04-18..2024-10-29",
+    "gap_days": 1208,
+    "index_window": "1998-10-02..2004-12-27",
+    "last_try": "2026-10-19",
+    "status": "recycled"
+  },
+  "PVH": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-10-16",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.2171,
+    "first": "1999-11-12",
+    "index_window": "2013-02-14..2022-06-28",
+    "last": "2026-10-16",
+    "last_try": "2026-10-19",
+    "post_exit_only": false,
+    "rows": 1406,
+    "status": "done",
+    "symbol_used": "PVH"
+  },
+  "PVN": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2005-09-28",
+    "last_try": "2026-10-19",
+    "status": "empty"
+  },
+  "PVT": {
+    "attempts": 1,
+    "data_window": "2019-04-05..2020-02-11",
+    "gap_days": 7219,
+    "index_window": "1998-08-31..1999-06-30",
+    "last_try": "2026-10-19",
+    "status": "recycled"
+  },
+  "PWER": {
+    "attempts": 1,
+    "data_window": "2023-12-08..2026-10-16",
+    "gap_days": 6848,
+    "index_window": "2000-10-23..2005-03-09",
+    "last_try": "2026-10-19",
+    "status": "recycled"
+  },
+  "PWJ": {
+    "attempts": 1,
+    "index_window": "1999-06-04..2000-11-03",
+    "last_try": "2026-10-19",
+    "status": "empty"
+  },
+  "PXD": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2024-05-03",
+    "delisting_date": "2024-05-03",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0116,
+    "first": "1999-11-12",
+    "index_window": "2008-09-24..2024-05-03",
+    "last": "2024-05-03",
+    "last_try": "2026-10-19",
+    "post_exit_only": false,
+    "rows": 1278,
+    "status": "done",
+    "symbol_used": "PXD"
+  },
+  "PZE": {
+    "attempts": 1,
+    "data_window": "2000-02-04..2018-05-18",
+    "delisting_date": "2018-05-18",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.2049,
+    "first": "2000-02-04",
+    "index_window": "1996-01-02..1998-12-24",
+    "last": "2018-05-18",
+    "last_try": "2026-10-19",
+    "post_exit_only": true,
+    "rows": 955,
+    "status": "done",
+    "symbol_used": "PZE"
   }
 }
