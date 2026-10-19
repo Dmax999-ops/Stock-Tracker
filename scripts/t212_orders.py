@@ -258,13 +258,19 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
         if not p:
             notes.append(f"No price for {h['ticker']} -- order skipped")
             return 0.0
-        q = floor_to(gbp * (1 - buf / 3) * (1 - fxf) * rate / p, 2)
+        # price per share in pounds: last night's close, or Trading 212's live price if it is
+        # higher (prices can rise during the day; sizing from the old close ran out of cash)
+        px = p / rate
+        live = (P.get(tk) or {}).get("price_gbp")
+        if live and live > px:
+            px = live
+        q = floor_to(gbp * (1 - buf / 3) * (1 - fxf) / px, 2)
         if q <= 0:
             notes.append(f"{h['ticker']}: £{gbp:,.0f} buys less than 0.01 shares -- skipped")
             return 0.0
         buys.append({"side": "BUY", "ticker": tk, "name": h["ticker"], "qty": q,
-                     "gbp": q * p / rate * (1 + fxf), "usd_price": p, "why": why})
-        return q * p / rate * (1 + fxf)
+                     "gbp": q * px * (1 + fxf), "usd_price": p, "why": why})
+        return q * px * (1 + fxf)
 
     def buy_fund(tk, px, gbp, label, why):
         if not tk or not px:
@@ -407,6 +413,11 @@ def market_open_now() -> tuple[bool, str]:
     return ok, ny.strftime("%a %H:%M New York time")
 
 
+def london_open_now() -> bool:
+    ln = pd.Timestamp.now("Europe/London")
+    return ln.weekday() < 5 and (8, 0) <= (ln.hour, ln.minute) < (16, 30)
+
+
 def wait_for_fills(api: T212, timeout: int = 180) -> bool:
     """True once no orders are waiting (all filled or cancelled)."""
     end = time.time() + timeout
@@ -502,6 +513,12 @@ def execute(api: T212, plan: dict, cfg: dict, approved: set[str], log: list | No
                     return False, log, f"Stopped: Trading 212 refused SELL {o['name']} -- see the details"
                 refused.append(o["name"])        # a failed buy: carry on with the others
 
+        if todo and name == "BUY funds" and not london_open_now():
+            queued = [o["name"] for o in todo]
+            if refused:
+                break
+            return True, log, (f"All orders placed. The {', '.join(queued)} order waits for the London market, "
+                               "which is closed now -- it fills when London opens (08:00 UK).")
         if todo and not wait_for_fills(api):
             return False, log, f"Stopped after '{name}': orders were still waiting after 3 minutes"
     if refused:
