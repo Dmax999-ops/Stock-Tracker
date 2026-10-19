@@ -51,6 +51,15 @@ import pandas as pd
 LIVE = "https://live.trading212.com/api/v0"
 DOCS = Path("docs")
 LOG = Path("data/orders_log.jsonl")
+CARRY = Path("data/t212_carry.json")   # tickers whose buy Trading 212 refused -- retried first at the next run.
+                                       # Tickers only: no amounts, so nothing about the account is published.
+
+
+def load_carry() -> list[str]:
+    try:
+        return list(json.loads(CARRY.read_text()).get("tickers", []))
+    except Exception:                                          # noqa: BLE001
+        return []
 CFG = Path("config/t212.yml")
 
 
@@ -331,6 +340,15 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
                    f"The strategy holds it ({h['value'] / pot:.0%} of the pot) and this account doesn't yet")
             if target[tk] * scale >= minimum:
                 cash -= buy_stock(tk, h, target[tk] * scale, why)
+        # RETRY a refused buy: a stock whose buy Trading 212 refused at an earlier run (e.g. the
+        # cash ran short) is topped back up to its planned share first, from the cash it left behind
+        for tk in [t for t in load_carry() if t in want and t in stocks_held]:
+            h = want[tk]
+            gap = total * h["value"] / pot - stocks_held[tk]["value"]
+            amt = min(gap, cash * 0.995)
+            if amt >= minimum:
+                cash -= buy_stock(tk, h, amt, "Retry: this buy was refused at an earlier run -- topped back up "
+                                              f"to its planned share ({h['value'] / pot:.0%} of the pot)")
         # whatever cash is left after any catch-up buys is new money (only once stocks are held)
         new_money = cash if stocks_held and cash >= float(cfg.get("new_money_min", 100)) else 0.0
         if new_money > minimum:
@@ -688,6 +706,14 @@ def main() -> int:
         log: list = []
         try:
             done, log, msg = execute(T212(key, sec), plan, cfg, approved, log)
+            try:                                    # remember refused stock buys for the next run
+                ok_t = {x["ticker"] for x in log if x["ok"]}
+                bad_t = {x["ticker"] for x in log if not x["ok"] and x["side"] == "BUY"
+                         and x["ticker"].endswith("_US_EQ")} - ok_t
+                keep = [t for t in load_carry() if t not in ok_t]
+                CARRY.write_text(json.dumps({"tickers": sorted(set(keep) | bad_t)}) + "\n")
+            except Exception:                       # noqa: BLE001
+                pass
         except Exception as e:                                # noqa: BLE001
             done = False
             msg = (f"Stopped: Trading 212 stopped answering ({type(e).__name__}). "
