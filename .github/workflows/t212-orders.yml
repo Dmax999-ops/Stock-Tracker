@@ -139,7 +139,7 @@ jobs:
 
       - name: Commit
         if: always()
-        run: bash scripts/commit_push.sh "t212 trades $(date -u +%Y-%m-%d)" data/orders_log.jsonl
+        run: bash scripts/commit_push.sh "t212 trades $(date -u +%Y-%m-%d)" data/orders_log.jsonl data/t212_carry.json
 
       - name: Email subject
         id: subj
