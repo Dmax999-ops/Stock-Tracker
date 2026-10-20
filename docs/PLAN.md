@@ -1,6 +1,6 @@
 # Daily plan — 2026-10-20
 
-_Generated 2026-10-20 22:36 UTC from closing prices of 2026-10-20. Tested rules, not personal financial advice._
+_Generated 2026-10-20 22:53 UTC from closing prices of 2026-10-20. Tested rules, not personal financial advice._
 
 ## Market: **RISK ON — invested**
 
@@ -12,7 +12,7 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 
 **Market switch: ON — invested** (S&P 500 +6.4% vs its 200-day average)
 
-**Exchange rate: £1 = $1.3374** (Yahoo Finance, rate of 2026-10-20). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
+**Exchange rate: £1 = $1.3373** (Yahoo Finance, rate of 2026-10-20). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
 
 ### Last check: 2026-10-16. Actions from that check (nothing new until the next weekly check):
 
@@ -48,7 +48,7 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 | DELL | £899 | £1.35 | $1,202 | $461.56 | 2.60 |
 | SNDK | £842 | £1.26 | $1,126 | $1,365.38 | 0.82 |
 
-**On deck** (in the top 5%, not yet confirmed — a BUY if still there at 3 weekly checks): HUM (2 of 3), VEEV (2 of 3), IQV (1 of 3), APA (1 of 3), PTC (1 of 3), A (1 of 3)
+**On deck** (in the top 5%, not yet confirmed — a BUY if still there at 3 weekly checks): HUM (2 of 3), VEEV (2 of 3), PTC (1 of 3), IQV (1 of 3), APA (1 of 3), A (1 of 3)
 
 **Recent actions:** 2026-09-25 BUY HPE; 2026-09-25 BUY AMD; 2026-09-25 BUY ILMN; 2026-09-25 BUY CRWD; 2026-09-25 BUY MU; 2026-09-25 BUY MRVL; 2026-09-25 BUY SNDK; 2026-09-25 BUY TWLO
 
@@ -78,11 +78,11 @@ Daily history: data/paper_test.csv
 | Account | Gains taken (realised) | Tax this year at 18% / 24% | Pay by | Gain not yet taken |
 |---|---|---|---|---|
 | Hargreaves Lansdown £10,000 | £0 | £0 / £0 | — | −£1,046 |
-| Hargreaves Lansdown £100,000 | £0 | £0 / £0 | — | −£9,711 |
-| Trading 212 £10,000 | £0 | £0 / £0 | — | −£892 |
-| Trading 212 £100,000 | £0 | £0 / £0 | — | −£8,919 |
-| Interactive Brokers £10,000 | £0 | £0 / £0 | — | −£890 |
-| Interactive Brokers £100,000 | £0 | £0 / £0 | — | −£8,809 |
+| Hargreaves Lansdown £100,000 | £0 | £0 / £0 | — | −£9,705 |
+| Trading 212 £10,000 | £0 | £0 / £0 | — | −£891 |
+| Trading 212 £100,000 | £0 | £0 / £0 | — | −£8,913 |
+| Interactive Brokers £10,000 | £0 | £0 / £0 | — | −£889 |
+| Interactive Brokers £100,000 | £0 | £0 / £0 | — | −£8,803 |
 
 _First £3,000 of net gains each tax year is tax-free. Nothing is paid until 31 January after the tax year ends. In a Stocks & Shares ISA none of this is taxed. Estimate, not tax advice._
 
