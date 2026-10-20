@@ -401,8 +401,7 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
         ("Plan is up to date", age <= 4, f"plan of {as_of.date()} ({age} days old)"),
         ("Strategy ran without errors", not plan.get("strategy_error"), ""),
         ("Account is in pounds", acct["currency"] == "GBP", str(acct["currency"])),
-        ("No orders already waiting", None if acct["pending"] is None else not acct["pending"],
-         "the key isn't allowed to see orders" if acct["pending"] is None else f"{len(acct['pending'])} pending"),
+        ("No orders already waiting", pending_state(acct["pending"])[0], pending_state(acct["pending"])[1]),
         ("Every ticker found on Trading 212", (not unverified) if acct["real"] else None,
          ("; ".join(unverified) if unverified else "all verified") if acct["real"]
          else "not checked yet -- needs the API key"),
@@ -434,6 +433,22 @@ def market_open_now() -> tuple[bool, str]:
 def london_open_now() -> bool:
     ln = pd.Timestamp.now("Europe/London")
     return ln.weekday() < 5 and (8, 0) <= (ln.hour, ln.minute) < (16, 30)
+
+
+def pending_state(pend) -> tuple:
+    """(result, detail) for the 'No orders already waiting' check. A London fund order queued
+    overnight is expected (it fills at 08:00), so the evening report shows it as information."""
+    if pend is None:
+        return None, "the key isn't allowed to see orders"
+    if not pend:
+        return True, "none"
+    tks = [str(o.get("ticker") or (o.get("instrument") or {}).get("ticker", "")) for o in pend]
+    # only while NO trading can happen (US window shut too): an order run must still stop on it,
+    # because Trading 212 does not hold the cash back for a queued order
+    if not london_open_now() and not market_open_now()[0] and all(t and not t.endswith("_US_EQ") for t in tks):
+        return None, (f"{', '.join(t.split('_')[0].rstrip('l') for t in tks)} order queued for the London "
+                      "open at 08:00 -- normal after an evening run")
+    return False, f"{len(pend)} pending: " + ", ".join(t.split("_")[0] for t in tks)
 
 
 def wait_for_fills(api: T212, timeout: int = 180) -> bool:
