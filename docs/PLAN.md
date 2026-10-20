@@ -1,6 +1,6 @@
 # Daily plan — 2026-10-20
 
-_Generated 2026-10-20 22:53 UTC from closing prices of 2026-10-20. Tested rules, not personal financial advice._
+_Generated 2026-10-20 23:00 UTC from closing prices of 2026-10-20. Tested rules, not personal financial advice._
 
 ## Market: **RISK ON — invested**
 
@@ -12,7 +12,7 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 
 **Market switch: ON — invested** (S&P 500 +6.4% vs its 200-day average)
 
-**Exchange rate: £1 = $1.3373** (Yahoo Finance, rate of 2026-10-20). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
+**Exchange rate: £1 = $1.3373** (Yahoo Finance, rate of 2026-10-21). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
 
 ### Last check: 2026-10-16. Actions from that check (nothing new until the next weekly check):
 
@@ -78,11 +78,11 @@ Daily history: data/paper_test.csv
 | Account | Gains taken (realised) | Tax this year at 18% / 24% | Pay by | Gain not yet taken |
 |---|---|---|---|---|
 | Hargreaves Lansdown £10,000 | £0 | £0 / £0 | — | −£1,046 |
-| Hargreaves Lansdown £100,000 | £0 | £0 / £0 | — | −£9,705 |
+| Hargreaves Lansdown £100,000 | £0 | £0 / £0 | — | −£9,703 |
 | Trading 212 £10,000 | £0 | £0 / £0 | — | −£891 |
-| Trading 212 £100,000 | £0 | £0 / £0 | — | −£8,913 |
+| Trading 212 £100,000 | £0 | £0 / £0 | — | −£8,912 |
 | Interactive Brokers £10,000 | £0 | £0 / £0 | — | −£889 |
-| Interactive Brokers £100,000 | £0 | £0 / £0 | — | −£8,803 |
+| Interactive Brokers £100,000 | £0 | £0 / £0 | — | −£8,802 |
 
 _First £3,000 of net gains each tax year is tax-free. Nothing is paid until 31 January after the tax year ends. In a Stocks & Shares ISA none of this is taxed. Estimate, not tax advice._
 
