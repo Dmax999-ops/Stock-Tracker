@@ -187,6 +187,31 @@ def read_account(api: T212 | None, plan: dict) -> dict:
             "instruments": inst}
 
 
+def read_deposits(api: T212) -> list[tuple[str, float]] | None:
+    """Money in (+) and out (-) of the account, oldest first: [(date, £)]. None if the key
+    isn't allowed to read transactions. Email only -- never written to the repository."""
+    out, path = [], "/history/transactions?limit=50"
+    try:
+        for _ in range(40):
+            page = api.get(path, wait=11)                  # 6 requests a minute
+            items = page.get("items", []) if isinstance(page, dict) else (page or [])
+            for it in items:
+                typ = str(it.get("type", "")).upper()
+                amt = float(it.get("amount") or 0)
+                when = str(it.get("dateTime") or it.get("date") or "")[:10]
+                if typ == "DEPOSIT" and when:
+                    out.append((when, abs(amt)))
+                elif typ in ("WITHDRAW", "WITHDRAWAL") and when:
+                    out.append((when, -abs(amt)))
+            nxt = page.get("nextPagePath") if isinstance(page, dict) else None
+            if not nxt:
+                break
+            path = nxt.split("/api/v0", 1)[-1] if "/api/v0" in nxt else nxt
+    except PermissionError:
+        return None
+    return sorted(out)
+
+
 def resolver(instruments):
     """Plan symbol (Yahoo style, e.g. BRK-B) -> Trading 212 ticker. Unverified without the API."""
     by_short = {}
