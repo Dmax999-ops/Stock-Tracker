@@ -183,6 +183,7 @@ def read_account(api: T212 | None, plan: dict) -> dict:
     return {"real": True, "currency": summ.get("currency"), "id": summ.get("id"),
             "cash": float((summ.get("cash") or {}).get("availableToTrade") or 0),
             "total": float(summ.get("totalValue") or 0), "positions": P, "pending": pend,
+            "summary": summ if isinstance(summ, dict) else {},
             "instruments": inst}
 
 
