@@ -994,14 +994,37 @@ def read_t212(plan: dict) -> dict | None:
         spec.loader.exec_module(t2)
         cfg = yaml.safe_load(Path("config/t212.yml").read_text()) if Path("config/t212.yml").exists() else {}
         cfg["invest_cash"] = os.environ.get("T212_INVEST_CASH", "on") or "on"
-        acct = t2.read_account(t2.T212(key, sec), plan)
+        api = t2.T212(key, sec)
+        acct = t2.read_account(api, plan)
+        try:
+            deposits = t2.read_deposits(api)
+        except Exception:                                          # noqa: BLE001
+            deposits = None
         W = t2.work_out(plan, acct, cfg)
         return {"ok": True, "cash": acct["cash"], "positions": acct["positions"], "orders": W["orders"],
-                "summary": acct.get("summary") or {},
+                "summary": acct.get("summary") or {}, "deposits": deposits,
                 "notes": W["notes"], "checks": W["checks"], "tracker": W["tracker"], "want": W.get("want", {}),
                 "bond": cfg.get("bond", "")}
     except Exception as e:                                         # noqa: BLE001
         return {"ok": False, "error": f"{type(e).__name__}"}
+
+
+def sp500_same_days(deposits: list) -> float | None:
+    """What the same deposits would be worth now if each had gone into the S&P 500 on the
+    day it arrived (S&P 500 ETF price in pounds at that day's exchange rate)."""
+    try:
+        import pandas as pd
+        spy = pd.read_csv("data/live_prices.csv", index_col=0, parse_dates=True, usecols=["Date", "SPY"])["SPY"].dropna()
+        fx = pd.read_csv("data/gbpusd.csv", index_col=0, parse_dates=True).iloc[:, 0]
+        gbp = (spy / fx.reindex(spy.index).ffill()).dropna()
+        units = 0.0
+        for d, amt in deposits:
+            before = gbp[gbp.index <= pd.Timestamp(d)]
+            px = float(before.iloc[-1]) if len(before) else float(gbp.iloc[0])
+            units += amt / px
+        return units * float(gbp.iloc[-1])
+    except Exception:                                              # noqa: BLE001
+        return None
 
 
 def account_html(plan: dict, av: dict | None) -> str:
@@ -1069,6 +1092,23 @@ def account_html(plan: dict, av: dict | None) -> str:
                          "from stocks sold"))
             rows.append(("Total return", f'<b style="color:{col(real + unreal)}">{g(real + unreal)}</b>',
                          "matches the app's Return"))
+        dep = av.get("deposits")
+        if dep:
+            put_in = sum(a for _, a in dep)
+            tr = total_v - put_in
+            bench = sp500_same_days(dep)
+            rows.append(("Money put in", g(put_in), f"{len(dep)} deposit{'s' if len(dep) != 1 else ''}"
+                         + (" and withdrawals" if any(a < 0 for _, a in dep) else "")))
+            rows.append(("Total return after all costs", f'<b style="color:{col(tr)}">{g(tr)}</b>',
+                         f"value minus money put in ({tr / put_in:+.1%})" if put_in else "value minus money put in"))
+            if bench:
+                bret, edge = bench - put_in, total_v - bench
+                rows.append(("Same money in the S&amp;P 500", f'{g(bench)}<div style="font-size:12px;color:{col(bret)}">'
+                             f'{g(bret)} ({bret / put_in:+.1%})</div>', "each deposit bought on the day it arrived"))
+                rows.append(("Strategy vs the S&amp;P 500", f'<b style="color:{col(edge)}">'
+                             f'{"ahead " if edge >= 0 else "behind "}{g(abs(edge))}</b>', "the number that matters"))
+        elif dep is None:
+            rows.append(("Strategy vs the S&amp;P 500", "—", "turn on History → Transactions for the API key to see this"))
         B.append(f'<table style="width:100%;border-collapse:collapse;font-size:16px">'
                  + "".join(f'<tr><td style="{td}">{a}' + (f'<div style="font-size:12px;color:#57606a">{c}</div>' if c else "")
                            + f'</td><td style="{td};text-align:right">{b}</td></tr>' for a, b, c in rows)
