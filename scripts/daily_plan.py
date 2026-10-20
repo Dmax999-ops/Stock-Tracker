@@ -997,6 +997,7 @@ def read_t212(plan: dict) -> dict | None:
         acct = t2.read_account(t2.T212(key, sec), plan)
         W = t2.work_out(plan, acct, cfg)
         return {"ok": True, "cash": acct["cash"], "positions": acct["positions"], "orders": W["orders"],
+                "summary": acct.get("summary") or {},
                 "notes": W["notes"], "checks": W["checks"], "tracker": W["tracker"], "want": W.get("want", {}),
                 "bond": cfg.get("bond", "")}
     except Exception as e:                                         # noqa: BLE001
@@ -1040,14 +1041,38 @@ def account_html(plan: dict, av: dict | None) -> str:
         B.append(f'<div style="color:#cf222e">Could not read the account today ({esc(av.get("error", ""))}).</div>')
     else:
         pos = av["positions"]
-        invested = sum(p["value"] for p in pos.values())
+        holdings = sum(p["value"] for p in pos.values())
         cash = av["cash"]
-        pl = sum(p.get("pl", 0) for p in pos.values())
+        su = av.get("summary") or {}
+        inv_s = su.get("investments") or {}
+        cash_s = su.get("cash") or {}
+
+        def num(d, k, default):
+            try:
+                return float(d[k]) if d.get(k) is not None else default
+            except (TypeError, ValueError):
+                return default
+        unreal = num(inv_s, "unrealizedProfitLoss", sum(p.get("pl", 0) for p in pos.values()))
+        real = num(inv_s, "realizedProfitLoss", None)
+        cost = num(inv_s, "totalCost", sum(p.get("cost", 0) for p in pos.values()))
+        reserved = num(cash_s, "reservedForOrders", 0.0)
+        total_v = num(su, "totalValue", holdings + cash + reserved)
+        col = lambda v: "#1a7f37" if v >= 0 else "#cf222e"          # noqa: E731
+        rows = [("Total value", f"<b>{g(total_v)}</b>", "same as the Trading 212 app"),
+                ("Holdings worth now", g(holdings), ""),
+                ("Holdings cost", g(cost), "what was paid for what you hold now"),
+                ("Cash", g(cash + reserved), (f"£{reserved:,.0f} set aside for a waiting order" if reserved >= 1 else "")),
+                ("Gain on what you hold", f'<span style="color:{col(unreal)}">{g(unreal)}</span>',
+                 "not yet taken")]
+        if real is not None:
+            rows.append(("Gains/losses already taken", f'<span style="color:{col(real)}">{g(real)}</span>',
+                         "from stocks sold"))
+            rows.append(("Total return", f'<b style="color:{col(real + unreal)}">{g(real + unreal)}</b>',
+                         "matches the app's Return"))
         B.append(f'<table style="width:100%;border-collapse:collapse;font-size:16px">'
-                 f'<tr><td style="{td}">Total value</td><td style="{td};text-align:right"><b>{g(invested + cash)}</b></td></tr>'
-                 f'<tr><td style="{td}">Invested</td><td style="{td};text-align:right">{g(invested)}</td></tr>'
-                 f'<tr><td style="{td}">Gain on what you hold</td><td style="{td};text-align:right;'
-                 f'color:{"#1a7f37" if pl >= 0 else "#cf222e"}">{g(pl)}</td></tr></table>')
+                 + "".join(f'<tr><td style="{td}">{a}' + (f'<div style="font-size:12px;color:#57606a">{c}</div>' if c else "")
+                           + f'</td><td style="{td};text-align:right">{b}</td></tr>' for a, b, c in rows)
+                 + '</table>')
         if cash >= 1:
             if cash < 25:
                 msg, col, bg = "left over from rounding — too small to invest", "#57606a", "#f6f8fa"
