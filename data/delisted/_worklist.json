@@ -4913,5 +4913,223 @@
     "rows": 118,
     "status": "done",
     "symbol_used": "ROH"
+  },
+  "RRC": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-10-20",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0798,
+    "first": "1999-11-12",
+    "index_window": "2007-12-21..2018-06-15",
+    "last": "2026-10-20",
+    "last_try": "2026-10-21",
+    "post_exit_only": false,
+    "rows": 1407,
+    "status": "done",
+    "symbol_used": "RRC"
+  },
+  "RRD": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2022-02-25",
+    "delisting_date": "2022-02-25",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0373,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..2012-12-07",
+    "last": "2022-02-25",
+    "last_try": "2026-10-21",
+    "post_exit_only": false,
+    "rows": 1164,
+    "status": "done",
+    "symbol_used": "RRD"
+  },
+  "RTN": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2020-04-03",
+    "delisting_date": "2020-04-03",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.4944,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..2020-04-03",
+    "last": "2020-04-03",
+    "last_try": "2026-10-21",
+    "post_exit_only": false,
+    "rows": 1065,
+    "status": "done",
+    "symbol_used": "RTN"
+  },
+  "RVTY (PREVIOUSLY PKI)": {
+    "attempts": 1,
+    "index_window": "2023-12-31..2023-12-31",
+    "last_try": "2026-10-21",
+    "status": "empty"
+  },
+  "RX": {
+    "attempts": 1,
+    "index_window": "1996-11-04..2010-02-23",
+    "last_try": "2026-10-21",
+    "status": "empty"
+  },
+  "RYAN": {
+    "attempts": 1,
+    "data_window": "2021-07-30..2026-10-20",
+    "gap_days": 8981,
+    "index_window": "1996-01-02..1996-12-27",
+    "last_try": "2026-10-21",
+    "status": "recycled"
+  },
+  "RYC": {
+    "attempts": 1,
+    "index_window": "1996-01-02..1999-08-11",
+    "last_try": "2026-10-21",
+    "status": "empty"
+  },
+  "RYI": {
+    "attempts": 1,
+    "data_window": "2014-08-15..2026-02-23",
+    "gap_days": 5890,
+    "index_window": "1996-01-02..1998-06-30",
+    "last_try": "2026-10-21",
+    "status": "recycled"
+  },
+  "SAF": {
+    "attempts": 1,
+    "data_window": "2018-09-07..2021-08-30",
+    "gap_days": 3637,
+    "index_window": "1996-01-02..2008-09-22",
+    "last_try": "2026-10-21",
+    "status": "recycled"
+  },
+  "SAI": {
+    "attempts": 1,
+    "index_window": "1997-07-17..1998-12-31",
+    "last_try": "2026-10-21",
+    "status": "empty"
+  },
+  "SANM": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-10-20",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.3464,
+    "first": "1999-11-12",
+    "index_window": "2000-06-21..2007-06-26",
+    "last": "2026-10-20",
+    "last_try": "2026-10-21",
+    "post_exit_only": false,
+    "rows": 1407,
+    "status": "done",
+    "symbol_used": "SANM"
+  },
+  "SAPE": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2015-02-05",
+    "delisting_date": "2015-02-05",
+    "fate_heuristic": "takeout",
+    "final_drawdown": 0.0,
+    "first": "1999-11-12",
+    "index_window": "2000-05-05..2002-05-10",
+    "last": "2015-02-05",
+    "last_try": "2026-10-21",
+    "post_exit_only": false,
+    "rows": 796,
+    "status": "done",
+    "symbol_used": "SAPE"
+  },
+  "SB": {
+    "attempts": 1,
+    "data_window": "2008-06-06..2026-10-20",
+    "gap_days": 3850,
+    "index_window": "1996-01-02..1997-11-21",
+    "last_try": "2026-10-21",
+    "status": "recycled"
+  },
+  "SBL": {
+    "attempts": 1,
+    "index_window": "2000-12-11..2007-01-05",
+    "last_try": "2026-10-21",
+    "status": "empty"
+  },
+  "SBNY": {
+    "attempts": 1,
+    "data_window": "2004-04-02..2026-10-20",
+    "delisting_date": null,
+    "fate_heuristic": "wipeout",
+    "final_drawdown": -0.875,
+    "first": "2004-04-02",
+    "index_window": "2021-12-20..2023-01-04",
+    "last": "2026-10-20",
+    "last_try": "2026-10-21",
+    "post_exit_only": false,
+    "rows": 1178,
+    "status": "done",
+    "symbol_used": "SBNY"
+  },
+  "SCG": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2018-12-31",
+    "delisting_date": "2018-12-31",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.2952,
+    "first": "1999-11-12",
+    "index_window": "2009-01-02..2018-12-24",
+    "last": "2018-12-31",
+    "last_try": "2026-10-21",
+    "post_exit_only": false,
+    "rows": 1000,
+    "status": "done",
+    "symbol_used": "SCG"
+  },
+  "SCI": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-10-20",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0543,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..2000-03-15",
+    "last": "2026-10-20",
+    "last_try": "2026-10-21",
+    "post_exit_only": false,
+    "rows": 1407,
+    "status": "done",
+    "symbol_used": "SCI"
+  },
+  "SDS": {
+    "attempts": 1,
+    "data_window": "2006-07-21..2026-10-20",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.5549,
+    "first": "2006-07-21",
+    "index_window": "2002-07-22..2005-08-11",
+    "last": "2026-10-20",
+    "last_try": "2026-10-21",
+    "post_exit_only": true,
+    "rows": 1058,
+    "status": "done",
+    "symbol_used": "SDS"
+  },
+  "SEBL": {
+    "attempts": 1,
+    "index_window": "2000-05-05..2006-01-30",
+    "last_try": "2026-10-21",
+    "status": "empty"
+  },
+  "SEDG": {
+    "attempts": 1,
+    "data_window": "2015-04-02..2026-10-20",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.5762,
+    "first": "2015-04-02",
+    "index_window": "2021-12-20..2023-12-16",
+    "last": "2026-10-20",
+    "last_try": "2026-10-21",
+    "post_exit_only": false,
+    "rows": 604,
+    "status": "done",
+    "symbol_used": "SEDG"
   }
 }
