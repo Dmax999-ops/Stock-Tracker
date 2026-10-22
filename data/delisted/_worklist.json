@@ -5131,5 +5131,207 @@
     "rows": 604,
     "status": "done",
     "symbol_used": "SEDG"
+  },
+  "SEE": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-04-09",
+    "delisting_date": "2026-04-09",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0168,
+    "first": "1999-11-12",
+    "index_window": "1998-04-01..2023-12-16",
+    "last": "2026-04-09",
+    "last_try": "2026-10-22",
+    "post_exit_only": false,
+    "rows": 1379,
+    "status": "done",
+    "symbol_used": "SEE"
+  },
+  "SEG": {
+    "attempts": 1,
+    "data_window": "2024-08-09..2026-10-21",
+    "gap_days": 8663,
+    "index_window": "1996-08-16..2000-11-20",
+    "last_try": "2026-10-22",
+    "status": "recycled"
+  },
+  "SFA": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2006-02-17",
+    "last_try": "2026-10-22",
+    "status": "empty"
+  },
+  "SFS": {
+    "attempts": 1,
+    "data_window": "2014-10-03..2019-06-28",
+    "gap_days": 6279,
+    "index_window": "1996-01-02..1997-07-25",
+    "last_try": "2026-10-22",
+    "status": "recycled"
+  },
+  "SGID": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2000-06-20",
+    "last_try": "2026-10-22",
+    "status": "empty"
+  },
+  "SGP": {
+    "attempts": 1,
+    "data_window": "2026-02-13..2026-10-21",
+    "gap_days": 5951,
+    "index_window": "1996-01-02..2009-10-29",
+    "last_try": "2026-10-22",
+    "status": "recycled"
+  },
+  "SHN": {
+    "attempts": 1,
+    "index_window": "1996-01-02..1996-12-27",
+    "last_try": "2026-10-22",
+    "status": "empty"
+  },
+  "SIAL": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2015-11-18",
+    "delisting_date": "2015-11-18",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0008,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..2015-11-17",
+    "last": "2015-11-18",
+    "last_try": "2026-10-22",
+    "post_exit_only": false,
+    "rows": 837,
+    "status": "done",
+    "symbol_used": "SIAL"
+  },
+  "SIVB": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-10-21",
+    "delisting_date": null,
+    "fate_heuristic": "wipeout",
+    "final_drawdown": -0.97,
+    "first": "1999-11-12",
+    "index_window": "2018-03-19..2023-01-04",
+    "last": "2026-10-21",
+    "last_try": "2026-10-22",
+    "post_exit_only": false,
+    "rows": 1343,
+    "status": "done",
+    "symbol_used": "SIVB"
+  },
+  "SK": {
+    "attempts": 1,
+    "index_window": "1996-01-02..1998-03-30",
+    "last_try": "2026-10-22",
+    "status": "empty"
+  },
+  "SLG": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-10-21",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.3626,
+    "first": "1999-11-12",
+    "index_window": "2015-03-23..2021-02-12",
+    "last": "2026-10-21",
+    "last_try": "2026-10-22",
+    "post_exit_only": false,
+    "rows": 1407,
+    "status": "done",
+    "symbol_used": "SLG"
+  },
+  "SLM": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-10-21",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.3085,
+    "first": "1999-11-12",
+    "index_window": "1998-07-01..2014-04-22",
+    "last": "2026-10-21",
+    "last_try": "2026-10-22",
+    "post_exit_only": false,
+    "rows": 1407,
+    "status": "done",
+    "symbol_used": "SLM"
+  },
+  "SLR": {
+    "attempts": 1,
+    "index_window": "1998-12-31..2007-10-01",
+    "last_try": "2026-10-22",
+    "status": "empty"
+  },
+  "SMI": {
+    "attempts": 1,
+    "data_window": "2021-09-17..2026-10-21",
+    "gap_days": 7585,
+    "index_window": "1996-01-02..2000-12-11",
+    "last_try": "2026-10-22",
+    "status": "recycled"
+  },
+  "SMS": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2000-06-07",
+    "last_try": "2026-10-22",
+    "status": "empty"
+  },
+  "SNDK": {
+    "attempts": 1,
+    "data_window": "2025-03-07..2026-10-21",
+    "gap_days": 3222,
+    "index_window": "2006-04-20..2016-05-11",
+    "last_try": "2026-10-22",
+    "status": "recycled"
+  },
+  "SNI": {
+    "attempts": 1,
+    "data_window": "2008-06-20..2018-03-16",
+    "delisting_date": "2018-03-16",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0024,
+    "first": "2008-06-20",
+    "index_window": "2008-07-01..2018-02-28",
+    "last": "2018-03-16",
+    "last_try": "2026-10-22",
+    "post_exit_only": false,
+    "rows": 509,
+    "status": "done",
+    "symbol_used": "SNI"
+  },
+  "SNT": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-10-21",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.7123,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..1999-10-25",
+    "last": "2026-10-21",
+    "last_try": "2026-10-22",
+    "post_exit_only": true,
+    "rows": 1407,
+    "status": "done",
+    "symbol_used": "SNT"
+  },
+  "SNV": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2025-12-31",
+    "delisting_date": "2025-12-31",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.097,
+    "first": "1999-11-12",
+    "index_window": "1997-12-01..2007-12-31",
+    "last": "2025-12-31",
+    "last_try": "2026-10-22",
+    "post_exit_only": false,
+    "rows": 1365,
+    "status": "done",
+    "symbol_used": "SNV"
+  },
+  "SOTR": {
+    "attempts": 1,
+    "index_window": "1999-03-01..2004-10-28",
+    "last_try": "2026-10-22",
+    "status": "empty"
   }
 }
