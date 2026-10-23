@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-21",
+  "as_of": "2026-10-22",
   "model": [
     "SNDK",
     "LITE",
@@ -9,8 +9,8 @@
     "ILMN",
     "TRGP",
     "STT",
-    "NUE",
-    "MRK"
+    "MRK",
+    "NUE"
   ],
   "method": "risk_adjusted_12_1_themes_v3",
   "market_on": true,
