@@ -1,12 +1,12 @@
 # Real fills check
 
-_Sat 17 Oct 2026. 47 filled orders from your Trading 212 account._
+_Sat 24 Oct 2026. 70 filled orders from your Trading 212 account._
 
 | | Backtest assumes | Real |
 |---|---|---|
 | Charges on US shares | 0.15% | 0.150% |
 | Charges on London funds | 0% | 0.000% |
-| Price gap vs the plan's price (previous close) | about 0% on average | -0.40% |
+| Price gap vs the plan's price (previous close) | about 0% on average | +0.40% |
 
 ✅ Real costs match the backtest.
 
