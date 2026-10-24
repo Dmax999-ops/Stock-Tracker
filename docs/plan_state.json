@@ -5,12 +5,12 @@
     "LITE",
     "MU",
     "VLO",
-    "MPC",
     "ILMN",
+    "MPC",
     "TRGP",
     "STT",
-    "MRK",
-    "NUE"
+    "NUE",
+    "MRK"
   ],
   "method": "risk_adjusted_12_1_themes_v3",
   "market_on": true,
