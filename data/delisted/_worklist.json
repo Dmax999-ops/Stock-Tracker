@@ -5773,5 +5773,209 @@
     "rows": 590,
     "status": "done",
     "symbol_used": "TRW"
+  },
+  "TSG": {
+    "attempts": 1,
+    "data_window": "2010-10-22..2020-05-05",
+    "gap_days": 1302,
+    "index_window": "2000-03-16..2007-03-30",
+    "last_try": "2026-10-25",
+    "status": "recycled"
+  },
+  "TSS": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2019-09-17",
+    "delisting_date": "2019-09-17",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0545,
+    "first": "1999-11-12",
+    "index_window": "2008-01-02..2019-08-09",
+    "last": "2019-09-17",
+    "last_try": "2026-10-25",
+    "post_exit_only": false,
+    "rows": 1037,
+    "status": "done",
+    "symbol_used": "TSS"
+  },
+  "TUP": {
+    "attempts": 1,
+    "index_window": "1996-05-31..2004-03-17",
+    "last_try": "2026-10-25",
+    "status": "empty"
+  },
+  "TWC": {
+    "attempts": 1,
+    "data_window": "2007-03-09..2016-05-17",
+    "delisting_date": "2016-05-26",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0276,
+    "first": "2007-03-09",
+    "index_window": "2009-03-30..2016-05-17",
+    "last": "2016-05-17",
+    "last_try": "2026-10-25",
+    "post_exit_only": false,
+    "rows": 481,
+    "status": "done",
+    "symbol_used": "TWC"
+  },
+  "TWTR": {
+    "attempts": 1,
+    "data_window": "2013-11-15..2022-10-28",
+    "delisting_date": "2022-10-28",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.3031,
+    "first": "2013-11-15",
+    "index_window": "2018-06-07..2022-10-12",
+    "last": "2022-10-28",
+    "last_try": "2026-10-25",
+    "post_exit_only": false,
+    "rows": 468,
+    "status": "done",
+    "symbol_used": "TWTR"
+  },
+  "TWX": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2018-06-15",
+    "delisting_date": "2018-06-15",
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0356,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..2018-06-14",
+    "last": "2018-06-15",
+    "last_try": "2026-10-25",
+    "post_exit_only": false,
+    "rows": 971,
+    "status": "done",
+    "symbol_used": "TWX"
+  },
+  "TX": {
+    "attempts": 1,
+    "data_window": "2006-02-10..2026-10-23",
+    "gap_days": 1590,
+    "index_window": "1996-01-02..2001-10-04",
+    "last_try": "2026-10-25",
+    "status": "recycled"
+  },
+  "TXU": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2007-10-09",
+    "last_try": "2026-10-25",
+    "status": "empty"
+  },
+  "UA": {
+    "attempts": 1,
+    "data_window": "2016-04-15..2026-10-23",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.4961,
+    "first": "2016-04-15",
+    "index_window": "2016-04-08..2022-06-21",
+    "last": "2026-10-23",
+    "last_try": "2026-10-25",
+    "post_exit_only": false,
+    "rows": 550,
+    "status": "done",
+    "symbol_used": "UA"
+  },
+  "UAA": {
+    "attempts": 1,
+    "data_window": "2005-11-25..2026-10-23",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.5385,
+    "first": "2005-11-25",
+    "index_window": "2014-05-01..2022-06-21",
+    "last": "2026-10-23",
+    "last_try": "2026-10-25",
+    "post_exit_only": false,
+    "rows": 1092,
+    "status": "done",
+    "symbol_used": "UAA"
+  },
+  "UAWGQ": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2002-05-14",
+    "last_try": "2026-10-25",
+    "status": "empty"
+  },
+  "UCC": {
+    "attempts": 1,
+    "data_window": "2007-02-09..2026-10-23",
+    "gap_days": 2844,
+    "index_window": "1996-01-02..1999-04-28",
+    "last_try": "2026-10-25",
+    "status": "recycled"
+  },
+  "UCL": {
+    "attempts": 1,
+    "data_window": "2020-06-19..2026-10-23",
+    "gap_days": 5427,
+    "index_window": "1996-01-02..2005-08-10",
+    "last_try": "2026-10-25",
+    "status": "recycled"
+  },
+  "UCM": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2000-10-19",
+    "last_try": "2026-10-25",
+    "status": "empty"
+  },
+  "UIS": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-10-23",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.6911,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..2008-11-07",
+    "last": "2026-10-23",
+    "last_try": "2026-10-25",
+    "post_exit_only": false,
+    "rows": 1407,
+    "status": "done",
+    "symbol_used": "UIS"
+  },
+  "UK": {
+    "attempts": 1,
+    "data_window": "2020-11-27..2026-10-23",
+    "gap_days": 7240,
+    "index_window": "1996-01-02..2001-01-31",
+    "last_try": "2026-10-25",
+    "status": "recycled"
+  },
+  "UMG": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2000-06-13",
+    "last_try": "2026-10-25",
+    "status": "empty"
+  },
+  "UN": {
+    "attempts": 1,
+    "index_window": "1996-01-02..2002-07-18",
+    "last_try": "2026-10-25",
+    "status": "empty"
+  },
+  "UNM": {
+    "attempts": 1,
+    "data_window": "1999-11-12..2026-10-23",
+    "delisting_date": null,
+    "fate_heuristic": "takeout",
+    "final_drawdown": -0.0581,
+    "first": "1999-11-12",
+    "index_window": "1996-01-02..2021-08-30",
+    "last": "2026-10-23",
+    "last_try": "2026-10-25",
+    "post_exit_only": false,
+    "rows": 1407,
+    "status": "done",
+    "symbol_used": "UNM"
+  },
+  "UPC": {
+    "attempts": 1,
+    "data_window": "2021-04-01..2026-10-23",
+    "gap_days": 6121,
+    "index_window": "1998-10-01..2004-06-28",
+    "last_try": "2026-10-25",
+    "status": "recycled"
   }
 }
