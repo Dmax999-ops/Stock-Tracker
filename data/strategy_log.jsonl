@@ -21,3 +21,4 @@
 {"as_of": "2026-10-23", "value": 9092.96, "market_on": true, "basis": "fresh", "usd_per_gbp": 1.33381, "holdings": ["CRWD", "MRNA", "ILMN", "TWLO", "HPE", "MRVL", "AMD", "DELL", "MU", "SNDK"]}
 {"as_of": "2026-10-26", "value": 9273.21, "market_on": true, "basis": "fresh", "usd_per_gbp": 1.33021, "holdings": ["CRWD", "ILMN", "MRNA", "TWLO", "HPE", "MRVL", "AMD", "MU", "DELL", "SNDK"]}
 {"as_of": "2026-10-28", "value": 9771.2, "market_on": true, "basis": "fresh", "usd_per_gbp": 1.3322, "holdings": ["MRNA", "ILMN", "CRWD", "MRVL", "HPE", "TWLO", "AMD", "MU", "DELL", "SNDK"]}
+{"as_of": "2026-10-29", "value": 9406.85, "market_on": true, "basis": "fresh", "usd_per_gbp": 1.33937, "holdings": ["MRNA", "ILMN", "CRWD", "HPE", "AMD", "TWLO", "MU", "DELL", "MRVL", "SNDK"]}
