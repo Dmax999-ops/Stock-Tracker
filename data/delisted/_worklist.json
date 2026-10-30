@@ -6107,7 +6107,7 @@
     "attempts": 1,
     "data_window": "2005-12-16..2019-12-04",
     "index_window": "2019-12-05..2022-02-15",
-    "last_try": "2026-10-29",
+    "last_try": "2026-10-30",
     "reason": "history ends before the ticker entered the index",
     "status": "recycled"
   },
