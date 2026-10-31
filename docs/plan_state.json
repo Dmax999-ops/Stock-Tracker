@@ -1,11 +1,11 @@
 {
-  "as_of": "2026-10-29",
+  "as_of": "2026-10-30",
   "model": [
     "SNDK",
     "MU",
     "LITE",
-    "ILMN",
     "VLO",
+    "ILMN",
     "MPC",
     "TRGP",
     "STT",
