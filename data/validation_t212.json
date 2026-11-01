@@ -1,149 +1,149 @@
 {
-  "generated": "2026-10-01T16:16:36.155405+00:00",
+  "generated": "2026-11-01T16:33:06.709882+00:00",
   "pot_gbp": 10000.0,
   "broker": "Trading 212",
   "from": "1997-02-03",
-  "to": "2026-10-01",
+  "to": "2026-10-30",
   "base": {
-    "gbp": 1526119,
-    "spy_gbp": 161307,
-    "cagr": 0.1848,
-    "spy_cagr": 0.0983,
+    "gbp": 971101,
+    "spy_gbp": 163354,
+    "cagr": 0.1664,
+    "spy_cagr": 0.0985,
     "worst": -0.308,
-    "first": 0.10389999999999999,
-    "second": 0.07169999999999999,
+    "first": 0.0905,
+    "second": 0.04770000000000002,
     "beats": true
   },
   "variants": [
     [
       "Trade 1 day after the signal",
       {
-        "gbp": 1631201,
-        "spy_gbp": 161307,
-        "cagr": 0.1874,
-        "spy_cagr": 0.0983,
+        "gbp": 1262062,
+        "spy_gbp": 163354,
+        "cagr": 0.1767,
+        "spy_cagr": 0.0985,
         "worst": -0.302,
-        "first": 0.11660000000000001,
-        "second": 0.0638,
+        "first": 0.10219999999999999,
+        "second": 0.05660000000000001,
         "beats": true
       }
     ],
     [
       "Trade 2 days after the signal",
       {
-        "gbp": 2122107,
-        "spy_gbp": 161307,
-        "cagr": 0.198,
-        "spy_cagr": 0.0983,
-        "worst": -0.302,
-        "first": 0.12789999999999999,
-        "second": 0.07369999999999999,
+        "gbp": 1458561,
+        "spy_gbp": 163354,
+        "cagr": 0.1825,
+        "spy_cagr": 0.0985,
+        "worst": -0.307,
+        "first": 0.1149,
+        "second": 0.05510000000000001,
         "beats": true
       }
     ],
     [
       "Check every Monday, trade next day",
       {
-        "gbp": 1228558,
-        "spy_gbp": 161937,
-        "cagr": 0.1762,
-        "spy_cagr": 0.0985,
-        "worst": -0.326,
-        "first": 0.1119,
-        "second": 0.045399999999999996,
+        "gbp": 968393,
+        "spy_gbp": 161887,
+        "cagr": 0.1663,
+        "spy_cagr": 0.0982,
+        "worst": -0.338,
+        "first": 0.1058,
+        "second": 0.032399999999999984,
         "beats": true
       }
     ],
     [
       "Check every Tuesday, trade next day",
       {
-        "gbp": 1073389,
-        "spy_gbp": 160650,
-        "cagr": 0.1708,
+        "gbp": 750037,
+        "spy_gbp": 161797,
+        "cagr": 0.1563,
         "spy_cagr": 0.0982,
-        "worst": -0.303,
-        "first": 0.10070000000000001,
-        "second": 0.046500000000000014,
+        "worst": -0.339,
+        "first": 0.09290000000000001,
+        "second": 0.025300000000000017,
         "beats": true
       }
     ],
     [
       "Check every Wednesday, trade next day",
       {
-        "gbp": 2231740,
-        "spy_gbp": 163385,
-        "cagr": 0.2001,
-        "spy_cagr": 0.0988,
-        "worst": -0.301,
-        "first": 0.1238,
-        "second": 0.07799999999999999,
+        "gbp": 1272418,
+        "spy_gbp": 165459,
+        "cagr": 0.1771,
+        "spy_cagr": 0.099,
+        "worst": -0.324,
+        "first": 0.0938,
+        "second": 0.06190000000000001,
         "beats": true
       }
     ],
     [
       "Check every Thursday, trade next day",
       {
-        "gbp": 1412211,
-        "spy_gbp": 161930,
-        "cagr": 0.1817,
-        "spy_cagr": 0.0985,
+        "gbp": 950120,
+        "spy_gbp": 163739,
+        "cagr": 0.1656,
+        "spy_cagr": 0.0986,
         "worst": -0.312,
-        "first": 0.10399999999999998,
-        "second": 0.06079999999999999,
+        "first": 0.0804,
+        "second": 0.05249999999999999,
         "beats": true
       }
     ],
     [
       "Check every Friday, trade next day",
       {
-        "gbp": 1304101,
-        "spy_gbp": 161961,
-        "cagr": 0.1787,
-        "spy_cagr": 0.0985,
+        "gbp": 762694,
+        "spy_gbp": 158679,
+        "cagr": 0.157,
+        "spy_cagr": 0.0975,
         "worst": -0.323,
-        "first": 0.0996,
-        "second": 0.0645,
+        "first": 0.09029999999999999,
+        "second": 0.032200000000000006,
         "beats": true
       }
     ],
     [
       "Check DAILY (15-day confirmation), trade next day",
       {
-        "gbp": 1603207,
-        "spy_gbp": 160933,
-        "cagr": 0.1867,
-        "spy_cagr": 0.0982,
-        "worst": -0.327,
-        "first": 0.1278,
-        "second": 0.0471,
+        "gbp": 951423,
+        "spy_gbp": 159845,
+        "cagr": 0.1656,
+        "spy_cagr": 0.0977,
+        "worst": -0.336,
+        "first": 0.1122,
+        "second": 0.021600000000000008,
         "beats": true
       }
     ],
     [
       "Double costs, trade next day",
       {
-        "gbp": 1224916,
-        "spy_gbp": 161307,
-        "cagr": 0.176,
-        "spy_cagr": 0.0983,
-        "worst": -0.322,
-        "first": 0.11099999999999999,
-        "second": 0.0464,
+        "gbp": 852743,
+        "spy_gbp": 163354,
+        "cagr": 0.1613,
+        "spy_cagr": 0.0985,
+        "worst": -0.302,
+        "first": 0.09639999999999999,
+        "second": 0.031200000000000006,
         "beats": true
       }
     ]
   ],
   "rolling5": {
-    "windows": 95,
-    "beat": 73,
-    "share": 0.7684210526315789,
-    "worst_gap": -0.09603456506605057
+    "windows": 96,
+    "beat": 74,
+    "share": 0.7708333333333334,
+    "worst_gap": -0.09163949719738063
   },
   "bootstrap": {
-    "p_trail_10y": 0.1205,
-    "median_strategy_10y": 4.587302766016382,
-    "median_sp500_10y": 2.4542769214183187,
-    "p_loses_money_10y": 0.0
+    "p_trail_10y": 0.1515,
+    "median_strategy_10y": 4.349313001658039,
+    "median_sp500_10y": 2.4542763394084526,
+    "p_loses_money_10y": 0.001
   },
   "n_candidates": 21,
   "selector": {
@@ -151,142 +151,142 @@
       {
         "year": 2006,
         "picked": "mom_12_1",
-        "ret": -0.04563537237529214,
-        "sp500": 0.1467042520494073
+        "ret": 0.0065928915355832896,
+        "sp500": 0.14670545550399883
       },
       {
         "year": 2007,
-        "picked": "mom_6_1",
-        "ret": 0.04814349001417019,
-        "sp500": 0.073484339206213
+        "picked": "mom_12_1",
+        "ret": 0.07932066934923543,
+        "sp500": 0.07348336120266996
       },
       {
         "year": 2008,
-        "picked": "rise_weak_peers",
-        "ret": 0.08756216855938305,
-        "sp500": -0.4035927510761682
+        "picked": "mom_12_1",
+        "ret": 0.07001024542496825,
+        "sp500": -0.4035925143981419
       },
       {
         "year": 2009,
-        "picked": "rise_weak_peers",
-        "ret": 0.4730429807729748,
-        "sp500": 0.3241736621156661
+        "picked": "mom_12_1",
+        "ret": 0.04420735355359051,
+        "sp500": 0.32417330182800486
       },
       {
         "year": 2010,
-        "picked": "rise_weak_peers",
-        "ret": 0.16517386634017028,
-        "sp500": 0.1396515921731285
+        "picked": "reversal_1m",
+        "ret": 0.18386057746670706,
+        "sp500": 0.13965124044801724
       },
       {
         "year": 2011,
-        "picked": "rise_weak_peers",
-        "ret": -0.10256491576215943,
-        "sp500": 0.027232347258557166
+        "picked": "reversal_1m",
+        "ret": -0.08644297553776892,
+        "sp500": 0.027232997724374375
       },
       {
         "year": 2012,
-        "picked": "rise_weak_peers",
-        "ret": 0.2629350771982837,
-        "sp500": 0.14549195526662673
+        "picked": "reversal_1m",
+        "ret": 0.2431288640141096,
+        "sp500": 0.14549129867247212
       },
       {
         "year": 2013,
-        "picked": "rise_weak_peers",
-        "ret": 0.2944499719825826,
-        "sp500": 0.32923778135489523
+        "picked": "reversal_1m",
+        "ret": 0.5196300348230491,
+        "sp500": 0.3292383688021372
       },
       {
         "year": 2014,
         "picked": "reversal_1m",
-        "ret": -0.12036174437515366,
-        "sp500": 0.15219305863419041
+        "ret": -0.062316803752825334,
+        "sp500": 0.15219253193408644
       },
       {
         "year": 2015,
         "picked": "rise_weak_peers",
-        "ret": -0.10083787672198839,
-        "sp500": 0.00576952134364439
+        "ret": -0.09478727606804903,
+        "sp500": 0.005770144466551663
       },
       {
         "year": 2016,
         "picked": "reversal_1m",
-        "ret": 0.042836771606734395,
-        "sp500": 0.11419549699421472
+        "ret": 0.030317918918985737,
+        "sp500": 0.11419537855657236
       },
       {
         "year": 2017,
-        "picked": "mom_6_1",
-        "ret": 0.4111947785862198,
-        "sp500": 0.21469562411166043
+        "picked": "rise_weak_peers",
+        "ret": 0.26430142346351504,
+        "sp500": 0.2146959068133425
       },
       {
         "year": 2018,
         "picked": "mom_12_1",
-        "ret": 0.022960731079563885,
-        "sp500": -0.06158828964328256
+        "ret": -0.0008032315880848011,
+        "sp500": -0.06158872182151709
       },
       {
         "year": 2019,
         "picked": "mom_12_1",
-        "ret": 0.17068633404179812,
-        "sp500": 0.33217416381881093
+        "ret": 0.17068630155472286,
+        "sp500": 0.33217453418357934
       },
       {
         "year": 2020,
         "picked": "mom_12_1",
-        "ret": 0.3549722968774567,
-        "sp500": 0.1779043485651033
+        "ret": 0.2959667439408209,
+        "sp500": 0.17790399862686246
       },
       {
         "year": 2021,
         "picked": "mom_12_1",
-        "ret": 0.3157252576242522,
-        "sp500": 0.29320213492364
+        "ret": 0.30534118444313685,
+        "sp500": 0.2932022494092035
       },
       {
         "year": 2022,
         "picked": "mom_12_1",
-        "ret": -0.18992907501958567,
+        "ret": -0.184260763982099,
         "sp500": -0.17959255762881388
       },
       {
         "year": 2023,
         "picked": "mom_12_1",
-        "ret": 0.2630723247469602,
-        "sp500": 0.2620878828371247
+        "ret": 0.17788198571919644,
+        "sp500": 0.2620879662798097
       },
       {
         "year": 2024,
         "picked": "mom_12_1",
-        "ret": 0.6753010702657745,
-        "sp500": 0.27767229896423906
+        "ret": 0.6753010854056307,
+        "sp500": 0.27767221449119917
       },
       {
         "year": 2025,
         "picked": "mom_12_1",
-        "ret": 0.023617381931633652,
+        "ret": 0.023617267443527323,
         "sp500": 0.16143351290329888
       },
       {
         "year": 2026,
         "picked": "mom_12_1",
-        "ret": 0.2399481741586773,
-        "sp500": 0.1133934542434607
+        "ret": 0.06554840954177377,
+        "sp500": 0.1275256551971795
       }
     ],
-    "cagr": 0.13695272269075232,
-    "spy_cagr": 0.1094345773835943,
-    "gbp": 148112.0955271886,
-    "spy_gbp": 88539.20999836134,
-    "years_ahead": 11,
+    "cagr": 0.11331315841823719,
+    "spy_cagr": 0.11010114530961035,
+    "gbp": 95271.75905790532,
+    "spy_gbp": 89663.06183450148,
+    "years_ahead": 10,
     "n": 21,
     "fixed_main": null
   },
   "fixed_same_years": {
-    "gbp": 286968.60010130814,
-    "cagr": 0.1733313772032361,
-    "ahead": 12
+    "gbp": 211393.71814665728,
+    "cagr": 0.15637747300530558,
+    "ahead": 11
   },
   "checks": {
     "survives a trading delay": true,
@@ -295,5 +295,5 @@
     "beats S&P in 60%+ of 5-year periods": true,
     "under 25% chance of trailing over 10 years": true
   },
-  "verdict": "**5 of 5 trust checks passed.**\n\n- \u2705 survives a trading delay\n- \u2705 not tied to one check day\n- \u2705 survives double costs\n- \u2705 beats S&P in 60%+ of 5-year periods\n- \u2705 under 25% chance of trailing over 10 years\n- \u2705 re-selecting each year beat the S&P on unseen years (+13.7% vs +10.9%/yr)\n\nPassing these makes it a candidate for real money; the final check is the live forward record in data/strategy_log.jsonl, which no backtest can fake."
+  "verdict": "**5 of 5 trust checks passed.**\n\n- \u2705 survives a trading delay\n- \u2705 not tied to one check day\n- \u2705 survives double costs\n- \u2705 beats S&P in 60%+ of 5-year periods\n- \u2705 under 25% chance of trailing over 10 years\n- \u2705 re-selecting each year beat the S&P on unseen years (+11.3% vs +11.0%/yr)\n\nPassing these makes it a candidate for real money; the final check is the live forward record in data/strategy_log.jsonl, which no backtest can fake."
 }
