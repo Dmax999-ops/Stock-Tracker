@@ -1,16 +1,16 @@
 {
-  "as_of": "2026-10-30",
+  "as_of": "2026-11-02",
   "model": [
-    "SNDK",
     "MU",
-    "LITE",
     "VLO",
     "ILMN",
     "MPC",
     "TRGP",
+    "DELL",
+    "HPE",
     "STT",
-    "MRK",
-    "NUE"
+    "VTRS",
+    "EXPD"
   ],
   "method": "risk_adjusted_12_1_themes_v3",
   "market_on": true,
