@@ -1,16 +1,16 @@
 {
-  "as_of": "2026-11-02",
+  "as_of": "2026-11-03",
   "model": [
     "MU",
     "VLO",
-    "ILMN",
     "MPC",
     "TRGP",
+    "EXPD",
     "DELL",
+    "ILMN",
     "HPE",
     "STT",
-    "VTRS",
-    "EXPD"
+    "VTRS"
   ],
   "method": "risk_adjusted_12_1_themes_v3",
   "market_on": true,
