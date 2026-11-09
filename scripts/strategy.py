@@ -43,6 +43,7 @@ FX = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(FX)
 
 SCORE = "trend_200"
+LOCK = Path("docs/strategy_lock.json")   # the strategy's actual decisions, carried forward (no money figures)
 REPLAY_FROM = "2026-09-11"   # fresh start: streaks count from here, so the first buys are at the 25 Sep 2026 check -- exactly how every backtest began
 
 
@@ -131,6 +132,17 @@ def prepare(P: pd.DataFrame, sp500: list[str], bond: pd.Series | None, usd_per_g
 def live(P: pd.DataFrame, sp500: list[str], pot: float, bond: pd.Series | None = None,
          usd_per_gbp: pd.Series | None = None) -> dict:
     """P: daily closes (US$) incl. SPY. sp500: today's S&P 500 tickers. usd_per_gbp: daily rate."""
+    # DECISION LOCK. Past weekly checks are never re-decided: the saved state of the last
+    # check is carried forward and only NEW checks are applied. (Replaying from the start
+    # every night let small data revisions rewrite old decisions -- e.g. "Okta was bought
+    # on 25 Sep" -- and the bot then traded to match a past that never happened.)
+    lock = None
+    try:
+        lock = json.loads(LOCK.read_text()) if LOCK.exists() else None
+    except Exception:                                              # noqa: BLE001
+        lock = None
+    if lock:                                    # held stocks stay in the data even if they leave the index
+        sp500 = sorted(set(sp500) | {h["ticker"] for h in lock["holdings"] if h["ticker"] in P.columns})
     D = prepare(P, sp500, bond, usd_per_gbp)
     spy, Cff, sig, bond, switch = D["spy"], D["Cff"], D["sig"], D["bond"], D["switch"]
     X, Y, fxr = D["X"], D["Y"], D["fx"]
@@ -138,10 +150,34 @@ def live(P: pd.DataFrame, sp500: list[str], pot: float, bond: pd.Series | None =
     fs.START = pot
     checks = week_ends(spy.index)
     anchor = pd.Timestamp(REPLAY_FROM)
-    start = next(i for i in checks if spy.index[i] >= anchor and i >= 220)
-    eq, t = fs.commit_portfolio(sig, X, Y, member, start, True, switch.values, bond.values,
-                                check_idx=checks, return_state=True)
+    first = next(i for i in checks if spy.index[i] >= anchor and i >= 220)
+    if lock and all(h["ticker"] in Cff.columns for h in lock["holdings"]):
+        last_i = int(spy.index.searchsorted(pd.Timestamp(lock["last_check"])))
+        start = last_i + 1                      # the first day after the last locked check
+        new_checks = [i for i in checks if i > last_i]
+        eq, t = fs.commit_portfolio(sig, X, Y, member, min(start, len(spy) - 1), True, switch.values,
+                                    bond.values, check_idx=new_checks,
+                                    return_state=True, init=lock)
+        if not new_checks:                       # nothing new: the state is the locked one
+            t["state"]["as_of_check"] = lock["last_check"]
+            t["state"]["lock"]["last_check"] = lock["last_check"]
+        start = int(spy.index.searchsorted(pd.Timestamp(lock.get("replay_from", REPLAY_FROM))))
+    else:
+        start = first
+        eq, t = fs.commit_portfolio(sig, X, Y, member, start, True, switch.values, bond.values,
+                                    check_idx=checks, return_state=True)
     st = t["state"]
+    # save the decisions of the latest COMPLETE check (week_ends only counts finished weeks)
+    try:
+        new_lock = dict(st["lock"], replay_from=str(spy.index[start].date()),
+                        actions=((lock or {}).get("actions", []) + [list(a) for a in st["all_actions"]
+                                  if not lock or a[0] > lock["last_check"]])[-60:])
+        if not lock or new_lock["last_check"] > lock["last_check"]:
+            LOCK.parent.mkdir(parents=True, exist_ok=True)
+            LOCK.write_text(json.dumps(new_lock, indent=1) + "\n")
+        st["actions"] = [tuple(a) for a in new_lock["actions"]][-40:]
+    except Exception:                                              # noqa: BLE001
+        pass
     last_check = st["as_of_check"]
     today = str(spy.index[-1].date())
     this_week = [a for a in st["actions"] if a[0] == last_check]
@@ -172,8 +208,8 @@ def live(P: pd.DataFrame, sp500: list[str], pot: float, bond: pd.Series | None =
         "broker": bp.BROKER_NAME, "deal": fs.DEAL, "recent": st["actions"][-15:],
         "on_deck": st["on_deck"],
         "replay_from": str(spy.index[start].date()),
-        "replay_vs_spy": float(eq.iloc[-1] / pot - 1) - float(Y.iloc[-1] / Y.iloc[start] - 1) if len(eq) else None,
-        "replay_value_start": pot, "replay_value_now": float(eq.iloc[-1]) if len(eq) else pot,
+        "replay_vs_spy": float(total / pot - 1) - float(Y.iloc[-1] / Y.iloc[start] - 1),
+        "replay_value_start": pot, "replay_value_now": float(total),
         "spy_since_replay": float(Y.iloc[-1] / Y.iloc[start] - 1),
     }
 
