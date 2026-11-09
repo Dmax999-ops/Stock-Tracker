@@ -3,3 +3,4 @@
 {"run": "2026-10-07", "companies": 674, "passed": [], "live_ten_median": 36967}
 {"run": "2026-10-07", "companies": 672, "passed": ["sell on a break of 26-week support"], "live_ten_median": 35574}
 {"run": "2026-11-03", "companies": 789, "passed": ["don't buy over 30% above the 50-day average"], "live_ten_median": 32603}
+{"run": "2026-11-09", "companies": 790, "passed": ["don't buy over 30% above the 50-day average"], "live_ten_median": 32603}
