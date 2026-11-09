@@ -371,6 +371,7 @@ TA_SUPPORT_WEEKS = None  # e.g. 13: SELL when a holding closes below its lowest 
                          # previous 13 weeks (a break of support)
 TA_WEAK_BELOW_MA = None  # e.g. 50: a check below the 50-day average also counts as a weak week
 TA_MAX_STRETCH = None    # e.g. 0.30: don't BUY a stock more than 30% above its 50-day average
+TA_STRETCH_MA = 50       # ...the average TA_MAX_STRETCH is measured from (days)
                          # (overextended); take the next confirmed one
 TA_NEAR_HIGH = None      # e.g. 0.10: only BUY a stock within 10% of its 52-week high
 TRIM_MAX = None     # e.g. 0.20: at each weekly check, cut any holding worth more than 20% of the
@@ -536,8 +537,8 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
                     px = X[i, k]
                     if not np.isfinite(px):
                         return False
-                    if TA_MAX_STRETCH and i >= 50:
-                        ma = np.nanmean(X[i - 49:i + 1, k])
+                    if TA_MAX_STRETCH and i >= TA_STRETCH_MA:
+                        ma = np.nanmean(X[i - TA_STRETCH_MA + 1:i + 1, k])
                         if np.isfinite(ma) and px > ma * (1 + TA_MAX_STRETCH):
                             return False
                     if TA_NEAR_HIGH and i >= 252:
