@@ -50,7 +50,7 @@ jobs:
         if: always()
         run: |
           bash scripts/commit_push.sh "daily plan $(date -u +%Y-%m-%d)" \
-            docs/PLAN.md docs/plan.json docs/plan_state.json docs/plan_error.json \
+            docs/PLAN.md docs/plan.json docs/plan_state.json docs/plan_error.json docs/strategy_lock.json \
             data/live_prices.csv data/strategy_log.jsonl data/paper_test.csv data/paper_trades.csv data/gbpusd.csv
 
       - name: Check email settings (shows yes/no only, never the values)
