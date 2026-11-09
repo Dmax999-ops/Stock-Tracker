@@ -386,7 +386,7 @@ TRAIL_STOP = None   # e.g. 0.25: also SELL when a holding is 25% below its highe
 
 def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
                      bond=None, check_idx=None, return_state=False,
-                     mark_all=False) -> tuple[pd.Series, dict]:
+                     mark_all=False, init=None) -> tuple[pd.Series, dict]:
     """
     No calendar. Idle money is in an S&P 500 tracker. Every week the evidence
     is checked; a trade happens only when ENTER or EXIT fires (see top).
@@ -407,6 +407,20 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
     actions = []                                  # (date, action, ticker, gbp) -- for the live plan
     book, entry = [], {}                          # every round trip, for the audit
     cols = list(Cff.columns)
+    if init:                                      # carry on from saved decisions (live use)
+        col_i = {c: n for n, c in enumerate(cols)}
+        day_i = lambda d: int(min(idx.searchsorted(pd.Timestamp(d)), len(idx) - 1))   # noqa: E731
+        index_units = float(init["tracker_units"])
+        bond_units = float(init.get("bond_units", 0.0))
+        for h in init["holdings"]:
+            k = col_i[h["ticker"]]
+            pos[k] = float(h["units"])
+            strikes[k] = int(h.get("weeks_weak", 0))
+            opened[k] = day_i(h["bought"])
+            entry[k] = (opened[k], float(h["bought_at"]))
+        for tk, n in (init.get("streak") or {}).items():
+            if tk in col_i:
+                streak[col_i[tk]] = int(n)
 
     def close(k, i, px):
         e_i, e_px = entry.pop(k)
@@ -605,6 +619,13 @@ def commit_portfolio(sig, Cff, spy, member, start_i, costs=True, switch=None,
                         for k in np.argsort(-streak) if 0 < streak[k] < CONFIRM_CHECKS and k not in pos][:10],
             "actions": actions[-40:],
             "all_actions": list(actions),
+            # everything needed to carry on from here without replaying the past
+            "lock": {"last_check": str(idx[li].date()), "tracker_units": float(index_units),
+                     "bond_units": float(bond_units),
+                     "holdings": [{"ticker": cols[k], "units": float(u), "bought": str(idx[opened[k]].date()),
+                                   "bought_at": float(entry[k][1]), "weeks_weak": int(strikes.get(k, 0))}
+                                  for k, u in pos.items()],
+                     "streak": {cols[k]: int(streak[k]) for k in np.nonzero(streak)[0]}},
         }
     for k in list(pos):                            # still held: mark at today's price
         sh = pos[k]
