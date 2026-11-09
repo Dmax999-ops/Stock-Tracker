@@ -12,14 +12,10 @@ name: Fetch delisted
 
 on:
   schedule:
-    # The Alpha Vantage price archive is capped at 25 calls a day, so it takes
-    # its bite each morning and no more.
-    - cron: '30 7 * * *'
-    # The EDGAR register has NO daily cap — only a 10 requests/second courtesy
-    # limit — so throttling it to one run a day was my mistake, not the API's.
-    # Every four hours it finishes the whole register inside a day and then
-    # becomes a no-op, because the script skips tickers already done.
-    - cron: '0 */4 * * *'
+    # The archive is complete (all 625 companies tried, Nov 2026). From now on a
+    # weekly top-up is enough: it picks up companies that newly leave the S&P 500
+    # and retries the odd Alpha Vantage error. Sundays, when nothing else runs.
+    - cron: '30 7 * * 0'
   workflow_dispatch:
 
 permissions:
@@ -44,10 +40,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # Only on the daily firing: the free tier allows 25 calls a day, so
-      # running this every four hours would just collect rate-limit errors.
       - name: Fetch next batch of delisted tickers
-        if: github.event.schedule != '0 */4 * * *'
         env:
           ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
         run: |
@@ -72,23 +65,5 @@ jobs:
       - name: Commit
         if: always()
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A data/
-          if git diff --staged --quiet; then
-            echo "no changes to commit"
-            exit 0
-          fi
-          git commit -m "delisted archive $(date -u +%Y-%m-%d)"
-          for i in 1 2 3; do
-            git fetch origin main
-            git rebase --autostash origin/main || git rebase --abort || true
-            if git push origin HEAD:main; then
-              echo "pushed on attempt $i"
-              exit 0
-            fi
-            echo "push rejected, retrying ($i/3)"
-            sleep 5
-          done
-          echo "could not push after 3 attempts"
-          exit 1
+          bash scripts/commit_push.sh "delisted archive $(date -u +%Y-%m-%d)" \
+            data/delisted data/delisting_register.csv data/delistings.csv data/delistings_manifest.json
