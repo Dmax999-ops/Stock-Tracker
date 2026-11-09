@@ -50,6 +50,16 @@ CHALLENGERS = [
     ("below 100-day average counts as a weak week", "Technical", {"TA_WEAK_BELOW_MA": 100}),
     ("don't buy over 30% above the 50-day average", "Technical", {"TA_MAX_STRETCH": 0.30}),
     ("don't buy over 50% above the 50-day average", "Technical", {"TA_MAX_STRETCH": 0.50}),
+    # NEIGHBOURS of the 30% rule: if it is a real effect, nearby settings should win too;
+    # if only 30% wins, it was a lucky number
+    ("don't buy over 20% above the 50-day average", "Stretch check", {"TA_MAX_STRETCH": 0.20}),
+    ("don't buy over 25% above the 50-day average", "Stretch check", {"TA_MAX_STRETCH": 0.25}),
+    ("don't buy over 35% above the 50-day average", "Stretch check", {"TA_MAX_STRETCH": 0.35}),
+    ("don't buy over 40% above the 50-day average", "Stretch check", {"TA_MAX_STRETCH": 0.40}),
+    ("don't buy over 30% above the 100-day average", "Stretch check",
+     {"TA_MAX_STRETCH": 0.30, "TA_STRETCH_MA": 100}),
+    ("don't buy over 40% above the 100-day average", "Stretch check",
+     {"TA_MAX_STRETCH": 0.40, "TA_STRETCH_MA": 100}),
     ("only buy within 10% of the 52-week high", "Technical", {"TA_NEAR_HIGH": 0.10}),
     ("trailing stop 25% from the high", "Technical", {"TRAIL_STOP": 0.25}),
     ("trim any holding above 15% of the account", "Position size", {"TRIM_MAX": 0.15}),
