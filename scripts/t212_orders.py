@@ -331,6 +331,7 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
         # NEW MONEY: cash already in an account that holds strategy stocks (a deposit,
         # e.g. the next weekly instalment) is split across the strategy's stocks in the
         # same proportions as the plan -- not parked in the tracker
+        deposit_cash = cash          # money that arrived as a deposit -- the only "new money"
         if bd_val > minimum:
             cash += sell_all(bd_tk, P[bd_tk], "Market switch back ON: leave bonds", "Bond fund")
         for tk, pos in stocks_held.items():
@@ -376,7 +377,10 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
                 cash -= buy_stock(tk, h, amt, "Retry: this buy was refused at an earlier run -- topped back up "
                                               f"to its planned share ({h['value'] / pot:.0%} of the pot)")
         # whatever cash is left after any catch-up buys is new money (only once stocks are held)
-        new_money = cash if stocks_held and cash >= float(cfg.get("new_money_min", 100)) else 0.0
+        # money from a SALE is not new money: the strategy puts it in the tracker until the
+        # next buy (that is what the plan holds), so only deposited cash is split across stocks
+        spare = min(cash, deposit_cash)
+        new_money = spare if stocks_held and spare >= float(cfg.get("new_money_min", 100)) else 0.0
         if new_money > minimum:
             skip_weak = int(cfg.get("new_money_skip_weak", 2))
             for tk, h in want.items():
