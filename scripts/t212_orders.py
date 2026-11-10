@@ -41,6 +41,7 @@ from __future__ import annotations
 import base64
 import json
 import math
+import re
 import os
 import sys
 import time
@@ -336,6 +337,10 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
             cash += sell_all(bd_tk, P[bd_tk], "Market switch back ON: leave bonds", "Bond fund")
         for tk, pos in stocks_held.items():
             if tk not in want:
+                if pos["value"] < minimum:
+                    notes.append(f"{pos.get('name', tk)}: a sliver worth £{pos['value']:,.2f} is left from an earlier "
+                                 "sale -- too small to sell (Trading 212's minimum); it does not affect the strategy")
+                    continue
                 cash += sell_all(tk, pos, "The strategy has sold it (3 weekly checks in the bottom half)")
         missing = [tk for tk in want if tk not in stocks_held]
         # how much each missing stock should get:
@@ -493,8 +498,12 @@ def wait_for_fills(api: T212, timeout: int = 180) -> bool:
 def send(api: T212, o: dict, log: list) -> bool:
     """Send one order; if Trading 212 rejects the number of decimals, try fewer."""
     q = float(o["qty"])
-    tries = [q] if o["side"] == "SELL" and o.get("all") else []
-    tries += [round(q, 2), (math.floor if q > 0 else math.ceil)(q * 10) / 10, float(int(q))]
+    toward0 = lambda x, d: (math.floor if x > 0 else math.ceil)(x * 10 ** d) / 10 ** d   # noqa: E731
+    if o["side"] == "SELL":
+        # never sell more than is held: round TOWARD zero, exact amount first when selling it all
+        tries = ([q] if o.get("all") else []) + [toward0(q, 4), toward0(q, 2), toward0(q, 1), float(int(q))]
+    else:
+        tries = [round(q, 2), toward0(q, 1), float(int(q))]
     seen = set()
     for qq in tries:
         if qq == 0 or qq in seen:
@@ -503,6 +512,19 @@ def send(api: T212, o: dict, log: list) -> bool:
         ok, res = api.market_order(o["ticker"], qq)
         log.append({"side": o["side"], "ticker": o["ticker"], "qty": qq, "gbp": o["gbp"], "ok": ok,
                     "result": res if isinstance(res, str) else res.get("status")})
+        if ok and o["side"] == "SELL" and o.get("all") and abs(qq) < abs(q) - 1e-9:
+            # sold all but a sliver (rounding): sell what is left so nothing is left behind
+            rest = round(q - qq, 6)
+            ok2, res2 = api.market_order(o["ticker"], rest)
+            log.append({"side": "SELL", "ticker": o["ticker"], "qty": rest, "gbp": 0.0, "ok": ok2,
+                        "result": res2 if isinstance(res2, str) else res2.get("status")})
+            if not ok2:
+                print(f"Trading 212 refused the last sliver of {o['ticker']}: "
+                      + re.sub(r"\d", "#", str(res2))[:200], flush=True)
+            return True
+        if not ok:
+            # Trading 212's reason, in the run log -- numbers blanked out, so no amounts are published
+            print(f"Trading 212 refused {o['side']} {o['ticker']}: " + re.sub(r"\d", "#", str(res))[:200], flush=True)
         if ok:
             return True
         if str(res).startswith("NO REPLY"):
@@ -521,6 +543,8 @@ def send(api: T212, o: dict, log: list) -> bool:
                 if ok:
                     return True
             return False
+        if o["side"] == "SELL":
+            continue                    # a smaller sale is always safe to try (it never sells more than held)
         if "precision" not in low and "quantity" not in low:
             return False                                   # a real refusal: stop, don't guess
     return False
