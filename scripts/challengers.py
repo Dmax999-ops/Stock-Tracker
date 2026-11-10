@@ -43,6 +43,13 @@ CHALLENGERS = [
     ("cash when bonds are falling too", "Market switch", {"cash": True}),
     ("market switch after 2 closes", "Market switch", {"confirm": 2}),
     ("market switch after 5 closes", "Market switch", {"confirm": 5}),
+    # NEIGHBOURS of the 2-close switch, and the two best ideas together
+    ("market switch after 1 close", "Switch check", {"confirm": 1}),
+    ("market switch after 4 closes", "Switch check", {"confirm": 4}),
+    ("switch after 2 closes + don't buy over 30% above the 50-day", "Combined",
+     {"confirm": 2, "TA_MAX_STRETCH": 0.30}),
+    ("switch after 2 closes + don't buy over 35% above the 50-day", "Combined",
+     {"confirm": 2, "TA_MAX_STRETCH": 0.35}),
     ("max 2 holdings moving together", "Diversify", {"CORR_CAP": (0.6, 2, 126)}),
     ("sell on a break of 13-week support", "Technical", {"TA_SUPPORT_WEEKS": 13}),
     ("sell on a break of 26-week support", "Technical", {"TA_SUPPORT_WEEKS": 26}),
