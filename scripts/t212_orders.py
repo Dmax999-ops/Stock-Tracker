@@ -802,6 +802,12 @@ def main() -> int:
         if not (key and sec and plan.get("strategy")):
             print("No API key or no strategy -- nothing sent.")
             return 1
+        if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and not market_open_now()[0]:
+            # GitHub's own schedule is only a backup now (cron-job.org starts the bot on time). When
+            # GitHub starts it hours late, after the market has shut, do nothing quietly: no
+            # "STOPPED" email, no red cross.
+            print("GitHub started this backup run outside trading hours -- nothing to do.")
+            return 0
         approved = {x for x in os.environ.get("APPROVED", "").split(",") if x}
         log: list = []
         try:
