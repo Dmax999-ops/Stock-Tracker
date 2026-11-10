@@ -61,6 +61,33 @@ def load_carry() -> list[str]:
         return list(json.loads(CARRY.read_text()).get("tickers", []))
     except Exception:                                          # noqa: BLE001
         return []
+
+
+def load_sold() -> dict[str, str]:
+    """Stocks sold by the strategy whose money hasn't reached the tracker yet: {ticker: date}.
+    Tickers and dates only -- the amount is read from Trading 212 each run, never stored."""
+    try:
+        return dict(json.loads(CARRY.read_text()).get("sold", {}))
+    except Exception:                                          # noqa: BLE001
+        return {}
+
+
+def sale_proceeds(api, sold: dict[str, str]) -> float:
+    """£ raised by the strategy's sales listed in `sold`, from Trading 212's order history."""
+    tot = 0.0
+    for tk, since in sold.items():
+        try:
+            page = api.get(f"/equity/history/orders?ticker={tk}&limit=50", wait=11)
+        except Exception:                                      # noqa: BLE001
+            continue
+        for it in (page.get("items", []) if isinstance(page, dict) else page or []):
+            o, f = it.get("order") or {}, it.get("fill") or {}
+            if not f or str(f.get("filledAt", ""))[:10] < since:
+                continue
+            side = str(o.get("side") or ("BUY" if float(f.get("quantity") or 0) > 0 else "SELL")).upper()
+            if side == "SELL":
+                tot += abs(float((f.get("walletImpact") or {}).get("netValue") or 0))
+    return tot
 CFG = Path("config/t212.yml")
 
 
@@ -185,6 +212,7 @@ def read_account(api: T212 | None, plan: dict) -> dict:
             "cash": float((summ.get("cash") or {}).get("availableToTrade") or 0),
             "total": float(summ.get("totalValue") or 0), "positions": P, "pending": pend,
             "summary": summ if isinstance(summ, dict) else {},
+            "sale_cash": sale_proceeds(api, load_sold()) if load_sold() else 0.0,
             "instruments": inst}
 
 
@@ -334,7 +362,7 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
         # same proportions as the plan -- not parked in the tracker
         # money that arrived as a deposit -- the only "new money". Cash raised by a sale earlier
         # in this same run (between the bot's phases) is not a deposit: it goes to the tracker.
-        deposit_cash = max(0.0, cash - float(cfg.get("_sold_cash", 0.0)))
+        deposit_cash = max(0.0, cash - float(cfg.get("_sold_cash", 0.0)) - float(acct.get("sale_cash") or 0.0))
         if bd_val > minimum:
             cash += sell_all(bd_tk, P[bd_tk], "Market switch back ON: leave bonds", "Bond fund")
         for tk, pos in stocks_held.items():
@@ -783,7 +811,15 @@ def main() -> int:
                 bad_t = {x["ticker"] for x in log if not x["ok"] and x["side"] == "BUY"
                          and x["ticker"].endswith("_US_EQ")} - ok_t
                 keep = [t for t in load_carry() if t not in ok_t]
-                CARRY.write_text(json.dumps({"tickers": sorted(set(keep) | bad_t)}) + "\n")
+                sold = load_sold()
+                tracker_bought = any(x["ok"] and x["side"] == "BUY" and not x["ticker"].endswith("_US_EQ") for x in log)
+                if done or tracker_bought:          # the sale money has gone where the plan wants it
+                    sold = {}
+                if not done:                        # a sale this run whose money may still be cash
+                    for x in log:
+                        if x["ok"] and x["side"] == "SELL" and x["ticker"].endswith("_US_EQ") and not tracker_bought:
+                            sold.setdefault(x["ticker"], pd.Timestamp.now("UTC").strftime("%Y-%m-%d"))
+                CARRY.write_text(json.dumps({"tickers": sorted(set(keep) | bad_t), "sold": sold}) + "\n")
             except Exception:                       # noqa: BLE001
                 pass
         except Exception as e:                                # noqa: BLE001
