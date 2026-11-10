@@ -1,6 +1,6 @@
 # Daily plan — 2026-11-09
 
-_Generated 2026-11-10 04:05 UTC from closing prices of 2026-11-09. Tested rules, not personal financial advice._
+_Generated 2026-11-10 14:11 UTC from closing prices of 2026-11-09. Tested rules, not personal financial advice._
 
 ## Market: **RISK ON — invested**
 
@@ -12,13 +12,13 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 
 **Market switch: ON — invested** (S&P 500 +3.4% vs its 200-day average)
 
-**Exchange rate: £1 = $1.3444** (Yahoo Finance, rate of 2026-11-10). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
+**Exchange rate: £1 = $1.3394** (Yahoo Finance, rate of 2026-11-10). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
 
 ### Last check: 2026-11-06. Actions from that check (nothing new until the next weekly check):
 
 | Action | Stock | Amount |
 |---|---|---|
-| **SELL** | SNDK | £574 |
+| **SELL** | SNDK | £572 |
 
 _Buys are paid for by selling the same amount of your S&P 500 tracker; sales go back into the tracker._
 
@@ -27,10 +27,10 @@ _Buys are paid for by selling the same amount of your S&P 500 tracker; sales go 
 | Stock | Bought | Gain since | Value | Share of pot | Weeks weak (3 = SELL) |
 |---|---|---|---|---|---|
 | **MRNA** | 2026-09-25 | +33% | £1,713 | 17% | 0 |
-| **OKTA** | 2026-09-25 | -11% | £1,152 | 12% | 0 |
+| **OKTA** | 2026-09-25 | -10% | £1,152 | 12% | 0 |
 | **CRWD** | 2026-09-25 | -11% | £1,148 | 11% | 0 |
-| **ILMN** | 2026-09-25 | -20% | £1,036 | 10% | 0 |
-| **AMD** | 2026-09-25 | -21% | £1,021 | 10% | 0 |
+| **ILMN** | 2026-09-25 | -19% | £1,036 | 10% | 0 |
+| **AMD** | 2026-09-25 | -20% | £1,021 | 10% | 0 |
 | **HPE** | 2026-09-25 | -26% | £957 | 10% | 0 |
 | **MU** | 2026-09-25 | -33% | £858 | 9% | 1 |
 | **DELL** | 2026-09-25 | -39% | £780 | 8% | 1 |
@@ -41,22 +41,22 @@ _Buys are paid for by selling the same amount of your S&P 500 tracker; sales go 
 
 | Buy | Invest | Charges | In dollars | Share price | ≈ Shares |
 |---|---|---|---|---|---|
-| MRNA | £1,713 | £2.57 | $2,303 | $269.00 | 8.56 |
-| OKTA | £1,152 | £1.73 | $1,549 | $177.57 | 8.72 |
-| CRWD | £1,148 | £1.72 | $1,544 | $228.58 | 6.75 |
-| ILMN | £1,036 | £1.55 | $1,392 | $220.78 | 6.31 |
-| AMD | £1,021 | £1.53 | $1,373 | $508.58 | 2.70 |
-| HPE | £957 | £1.43 | $1,286 | $47.54 | 27.05 |
-| MU | £858 | £1.29 | $1,154 | $733.15 | 1.57 |
-| DELL | £780 | £1.17 | $1,049 | $346.31 | 3.03 |
-| MRVL | £748 | £1.12 | $1,005 | $154.60 | 6.50 |
+| MRNA | £1,713 | £2.57 | $2,294 | $269.00 | 8.53 |
+| OKTA | £1,152 | £1.73 | $1,543 | $177.57 | 8.69 |
+| CRWD | £1,148 | £1.72 | $1,538 | $228.58 | 6.73 |
+| ILMN | £1,036 | £1.55 | $1,387 | $220.78 | 6.28 |
+| AMD | £1,021 | £1.53 | $1,368 | $508.58 | 2.69 |
+| HPE | £957 | £1.43 | $1,281 | $47.54 | 26.95 |
+| MU | £858 | £1.29 | $1,149 | $733.15 | 1.57 |
+| DELL | £780 | £1.17 | $1,045 | $346.31 | 3.02 |
+| MRVL | £748 | £1.12 | $1,001 | $154.60 | 6.48 |
 | S&P 500 tracker | £587 | £0.00 | — | — | — |
 
 **On deck** (in the top 5%, not yet confirmed — a BUY if still there at 3 weekly checks): HAS (2 of 3), FDS (2 of 3), ACN (2 of 3), WST (2 of 3), PTC (2 of 3), MTD (1 of 3), GPN (1 of 3), A (1 of 3), SWK (1 of 3), ROP (1 of 3)
 
 **Recent actions:** 2026-09-25 BUY HPE; 2026-09-25 BUY AMD; 2026-09-25 BUY ILMN; 2026-09-25 BUY CRWD; 2026-09-25 BUY MU; 2026-09-25 BUY MRVL; 2026-09-25 BUY SNDK; 2026-11-06 SELL SNDK
 
-**Live record since 2026-09-25:** £10,000 would now be £7,769 (-22.3%).
+**Live record since 2026-09-25:** £10,000 would now be £7,798 (-22.0%).
 
 **Trust checks (validation of 2026-11-01, £10,000 pot): 5 of 5 passed.** Cleared for consideration — watch the live record.
 
@@ -81,12 +81,12 @@ Daily history: data/paper_test.csv
 
 | Account | Gains taken (realised) | Tax this year at 18% / 24% | Pay by | Gain not yet taken |
 |---|---|---|---|---|
-| Hargreaves Lansdown £10,000 | −£536 | £0 / £0 | 31 Jan 2028 | −£1,776 |
-| Hargreaves Lansdown £100,000 | −£5,221 | £0 / £0 | 31 Jan 2028 | −£17,020 |
-| Trading 212 £10,000 | −£510 | £0 / £0 | 31 Jan 2028 | −£1,630 |
-| Trading 212 £100,000 | −£5,096 | £0 / £0 | 31 Jan 2028 | −£16,298 |
-| Interactive Brokers £10,000 | −£510 | £0 / £0 | 31 Jan 2028 | −£1,629 |
-| Interactive Brokers £100,000 | −£5,081 | £0 / £0 | 31 Jan 2028 | −£16,199 |
+| Hargreaves Lansdown £10,000 | −£536 | £0 / £0 | 31 Jan 2028 | −£1,747 |
+| Hargreaves Lansdown £100,000 | −£5,221 | £0 / £0 | 31 Jan 2028 | −£16,730 |
+| Trading 212 £10,000 | −£510 | £0 / £0 | 31 Jan 2028 | −£1,601 |
+| Trading 212 £100,000 | −£5,096 | £0 / £0 | 31 Jan 2028 | −£16,008 |
+| Interactive Brokers £10,000 | −£510 | £0 / £0 | 31 Jan 2028 | −£1,600 |
+| Interactive Brokers £100,000 | −£5,081 | £0 / £0 | 31 Jan 2028 | −£15,909 |
 
 _First £3,000 of net gains each tax year is tax-free. Nothing is paid until 31 January after the tax year ends. In a Stocks & Shares ISA none of this is taxed. Estimate, not tax advice._
 
