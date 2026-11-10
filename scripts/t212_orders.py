@@ -286,7 +286,7 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
 
     def sell_all(tk, pos, why, name=None):
         sells.append({"side": "SELL", "ticker": tk, "name": name or pos.get("name", tk),
-                      "qty": -round(pos["avail"], 6), "gbp": pos["value"], "why": why})
+                      "qty": -float(pos["avail"]), "gbp": pos["value"], "why": why})
         return pos["value"] * (1 - (fxf if tk.endswith("_US_EQ") else 0))
 
     def buy_stock(tk, h, gbp, why):
@@ -332,7 +332,9 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
         # NEW MONEY: cash already in an account that holds strategy stocks (a deposit,
         # e.g. the next weekly instalment) is split across the strategy's stocks in the
         # same proportions as the plan -- not parked in the tracker
-        deposit_cash = cash          # money that arrived as a deposit -- the only "new money"
+        # money that arrived as a deposit -- the only "new money". Cash raised by a sale earlier
+        # in this same run (between the bot's phases) is not a deposit: it goes to the tracker.
+        deposit_cash = max(0.0, cash - float(cfg.get("_sold_cash", 0.0)))
         if bd_val > minimum:
             cash += sell_all(bd_tk, P[bd_tk], "Market switch back ON: leave bonds", "Bond fund")
         for tk, pos in stocks_held.items():
@@ -579,6 +581,7 @@ def execute(api: T212, plan: dict, cfg: dict, approved: set[str], log: list | No
         if n_phase:
             time.sleep(20)                                 # let Trading 212 update the cash after fills
         acct = read_account(api, plan)                    # fresh every phase
+        cfg["_sold_cash"] = sum(x["gbp"] for x in log if x["ok"] and x["side"] == "SELL")
         W = work_out(plan, acct, cfg)
         bad = [c for c, r, _ in W["checks"] if r is False]
         if bad:
