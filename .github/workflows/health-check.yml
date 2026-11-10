@@ -1,0 +1,46 @@
+name: Health check
+
+# Is what is happening live inside what the tests saw? Worst falls, bad 7-week
+# stretches, and the first 7 weeks of a brand-new account, on the full history.
+# Results: docs/HEALTH.md. Runs monthly and on demand; trades nothing.
+
+on:
+  schedule:
+    - cron: '0 5 4 * *'        # monthly, 4th at 05:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: health-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt requests lxml pyyaml pyarrow
+
+      - name: Rebuild price panel if absent
+        run: |
+          if [ ! -f data/prices.parquet ]; then
+            python scripts/fetch_universe.py --config config/universe.yml --out data/
+          fi
+
+      - name: Run the health check
+        env:
+          POT_GBP: '10000'
+          BROKER: t212
+        run: python scripts/health_check.py
+
+      - name: Commit
+        if: always()
+        run: bash scripts/commit_push.sh "health check $(date -u +%Y-%m-%d)" docs/HEALTH.md data/health.json
