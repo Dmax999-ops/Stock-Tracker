@@ -5,11 +5,11 @@
     "MPC",
     "MU",
     "DELL",
-    "VTRS",
     "HPE",
+    "VTRS",
     "ILMN",
-    "TRGP",
     "STT",
+    "TRGP",
     "EXPD"
   ],
   "method": "risk_adjusted_12_1_themes_v3",

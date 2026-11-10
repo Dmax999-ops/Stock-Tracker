@@ -1,13 +1,13 @@
 {
-  "generated": "2026-11-10T14:40:59.054750+00:00",
+  "generated": "2026-11-10T22:16:32.197209+00:00",
   "as_of": "2026-11-10",
   "holding_ranks": [],
   "market": {
     "on": true,
-    "spy": 748.75,
-    "ma200": 728.2967782592773,
-    "vs200": 0.028083636164927928,
-    "ret_12m": 0.1279611057025869
+    "spy": 749.9199829101562,
+    "ma200": 728.3026266479492,
+    "vs200": 0.029681832072612657,
+    "ret_12m": 0.1297236368772019
   },
   "rebalance_day": false,
   "holdings": [],
@@ -19,13 +19,13 @@
       "sector": "Energy",
       "industry": "Oil & Gas Refining & Marketing",
       "theme": "Valero Energy, Marathon Petroleum, Phillips 66, APA Corporation",
-      "theme_rank_pct": 1.0,
-      "theme_rank": 1,
+      "theme_rank_pct": 0.933,
+      "theme_rank": 3,
       "industry_rank_pct": 0.988,
-      "momentum": 0.4898,
-      "score": 3.83,
+      "momentum": 0.5109,
+      "score": 3.848,
       "gbp": 1000.0,
-      "price": 345.79,
+      "price": 350.71,
       "owned": false
     },
     {
@@ -35,13 +35,13 @@
       "sector": "Energy",
       "industry": "Oil & Gas Refining & Marketing",
       "theme": "Valero Energy, Marathon Petroleum, Phillips 66, APA Corporation",
-      "theme_rank_pct": 1.0,
-      "theme_rank": 1,
+      "theme_rank_pct": 0.933,
+      "theme_rank": 3,
       "industry_rank_pct": 0.988,
-      "momentum": 0.5435,
-      "score": 3.62,
+      "momentum": 0.5739,
+      "score": 3.634,
       "gbp": 1000.0,
-      "price": 382.01,
+      "price": 389.55,
       "owned": false
     },
     {
@@ -50,14 +50,14 @@
       "name": "Micron Technology",
       "sector": "Information Technology",
       "industry": "Semiconductors",
-      "theme": "Sandisk, Micron Technology, Lumentum, Keysight Technologies",
+      "theme": "Sandisk, Micron Technology, Seagate Technology, Freeport-McMoRan",
       "theme_rank_pct": 0.967,
       "theme_rank": 2,
-      "industry_rank_pct": 0.463,
-      "momentum": 0.5689,
-      "score": 3.443,
+      "industry_rank_pct": 0.476,
+      "momentum": 0.5977,
+      "score": 3.446,
       "gbp": 1000.0,
-      "price": 712.03,
+      "price": 725.11,
       "owned": false
     },
     {
@@ -66,30 +66,14 @@
       "name": "Dell Technologies",
       "sector": "Information Technology",
       "industry": "Technology Hardware, Storage & Peripherals",
-      "theme": "Dell Technologies, Hewlett Packard Enterprise, F5, Inc., NetApp",
-      "theme_rank_pct": 0.867,
-      "theme_rank": 5,
-      "industry_rank_pct": 0.878,
-      "momentum": 0.4629,
+      "theme": "Dell Technologies, Hewlett Packard Enterprise, NetApp, Cisco",
+      "theme_rank_pct": 0.833,
+      "theme_rank": 6,
+      "industry_rank_pct": 0.89,
+      "momentum": 0.4661,
       "score": 3.158,
       "gbp": 1000.0,
-      "price": 333.67,
-      "owned": false
-    },
-    {
-      "ticker": "VTRS",
-      "yf": "VTRS",
-      "name": "Viatris",
-      "sector": "Health Care",
-      "industry": "Pharmaceuticals",
-      "theme": "Moderna, Viatris, Merck & Co., Johnson & Johnson",
-      "theme_rank_pct": 0.933,
-      "theme_rank": 3,
-      "industry_rank_pct": 0.951,
-      "momentum": 0.5194,
-      "score": 2.723,
-      "gbp": 1000.0,
-      "price": 20.35,
+      "price": 334.38,
       "owned": false
     },
     {
@@ -98,14 +82,30 @@
       "name": "Hewlett Packard Enterprise",
       "sector": "Information Technology",
       "industry": "Technology Hardware, Storage & Peripherals",
-      "theme": "Dell Technologies, Hewlett Packard Enterprise, F5, Inc., NetApp",
+      "theme": "Dell Technologies, Hewlett Packard Enterprise, NetApp, Cisco",
+      "theme_rank_pct": 0.833,
+      "theme_rank": 6,
+      "industry_rank_pct": 0.89,
+      "momentum": 0.4978,
+      "score": 2.723,
+      "gbp": 1000.0,
+      "price": 47.93,
+      "owned": false
+    },
+    {
+      "ticker": "VTRS",
+      "yf": "VTRS",
+      "name": "Viatris",
+      "sector": "Health Care",
+      "industry": "Pharmaceuticals",
+      "theme": "Viatris, Merck & Co., Johnson & Johnson, Biogen",
       "theme_rank_pct": 0.867,
       "theme_rank": 5,
-      "industry_rank_pct": 0.878,
-      "momentum": 0.4539,
-      "score": 2.72,
+      "industry_rank_pct": 0.951,
+      "momentum": 0.5568,
+      "score": 2.717,
       "gbp": 1000.0,
-      "price": 46.53,
+      "price": 20.85,
       "owned": false
     },
     {
@@ -115,29 +115,13 @@
       "sector": "Health Care",
       "industry": "Life Sciences Tools & Services",
       "theme": "Illumina, Inc., Revvity, Charles River Laboratories, West Pharmaceutical Services",
-      "theme_rank_pct": 0.833,
-      "theme_rank": 6,
-      "industry_rank_pct": 0.976,
-      "momentum": 0.4399,
-      "score": 2.283,
+      "theme_rank_pct": 0.733,
+      "theme_rank": 9,
+      "industry_rank_pct": 0.963,
+      "momentum": 0.4507,
+      "score": 2.287,
       "gbp": 1000.0,
-      "price": 213.3,
-      "owned": false
-    },
-    {
-      "ticker": "TRGP",
-      "yf": "TRGP",
-      "name": "Targa Resources",
-      "sector": "Energy",
-      "industry": "Oil & Gas Storage & Transportation",
-      "theme": "Valero Energy, Marathon Petroleum, Phillips 66, APA Corporation",
-      "theme_rank_pct": 1.0,
-      "theme_rank": 1,
-      "industry_rank_pct": 0.5,
-      "momentum": 0.2372,
-      "score": 2.161,
-      "gbp": 1000.0,
-      "price": 272.68,
+      "price": 214.91,
       "owned": false
     },
     {
@@ -147,13 +131,29 @@
       "sector": "Financials",
       "industry": "Asset Management & Custody Banks",
       "theme": "State Street Corporation, Franklin Resources, Northern Trust, BNY Mellon",
-      "theme_rank_pct": 0.7,
-      "theme_rank": 10,
-      "industry_rank_pct": 0.488,
-      "momentum": 0.1825,
+      "theme_rank_pct": 0.6,
+      "theme_rank": 13,
+      "industry_rank_pct": 0.463,
+      "momentum": 0.1817,
       "score": 2.159,
       "gbp": 1000.0,
-      "price": 171.74,
+      "price": 171.62,
+      "owned": false
+    },
+    {
+      "ticker": "TRGP",
+      "yf": "TRGP",
+      "name": "Targa Resources",
+      "sector": "Energy",
+      "industry": "Oil & Gas Storage & Transportation",
+      "theme": "Valero Energy, Marathon Petroleum, Phillips 66, APA Corporation",
+      "theme_rank_pct": 0.933,
+      "theme_rank": 3,
+      "industry_rank_pct": 0.573,
+      "momentum": 0.2764,
+      "score": 2.147,
+      "gbp": 1000.0,
+      "price": 281.32,
       "owned": false
     },
     {
@@ -162,91 +162,91 @@
       "name": "Expeditors International",
       "sector": "Industrials",
       "industry": "Air Freight & Logistics",
-      "theme": "Centene Corporation, Humana, Expeditors International, Elevance Health",
-      "theme_rank_pct": 0.9,
-      "theme_rank": 4,
+      "theme": "Expeditors International, CSX Corporation, FedEx, Fastenal",
+      "theme_rank_pct": 0.8,
+      "theme_rank": 7,
       "industry_rank_pct": 0.561,
-      "momentum": 0.1924,
-      "score": 1.786,
+      "momentum": 0.216,
+      "score": 1.803,
       "gbp": 1000.0,
-      "price": 185.52,
+      "price": 189.19,
       "owned": false
     }
   ],
   "model_notes": [],
   "prev_model": [
     "VLO",
-    "MU",
     "MPC",
+    "MU",
     "DELL",
-    "HPE",
     "VTRS",
+    "HPE",
     "ILMN",
-    "STT",
     "TRGP",
+    "STT",
     "EXPD"
   ],
   "changes": [],
   "top_industries": [
     [
       "Biotechnology",
-      0.9455541910692313
+      0.9078814847014746
     ],
     [
       "Oil & Gas Refining & Marketing",
-      0.49717606584070334
-    ],
-    [
-      "Life Sciences Tools & Services",
-      0.36626668609123586
+      0.5211193982331511
     ],
     [
       "SECTOR:Information Technology",
-      0.3517166713487851
+      0.3940246899461839
+    ],
+    [
+      "Life Sciences Tools & Services",
+      0.37359628255562916
     ],
     [
       "Pharmaceuticals",
-      0.2734579581685483
+      0.2859361578796675
     ],
     [
       "Managed Health Care",
-      0.2510613975742701
-    ],
-    [
-      "Health Care Distributors",
-      0.23666350643716552
+      0.28016612361582527
     ],
     [
       "Consumer Staples Merchandise Retail",
-      0.23235723385157808
+      0.25223458205064675
+    ],
+    [
+      "Health Care Distributors",
+      0.24878530907916568
     ],
     [
       "Passenger Airlines",
-      0.2266972311593579
-    ],
-    [
-      "SECTOR:Health Care",
-      0.19814090863462058
+      0.22837302398995374
     ],
     [
       "Technology Hardware, Storage & Peripherals",
-      0.19777973244412655
+      0.21294112019299907
     ],
     [
       "SECTOR:Energy",
-      0.1855986130347485
+      0.20710751010333095
     ],
     [
       "SECTOR:Financials",
-      0.18515686187303051
+      0.20261588372488568
+    ],
+    [
+      "SECTOR:Health Care",
+      0.19514199865864984
     ],
     [
       "Soft Drinks & Non-alcoholic Beverages",
-      0.17451307898506507
+      0.18691071203407092
     ],
     [
       "Systems Software",
-      0.1741725594049492
+      0.1833016962249847
     ]
   ],
   "universe": "S&P 500 only",
@@ -258,151 +258,151 @@
   "themes_total": 30,
   "themes": [
     {
-      "score": 1.3855654467979721,
-      "n": 26,
-      "mom": 0.3536199234282619,
-      "leaders": "Valero Energy, Marathon Petroleum, Phillips 66, APA Corporation",
-      "labels": "Oil & Gas Exploration & Production (9), Oil & Gas Storage & Transportation (4), Oil & Gas Equipment & Services (3)",
+      "score": 1.6139026144595472,
+      "n": 8,
+      "mom": 0.5240756810670282,
+      "leaders": "Fortinet, F5, Inc., Okta, Inc., Twilio",
+      "labels": "Systems Software (4), Application Software (3), Communications Equipment (1)",
       "pct": 1.0,
       "rank": 1,
       "of": 30
     },
     {
-      "score": 1.2832135367538748,
-      "n": 21,
-      "mom": 0.43686494336787796,
-      "leaders": "Sandisk, Micron Technology, Lumentum, Keysight Technologies",
-      "labels": "Semiconductor Materials & Equipment (5), Semiconductors (4), Technology Hardware, Storage & Peripherals (3)",
+      "score": 1.416744710654633,
+      "n": 12,
+      "mom": 0.4655534947542962,
+      "leaders": "Sandisk, Micron Technology, Seagate Technology, Freeport-McMoRan",
+      "labels": "Semiconductor Materials & Equipment (5), Technology Hardware, Storage & Peripherals (4), Semiconductors (2)",
       "pct": 0.9666666666666667,
       "rank": 2,
       "of": 30
     },
     {
-      "score": 1.1012109966438546,
-      "n": 14,
-      "mom": 0.47623360223435973,
-      "leaders": "Moderna, Viatris, Merck & Co., Johnson & Johnson",
-      "labels": "Biotechnology (8), Pharmaceuticals (6)",
+      "score": 1.3838536106398176,
+      "n": 26,
+      "mom": 0.39962513340703987,
+      "leaders": "Valero Energy, Marathon Petroleum, Phillips 66, APA Corporation",
+      "labels": "Oil & Gas Exploration & Production (9), Oil & Gas Storage & Transportation (4), Oil & Gas Equipment & Services (3)",
       "pct": 0.9333333333333333,
       "rank": 3,
       "of": 30
     },
     {
-      "score": 0.9054550738524068,
-      "n": 10,
-      "mom": 0.29053039275431236,
-      "leaders": "Centene Corporation, Humana, Expeditors International, Elevance Health",
-      "labels": "Managed Health Care (4), Air Freight & Logistics (2), Broadcasting (2)",
+      "score": 1.2036758626547368,
+      "n": 13,
+      "mom": 0.3892952643436425,
+      "leaders": "Lumentum, Keysight Technologies, Advanced Micro Devices, Intel",
+      "labels": "Semiconductors (3), Communications Equipment (2), Electronic Components (2)",
       "pct": 0.9,
       "rank": 4,
       "of": 30
     },
     {
-      "score": 0.8107551363250066,
-      "n": 16,
-      "mom": 0.18048813927960894,
-      "leaders": "Dell Technologies, Hewlett Packard Enterprise, F5, Inc., NetApp",
-      "labels": "Technology Hardware, Storage & Peripherals (5), Communications Equipment (3), Application Software (3)",
+      "score": 1.037320755287712,
+      "n": 15,
+      "mom": 0.4733491893849098,
+      "leaders": "Viatris, Merck & Co., Johnson & Johnson, Biogen",
+      "labels": "Biotechnology (7), Pharmaceuticals (6), Health Care Services (1)",
       "pct": 0.8666666666666667,
       "rank": 5,
       "of": 30
     },
     {
-      "score": 0.8095339808086366,
-      "n": 13,
-      "mom": 0.3103439375606254,
-      "leaders": "Illumina, Inc., Revvity, Charles River Laboratories, West Pharmaceutical Services",
-      "labels": "Life Sciences Tools & Services (9), Health Care Services (2), Health Care Equipment (1)",
+      "score": 0.9411436897192955,
+      "n": 10,
+      "mom": 0.27157909432132477,
+      "leaders": "Dell Technologies, Hewlett Packard Enterprise, NetApp, Cisco",
+      "labels": "Technology Hardware, Storage & Peripherals (4), Communications Equipment (2), Application Software (2)",
       "pct": 0.8333333333333334,
       "rank": 6,
       "of": 30
     },
     {
-      "score": 0.7533013398830279,
-      "n": 8,
-      "mom": 0.2239149453590802,
-      "leaders": "MetLife, Principal Financial Group, Globe Life, Assurant",
-      "labels": "Life & Health Insurance (4), Investment Banking & Brokerage (2), Asset Management & Custody Banks (1)",
+      "score": 0.9266931680514827,
+      "n": 14,
+      "mom": 0.3307806166176136,
+      "leaders": "Expeditors International, CSX Corporation, FedEx, Fastenal",
+      "labels": "Air Freight & Logistics (4), Rail Transportation (3), Cargo Ground Transportation (2)",
       "pct": 0.8,
       "rank": 7,
       "of": 30
     },
     {
-      "score": 0.7070395139758974,
-      "n": 12,
-      "mom": 0.21634229432299312,
+      "score": 0.6911678460741025,
+      "n": 13,
+      "mom": 0.20162465776966276,
       "leaders": "U.S. Bancorp, PNC Financial Services, Citizens Financial Group, M&T Bank",
-      "labels": "Diversified Banks (6), Regional Banks (6)",
+      "labels": "Regional Banks (6), Diversified Banks (4), Consumer Finance (3)",
       "pct": 0.7666666666666667,
       "rank": 8,
       "of": 30
     },
     {
-      "score": 0.6687194722329632,
-      "n": 21,
-      "mom": 0.3261676707124126,
-      "leaders": "Nucor, IDEX Corporation, Nordson Corporation, CSX Corporation",
-      "labels": "Industrial Machinery & Supplies & Components (7), Rail Transportation (3), Trading Companies & Distributors (3)",
+      "score": 0.5829083456248909,
+      "n": 13,
+      "mom": 0.2793456533408738,
+      "leaders": "Illumina, Inc., Revvity, Charles River Laboratories, West Pharmaceutical Services",
+      "labels": "Life Sciences Tools & Services (9), Health Care Services (1), Health Care Equipment (1)",
       "pct": 0.7333333333333333,
       "rank": 9,
       "of": 30
     },
     {
-      "score": 0.6300304155334562,
-      "n": 16,
-      "mom": 0.18340925743595027,
-      "leaders": "State Street Corporation, Franklin Resources, Northern Trust, BNY Mellon",
-      "labels": "Asset Management & Custody Banks (11), Investment Banking & Brokerage (3), Diversified Banks (1)",
+      "score": 0.5776333927751146,
+      "n": 10,
+      "mom": 0.2642359622046264,
+      "leaders": "Analog Devices, Texas Instruments, ON Semiconductor, Microchip Technology",
+      "labels": "Semiconductors (8), Independent Power Producers & Energy Traders (1), Automobile Manufacturers (1)",
       "pct": 0.7,
       "rank": 10,
       "of": 30
     },
     {
-      "score": 0.4953284920785459,
-      "n": 21,
-      "mom": 0.08764183354798805,
-      "leaders": "GE Vernova, Comfort Systems USA, Ametek, Quanta Services",
-      "labels": "Electrical Components & Equipment (4), Construction & Engineering (3), Construction Machinery & Heavy Transportation Equipment (2)",
+      "score": 0.4983490843064168,
+      "n": 15,
+      "mom": 0.3132487312075005,
+      "leaders": "Nucor, IDEX Corporation, Nordson Corporation, Steel Dynamics",
+      "labels": "Industrial Machinery & Supplies & Components (4), Electrical Components & Equipment (2), Trading Companies & Distributors (2)",
       "pct": 0.6666666666666666,
       "rank": 11,
       "of": 30
     },
     {
-      "score": 0.46576173339005583,
-      "n": 13,
-      "mom": 0.2613329641033957,
-      "leaders": "Analog Devices, Freeport-McMoRan, Texas Instruments, ON Semiconductor",
-      "labels": "Semiconductors (8), Independent Power Producers & Energy Traders (1), Specialty Chemicals (1)",
+      "score": 0.49509669082575125,
+      "n": 19,
+      "mom": 0.08135035392546319,
+      "leaders": "GE Vernova, Comfort Systems USA, Ametek, Quanta Services",
+      "labels": "Electrical Components & Equipment (3), Construction & Engineering (3), Construction Machinery & Heavy Transportation Equipment (2)",
       "pct": 0.6333333333333333,
       "rank": 12,
       "of": 30
     },
     {
-      "score": 0.4358691257400686,
-      "n": 7,
-      "mom": 0.2502878214733235,
-      "leaders": "Host Hotels & Resorts, Marriott International, Hilton Worldwide, Meta Platforms",
-      "labels": "Hotels, Resorts & Cruise Lines (3), Automotive Retail (1), Hotel & Resort REITs (1)",
+      "score": 0.38815264328215227,
+      "n": 19,
+      "mom": 0.14568939831579186,
+      "leaders": "State Street Corporation, Franklin Resources, Northern Trust, BNY Mellon",
+      "labels": "Asset Management & Custody Banks (12), Investment Banking & Brokerage (4), Diversified Banks (3)",
       "pct": 0.6,
       "rank": 13,
       "of": 30
     },
     {
-      "score": 0.3558412497037052,
-      "n": 15,
-      "mom": 0.2881597263634692,
-      "leaders": "Target Corporation, Ross Stores, Dollar General, Darden Restaurants",
-      "labels": "Restaurants (3), Consumer Staples Merchandise Retail (3), Apparel Retail (2)",
+      "score": 0.3615957098276922,
+      "n": 23,
+      "mom": 0.1422470780748244,
+      "leaders": "Host Hotels & Resorts, Altria, Welltower, Federal Realty Investment Trust",
+      "labels": "Multi-Family Residential REITs (5), Retail REITs (5), Health Care REITs (3)",
       "pct": 0.5666666666666667,
       "rank": 14,
       "of": 30
     },
     {
-      "score": 0.3083024012744803,
-      "n": 18,
-      "mom": 0.1748365862441844,
-      "leaders": "W. W. Grainger, Hasbro, Air Products, Cintas",
-      "labels": "Financial Exchanges & Data (2), Consumer Staples Merchandise Retail (2), Health Care Facilities (2)",
+      "score": 0.3587828369709656,
+      "n": 26,
+      "mom": 0.1989013427508869,
+      "leaders": "MetLife, Principal Financial Group, Travelers Companies (The), Globe Life",
+      "labels": "Property & Casualty Insurance (8), Life & Health Insurance (5), Multi-line Insurance (3)",
       "pct": 0.5333333333333333,
       "rank": 15,
       "of": 30
@@ -859,229 +859,229 @@
     "last_check": "2026-11-06",
     "is_check_day": false,
     "market_on": true,
-    "spy_vs_200d": 0.028083636164927928,
+    "spy_vs_200d": 0.029681832072612657,
     "holdings": [
       {
         "ticker": "MRNA",
         "shares": 6.862157103875651,
         "bought": "2026-09-25",
         "bought_at": 150.54420829509556,
-        "price": 197.07178053069478,
-        "value": 1713.6384926140915,
+        "price": 187.9569530549471,
+        "value": 1625.002988828212,
         "weeks_weak": 0,
-        "weight": 0.17136384926140913,
-        "gain": 0.30906251899373127,
-        "price_usd": 263.79998779296875,
-        "score": 1.8169448837635178
+        "weight": 0.16250029888282122,
+        "gain": 0.24851666619093948,
+        "price_usd": 250.8300018310547,
+        "score": 1.6803030981710085
       },
       {
         "ticker": "OKTA",
         "shares": 6.991883914418706,
         "bought": "2026-09-25",
         "bought_at": 147.75102405077797,
-        "price": 131.19691711926055,
-        "value": 1162.3902300248458,
+        "price": 133.65228248963658,
+        "value": 1177.350304343765,
         "weeks_weak": 0,
-        "weight": 0.11623902300248456,
-        "gain": -0.11204055632012566,
-        "price_usd": 175.6199951171875,
-        "score": 0.37593003578164885
+        "weight": 0.1177350304343765,
+        "gain": -0.09542229335951025,
+        "price_usd": 178.36000061035156,
+        "score": 0.3972471833770661
       },
       {
         "ticker": "CRWD",
         "shares": 5.412865632393639,
         "bought": "2026-09-25",
         "bought_at": 190.8523282412784,
-        "price": 165.99824632304026,
-        "value": 1138.5834275755976,
+        "price": 169.17099381830377,
+        "value": 1153.6876891493228,
         "weeks_weak": 0,
-        "weight": 0.11385834275755975,
-        "gain": -0.130226768241555,
-        "price_usd": 222.2050018310547,
-        "score": 0.29687488057767975
+        "weight": 0.11536876891493228,
+        "gain": -0.11360267188129225,
+        "price_usd": 225.75999450683594,
+        "score": 0.31748652339357175
       },
       {
         "ticker": "AMD",
         "shares": 2.1640991195447823,
         "bought": "2026-09-25",
         "bought_at": 477.36168785874713,
-        "price": 383.0461479219213,
-        "value": 1050.4184938697801,
+        "price": 386.06747680278335,
+        "value": 1052.6293542986232,
         "weeks_weak": 0,
-        "weight": 0.105041849386978,
-        "gain": -0.1975766852172144,
-        "price_usd": 512.7449951171875,
-        "score": 0.22511171498729365
+        "weight": 0.10526293542986231,
+        "gain": -0.1912474615746248,
+        "price_usd": 515.2100219726562,
+        "score": 0.2309652018922579
       },
       {
         "ticker": "ILMN",
         "shares": 5.05461421602006,
         "bought": "2026-09-25",
         "bought_at": 204.37919972712433,
-        "price": 159.34949449540287,
-        "value": 1020.6405442995219,
+        "price": 161.04066170108575,
+        "value": 1025.5543289335933,
         "weeks_weak": 0,
-        "weight": 0.10206405442995219,
-        "gain": -0.2203243054667139,
-        "price_usd": 213.30499267578125,
-        "score": 0.1941960116838486
+        "weight": 0.10255543289335933,
+        "gain": -0.21204965125561592,
+        "price_usd": 214.91000366210938,
+        "score": 0.2031276711559047
       },
       {
         "ticker": "HPE",
         "shares": 21.683283573290034,
         "bought": "2026-09-25",
         "bought_at": 47.64306129686328,
-        "price": 34.75724896780455,
-        "value": 955.0026048284656,
+        "price": 35.915866329863285,
+        "value": 981.1750754444555,
         "weeks_weak": 0,
-        "weight": 0.09550026048284656,
-        "gain": -0.2704656665273334,
-        "price_usd": 46.5260009765625,
-        "score": 0.11897805011871454
+        "weight": 0.09811750754444555,
+        "gain": -0.24614696553456128,
+        "price_usd": 47.93000030517578,
+        "score": 0.15255047969036717
       },
       {
         "ticker": "MU",
         "shares": 1.261189864900573,
         "bought": "2026-09-25",
         "bought_at": 819.1137886133963,
-        "price": 531.9220324414208,
-        "value": 850.0854115260803,
+        "price": 543.3539149283828,
+        "value": 863.3728427955907,
         "weeks_weak": 1,
-        "weight": 0.08500854115260802,
-        "gain": -0.3506127721987643,
-        "price_usd": 712.030029296875,
-        "score": -0.0628877426449943
+        "weight": 0.08633728427955908,
+        "gain": -0.33665636877120886,
+        "price_usd": 725.1099853515625,
+        "score": -0.045755171568825026
       },
       {
         "ticker": "DELL",
         "shares": 2.427892166291927,
         "bought": "2026-09-25",
         "bought_at": 425.49583657057366,
-        "price": 249.26818308843423,
-        "value": 766.8851953130936,
+        "price": 250.5643121694965,
+        "value": 766.4498079413878,
         "weeks_weak": 1,
-        "weight": 0.07668851953130935,
-        "gain": -0.41417010070534477,
-        "price_usd": 333.6700134277344,
-        "score": -0.015440488413483777
+        "weight": 0.07664498079413878,
+        "gain": -0.41112393909890266,
+        "price_usd": 334.3800048828125,
+        "score": -0.013355852071971208
       },
       {
         "ticker": "MRVL",
         "shares": 5.211285094783439,
         "bought": "2026-09-25",
         "bought_at": 198.23479038474207,
-        "price": 113.04361127076747,
-        "value": 746.4916730689148,
+        "price": 115.69060182433378,
+        "value": 759.5878763883766,
         "weeks_weak": 1,
-        "weight": 0.07464916730689147,
-        "gain": -0.4297488798441087,
-        "price_usd": 151.32000732421875,
-        "score": -0.18515721579003708
+        "weight": 0.07595878763883766,
+        "gain": -0.4163960745750188,
+        "price_usd": 154.38999938964844,
+        "score": -0.16869433628281894
       }
     ],
-    "tracker_value": 595.8639268796094,
+    "tracker_value": 595.1897318766739,
     "bond_value": 0.0,
     "total_value": 10000.0,
-    "replay_total": 7891.614973466138,
+    "replay_total": 7937.155497534769,
     "this_week": [
       [
         "2026-11-06",
         "SELL",
         "SNDK",
-        582.8971655949401
+        579.5527127355299
       ]
     ],
     "this_week_detail": [
       {
         "action": "SELL",
         "ticker": "SNDK",
-        "value": 582.8971655949401,
-        "fx": 0.8743457483924102,
+        "value": 579.5527127355299,
+        "fx": 0.8693290691032949,
         "deal": 0.0,
-        "usd": 780.2652655515599,
-        "rate": 1.3385984897613525,
-        "proceeds": 582.0228198465477,
-        "into_tracker": 582.0228198465477,
-        "total_cost": 0.8743457483924102
+        "usd": 773.4175598928157,
+        "rate": 1.334507703781128,
+        "proceeds": 578.6833836664266,
+        "into_tracker": 578.6833836664266,
+        "total_cost": 0.8693290691032949
       }
     ],
     "setup": {
       "rows": [
         [
           "MRNA",
-          1713.6384926140915,
-          2.5704577389211374,
-          2293.8738982101436,
-          263.79998779296875,
-          8.695504186339784
+          1625.002988828212,
+          2.437504483242318,
+          2168.579007258607,
+          250.8300018310547,
+          8.64561253210548
         ],
         [
           "OKTA",
-          1162.3902300248458,
-          1.7435853450372687,
-          1555.9738064246098,
-          175.6199951171875,
-          8.859889817138086
+          1177.350304343765,
+          1.7660254565156475,
+          1571.1830511958099,
+          178.36000061035156,
+          8.809054977681035
         ],
         [
           "CRWD",
-          1138.5834275755976,
-          1.7078751413633966,
-          1524.1060566199992,
-          222.2050018310547,
-          6.8590087714532935
+          1153.6876891493228,
+          1.7305315337239842,
+          1539.6051089272185,
+          225.75999450683594,
+          6.819654262884028
         ],
         [
           "AMD",
-          1050.4184938697801,
-          1.5756277408046702,
-          1406.0886095114822,
-          512.7449951171875,
-          2.7422766148894766
+          1052.6293542986232,
+          1.5789440314479348,
+          1404.741982537667,
+          515.2100219726562,
+          2.7265424246972834
         ],
         [
           "ILMN",
-          1020.6405442995219,
-          1.530960816449283,
-          1366.2278911885448,
-          213.30499267578125,
-          6.405044129769528
+          1025.5543289335933,
+          1.53833149340039,
+          1368.6101526079651,
+          214.91000366210938,
+          6.368294305926085
         ],
         [
           "HPE",
-          955.0026048284656,
-          1.4325039072426984,
-          1278.3650445415417,
-          46.5260009765625,
-          27.47635768622192
+          981.1750754444555,
+          1.4717626131666832,
+          1309.3856969386552,
+          47.93000030517578,
+          27.3187082954652
         ],
         [
           "MU",
-          850.0854115260803,
-          1.2751281172891205,
-          1137.923048036969,
-          712.030029296875,
-          1.5981391250600212
+          863.3728427955907,
+          1.295059264193386,
+          1152.1777099461285,
+          725.1099853515625,
+          1.588969581473225
         ],
         [
           "DELL",
-          766.8851953130936,
-          1.1503277929696405,
-          1026.551364266447,
-          333.6700134277344,
-          3.076546656742877
+          766.4498079413878,
+          1.1496747119120818,
+          1022.833173259348,
+          334.3800048828125,
+          3.058894546095279
         ],
         [
           "MRVL",
-          746.4916730689148,
-          1.1197375096033721,
-          999.2526261894747,
-          151.32000732421875,
-          6.603572414905272
+          759.5878763883766,
+          1.139381814582565,
+          1013.6758727390356,
+          154.38999938964844,
+          6.56568350765212
         ],
         [
           "S&P 500 tracker",
-          595.8639268796094,
+          595.1897318766739,
           0.0,
           null,
           null,
@@ -1089,11 +1089,11 @@
         ]
       ],
       "invested": 10000.0,
-      "charges": 14.10620410968059,
-      "deposit": 10014.106204109681,
-      "usd_per_gbp": 1.3385984897613525
+      "charges": 14.107215402184991,
+      "deposit": 10014.107215402186,
+      "usd_per_gbp": 1.334507703781128
     },
-    "usd_per_gbp": 1.3385984897613525,
+    "usd_per_gbp": 1.334507703781128,
     "fx_source": "Yahoo Finance",
     "fx_date": "2026-11-10",
     "broker": "Trading 212",
@@ -1209,50 +1209,50 @@
       }
     ],
     "replay_from": "2026-09-11",
-    "replay_vs_spy": -0.20198703912678606,
+    "replay_vs_spy": -0.20202474100006595,
     "replay_value_start": 10000.0,
-    "replay_value_now": 7891.614973466138,
-    "spy_since_replay": -0.008851463526600156
+    "replay_value_now": 7937.155497534769,
+    "spy_since_replay": -0.004259709246457133
   },
   "strategy_md": [
     "## \u25b6 THE STRATEGY \u2014 what to do\n",
     "_Momentum stocks held under commit rules, with the market switch. The only stock picker to beat the S&P 500 in both halves of 1997\u20132026 after HL costs and survive the stress tests (20 of 20 variations at a \u00a3100k pot; 15 of 20 at \u00a310k). Rules are checked on the last trading day of each week; nothing happens between checks except the market switch._\n",
-    "**Market switch: ON \u2014 invested** (S&P 500 +2.8% vs its 200-day average)\n",
-    "**Exchange rate: \u00a31 = $1.3386** (Yahoo Finance, rate of 2026-11-10). All \u00a3 figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.\n",
+    "**Market switch: ON \u2014 invested** (S&P 500 +3.0% vs its 200-day average)\n",
+    "**Exchange rate: \u00a31 = $1.3345** (Yahoo Finance, rate of 2026-11-10). All \u00a3 figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.\n",
     "### Last check: 2026-11-06. Actions from that check (nothing new until the next weekly check):\n",
     "| Action | Stock | Amount |",
     "|---|---|---|",
-    "| **SELL** | SNDK | \u00a3583 |",
+    "| **SELL** | SNDK | \u00a3580 |",
     "\n_Buys are paid for by selling the same amount of your S&P 500 tracker; sales go back into the tracker._\n",
     "### Holdings (\u00a310,000 pot, as the rules would hold it today)\n",
     "| Stock | Bought | Gain since | Value | Share of pot | Weeks weak (3 = SELL) |",
     "|---|---|---|---|---|---|",
-    "| **MRNA** | 2026-09-25 | +31% | \u00a31,714 | 17% | 0 |",
-    "| **OKTA** | 2026-09-25 | -11% | \u00a31,162 | 12% | 0 |",
-    "| **CRWD** | 2026-09-25 | -13% | \u00a31,139 | 11% | 0 |",
-    "| **AMD** | 2026-09-25 | -20% | \u00a31,050 | 11% | 0 |",
-    "| **ILMN** | 2026-09-25 | -22% | \u00a31,021 | 10% | 0 |",
-    "| **HPE** | 2026-09-25 | -27% | \u00a3955 | 10% | 0 |",
-    "| **MU** | 2026-09-25 | -35% | \u00a3850 | 9% | 1 |",
-    "| **DELL** | 2026-09-25 | -41% | \u00a3767 | 8% | 1 |",
-    "| **MRVL** | 2026-09-25 | -43% | \u00a3746 | 7% | 1 |",
-    "| S&P 500 tracker (e.g. Vanguard S&P 500 UCITS ETF) | | | \u00a3596 | 6% | |",
+    "| **MRNA** | 2026-09-25 | +25% | \u00a31,625 | 16% | 0 |",
+    "| **OKTA** | 2026-09-25 | -10% | \u00a31,177 | 12% | 0 |",
+    "| **CRWD** | 2026-09-25 | -11% | \u00a31,154 | 12% | 0 |",
+    "| **AMD** | 2026-09-25 | -19% | \u00a31,053 | 11% | 0 |",
+    "| **ILMN** | 2026-09-25 | -21% | \u00a31,026 | 10% | 0 |",
+    "| **HPE** | 2026-09-25 | -25% | \u00a3981 | 10% | 0 |",
+    "| **MU** | 2026-09-25 | -34% | \u00a3863 | 9% | 1 |",
+    "| **DELL** | 2026-09-25 | -41% | \u00a3766 | 8% | 1 |",
+    "| **MRVL** | 2026-09-25 | -42% | \u00a3760 | 8% | 1 |",
+    "| S&P 500 tracker (e.g. Vanguard S&P 500 UCITS ETF) | | | \u00a3595 | 6% | |",
     "\n**Starting from scratch at Trading 212:** put in \u00a310,014 so that exactly \u00a310,000 is invested (\u00a314 of charges):\n",
     "| Buy | Invest | Charges | In dollars | Share price | \u2248 Shares |",
     "|---|---|---|---|---|---|",
-    "| MRNA | \u00a31,714 | \u00a32.57 | $2,294 | $263.80 | 8.70 |",
-    "| OKTA | \u00a31,162 | \u00a31.74 | $1,556 | $175.62 | 8.86 |",
-    "| CRWD | \u00a31,139 | \u00a31.71 | $1,524 | $222.21 | 6.86 |",
-    "| AMD | \u00a31,050 | \u00a31.58 | $1,406 | $512.74 | 2.74 |",
-    "| ILMN | \u00a31,021 | \u00a31.53 | $1,366 | $213.30 | 6.41 |",
-    "| HPE | \u00a3955 | \u00a31.43 | $1,278 | $46.53 | 27.48 |",
-    "| MU | \u00a3850 | \u00a31.28 | $1,138 | $712.03 | 1.60 |",
-    "| DELL | \u00a3767 | \u00a31.15 | $1,027 | $333.67 | 3.08 |",
-    "| MRVL | \u00a3746 | \u00a31.12 | $999 | $151.32 | 6.60 |",
-    "| S&P 500 tracker | \u00a3596 | \u00a30.00 | \u2014 | \u2014 | \u2014 |",
+    "| MRNA | \u00a31,625 | \u00a32.44 | $2,169 | $250.83 | 8.65 |",
+    "| OKTA | \u00a31,177 | \u00a31.77 | $1,571 | $178.36 | 8.81 |",
+    "| CRWD | \u00a31,154 | \u00a31.73 | $1,540 | $225.76 | 6.82 |",
+    "| AMD | \u00a31,053 | \u00a31.58 | $1,405 | $515.21 | 2.73 |",
+    "| ILMN | \u00a31,026 | \u00a31.54 | $1,369 | $214.91 | 6.37 |",
+    "| HPE | \u00a3981 | \u00a31.47 | $1,309 | $47.93 | 27.32 |",
+    "| MU | \u00a3863 | \u00a31.30 | $1,152 | $725.11 | 1.59 |",
+    "| DELL | \u00a3766 | \u00a31.15 | $1,023 | $334.38 | 3.06 |",
+    "| MRVL | \u00a3760 | \u00a31.14 | $1,014 | $154.39 | 6.57 |",
+    "| S&P 500 tracker | \u00a3595 | \u00a30.00 | \u2014 | \u2014 | \u2014 |",
     "\n**On deck** (in the top 5%, not yet confirmed \u2014 a BUY if still there at 3 weekly checks): FDS (2 of 3), HAS (2 of 3), PTC (2 of 3), ACN (2 of 3), WST (2 of 3), SWK (1 of 3), LH (1 of 3), ROP (1 of 3), A (1 of 3), BDX (1 of 3)",
     "\n**Recent actions:** 2026-09-25 BUY HPE; 2026-09-25 BUY AMD; 2026-09-25 BUY ILMN; 2026-09-25 BUY CRWD; 2026-09-25 BUY MU; 2026-09-25 BUY MRVL; 2026-09-25 BUY SNDK; 2026-11-06 SELL SNDK",
-    "\n**Live record since 2026-09-25:** \u00a310,000 would now be \u00a37,649 (-23.5%).",
+    "\n**Live record since 2026-09-25:** \u00a310,000 would now be \u00a37,693 (-23.1%).",
     "\n**Trust checks (validation of 2026-11-01, \u00a310,000 pot): 5 of 5 passed.** Cleared for consideration \u2014 watch the live record.",
     ""
   ],
@@ -1273,12 +1273,12 @@
     "### UK tax so far (if held outside an ISA)\n",
     "| Account | Gains taken (realised) | Tax this year at 18% / 24% | Pay by | Gain not yet taken |",
     "|---|---|---|---|---|",
-    "| Hargreaves Lansdown \u00a310,000 | \u2212\u00a3536 | \u00a30 / \u00a30 | 31 Jan 2028 | \u2212\u00a31,898 |",
-    "| Hargreaves Lansdown \u00a3100,000 | \u2212\u00a35,221 | \u00a30 / \u00a30 | 31 Jan 2028 | \u2212\u00a318,236 |",
-    "| Trading 212 \u00a310,000 | \u2212\u00a3510 | \u00a30 / \u00a30 | 31 Jan 2028 | \u2212\u00a31,751 |",
-    "| Trading 212 \u00a3100,000 | \u2212\u00a35,096 | \u00a30 / \u00a30 | 31 Jan 2028 | \u2212\u00a317,514 |",
-    "| Interactive Brokers \u00a310,000 | \u2212\u00a3510 | \u00a30 / \u00a30 | 31 Jan 2028 | \u2212\u00a31,751 |",
-    "| Interactive Brokers \u00a3100,000 | \u2212\u00a35,081 | \u00a30 / \u00a30 | 31 Jan 2028 | \u2212\u00a317,415 |",
+    "| Hargreaves Lansdown \u00a310,000 | \u2212\u00a3536 | \u00a30 / \u00a30 | 31 Jan 2028 | \u2212\u00a31,853 |",
+    "| Hargreaves Lansdown \u00a3100,000 | \u2212\u00a35,221 | \u00a30 / \u00a30 | 31 Jan 2028 | \u2212\u00a317,789 |",
+    "| Trading 212 \u00a310,000 | \u2212\u00a3510 | \u00a30 / \u00a30 | 31 Jan 2028 | \u2212\u00a31,707 |",
+    "| Trading 212 \u00a3100,000 | \u2212\u00a35,096 | \u00a30 / \u00a30 | 31 Jan 2028 | \u2212\u00a317,066 |",
+    "| Interactive Brokers \u00a310,000 | \u2212\u00a3510 | \u00a30 / \u00a30 | 31 Jan 2028 | \u2212\u00a31,706 |",
+    "| Interactive Brokers \u00a3100,000 | \u2212\u00a35,081 | \u00a30 / \u00a30 | 31 Jan 2028 | \u2212\u00a316,968 |",
     "\n_First \u00a33,000 of net gains each tax year is tax-free. Nothing is paid until 31 January after the tax year ends. In a Stocks & Shares ISA none of this is taxed. Estimate, not tax advice._\n"
   ],
   "paper_rows": {
@@ -1347,7 +1347,7 @@
           }
         ],
         "realised": -535.7677152242703,
-        "unrealised": -1898.0147595582616,
+        "unrealised": -1853.3716888312488,
         "sales": 1
       },
       "Hargreaves Lansdown \u00a3100,000": {
@@ -1366,7 +1366,7 @@
           }
         ],
         "realised": -5220.713324068742,
-        "unrealised": -18235.649467560215,
+        "unrealised": -17788.625503472824,
         "sales": 1
       },
       "Trading 212 \u00a310,000": {
@@ -1385,7 +1385,7 @@
           }
         ],
         "realised": -509.61364696276786,
-        "unrealised": -1751.3760779390107,
+        "unrealised": -1706.6482612738562,
         "sales": 1
       },
       "Trading 212 \u00a3100,000": {
@@ -1404,7 +1404,7 @@
           }
         ],
         "realised": -5096.136469627679,
-        "unrealised": -17513.760779390108,
+        "unrealised": -17066.482612738564,
         "sales": 1
       },
       "Interactive Brokers \u00a310,000": {
@@ -1423,7 +1423,7 @@
           }
         ],
         "realised": -509.88366085526167,
-        "unrealised": -1750.5795651214592,
+        "unrealised": -1705.8585748346115,
         "sales": 1
       },
       "Interactive Brokers \u00a3100,000": {
@@ -1442,7 +1442,7 @@
           }
         ],
         "realised": -5080.836608552616,
-        "unrealised": -17415.370204008817,
+        "unrealised": -16968.074940447208,
         "sales": 1
       }
     },
