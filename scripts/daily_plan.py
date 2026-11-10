@@ -185,6 +185,50 @@ def load_holdings(path="config/holdings.yml") -> list[dict]:
     return [h for h in (cfg.get("holdings") or []) if h.get("ticker")]
 
 
+def expected_close() -> pd.Timestamp:
+    """The latest US trading day whose close should exist now (weekends skipped;
+    US holidays aren't known here, so a holiday shows as a missing day)."""
+    ny = pd.Timestamp.now("America/New_York")
+    d = ny.normalize().tz_localize(None)
+    if (ny.hour, ny.minute) < (16, 30):
+        d -= pd.Timedelta(days=1)
+    while d.weekday() >= 5:
+        d -= pd.Timedelta(days=1)
+    return d
+
+
+def download_fresh(tickers: list[str], tries: int = 4, wait: int = 120) -> tuple[pd.DataFrame, str]:
+    """download(), retried while the latest close is missing. Returns (prices, warning)."""
+    want = expected_close()
+    P = None
+    for n in range(tries):
+        P = download(tickers)
+        last = P["SPY"].dropna().index[-1] if "SPY" in P else P.index[-1]
+        if last >= want:
+            return P, ""
+        print(f"latest close is {last.date()}, expected {want.date()} -- retrying in {wait}s ({n + 1}/{tries})")
+        if n < tries - 1:
+            import time
+            time.sleep(wait)
+    return P, (f"Prices for {want:%a %d %b} weren't available, so this plan uses {last:%a %d %b}. "
+               "If that was a US market holiday, ignore this; otherwise the next run catches up.")
+
+
+def already_done_today(docs: Path) -> bool:
+    """A scheduled run that finds today's plan already made (by an on-time trigger) does nothing,
+    so you don't get two emails."""
+    import os
+    if os.environ.get("GITHUB_EVENT_NAME") != "schedule":
+        return False
+    try:
+        p = json.loads((docs / "plan.json").read_text())
+        made = pd.Timestamp(p["generated"])
+        return (p.get("as_of") == str(expected_close().date())
+                and pd.Timestamp.now("UTC") - made < pd.Timedelta(hours=20))
+    except Exception:                                              # noqa: BLE001
+        return False
+
+
 def download(tickers: list[str]) -> pd.DataFrame:
     import yfinance as yf
     frames = []
@@ -192,7 +236,8 @@ def download(tickers: list[str]) -> pd.DataFrame:
         chunk = tickers[i:i + 100]
         # fixed start (not a rolling "2y"), so the strategy replay from Jan 2024
         # sees identical history every day
-        d = yf.download(chunk, start="2022-06-01", auto_adjust=True, progress=False,
+        end = (pd.Timestamp.now("UTC") + pd.Timedelta(days=2)).strftime("%Y-%m-%d")
+        d = yf.download(chunk, start="2022-06-01", end=end, auto_adjust=True, progress=False,
                         threads=True, group_by="column")
         c = d["Close"] if isinstance(d.columns, pd.MultiIndex) else d[["Close"]].rename(
             columns={"Close": chunk[0]})
@@ -1027,6 +1072,64 @@ def sp500_same_days(deposits: list) -> float | None:
         return None
 
 
+def day_moves(pos: dict, want_map: dict, tracker: str) -> tuple[dict, str]:
+    """Each holding's move on the last trading day, in pounds: {T212 ticker: (£ change, % change)},
+    from the closing prices in data/live_prices.csv and that day's exchange rate. The S&P 500
+    tracker moves with the S&P 500 (SPY) in pounds."""
+    try:
+        import pandas as pd
+        P = pd.read_csv("data/live_prices.csv", index_col=0, parse_dates=True)
+        fx = pd.read_csv("data/gbpusd.csv", index_col=0, parse_dates=True).iloc[:, 0].reindex(P.index).ffill()
+        G = P.div(fx, axis=0)
+        out, day = {}, ""
+        for tk, p in pos.items():
+            sym = "SPY" if tk == tracker else (want_map.get(tk) or tk.split("_")[0]).replace(".", "-")
+            if sym not in G.columns or not tk.endswith("_US_EQ") and tk != tracker:
+                continue
+            s = G[sym].dropna()
+            if len(s) < 2 or not s.iloc[-2]:
+                continue
+            r = float(s.iloc[-1] / s.iloc[-2])
+            v = float(p["value"])
+            out[tk] = (v - v / r, r - 1)
+            day = s.index[-1].strftime("%a %d %b")
+        return out, day
+    except Exception:                                              # noqa: BLE001
+        return {}, ""
+
+
+def bot_time() -> str:
+    """The order bot runs at 14:45 UTC: 14:45 UK time in winter (GMT), 15:45 in summer (BST)."""
+    t = pd.Timestamp.now("UTC").normalize() + pd.Timedelta(hours=14, minutes=45)
+    return t.tz_convert("Europe/London").strftime("%H:%M")
+
+
+def trades_today(want_map: dict, tracker: str) -> list[tuple[str, str]]:
+    """Orders the bot placed today (UK date), from data/orders_log.jsonl: [(BUY/SELL, name)]."""
+    try:
+        today = pd.Timestamp.now("Europe/London").date()
+        out, seen = [], set()
+        for line in Path("data/orders_log.jsonl").read_text().splitlines():
+            if not line.strip():
+                continue
+            r = json.loads(line)
+            when = pd.Timestamp(r.get("run")).tz_convert("Europe/London").date()
+            if when != today:
+                continue
+            for x in r.get("sent", []):
+                if not x.get("ok"):
+                    continue
+                tk = x["ticker"]
+                name = ("S&P 500 tracker" if tk == tracker else
+                        want_map.get(tk) or tk.split("_")[0].rstrip("0123456789"))
+                if (x["side"], name) not in seen:
+                    seen.add((x["side"], name))
+                    out.append((x["side"], name))
+        return out
+    except Exception:                                              # noqa: BLE001
+        return []
+
+
 def account_html(plan: dict, av: dict | None) -> str:
     """The daily email: your Trading 212 account, what the bot will do, and the strategy."""
     import html as _h
@@ -1052,18 +1155,34 @@ def account_html(plan: dict, av: dict | None) -> str:
     B.append('<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">'
              + pill(("Trading: ON · automatic" if auto else "Trading: ON · you approve") if live else "Trading: OFF", live)
              + pill("New money: INVESTED" if inv else "New money: HELD", inv, warn=not inv) + "</div>")
+    if plan.get("price_warning"):
+        B.append('<div style="background:#ffebe9;color:#cf222e;border-radius:8px;padding:10px 12px;margin:0 0 10px">'
+                 f'<b>⚠ Prices out of date.</b> {esc(plan["price_warning"])}</div>')
 
     def h2(t):
         B.append(f'<div style="font-size:18px;font-weight:700;margin:18px 0 8px">{t}</div>')
 
-    # ---- your account ----------------------------------------------------
-    h2("Your Trading 212 account")
+    # ---- your account: summary first, details last -------------------------
+    col = lambda v: "#1a7f37" if v >= 0 else "#cf222e"              # noqa: E731
+    sg = lambda v: ("+" if v >= 0 else "−") + f"£{abs(v):,.0f}"       # noqa: E731
+    on = res.get("market_on", plan["market"]["on"])
+    details = []                                                     # shown near the end
+
+    def table(rows, size=16):
+        B.append(f'<table style="width:100%;border-collapse:collapse;font-size:{size}px">'
+                 + "".join(f'<tr><td style="{td}">{x}' + (f'<div style="font-size:12px;color:#57606a">{c}</div>' if c else "")
+                           + f'</td><td style="{td};text-align:right">{y}</td></tr>' for x, y, c in rows)
+                 + '</table>')
+
     if not av:
+        h2("Your account")
         B.append('<div style="color:#57606a">Not connected (no API key).</div>')
     elif not av.get("ok"):
+        h2("Your account")
         B.append(f'<div style="color:#cf222e">Could not read the account today ({esc(av.get("error", ""))}).</div>')
     else:
         pos = av["positions"]
+        want_map = av.get("want") or {}
         holdings = sum(p["value"] for p in pos.values())
         cash = av["cash"]
         su = av.get("summary") or {}
@@ -1080,82 +1199,95 @@ def account_html(plan: dict, av: dict | None) -> str:
         cost = num(inv_s, "totalCost", sum(p.get("cost", 0) for p in pos.values()))
         reserved = num(cash_s, "reservedForOrders", 0.0)
         total_v = num(su, "totalValue", holdings + cash + reserved)
-        col = lambda v: "#1a7f37" if v >= 0 else "#cf222e"          # noqa: E731
-        rows = [("Total value", f"<b>{g(total_v)}</b>", "same as the Trading 212 app"),
-                ("Holdings worth now", g(holdings), ""),
-                ("Holdings cost", g(cost), "what was paid for what you hold now"),
-                ("Cash", g(cash + reserved), (f"£{reserved:,.0f} set aside for a waiting order" if reserved >= 1 else "")),
-                ("Gain on what you hold", f'<span style="color:{col(unreal)}">{g(unreal)}</span>',
-                 "not yet taken")]
-        if real is not None:
-            rows.append(("Gains/losses already taken", f'<span style="color:{col(real)}">{g(real)}</span>',
-                         "from stocks sold"))
-            rows.append(("Total return", f'<b style="color:{col(real + unreal)}">{g(real + unreal)}</b>',
-                         "matches the app's Return"))
+        moves, mday = day_moves(pos, want_map, av.get("tracker", ""))
         dep = av.get("deposits")
-        if dep:
-            put_in = sum(a for _, a in dep)
-            tr = total_v - put_in
+        put_in = sum(a for _, a in dep) if dep else None
+        pct = lambda v, base: (f'<div style="font-size:12px;color:{col(v)}">{v / base:+.1%}</div>' if base else "")  # noqa: E731
+
+        # 1. the summary
+        rows = [("Total value", f"<b>{g(total_v)}</b>", "")]
+        if put_in:
+            tg = total_v - put_in
+            rows.append(("Total gain", f'<b style="color:{col(tg)}">{sg(tg)}</b>{pct(tg, put_in)}',
+                         "value minus money invested, after all costs"))
+        elif real is not None:
+            rows.append(("Total gain", f'<b style="color:{col(real + unreal)}">{sg(real + unreal)}</b>', ""))
+        if moves:
+            dg = sum(m[0] for m in moves.values())
+            rows.append((f"Daily gain", f'<span style="color:{col(dg)}">{sg(dg)}</span>{pct(dg, holdings - dg)}', mday))
+        rows.append(("Current stocks' gain", f'<span style="color:{col(unreal)}">{sg(unreal)}</span>{pct(unreal, cost)}',
+                     "on what you hold now"))
+        if put_in:
+            rows.append(("Total money invested", g(put_in), f"{len(dep)} deposit{'s' if len(dep) != 1 else ''}"))
             bench = sp500_same_days(dep)
-            rows.append(("Money put in", g(put_in), f"{len(dep)} deposit{'s' if len(dep) != 1 else ''}"
-                         + (" and withdrawals" if any(a < 0 for _, a in dep) else "")))
-            rows.append(("Total return after all costs", f'<b style="color:{col(tr)}">{g(tr)}</b>',
-                         f"value minus money put in ({tr / put_in:+.1%})" if put_in else "value minus money put in"))
             if bench:
                 bret, edge = bench - put_in, total_v - bench
                 rows.append(("Same money in the S&amp;P 500", f'{g(bench)}<div style="font-size:12px;color:{col(bret)}">'
-                             f'{g(bret)} ({bret / put_in:+.1%})</div>', "each deposit bought on the day it arrived"))
+                             f'{sg(bret)} ({bret / put_in:+.1%})</div>', "each deposit on the day it arrived"))
                 rows.append(("Strategy vs the S&amp;P 500", f'<b style="color:{col(edge)}">'
-                             f'{"ahead " if edge >= 0 else "behind "}{g(abs(edge))}</b>', "the number that matters"))
+                             f'{"ahead " if edge >= 0 else "behind "}£{abs(edge):,.0f}</b>', ""))
         elif dep is None:
-            rows.append(("Strategy vs the S&amp;P 500", "—", "turn on History → Transactions for the API key to see this"))
-        B.append(f'<table style="width:100%;border-collapse:collapse;font-size:16px">'
-                 + "".join(f'<tr><td style="{td}">{a}' + (f'<div style="font-size:12px;color:#57606a">{c}</div>' if c else "")
-                           + f'</td><td style="{td};text-align:right">{b}</td></tr>' for a, b, c in rows)
-                 + '</table>')
+            rows.append(("Strategy vs the S&amp;P 500", "—", "turn on History → Transactions for the API key"))
+        table(rows)
+
+        # 2. cash uninvested (only when there is some)
         if cash >= 1:
             if cash < 25:
-                msg, col, bg = "left over from rounding — too small to invest", "#57606a", "#f6f8fa"
+                msg, c1, bg = "left over from rounding — too small to invest", "#57606a", "#f6f8fa"
             elif not inv:
-                msg, col, bg = "held as cash, as you chose (New money: HELD)", "#9a6700", "#fff8c5"
+                msg, c1, bg = "held as cash, as you chose (New money: HELD)", "#9a6700", "#fff8c5"
             elif live:
-                msg, col, bg = ("will be invested at the next run (weekdays 15:45 UK time"
-                                + (", automatically)" if auto else ", after you approve)")), "#9a6700", "#fff8c5"
+                msg, c1, bg = (f"will be invested at the next run (weekdays {bot_time()} UK time"
+                               + (", automatically)" if auto else ", after you approve)")), "#9a6700", "#fff8c5"
             else:
-                msg, col, bg = "NOT being invested: trading is OFF (set T212_MODE to live)", "#cf222e", "#ffebe9"
-            B.append(f'<div style="background:{bg};border-radius:8px;padding:10px 12px;margin-top:8px">'
-                     f'<b style="color:{col}">Cash uninvested: {g(cash)}</b>'
+                msg, c1, bg = "NOT being invested: trading is OFF (set T212_MODE to live)", "#cf222e", "#ffebe9"
+            B.append(f'<div style="background:{bg};border-radius:8px;padding:10px 12px;margin-top:10px">'
+                     f'<b style="color:{c1}">Cash uninvested: {g(cash)}</b>'
                      f'<div style="font-size:14px">{esc(msg)}</div></div>')
-        else:
-            B.append('<div style="color:#1a7f37;margin-top:6px">✅ No cash uninvested</div>')
-        # Trading 212 ticker -> the strategy's name for it (e.g. SNDK1_US_EQ -> SNDK)
-        want_map = av.get("want") or {}
+
+        # 3. stocks the bot changed today
+        traded = trades_today(want_map, av.get("tracker", ""))
+        if traded:
+            h2("Changed today")
+            for side, name in traded:
+                c2 = "#1a7f37" if side == "BUY" else "#cf222e"
+                B.append(f'<div style="border-left:5px solid {c2};padding:2px 10px;margin:0 0 6px">'
+                         f'<b style="color:{c2}">{"Bought" if side == "BUY" else "Sold"}</b> {esc(name)}</div>')
+
+        # 4. each holding
         if pos:
-            B.append(f'<table style="width:100%;border-collapse:collapse;font-size:15px;margin-top:8px"><tr>'
+            h2("Your holdings")
+            B.append(f'<table style="width:100%;border-collapse:collapse;font-size:15px"><tr>'
                      f'<th style="{th}">Holding</th><th style="{th};text-align:right">Value</th>'
-                     f'<th style="{th};text-align:right">Gain</th></tr>')
+                     f'<th style="{th};text-align:right">Today</th>'
+                     f'<th style="{th};text-align:right">Total gain</th></tr>')
             for tk, p in sorted(pos.items(), key=lambda kv: -kv[1]["value"]):
                 sym = want_map.get(tk, tk.split("_")[0])
                 name = ("S&amp;P 500 tracker" if tk == av.get("tracker") else
                         "Bond fund" if av.get("bond") and tk.startswith(av["bond"]) else esc(sym))
                 tag = ("" if (tk in want_map or tk == av.get("tracker") or (av.get("bond") and tk.startswith(av["bond"])))
                        else '<div style="color:#cf222e;font-size:12px">not in the strategy — the bot will sell it</div>')
-                pct = p.get("pl", 0) / p["cost"] if p.get("cost") else 0
+                pl = p.get("pl", 0)
+                pc = pl / p["cost"] if p.get("cost") else 0
+                mv = moves.get(tk)
+                today = (f'<td style="{td};text-align:right;color:{col(mv[0])}">{sg(mv[0])}'
+                         f'<div style="font-size:12px">{mv[1]:+.1%}</div></td>'
+                         if mv else f'<td style="{td};text-align:right;color:#57606a">—</td>')
                 B.append(f'<tr><td style="{td}"><b>{name}</b>{tag}</td>'
-                         f'<td style="{td};text-align:right">{g(p["value"])}</td>'
-                         f'<td style="{td};text-align:right;color:{"#1a7f37" if p.get("pl", 0) >= 0 else "#cf222e"}">'
-                         f'{g(p.get("pl", 0))}<div style="font-size:12px">{pct:+.1%}</div></td></tr>')
+                         f'<td style="{td};text-align:right">{g(p["value"])}</td>{today}'
+                         f'<td style="{td};text-align:right;color:{col(pl)}">{sg(pl)}'
+                         f'<div style="font-size:12px">{pc:+.1%}</div></td></tr>')
             B.append("</table>")
-        # ---- what the bot will do next ------------------------------------
+
+        # 5. next bot run
         h2("Next bot run")
         if av["orders"]:
             who = (("automatically" if auto else "after you approve it") if live else "only once trading is ON")
-            B.append(f'<div style="font-size:14px;color:#57606a;margin-bottom:6px">Weekdays 15:45 UK time, {who}. '
-                     'Nothing for you to do until then.</div>')
+            B.append(f'<div style="font-size:14px;color:#57606a;margin-bottom:6px">Weekdays {bot_time()} UK time, {who}.</div>')
             for o in av["orders"]:
-                col = "#1a7f37" if o["side"] == "BUY" else "#cf222e"
-                B.append(f'<div style="border-left:5px solid {col};padding:4px 10px;margin:0 0 6px">'
-                         f'<b style="color:{col}">{o["side"]}</b> {esc(o["name"])} ≈ {g(o["gbp"])}'
+                c3 = "#1a7f37" if o["side"] == "BUY" else "#cf222e"
+                B.append(f'<div style="border-left:5px solid {c3};padding:4px 10px;margin:0 0 6px">'
+                         f'<b style="color:{c3}">{o["side"]}</b> {esc(o["name"])} ≈ {g(o["gbp"])}'
                          f'<div style="font-size:12px;color:#57606a">{esc(o["why"])}</div></div>')
         else:
             B.append('<div style="color:#1a7f37">✅ Nothing to do — your account matches the strategy.</div>')
@@ -1165,26 +1297,49 @@ def account_html(plan: dict, av: dict | None) -> str:
         for n in av["notes"]:
             B.append(f'<div style="font-size:13px;color:#57606a;margin-top:4px">• {esc(n)}</div>')
 
-    # ---- the strategy ------------------------------------------------------
-    h2("The strategy")
-    on = res.get("market_on", plan["market"]["on"])
-    B.append(f'<div>Market switch: <b style="color:{"#1a7f37" if on else "#cf222e"}">'
+        details = [("Holdings worth now", g(holdings), ""),
+                   ("Holdings cost", g(cost), "what was paid for what you hold now"),
+                   ("Cash", g(cash + reserved), (f"£{reserved:,.0f} set aside for a waiting order" if reserved >= 1 else ""))]
+        if real is not None:
+            details += [("Gains/losses already taken", f'<span style="color:{col(real)}">{sg(real)}</span>', "from stocks sold"),
+                        ("Trading 212 'Return'", sg(real + unreal), "gains taken + current stocks' gain")]
+
+    # 6. upcoming changes at the next weekly check
+    if res:
+        h2("Coming up")
+        nxt = _next_check(plan["as_of"])
+        up = []
+        weak = [h for h in res.get("holdings", []) if h.get("weeks_weak")]
+        for h in sorted(weak, key=lambda h: -h["weeks_weak"]):
+            up.append(("#cf222e", f'<b>{esc(h["ticker"])}</b> weak {h["weeks_weak"]} of 3 weeks'
+                       + (" — <b>sold at the next check if still weak</b>" if h["weeks_weak"] >= 2 else "")))
+        free = max(0, 10 - len(res.get("holdings", [])))
+        deck = [d for d in res.get("on_deck", []) if d["weeks_in_top"] >= 2]
+        if deck:
+            up.append(("#1a7f37", ("<b>" + ", ".join(esc(d["ticker"]) for d in deck[:5]) + "</b> on 2 of 3 weeks in the top 5%"
+                                   + (f" — the strongest can be bought at the next check ({free} free slot{'s' if free != 1 else ''})"
+                                      if free else " — waiting for a free slot"))))
+        vs = plan["market"]["vs200"]
+        if on and vs < 0.02:
+            up.append(("#9a6700", f"Market switch close to OFF: the S&amp;P 500 is only {vs:+.1%} above its 200-day average"))
+        if not on:
+            up.append(("#9a6700", "Market switch OFF: everything stays in bonds until the S&amp;P 500 recovers"))
+        B.append(f'<div style="font-size:14px;color:#57606a;margin-bottom:6px">Next weekly check: {nxt} close; '
+                 'the bot acts on it at its next run.</div>')
+        for c4, txt in up or [("#57606a", "Nothing close to changing.")]:
+            B.append(f'<div style="border-left:5px solid {c4};padding:2px 10px;margin:0 0 6px;font-size:15px">{txt}</div>')
+
+    # 7. the rest of the details
+    h2("Details")
+    if details:
+        table(details, 15)
+    B.append(f'<div style="margin-top:8px">Market switch: <b style="color:{"#1a7f37" if on else "#cf222e"}">'
              f'{"ON — invested in stocks" if on else "OFF — everything in bonds"}</b> '
              f'<span style="color:#57606a;font-size:14px">(S&amp;P 500 {plan["market"]["vs200"]:+.1%} vs its 200-day)</span></div>')
     if res:
-        B.append(f'<div style="font-size:14px;margin-top:4px">Holds: '
-                 + ", ".join(esc(h["ticker"]) + (f' <span style="color:#cf222e">(weak {h["weeks_weak"]}/3)</span>'
-                                                  if h.get("weeks_weak") else "") for h in res.get("holdings", []))
-                 + "</div>")
-        wk = [(a, t) for _, a, t, _ in res.get("this_week", []) if a in ("BUY", "SELL")]
-        if wk and res.get("is_check_day"):
-            B.append('<div style="font-size:14px;margin-top:4px">Changed at today\'s weekly check: '
-                     + ", ".join(f"{a} {esc(t)}" for a, t in wk) + " — the bot handles it at its next run.</div>")
-        if res.get("on_deck"):
-            B.append('<div style="font-size:14px;margin-top:4px;color:#57606a">Next in line (weeks in the top 5%, 3 needed): '
-                     + ", ".join(f"{esc(d['ticker'])} {d['weeks_in_top']}/3" for d in res["on_deck"][:5]) + "</div>")
-        B.append(f'<div style="font-size:14px;margin-top:4px;color:#57606a">Next weekly check: '
-                 f'{_next_check(plan["as_of"])} close · £1 = ${res.get("usd_per_gbp", 0):.4f}</div>')
+        B.append(f'<div style="font-size:14px;margin-top:4px">Strategy holds: '
+                 + ", ".join(esc(h["ticker"]) for h in res.get("holdings", [])) + "</div>")
+        B.append(f'<div style="font-size:14px;margin-top:4px;color:#57606a">£1 = ${res.get("usd_per_gbp", 0):.4f}</div>')
         trust = [l.strip().replace("**", "") for l in plan.get("strategy_md", []) if "Trust checks" in l]
         if trust:
             B.append(f'<div style="font-size:13px;color:#57606a;margin-top:4px">{esc(trust[0])}</div>')
@@ -1370,6 +1525,9 @@ def main() -> int:
     ap.add_argument("--prices-out", default="data/live_prices.csv")
     a = ap.parse_args()
     docs = Path(a.docs); docs.mkdir(parents=True, exist_ok=True)
+    if already_done_today(docs):
+        print("Today's plan was already made by an earlier run -- nothing to do.")
+        return 0
     try:
         man: dict = {}
         univ = load_universe(a.constituents, man)
@@ -1378,12 +1536,13 @@ def main() -> int:
         tickers = sorted(set(univ["yf"]) | {yf_symbol(h["ticker"]) for h in holdings}
                          | set(watch) | {"SPY", "VFITX"})
         print(f"downloading {len(tickers)} tickers")
-        P = download(tickers)
+        P, stale = download_fresh(tickers)
         Path(a.prices_out).parent.mkdir(parents=True, exist_ok=True)
         P.to_csv(a.prices_out, float_format="%.4f")
         plan = run(P, univ, holdings, docs / "plan_state.json", watchlist=watch,
                    universe_note=man.get("universe", ""))
         plan["universe_detail"] = man
+        plan["price_warning"] = stale
         bt_path = Path("data/plan_backtest.json")
         if bt_path.exists():
             try:
