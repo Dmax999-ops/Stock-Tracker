@@ -1,14 +1,14 @@
 {
-  "as_of": "2026-11-11",
+  "as_of": "2026-11-12",
   "model": [
     "VLO",
     "MPC",
-    "DELL",
     "MU",
-    "VTRS",
+    "DELL",
     "HPE",
-    "TRGP",
     "ILMN",
+    "TRGP",
+    "VTRS",
     "STT",
     "EXPD"
   ],
