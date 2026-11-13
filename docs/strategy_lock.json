@@ -1,5 +1,5 @@
 {
- "last_check": "2026-11-06",
+ "last_check": "2026-11-13",
  "tracker_units": 0.8406717969234483,
  "bond_units": 0.0,
  "holdings": [
@@ -50,46 +50,49 @@
    "units": 1.261189864900573,
    "bought": "2026-09-25",
    "bought_at": 819.1137886133963,
-   "weeks_weak": 1
+   "weeks_weak": 2
   },
   {
    "ticker": "DELL",
    "units": 2.427892166291927,
    "bought": "2026-09-25",
    "bought_at": 425.49583657057366,
-   "weeks_weak": 1
+   "weeks_weak": 2
   },
   {
    "ticker": "MRVL",
    "units": 5.211285094783439,
    "bought": "2026-09-25",
    "bought_at": 198.23479038474207,
-   "weeks_weak": 1
+   "weeks_weak": 2
   }
  ],
  "streak": {
-  "ACN": 2,
-  "A": 1,
-  "ADP": 1,
-  "BDX": 1,
-  "BBY": 3,
-  "CRL": 5,
-  "CPAY": 1,
-  "FDS": 2,
-  "GPN": 1,
-  "GDDY": 1,
-  "HAS": 2,
-  "HUM": 5,
-  "LH": 1,
-  "MPC": 9,
-  "MTD": 1,
-  "PTC": 2,
-  "RVTY": 8,
-  "ROP": 1,
-  "SWK": 1,
-  "VEEV": 5,
-  "WST": 2,
-  "WDAY": 1
+  "ACN": 3,
+  "ADP": 2,
+  "BBY": 4,
+  "BDX": 2,
+  "CRL": 6,
+  "CRWD": 1,
+  "FDS": 3,
+  "HAS": 3,
+  "HUM": 6,
+  "LLY": 1,
+  "MPC": 10,
+  "MRNA": 1,
+  "MTD": 2,
+  "OKTA": 1,
+  "PSX": 1,
+  "PTC": 3,
+  "REGN": 1,
+  "ROP": 2,
+  "RVTY": 9,
+  "SWK": 2,
+  "SWKS": 1,
+  "VEEV": 6,
+  "VLO": 1,
+  "VTRS": 1,
+  "WST": 3
  },
  "replay_from": "2026-09-11",
  "actions": [
