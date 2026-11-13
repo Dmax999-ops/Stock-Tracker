@@ -368,8 +368,10 @@ def work_out(plan: dict, acct: dict, cfg: dict) -> dict:
         for tk, pos in stocks_held.items():
             if tk not in want:
                 if pos["value"] < minimum:
-                    notes.append(f"{pos.get('name', tk)}: a sliver worth £{pos['value']:,.2f} is left from an earlier "
-                                 "sale -- too small to sell (Trading 212's minimum); it does not affect the strategy")
+                    # a sliver left over from an earlier sale: sell ALL of it (Trading 212 accepts closing a
+                    # whole position however small); if it is refused, it never stops the run
+                    cash += sell_all(tk, pos, f"Left over from an earlier sale (£{pos['value']:,.2f}) -- clearing it")
+                    sells[-1]["dust"] = True
                     continue
                 cash += sell_all(tk, pos, "The strategy has sold it (3 weekly checks in the bottom half)")
         missing = [tk for tk in want if tk not in stocks_held]
@@ -627,6 +629,8 @@ def execute(api: T212, plan: dict, cfg: dict, approved: set[str], log: list | No
                     return False, log, (f"Stopped: Trading 212 didn't reply to {o['side']} {o['name']}, so it may or "
                                         "may not have been placed. Nothing else was sent. The next run reads the "
                                         "account afresh and works out only what is still needed.")
+                if o["side"] == "SELL" and o.get("dust"):
+                    continue                     # a leftover sliver that wouldn't sell: harmless, carry on
                 if o["side"] == "SELL":          # a failed sale changes the cash: stop here
                     return False, log, f"Stopped: Trading 212 refused SELL {o['name']} -- see the details"
                 refused.append(o["name"])        # a failed buy: carry on with the others
