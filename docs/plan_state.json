@@ -1,10 +1,10 @@
 {
-  "as_of": "2026-11-19",
+  "as_of": "2026-11-20",
   "model": [
-    "MPC",
     "VLO",
-    "MU",
+    "MPC",
     "DELL",
+    "MU",
     "VTRS",
     "HPE",
     "ILMN",

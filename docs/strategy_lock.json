@@ -1,6 +1,6 @@
 {
- "last_check": "2026-11-13",
- "tracker_units": 0.8406717969234483,
+ "last_check": "2026-11-20",
+ "tracker_units": 1.1181416382843938,
  "bond_units": 0.0,
  "holdings": [
   {
@@ -36,63 +36,56 @@
    "units": 2.1640991195447823,
    "bought": "2026-09-25",
    "bought_at": 477.36168785874713,
-   "weeks_weak": 0
+   "weeks_weak": 1
   },
   {
    "ticker": "HPE",
    "units": 21.683283573290034,
    "bought": "2026-09-25",
    "bought_at": 47.64306129686328,
+   "weeks_weak": 1
+  },
+  {
+   "ticker": "CRL",
+   "units": 2.966296496548924,
+   "bought": "2026-11-20",
+   "bought_at": 240.2724928718994,
    "weeks_weak": 0
   },
   {
-   "ticker": "MU",
-   "units": 1.261189864900573,
-   "bought": "2026-09-25",
-   "bought_at": 819.1137886133963,
-   "weeks_weak": 2
-  },
-  {
-   "ticker": "DELL",
-   "units": 2.427892166291927,
-   "bought": "2026-09-25",
-   "bought_at": 425.49583657057366,
-   "weeks_weak": 2
-  },
-  {
-   "ticker": "MRVL",
-   "units": 5.211285094783439,
-   "bought": "2026-09-25",
-   "bought_at": 198.23479038474207,
-   "weeks_weak": 2
+   "ticker": "PTC",
+   "units": 4.778914953115737,
+   "bought": "2026-11-20",
+   "bought_at": 149.1383422419593,
+   "weeks_weak": 0
   }
  ],
  "streak": {
-  "ACN": 3,
-  "ADP": 2,
-  "BBY": 4,
-  "BDX": 2,
-  "CRL": 6,
-  "CRWD": 1,
-  "FDS": 3,
-  "HAS": 3,
-  "HUM": 6,
-  "LLY": 1,
-  "MPC": 10,
-  "MRNA": 1,
-  "MTD": 2,
-  "OKTA": 1,
-  "PSX": 1,
-  "PTC": 3,
-  "REGN": 1,
-  "ROP": 2,
-  "RVTY": 9,
-  "SWK": 2,
-  "SWKS": 1,
-  "VEEV": 6,
-  "VLO": 1,
-  "VTRS": 1,
-  "WST": 3
+  "A": 1,
+  "ADP": 3,
+  "AIZ": 1,
+  "ALLE": 1,
+  "BBY": 5,
+  "BDX": 3,
+  "CRL": 7,
+  "CRWD": 2,
+  "FDS": 4,
+  "HUM": 7,
+  "LH": 1,
+  "LLY": 2,
+  "MCK": 1,
+  "MRNA": 2,
+  "MTD": 3,
+  "OKTA": 2,
+  "PANW": 1,
+  "PTC": 4,
+  "REGN": 2,
+  "ROP": 3,
+  "RVTY": 10,
+  "SWK": 3,
+  "TGT": 1,
+  "VEEV": 7,
+  "VLTO": 1
  },
  "replay_from": "2026-09-11",
  "actions": [
@@ -161,6 +154,36 @@
    "SELL",
    "SNDK",
    460
+  ],
+  [
+   "2026-11-20",
+   "SELL",
+   "MU",
+   573
+  ],
+  [
+   "2026-11-20",
+   "SELL",
+   "DELL",
+   516
+  ],
+  [
+   "2026-11-20",
+   "SELL",
+   "MRVL",
+   487
+  ],
+  [
+   "2026-11-20",
+   "BUY",
+   "CRL",
+   714
+  ],
+  [
+   "2026-11-20",
+   "BUY",
+   "PTC",
+   714
   ]
  ]
 }
