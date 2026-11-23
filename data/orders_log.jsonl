@@ -54,3 +54,4 @@
 {"run": "2026-11-19T22:26:44.361758+00:00", "plan": "2026-11-19", "real_account": true, "total": null, "orders": [], "checks_ok": true}
 {"run": "2026-11-20T14:46:17.308758+00:00", "plan": "2026-11-19", "real_account": true, "total": null, "orders": [], "checks_ok": true}
 {"run": "2026-11-20T21:57:55.157869+00:00", "plan": "2026-11-19", "real_account": true, "total": null, "orders": [], "checks_ok": true}
+{"run": "2026-11-23T14:46:09.856719+00:00", "plan": "2026-11-20", "real_account": true, "total": null, "orders": [{"side": "SELL", "ticker": "MU_US_EQ"}, {"side": "SELL", "ticker": "DELL_US_EQ"}, {"side": "SELL", "ticker": "MRVL_US_EQ"}, {"side": "BUY", "ticker": "CRL_US_EQ"}, {"side": "BUY", "ticker": "PTC_US_EQ"}, {"side": "BUY", "ticker": "VUAGl_EQ"}], "checks_ok": true}
