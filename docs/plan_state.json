@@ -1,18 +1,7 @@
 {
-  "as_of": "2026-11-20",
-  "model": [
-    "VLO",
-    "MPC",
-    "DELL",
-    "MU",
-    "VTRS",
-    "HPE",
-    "ILMN",
-    "TRGP",
-    "STT",
-    "EXPD"
-  ],
+  "as_of": "2026-11-23",
+  "model": [],
   "method": "risk_adjusted_12_1_themes_v3",
-  "market_on": true,
+  "market_on": false,
   "holdings": []
 }
