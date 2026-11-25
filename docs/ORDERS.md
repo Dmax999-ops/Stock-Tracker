@@ -3,11 +3,11 @@
 **Trading: ON, automatic** — orders are placed without asking you  
 **New money: INVESTED** — cash in the account is put into the strategy
 
-_Wed 25 Nov 2026 14:46 UK time. Plan of 2026-11-24._
+_Wed 25 Nov 2026 23:18 UK time. Plan of 2026-11-25._
 
 Your real account was read. Its figures are sent only by email and are not published here.
 
-**10 order(s) worked out** — see your email.
+**1 order(s) worked out** — see your email.
 
 | Check | Result |
 |---|---|
