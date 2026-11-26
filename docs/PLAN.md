@@ -1,6 +1,6 @@
 # Daily plan — 2026-11-25
 
-_Generated 2026-11-25 22:16 UTC from closing prices of 2026-11-25. Tested rules, not personal financial advice._
+_Generated 2026-11-26 22:23 UTC from closing prices of 2026-11-25. Tested rules, not personal financial advice._
 
 ## Market: **RISK OFF — cash**
 
@@ -12,7 +12,7 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 
 **Market switch: OFF — everything in bonds** (S&P 500 -1.9% vs its 200-day average)
 
-**Exchange rate: £1 = $1.3114** (Yahoo Finance, rate of 2026-11-25). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
+**Exchange rate: £1 = $1.3107** (Yahoo Finance, rate of 2026-11-26). All £ figures convert US prices at each day's rate, so gains include the pound's moves against the dollar.
 
 ### Last check: 2026-11-20. Actions from that check (nothing new until the next weekly check):
 
@@ -21,8 +21,8 @@ _Momentum stocks held under commit rules, with the market switch. The only stock
 | **SELL** | MU | £786 |
 | **SELL** | DELL | £708 |
 | **SELL** | MRVL | £668 |
-| **BUY** | CRL | £980 |
-| **BUY** | PTC | £980 |
+| **BUY** | CRL | £979 |
+| **BUY** | PTC | £979 |
 
 _Buys are paid for by selling the same amount of your S&P 500 tracker; sales go back into the tracker._
 
@@ -44,21 +44,21 @@ _Buys are paid for by selling the same amount of your S&P 500 tracker; sales go 
 
 | Buy | Invest | Charges | In dollars | Share price | ≈ Shares |
 |---|---|---|---|---|---|
-| MRNA | £1,585 | £2.38 | $2,079 | $220.84 | 9.41 |
-| OKTA | £1,476 | £2.21 | $1,935 | $201.77 | 9.59 |
-| CRWD | £1,185 | £1.78 | $1,554 | $209.30 | 7.43 |
-| ILMN | £1,060 | £1.59 | $1,390 | $200.39 | 6.93 |
+| MRNA | £1,585 | £2.38 | $2,078 | $220.84 | 9.41 |
+| OKTA | £1,476 | £2.21 | $1,934 | $201.77 | 9.59 |
+| CRWD | £1,185 | £1.78 | $1,553 | $209.30 | 7.42 |
+| ILMN | £1,060 | £1.59 | $1,389 | $200.39 | 6.93 |
 | CRL | £1,031 | £1.55 | $1,351 | $332.08 | 4.07 |
-| PTC | £980 | £1.47 | $1,285 | $196.00 | 6.56 |
-| HPE | £926 | £1.39 | $1,214 | $40.82 | 29.75 |
-| AMD | £919 | £1.38 | $1,206 | $406.03 | 2.97 |
+| PTC | £980 | £1.47 | $1,284 | $196.00 | 6.55 |
+| HPE | £926 | £1.39 | $1,214 | $40.82 | 29.73 |
+| AMD | £919 | £1.38 | $1,205 | $406.03 | 2.97 |
 | S&P 500 tracker | £838 | £0.00 | — | — | — |
 
 **On deck** (in the top 5%, not yet confirmed — a BUY if still there at 3 weekly checks): REGN (2 of 3), LLY (2 of 3), MCK (1 of 3), AIZ (1 of 3), PANW (1 of 3), VLTO (1 of 3), ALLE (1 of 3), TGT (1 of 3), A (1 of 3), LH (1 of 3)
 
 **Recent actions:** 2026-09-25 BUY MRVL; 2026-09-25 BUY SNDK; 2026-11-06 SELL SNDK; 2026-11-20 SELL MU; 2026-11-20 SELL DELL; 2026-11-20 SELL MRVL; 2026-11-20 BUY CRL; 2026-11-20 BUY PTC
 
-**Live record since 2026-09-25:** £10,000 would now be £7,065 (-29.4%).
+**Live record since 2026-09-25:** £10,000 would now be £7,068 (-29.3%).
 
 **Trust checks (validation of 2026-11-01, £10,000 pot): 5 of 5 passed.** Cleared for consideration — watch the live record.
 
@@ -83,12 +83,12 @@ Daily history: data/paper_test.csv
 
 | Account | Gains taken (realised) | Tax this year at 18% / 24% | Pay by | Gain not yet taken |
 |---|---|---|---|---|
-| Hargreaves Lansdown £10,000 | −£2,045 | £0 / £0 | 31 Jan 2028 | −£1,077 |
-| Hargreaves Lansdown £100,000 | −£19,599 | £0 / £0 | 31 Jan 2028 | −£10,087 |
-| Trading 212 £10,000 | −£1,906 | £0 / £0 | 31 Jan 2028 | −£947 |
-| Trading 212 £100,000 | −£19,056 | £0 / £0 | 31 Jan 2028 | −£9,467 |
-| Interactive Brokers £10,000 | −£1,911 | £0 / £0 | 31 Jan 2028 | −£947 |
-| Interactive Brokers £100,000 | −£18,998 | £0 / £0 | 31 Jan 2028 | −£9,385 |
+| Hargreaves Lansdown £10,000 | −£2,045 | £0 / £0 | 31 Jan 2028 | −£1,073 |
+| Hargreaves Lansdown £100,000 | −£19,599 | £0 / £0 | 31 Jan 2028 | −£10,048 |
+| Trading 212 £10,000 | −£1,906 | £0 / £0 | 31 Jan 2028 | −£943 |
+| Trading 212 £100,000 | −£19,056 | £0 / £0 | 31 Jan 2028 | −£9,427 |
+| Interactive Brokers £10,000 | −£1,911 | £0 / £0 | 31 Jan 2028 | −£943 |
+| Interactive Brokers £100,000 | −£18,998 | £0 / £0 | 31 Jan 2028 | −£9,346 |
 
 _First £3,000 of net gains each tax year is tax-free. Nothing is paid until 31 January after the tax year ends. In a Stocks & Shares ISA none of this is taxed. Estimate, not tax advice._
 
@@ -99,16 +99,16 @@ Stocks that move together form a theme, whatever their official industry. This i
 
 | # | Theme (its strongest stocks) | Official labels it spans | Stocks | Median 12m | Score |
 |---|---|---|---|---|---|
-| 1 | Marathon Petroleum, Phillips 66, Valero Energy, APA Corporation | Oil & Gas Exploration & Production (9), Oil & Gas Storage & Transportation (4), Oil & Gas Equipment & Services (3) | 26 | +33% | 1.57 |
-| 2 | Fortinet, Okta, Inc., F5, Inc., Palo Alto Networks | Application Software (5), Systems Software (4), Internet Services & Infrastructure (1) | 11 | +34% | 1.44 |
-| 3 | Viatris, Moderna, Merck & Co., Johnson & Johnson | Biotechnology (8), Pharmaceuticals (6), Personal Care Products (1) | 15 | +35% | 1.12 |
-| 4 | State Street Corporation, BNY Mellon, Franklin Resources, Northern Trust | Asset Management & Custody Banks (5), Data Center REITs (2), Investment Banking & Brokerage (2) | 11 | +27% | 1.12 |
-| 5 | Sandisk, Micron Technology, Seagate Technology, Western Digital | Semiconductor Materials & Equipment (4), Technology Hardware, Storage & Peripherals (3), Electrical Components & Equipment (1) | 10 | +48% | 1.09 |
-| 6 | Dell Technologies, Hewlett Packard Enterprise, NetApp, Cisco | Technology Hardware, Storage & Peripherals (4), Communications Equipment (2), Independent Power Producers & Energy Traders (1) | 9 | +26% | 1.05 |
+| 1 | Marathon Petroleum, Phillips 66, Valero Energy, APA Corporation | Oil & Gas Exploration & Production (8), Oil & Gas Refining & Marketing (3), Agricultural Products & Services (2) | 20 | +39% | 1.68 |
+| 2 | Fortinet, Okta, Inc., F5, Inc., Palo Alto Networks | Application Software (6), Systems Software (4), Internet Services & Infrastructure (1) | 13 | +34% | 1.44 |
+| 3 | Nucor, Oneok, Schlumberger, Steel Dynamics | Oil & Gas Storage & Transportation (3), Oil & Gas Equipment & Services (2), Steel (2) | 8 | +26% | 1.34 |
+| 4 | CSX Corporation, Expeditors International, FedEx, Union Pacific Corporation | Air Freight & Logistics (4), Rail Transportation (3), Cargo Ground Transportation (3) | 10 | +36% | 1.24 |
+| 5 | Viatris, Moderna, Merck & Co., Johnson & Johnson | Biotechnology (8), Pharmaceuticals (6), Personal Care Products (1) | 15 | +35% | 1.12 |
+| 6 | State Street Corporation, BNY Mellon, Franklin Resources, Northern Trust | Asset Management & Custody Banks (5), Data Center REITs (2), Investment Banking & Brokerage (2) | 11 | +27% | 1.12 |
 | 7 | Humana, Centene Corporation, DaVita, UnitedHealth Group | Managed Health Care (4), Health Care Services (3) | 7 | +21% | 1.05 |
-| 8 | IDEX Corporation, Nordson Corporation, Wabtec, Emerson Electric | Industrial Machinery & Supplies & Components (4), Electrical Components & Equipment (2), Agricultural & Farm Machinery (1) | 8 | +29% | 1.00 |
-| 9 | CSX Corporation, Expeditors International, FedEx, Union Pacific Corporation | Air Freight & Logistics (4), Rail Transportation (3), Cargo Ground Transportation (3) | 15 | +27% | 0.99 |
-| 10 | Nucor, Steel Dynamics, Teledyne Technologies, United Rentals | Industrial Machinery & Supplies & Components (2), Building Products (2), Steel (2) | 11 | +21% | 0.98 |
+| 8 | Micron Technology, Advanced Micro Devices, Seagate Technology, Intel | Semiconductors (5), Semiconductor Materials & Equipment (5), Electronic Components (2) | 24 | +32% | 0.99 |
+| 9 | Texas Instruments, Analog Devices, Freeport-McMoRan, Deere & Company | Semiconductors (7), Agricultural & Farm Machinery (1), Copper (1) | 9 | +32% | 0.96 |
+| 10 | Dell Technologies, Hewlett Packard Enterprise, Lumentum, Cisco | Communications Equipment (4), Technology Hardware, Storage & Peripherals (4), Semiconductors (1) | 10 | +25% | 0.88 |
 
 ## Strongest official industries today
 
