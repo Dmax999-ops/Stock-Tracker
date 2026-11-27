@@ -1,65 +1,8 @@
 {
- "last_check": "2026-11-20",
- "tracker_units": 1.1181416382843938,
- "bond_units": 0.0,
- "holdings": [
-  {
-   "ticker": "MRNA",
-   "units": 6.862157103875651,
-   "bought": "2026-09-25",
-   "bought_at": 150.54420829509556,
-   "weeks_weak": 0
-  },
-  {
-   "ticker": "OKTA",
-   "units": 6.991883914418706,
-   "bought": "2026-09-25",
-   "bought_at": 147.75102405077797,
-   "weeks_weak": 0
-  },
-  {
-   "ticker": "CRWD",
-   "units": 5.412865632393639,
-   "bought": "2026-09-25",
-   "bought_at": 190.8523282412784,
-   "weeks_weak": 0
-  },
-  {
-   "ticker": "ILMN",
-   "units": 5.05461421602006,
-   "bought": "2026-09-25",
-   "bought_at": 204.37919972712433,
-   "weeks_weak": 0
-  },
-  {
-   "ticker": "AMD",
-   "units": 2.1640991195447823,
-   "bought": "2026-09-25",
-   "bought_at": 477.36168785874713,
-   "weeks_weak": 1
-  },
-  {
-   "ticker": "HPE",
-   "units": 21.683283573290034,
-   "bought": "2026-09-25",
-   "bought_at": 47.64306129686328,
-   "weeks_weak": 1
-  },
-  {
-   "ticker": "CRL",
-   "units": 2.966296496548924,
-   "bought": "2026-11-20",
-   "bought_at": 240.2724928718994,
-   "weeks_weak": 0
-  },
-  {
-   "ticker": "PTC",
-   "units": 4.778914953115737,
-   "bought": "2026-11-20",
-   "bought_at": 149.1383422419593,
-   "weeks_weak": 0
-  }
- ],
+ "last_check": "2026-11-27",
+ "tracker_units": 0.0,
+ "bond_units": 777.943483768365,
+ "holdings": [],
  "streak": {
   "A": 1,
   "ADP": 3,
@@ -184,6 +127,60 @@
    "BUY",
    "PTC",
    714
+  ],
+  [
+   "2026-11-27",
+   "SELL (market switch off)",
+   "MRNA",
+   1198
+  ],
+  [
+   "2026-11-27",
+   "SELL (market switch off)",
+   "OKTA",
+   1107
+  ],
+  [
+   "2026-11-27",
+   "SELL (market switch off)",
+   "CRWD",
+   898
+  ],
+  [
+   "2026-11-27",
+   "SELL (market switch off)",
+   "ILMN",
+   794
+  ],
+  [
+   "2026-11-27",
+   "SELL (market switch off)",
+   "AMD",
+   701
+  ],
+  [
+   "2026-11-27",
+   "SELL (market switch off)",
+   "HPE",
+   708
+  ],
+  [
+   "2026-11-27",
+   "SELL (market switch off)",
+   "CRL",
+   764
+  ],
+  [
+   "2026-11-27",
+   "SELL (market switch off)",
+   "PTC",
+   718
+  ],
+  [
+   "2026-11-27",
+   "MOVE ALL TO BONDS",
+   "",
+   7499
   ]
  ]
 }
